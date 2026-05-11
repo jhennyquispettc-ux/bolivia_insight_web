@@ -1,0 +1,325 @@
+/* Bolivia Insight — Landing page composition */
+function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert }) {
+  return (
+    <>
+      <Hero variant={heroVariant} onCtaClick={onExpress}/>
+      <Clusters onSelect={onClusterSelect}/>
+      <TabsSection/>
+      <CompanionTriptych onDashboard={onDashboard} onDictionary={onDictionary} onSos={onSos}/>
+      <BookingBand onExpert={onExpert}/>
+      <Footer onNav={(id) => {
+        if (id === 'dashboard') onDashboard?.();
+        else if (id === 'dictionary') onDictionary?.();
+        else if (id === 'sos') onSos?.();
+        else if (id === 'guides') onExpress?.();
+        else if (id === 'expert') onExpert?.();
+      }}/>
+    </>
+  );
+}
+
+/* ===================== Compañero triptych ===================== */
+function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
+  const tools = [
+    {
+      n: '01',
+      eyebrow: 'Tool 01 · Logistics',
+      title: 'Live Dashboard',
+      desc: 'Roads, cable car, weather, alerts — the things that change while you\'re on the road. One screen, refreshed every five minutes.',
+      cta: 'Open the dashboard',
+      onClick: onDashboard,
+      preview: <DashboardPreview/>,
+    },
+    {
+      n: '02',
+      eyebrow: 'Tool 02 · Language',
+      title: 'Cultural Dictionary',
+      desc: 'Bolivian-Spanish, Aymara, and Quechua words travelers actually hear — said by people who use them every day.',
+      cta: 'Open the dictionary',
+      onClick: onDictionary,
+      preview: <DictionaryPreview/>,
+    },
+    {
+      n: '03',
+      eyebrow: 'Tool 03 · Safety',
+      title: 'Emergency SOS Hub',
+      desc: 'Numbers, hospitals, embassies, verified taxis — by city. Designed to load fast on a bad connection at the worst moment.',
+      cta: 'Open the SOS hub',
+      onClick: onSos,
+      preview: <SosPreview/>,
+    },
+  ];
+  return (
+    <section style={{ background: 'var(--bg)', padding: '120px 0' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
+        <div style={{ maxWidth: 760, marginBottom: 56 }}>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>The Compañero · daily-use tools</div>
+          <h2 style={{ margin: 0, fontSize: 'clamp(36px,4vw,56px)', lineHeight: 1.04, fontFamily: 'var(--font-display)', fontWeight: 600, letterSpacing: '-0.02em' }}>
+            Three tools you'll open <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--rust-500)' }}>every morning.</em>
+          </h2>
+          <p style={{ fontSize: 18, color: 'var(--fg2)', marginTop: 16, maxWidth: 600, lineHeight: 1.6 }}>
+            Free, no login, no commission. The Premium 1-to-1 advisory pays for them — so we can keep these honest.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
+          {tools.map(t => (
+            <button key={t.n} onClick={t.onClick} style={{
+              background: '#fff', border: '1px solid var(--border)', borderRadius: 18,
+              padding: 0, cursor: 'pointer', textAlign: 'left',
+              boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column',
+              transition: 'transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out)',
+              overflow: 'hidden',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}>
+              <div style={{
+                height: 200, background: 'var(--stone-25)',
+                borderBottom: '1px solid var(--border)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden',
+              }}>{t.preview}</div>
+              <div style={{ padding: '24px 26px 26px' }}>
+                <div className="eyebrow" style={{ marginBottom: 8 }}>{t.eyebrow}</div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: 0, fontWeight: 500, lineHeight: 1.1 }}>{t.title}</h3>
+                <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.6, margin: '12px 0 18px' }}>{t.desc}</p>
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: 13, fontWeight: 700, color: 'var(--rust-500)',
+                  letterSpacing: 0.2,
+                }}>{t.cta} <I.ArrowR size={13}/></span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* SVG previews — static, on-brand, lightweight */
+function DashboardPreview() {
+  return (
+    <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
+      <rect x="20" y="30" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <circle cx="40" cy="54" r="6" fill="var(--green-500)"/>
+      <rect x="56" y="44" width="120" height="8" rx="2" fill="var(--fg1)"/>
+      <rect x="56" y="58" width="80" height="6" rx="2" fill="var(--fg3)"/>
+      <text x="270" y="58" fontSize="12" fontFamily="var(--font-mono)" fill="var(--fg3)" textAnchor="end">RN-1</text>
+
+      <rect x="20" y="86" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <circle cx="40" cy="110" r="6" fill="var(--rust-500)"/>
+      <rect x="56" y="100" width="140" height="8" rx="2" fill="var(--fg1)"/>
+      <rect x="56" y="114" width="100" height="6" rx="2" fill="var(--rust-500)" opacity="0.6"/>
+      <text x="270" y="114" fontSize="12" fontFamily="var(--font-mono)" fill="var(--fg3)" textAnchor="end">RN-2</text>
+
+      <rect x="20" y="142" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <circle cx="40" cy="166" r="6" fill="var(--green-500)"/>
+      <rect x="56" y="156" width="110" height="8" rx="2" fill="var(--fg1)"/>
+      <rect x="56" y="170" width="90" height="6" rx="2" fill="var(--fg3)"/>
+      <text x="270" y="170" fontSize="12" fontFamily="var(--font-mono)" fill="var(--fg3)" textAnchor="end">RN-4</text>
+    </svg>
+  );
+}
+
+function DictionaryPreview() {
+  const words = [
+    { w: 'Llajua',   def: 'Spicy locoto + tomato salsa' },
+    { w: 'Yapa',     def: 'A small free extra' },
+    { w: 'Kencha',   def: 'Bad luck, jinx' },
+  ];
+  return (
+    <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
+      <rect x="20" y="20" width="280" height="36" rx="18" fill="#fff" stroke="var(--border)"/>
+      <circle cx="38" cy="38" r="6" stroke="var(--fg3)" strokeWidth="1.6" fill="none"/>
+      <line x1="42" y1="42" x2="48" y2="48" stroke="var(--fg3)" strokeWidth="1.6"/>
+      <rect x="60" y="34" width="120" height="6" rx="2" fill="var(--fg3)" opacity="0.5"/>
+
+      {words.map((w, i) => (
+        <g key={i}>
+          <rect x="20" y={70 + i * 42} width="280" height="36" rx="10" fill="var(--stone-25)" stroke="var(--border)"/>
+          <text x="32" y={89 + i * 42} fontSize="14" fontFamily="var(--font-display)" fill="var(--fg1)" fontWeight="500">{w.w}</text>
+          <text x="32" y={101 + i * 42} fontSize="9" fontFamily="var(--font-sans)" fill="var(--fg3)" fontWeight="500">{w.def}</text>
+          <circle cx="284" cy={88 + i * 42} r="11" fill="var(--rust-500)"/>
+          <polygon points={`280,${83 + i * 42} 280,${93 + i * 42} 289,${88 + i * 42}`} fill="#fff"/>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function SosPreview() {
+  return (
+    <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
+      <rect x="20" y="22" width="135" height="76" rx="14" fill="var(--rust-500)"/>
+      <rect x="36" y="38" width="40" height="40" rx="10" fill="rgba(255,255,255,0.2)"/>
+      <path d="M48 50 v8 m-4 -4 h8" stroke="#fff" strokeWidth="2.4" strokeLinecap="round"/>
+      <text x="86" y="56" fontSize="9" fontFamily="var(--font-sans)" fill="rgba(255,255,255,0.85)" fontWeight="800" letterSpacing="0.4">POLICE</text>
+      <text x="86" y="78" fontSize="22" fontFamily="var(--font-display)" fill="#fff" fontWeight="500">110</text>
+
+      <rect x="165" y="22" width="135" height="76" rx="14" fill="var(--rust-500)"/>
+      <rect x="181" y="38" width="40" height="40" rx="10" fill="rgba(255,255,255,0.2)"/>
+      <path d="M201 48 c-3 0 -5 2 -5 5 c0 3 5 8 5 8 c0 0 5 -5 5 -8 c0 -3 -2 -5 -5 -5 z" fill="#fff"/>
+      <text x="231" y="56" fontSize="9" fontFamily="var(--font-sans)" fill="rgba(255,255,255,0.85)" fontWeight="800" letterSpacing="0.4">MEDICAL</text>
+      <text x="231" y="78" fontSize="22" fontFamily="var(--font-display)" fill="#fff" fontWeight="500">118</text>
+
+      <rect x="20" y="110" width="280" height="36" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="32" y="122" width="80" height="12" rx="3" fill="var(--navy-700)"/>
+      <text x="120" y="132" fontSize="10" fontFamily="var(--font-sans)" fill="var(--fg2)" fontWeight="500">Hospital · Sopocachi</text>
+
+      <rect x="20" y="152" width="280" height="36" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="32" y="164" width="80" height="12" rx="3" fill="var(--navy-700)"/>
+      <text x="120" y="174" fontSize="10" fontFamily="var(--font-sans)" fill="var(--fg2)" fontWeight="500">Embassy · La Paz</text>
+    </svg>
+  );
+}
+
+/* ===================== Booking band (pre-footer) ===================== */
+function BookingBand({ onExpert }) {
+  const experts = [
+    { initials: 'CV', color: 'var(--rust-500)' },
+    { initials: 'MR', color: 'var(--mystic-700)' },
+    { initials: 'LM', color: 'var(--amber-600)' },
+    { initials: 'DV', color: 'var(--green-500)' },
+  ];
+  return (
+    <section style={{
+      background: 'linear-gradient(135deg, var(--navy-700) 0%, var(--mystic-700) 100%)',
+      color: '#fff', padding: '96px 0', position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{
+        position: 'absolute', top: -80, right: -80, width: 360, height: 360, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(255,183,3,0.14) 0%, transparent 70%)', pointerEvents: 'none',
+      }}/>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
+        display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 60, alignItems: 'center', position: 'relative' }} className="bi-booking-grid">
+        <div>
+          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 14 }}>Premium 1-to-1 advisory · From $12</div>
+          <h2 style={{
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(36px,5vw,68px)', margin: 0,
+            fontWeight: 600, lineHeight: 0.98, letterSpacing: '-0.03em', color: '#fff',
+          }}>
+            When the data and the dictionary run out — <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>talk to a person who walks the route.</em>
+          </h2>
+          <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.82)', marginTop: 22, maxWidth: 580, lineHeight: 1.55 }}>
+            Fifteen or thirty minutes by video with a resident writer. They audit your itinerary, optimize routes, and answer the questions no app can.
+          </p>
+          <div style={{ display: 'flex', gap: 28, marginTop: 32, flexWrap: 'wrap' }}>
+            {[
+              { k: '4',     v: 'Local experts' },
+              { k: '~24h',  v: 'Avg confirm' },
+              { k: '4.9',   v: 'Avg rating · 887 calls' },
+            ].map(s => (
+              <div key={s.k}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 4 }}>{s.v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 22 }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {experts.map((e, i) => (
+              <div key={i} style={{
+                width: 60, height: 60, borderRadius: '50%', background: e.color,
+                color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 700, fontSize: 16,
+                border: '3px solid var(--navy-700)', marginLeft: i === 0 ? 0 : -16,
+                boxShadow: '0 4px 14px -4px rgba(0,0,0,0.4)',
+                fontFamily: 'var(--font-sans)',
+              }}>{e.initials}</div>
+            ))}
+            <div style={{
+              marginLeft: 14, padding: '6px 12px', borderRadius: 999,
+              background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.28)',
+              fontSize: 12, fontWeight: 700, letterSpacing: 0.3,
+            }}>From $12 · 15 min</div>
+          </div>
+          <Btn kind="amber" size="lg" onClick={onExpert} style={{ alignSelf: 'flex-start' }}>
+            Book a 15-min call <I.ArrowR size={15}/>
+          </Btn>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', maxWidth: 320, lineHeight: 1.5, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
+            STRIPE CHECKOUT · REFUNDABLE 12H BEFORE · GOOGLE MEET LINK ARRIVES 1H BEFORE
+          </p>
+        </div>
+      </div>
+      <style>{`
+        @media (max-width: 880px) {
+          .bi-booking-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ===================== Footer ===================== */
+function Footer({ onNav }) {
+  const cols = [
+    { h: 'Explore',   l: [
+      { t: 'Destinations',     id: 'destinations' },
+      { t: 'Suggested routes', id: 'destinations' },
+      { t: 'What to do',       id: 'destinations' },
+      { t: 'Festivals & events', id: 'destinations' },
+    ]},
+    { h: 'Tools',     l: [
+      { t: 'Live Dashboard',     id: 'dashboard' },
+      { t: 'Cultural Dictionary', id: 'dictionary' },
+      { t: 'Travel Guide',       id: 'guides' },
+      { t: 'Emergency Hub',      id: 'sos' },
+    ]},
+    { h: 'Get help',  l: [
+      { t: 'Talk to a local · $12', id: 'expert' },
+      { t: 'AI concierge',          id: 'expert' },
+      { t: 'Contact',               id: 'expert' },
+      { t: 'Sources',               id: 'expert' },
+    ]},
+  ];
+  return (
+    <footer style={{ background: 'var(--navy-800)', color: 'rgba(255,255,255,0.7)', padding: '72px 0 36px' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
+        display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40 }} className="bi-footer-grid">
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+            <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 32, filter: 'brightness(0) invert(1)' }}/>
+            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--rust-300)' }}>Bolivia<span style={{ color: 'var(--amber-400)', fontWeight: 600 }}>Insight</span></span>
+          </div>
+          <p style={{ fontSize: 14, lineHeight: 1.6, maxWidth: 380 }}>
+            An independent travel guide to Bolivia, written by people who live here. No bookings, no commission — just honest field notes for travelers exploring on their own terms.
+          </p>
+          <div style={{ marginTop: 18, fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: 0.4, opacity: 0.5 }}>LA PAZ · SUCRE · UYUNI</div>
+        </div>
+        {cols.map(col => (
+          <div key={col.h}>
+            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--amber-400)', letterSpacing: 0.4, textTransform: 'uppercase', marginBottom: 14 }}>{col.h}</div>
+            {col.l.map(x => (
+              <button key={x.t} onClick={() => onNav?.(x.id)} style={{
+                display: 'block', width: '100%', textAlign: 'left',
+                background: 'transparent', border: 0, cursor: 'pointer',
+                color: 'inherit', fontFamily: 'var(--font-sans)',
+                fontSize: 14, padding: '6px 0',
+              }}>{x.t}</button>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div style={{
+        maxWidth: 1400, margin: '40px auto 0', padding: '24px 32px 0',
+        borderTop: '1px solid rgba(255,255,255,0.1)',
+        display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.5, flexWrap: 'wrap', gap: 12,
+      }}>
+        <div>© 2026 Bolivia Insight S.R.L. · La Paz, Bolivia</div>
+        <div>Privacy · Terms · Cookies</div>
+      </div>
+      <style>{`
+        @media (max-width: 880px) {
+          .bi-footer-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 540px) {
+          .bi-footer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </footer>
+  );
+}
+
+window.Landing = Landing;
