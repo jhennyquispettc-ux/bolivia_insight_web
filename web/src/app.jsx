@@ -40,7 +40,7 @@ function App() {
       {r.route === 'booking'   && <BookingPage onBack={r.onBack} onProfile={() => r.goRoute('profile')} user={user}/>}
       {r.route === 'profile'   && <ProfilePage onBack={r.onBack} user={user}/>}
 
-      <AIConcierge expanded={aiOpen} onToggle={() => setAiOpen(!aiOpen)}/>
+      <AIConcierge expanded={aiOpen} onToggle={() => setAiOpen(!aiOpen)} onExpert={r.onExpert}/>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 /* Bolivia Insight — AI Concierge bubble (popover that grows from bubble) */
-function AIConcierge({ expanded, onToggle }) {
+function AIConcierge({ expanded, onToggle, onExpert }) {
   const [messages, setMessages] = useState([
-    { from: 'ai', text: "Hola, I'm Sumaq — your Bolivia Insight concierge. Where are you thinking?" },
+    { from: 'ai', text: "Hola, I'm Ayni — your Bolivia Insight concierge. Where are you thinking?" },
   ]);
   const [input, setInput] = useState('');
   const [visible, setVisible] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 200);
@@ -13,14 +14,60 @@ function AIConcierge({ expanded, onToggle }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const send = () => {
-    if (!input.trim()) return;
+  const send = async () => {
+    if (!input.trim() || limitReached) return;
     const text = input.trim();
-    setMessages(m => [...m, { from: 'me', text }]);
+    // Check message limit (20 user messages)
+    const userMessages = messages.filter(m => m.from === 'me');
+    
+    // Intent detection for expert consultation
+    const intentKeywords = ['información', 'informacion', 'experto', 'local', 'contacto', 'agendar', 'cita', 'hablar con alguien', 'más detalles'];
+    const matchesIntent = intentKeywords.some(k => text.toLowerCase().includes(k));
+
+    if (userMessages.length >= 20 || matchesIntent) {
+      setLimitReached(true);
+      const ctaMessage = matchesIntent 
+        ? "¡Excelente idea! Hablar con un experto local es la mejor forma de planificar tu viaje. "
+        : "¡Vaya! Veo que tienes muchas ganas de explorar Bolivia. ";
+      
+      setMessages(m => [...m, 
+        { from: 'me', text },
+        { 
+          from: 'ai', 
+          text: ctaMessage + "¿Sabías que puedes agendar una videollamada personalizada con nuestros expertos locales? \n\nBeneficios:\n✨ Planificación a medida según tus gustos.\n📍 Acceso a lugares 'secretos' que no están en las guías.\n🛠️ Resolución de dudas sobre transporte y logística.\n✅ Ahorro de tiempo y tranquilidad.\n\nSimplemente elige el horario que mejor te convenga y prepárate para vivir una aventura única.",
+          isCTA: true 
+        }
+      ]);
+      setInput('');
+      return;
+    }
+
+    // Add user's message immediately
+    const newMessages = [...messages, { from: 'me', text }];
+    setMessages(newMessages);
     setInput('');
-    setTimeout(() => {
-      setMessages(m => [...m, { from: 'ai', text: "Got it. For Uyuni in May, I'd avoid the wet-season tail and push you toward Tunupa side. Want a 3-day draft?" }]);
-    }, 700);
+    
+    // Add a temporary typing indicator or just wait
+    // We will just wait for the response and append it
+    try {
+      const res = await fetch('http://localhost:3000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: newMessages })
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(m => [...m, { from: 'ai', text: data.reply }]);
+      } else {
+        console.error("Chat error:", data);
+        setMessages(m => [...m, { from: 'ai', text: "Lo siento, I'm having trouble connecting to my brain right now." }]);
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setMessages(m => [...m, { from: 'ai', text: "Lo siento, my connection is down right now." }]);
+    }
   };
 
   // Hide entirely when not yet scrolled past Hero (and popover is closed)
@@ -77,7 +124,7 @@ function AIConcierge({ expanded, onToggle }) {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}><I.Sparkle size={20}/></div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>Sumaq · Concierge</div>
+              <div style={{ fontWeight: 700, fontSize: 14 }}>Ayni · Concierge</div>
               <div style={{ fontSize: 11, opacity: 0.7, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ width: 6, height: 6, borderRadius: 999, background: 'var(--green-400)' }}/>
                 Online · La Paz, 14:32
@@ -91,41 +138,67 @@ function AIConcierge({ expanded, onToggle }) {
               <div key={i} style={{
                 alignSelf: m.from === 'ai' ? 'flex-start' : 'flex-end',
                 maxWidth: '82%',
-                padding: '10px 14px', borderRadius: 14,
-                background: m.from === 'ai' ? '#fff' : 'var(--rust-500)',
-                color: m.from === 'ai' ? 'var(--fg1)' : '#fff',
-                fontSize: 14, lineHeight: 1.45,
-                border: m.from === 'ai' ? '1px solid var(--border)' : 0,
-                boxShadow: 'var(--shadow-xs)',
-              }}>{m.text}</div>
+                display: 'flex', flexDirection: 'column', gap: 8
+              }}>
+                <div style={{
+                  padding: '10px 14px', borderRadius: 14,
+                  background: m.from === 'ai' ? '#fff' : 'var(--rust-500)',
+                  color: m.from === 'ai' ? 'var(--fg1)' : '#fff',
+                  fontSize: 14, lineHeight: 1.45,
+                  border: m.from === 'ai' ? '1px solid var(--border)' : 0,
+                  boxShadow: 'var(--shadow-xs)',
+                }}>{m.text}</div>
+                
+                {m.isCTA && (
+                  <button onClick={() => { onToggle(); onExpert(); }} style={{
+                    alignSelf: 'flex-start',
+                    padding: '8px 16px', borderRadius: 8,
+                    background: 'var(--navy-600)', color: '#fff',
+                    border: 0, cursor: 'pointer', fontSize: 13, fontWeight: 600,
+                    boxShadow: '0 4px 12px rgba(27,42,65,0.2)',
+                    display: 'flex', alignItems: 'center', gap: 8
+                  }}>
+                    Consultar Experto Local <I.Calendar size={14}/>
+                  </button>
+                )}
+              </div>
             ))}
             {/* Quick chips */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
-              {['Best time for Uyuni?', 'Altitude tips', 'Family with teens'].map(c => (
-                <button key={c} onClick={() => setInput(c)} style={{
-                  padding: '6px 12px', borderRadius: 999, border: '1px solid var(--border-strong)',
-                  background: '#fff', cursor: 'pointer', fontSize: 12, fontWeight: 600, color: 'var(--fg1)',
-                }}>{c}</button>
-              ))}
-            </div>
+            {!limitReached && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+                {['Best time for Uyuni?', 'Altitude tips', 'Family with teens'].map(c => (
+                  <button key={c} onClick={() => setInput(c)} style={{
+                    padding: '6px 12px', borderRadius: 999, border: '1px solid var(--border-strong)',
+                    background: '#fff', cursor: 'pointer', fontSize: 12, fontWeight: 600, color: 'var(--fg1)',
+                  }}>{c}</button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Input */}
           <div style={{ padding: 14, borderTop: '1px solid var(--border)', background: '#fff', borderRadius: '0 0 20px 20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 6px 6px 14px', background: 'var(--stone-50)', borderRadius: 999 }}>
+            <div style={{ 
+              display: 'flex', alignItems: 'center', gap: 8, padding: '6px 6px 6px 14px', 
+              background: limitReached ? 'var(--stone-100)' : 'var(--stone-50)', 
+              borderRadius: 999, opacity: limitReached ? 0.6 : 1 
+            }}>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && send()}
-                placeholder="Ask Sumaq…" style={{
+                disabled={limitReached}
+                placeholder={limitReached ? "Límite de mensajes alcanzado" : "Ask Ayni…"} style={{
                 flex: 1, border: 0, background: 'transparent', outline: 'none',
                 fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
+                cursor: limitReached ? 'not-allowed' : 'text'
               }}/>
-              <button onClick={send} style={{
+              <button onClick={send} disabled={limitReached} style={{
                 width: 36, height: 36, borderRadius: 999,
-                background: 'var(--rust-500)', color: '#fff', border: 0, cursor: 'pointer',
+                background: limitReached ? 'var(--stone-300)' : 'var(--rust-500)', 
+                color: '#fff', border: 0, cursor: limitReached ? 'not-allowed' : 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}><I.Send size={15}/></button>
             </div>
             <div style={{ fontSize: 10, color: 'var(--fg3)', marginTop: 8, textAlign: 'center', letterSpacing: 0.3 }}>
-              AI suggestions · cross-checked against our local writers' field notes
+              {limitReached ? "Habla con un experto para continuar la aventura" : "AI suggestions · cross-checked against our local writers' field notes"}
             </div>
           </div>
         </div>
