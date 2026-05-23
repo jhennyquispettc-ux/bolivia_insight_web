@@ -34,5 +34,4 @@ const G = {
 
 const IMG = G;
 
-window.G = G;
-window.IMG = IMG;
+export default IMG;

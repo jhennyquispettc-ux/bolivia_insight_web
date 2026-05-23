@@ -1,4 +1,11 @@
 /* Bolivia Insight — Travel Guide page (essentials for flashpackers) */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+import IMG from '../ui/imagenes.jsx';
+import Dictionary from '../componentes/Dictionary.jsx';
+
 function TravelGuide({ onBack, onExpert, initialTab }) {
   const { t, locale } = useI18n();
   const [tab, setTab] = useState(initialTab || 'arrive');
@@ -352,4 +359,4 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
     </div>
   );
 }
-window.TravelGuide = TravelGuide;
+export default TravelGuide;

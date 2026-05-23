@@ -1,4 +1,10 @@
 /* Bolivia Insight — Cluster cards (4 large interactive) */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import { CLUSTERS } from '../data/destinos.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+
 function Clusters({ onSelect }) {
   const { t } = useI18n();
   const [hover, setHover] = useState(null);
@@ -199,4 +205,4 @@ function Clusters({ onSelect }) {
     </section>
   );
 }
-window.Clusters = Clusters;
+export default Clusters;

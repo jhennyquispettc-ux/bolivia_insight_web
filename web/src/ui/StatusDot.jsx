@@ -1,3 +1,5 @@
+import React from 'react';
+
 function StatusDot({ ok = true }) {
   return <span style={{
     display: 'inline-block', width: 8, height: 8, borderRadius: 999,
@@ -7,4 +9,4 @@ function StatusDot({ ok = true }) {
   }}/>;
 }
 
-window.StatusDot = StatusDot;
+export default StatusDot;

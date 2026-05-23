@@ -1,4 +1,7 @@
 /* Bolivia Insight — AI Concierge bubble (popover that grows from bubble) */
+import React, { useState, useEffect } from 'react';
+import I from '../ui/iconos.jsx';
+
 function AIConcierge({ expanded, onToggle, onExpert }) {
   const [messages, setMessages] = useState([
     { from: 'ai', text: "Hola, I'm Ayni — your Bolivia Insight concierge. Where are you thinking?" },
@@ -232,4 +235,4 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
     </>
   );
 }
-window.AIConcierge = AIConcierge;
+export default AIConcierge;

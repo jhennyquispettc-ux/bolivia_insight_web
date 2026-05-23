@@ -1,4 +1,11 @@
 /* Bolivia Insight — Destination Detail Page */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import { CLUSTERS } from '../data/destinos.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+import IMG from '../ui/imagenes.jsx';
+
 function ClusterDetail({ cluster, onBack, onBook }) {
   const { t, locale } = useI18n();
   const c = cluster || CLUSTERS[0];
@@ -159,4 +166,4 @@ function ClusterDetail({ cluster, onBack, onBook }) {
     </div>
   );
 }
-window.ClusterDetail = ClusterDetail;
+export default ClusterDetail;

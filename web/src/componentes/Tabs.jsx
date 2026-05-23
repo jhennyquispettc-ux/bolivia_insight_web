@@ -1,8 +1,13 @@
 /* Bolivia Insight — Top 5 attractions section */
-function TabsSection() {
-  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+import React, { useState, useEffect } from 'react';
+import IMG from '../ui/imagenes.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
 
-  React.useEffect(() => {
+function TabsSection() {
+  const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
     const onResize = () => setVw(window.innerWidth);
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
@@ -216,4 +221,4 @@ function TabsSection() {
     </section>
   );
 }
-window.TabsSection = TabsSection;
+export default TabsSection;

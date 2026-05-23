@@ -1,3 +1,17 @@
+import React, { useState } from 'react';
+import { I18nProvider } from './data/translations.jsx';
+import NavBar from './componentes/NavBar.jsx';
+import Landing from './paginas/Landing.jsx';
+import ClusterDetail from './paginas/ClusterDetail.jsx';
+import TravelGuide from './paginas/TravelGuide.jsx';
+import Dashboard from './paginas/Dashboard.jsx';
+import EmergencyHub from './paginas/EmergencyHub.jsx';
+import Auth from './paginas/Auth.jsx';
+import BookingPage from './paginas/BookingPage.jsx';
+import ProfilePage from './paginas/ProfilePage.jsx';
+import AIConcierge from './componentes/AIConcierge.jsx';
+import useRouter from './navegacion/useRouter.jsx';
+
 function App() {
   const r = useRouter();
   const [aiOpen, setAiOpen] = useState(false);
@@ -47,4 +61,4 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+export default App;

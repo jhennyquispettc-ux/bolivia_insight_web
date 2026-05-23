@@ -1,3 +1,5 @@
+import React from 'react';
+
 function Btn({ kind = 'primary', size = 'md', children, onClick, style = {}, iconR, ...rest }) {
   const k = {
     primary: { background: 'var(--rust-500)', color: '#fff', boxShadow: '0 6px 16px -6px rgba(179,63,46,0.5)' },
@@ -21,4 +23,4 @@ function Btn({ kind = 'primary', size = 'md', children, onClick, style = {}, ico
   }} {...rest}>{children}{iconR}</button>;
 }
 
-window.Btn = Btn;
+export default Btn;

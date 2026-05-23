@@ -1,4 +1,4 @@
-const { useEffect, useState } = React;
+import React, { useEffect, useState } from 'react';
 
 function Auth({ onBack, onLogin }) {
   const [loading, setLoading] = useState(false);
@@ -226,4 +226,4 @@ function Auth({ onBack, onLogin }) {
   );
 }
 
-window.Auth = Auth;
+export default Auth;

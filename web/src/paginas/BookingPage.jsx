@@ -1,4 +1,6 @@
-const { useState } = React;
+import React, { useState, useEffect } from 'react';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
 
 function BookingPage({ onBack, onProfile, user }) {
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -548,4 +550,4 @@ function BriefField({ label, hint, value, onChange, multiline }) {
   );
 }
 
-window.BookingPage = BookingPage;
+export default BookingPage;

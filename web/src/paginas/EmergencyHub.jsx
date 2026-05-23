@@ -1,5 +1,10 @@
 /* Bolivia Insight — Emergency SOS Hub
    Calm, scannable, mobile-first. Optimized for stress-state usage. */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+
 function EmergencyHub({ onBack }) {
   const { t, locale } = useI18n();
   const [city, setCity] = useState('lapaz');
@@ -408,4 +413,4 @@ function CategoryBlock({ title, icon, items, empty, translateNote }) {
   );
 }
 
-window.EmergencyHub = EmergencyHub;
+export default EmergencyHub;

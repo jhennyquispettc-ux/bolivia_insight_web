@@ -1,4 +1,12 @@
 /* Bolivia Insight — Landing page composition */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import Hero from '../componentes/Hero.jsx';
+import Clusters from '../componentes/Clusters.jsx';
+import TabsSection from '../componentes/Tabs.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+
 function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert }) {
   return (
     <>
@@ -457,4 +465,4 @@ function Footer({ onNav }) {
   );
 }
 
-window.Landing = Landing;
+export default Landing;

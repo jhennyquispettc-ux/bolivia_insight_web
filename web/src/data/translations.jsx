@@ -1,4 +1,4 @@
-const { useState, useEffect, useContext, createContext } = React;
+import React, { useState, useEffect, useContext, createContext } from 'react';
 
 const TRANSLATIONS = {
   es: {
@@ -1031,10 +1031,4 @@ function useI18n() {
   return context;
 }
 
-// Attach to window for global access (standalone Babel/React CDN mode)
-Object.assign(window, {
-  I18nContext,
-  I18nProvider,
-  useI18n,
-  TRANSLATIONS
-});
+export { I18nContext, I18nProvider, useI18n, TRANSLATIONS };

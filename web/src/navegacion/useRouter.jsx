@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 function useRouter() {
   const [route, setRoute] = useState('home');
   const [cluster, setCluster] = useState(null);
@@ -51,4 +53,4 @@ function useRouter() {
   };
 }
 
-window.useRouter = useRouter;
+export default useRouter;

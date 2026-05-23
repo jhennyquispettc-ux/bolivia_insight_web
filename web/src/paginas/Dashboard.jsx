@@ -1,6 +1,12 @@
 /* Bolivia Insight — Live Dashboard
    Real-time logistics: ABC roads, Mi Teleférico, weather grid, alerts feed.
    Mock data shaped to match a backend API later. */
+import React from 'react';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+import IMG from '../ui/imagenes.jsx';
+import StatusDot from '../ui/StatusDot.jsx';
+
 function useWindowWidth() {
   const [w, setW] = React.useState(window.innerWidth);
   React.useEffect(() => {
@@ -978,4 +984,4 @@ function BoliviaMap({ roads, highlighted }) {
   );
 }
 
-window.Dashboard = Dashboard;
+export default Dashboard;

@@ -9,82 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="styles/colors_and_type.css" />
-  <style>
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg1);
-      font-family: var(--font-sans);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(27, 42, 65, 0.35) transparent;
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: rgba(27, 42, 65, 0.28);
-      border-radius: 999px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(27, 42, 65, 0.5);
-      background-clip: padding-box;
-      border: 2px solid transparent;
-    }
-  </style>
-
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-  <script type="text/babel" src="src/ui/iconos.jsx"></script>
-  <script type="text/babel" src="src/ui/imagenes.jsx"></script>
-  <script type="text/babel" src="src/ui/Boton.jsx"></script>
-  <script type="text/babel" src="src/ui/StatusDot.jsx"></script>
-
-  <script type="text/babel" src="src/data/destinos.jsx"></script>
-  <script type="text/babel" src="src/data/translations.jsx"></script>
-
-  <script type="text/babel" src="src/componentes/NavBar.jsx"></script>
-  <script type="text/babel" src="src/componentes/Hero.jsx"></script>
-  <script type="text/babel" src="src/componentes/Clusters.jsx"></script>
-  <script type="text/babel" src="src/componentes/Tabs.jsx"></script>
-  <script type="text/babel" src="src/componentes/AIConcierge.jsx"></script>
-  <script type="text/babel" src="src/componentes/Dictionary.jsx"></script>
-
-  <script type="text/babel" src="src/paginas/Landing.jsx"></script>
-  <script type="text/babel" src="src/paginas/ClusterDetail.jsx"></script>
-  <script type="text/babel" src="src/paginas/TravelGuide.jsx"></script>
-  <script type="text/babel" src="src/paginas/Dashboard.jsx"></script>
-  <script type="text/babel" src="src/paginas/EmergencyHub.jsx"></script>
-  <script type="text/babel" src="src/paginas/BookingPage.jsx"></script>
-  <script type="text/babel" src="src/paginas/ProfilePage.jsx"></script>
-  <script type="text/babel" src="src/paginas/Auth.jsx"></script>
-
-  <script type="text/babel" src="src/navegacion/useRouter.jsx"></script>
-
-  <script type="text/babel" src="src/app.jsx"></script>
 </head>
 
 <body>
   <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>

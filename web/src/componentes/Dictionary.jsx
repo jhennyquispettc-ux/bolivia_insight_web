@@ -1,3 +1,8 @@
+import React, { useState } from 'react';
+import IMG from '../ui/imagenes.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+
 function Dictionary({ onBack, onExpert, embedded }) {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('all');
@@ -311,4 +316,4 @@ function BrowseCard({ word, playing, onPlay }) {
   );
 }
 
-window.Dictionary = Dictionary;
+export default Dictionary;

@@ -1,3 +1,7 @@
+import React from 'react';
+import I from '../ui/iconos.jsx';
+import IMG from '../ui/imagenes.jsx';
+
 const CLUSTERS = [
   { id: 'altiplano', title: 'Altiplano Sagrado', sub: 'Salar de Uyuni · Lake Titicaca · Tiwanaku', img: IMG.photoAltiplano,
     color: 'var(--amber-500)', glyph: <I.Sun size={28}/>, count: 12,
@@ -48,4 +52,4 @@ const TABS = [
   ]},
 ];
 
-Object.assign(window, { CLUSTERS, TABS });
+export { CLUSTERS, TABS };

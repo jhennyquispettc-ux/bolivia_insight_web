@@ -1,3 +1,6 @@
+import React from 'react';
+import I from '../ui/iconos.jsx';
+
 function ProfilePage({ onBack, user }) {
   const [bookings, setBookings] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -159,4 +162,4 @@ function ProfilePage({ onBack, user }) {
   );
 }
 
-window.ProfilePage = ProfilePage;
+export default ProfilePage;

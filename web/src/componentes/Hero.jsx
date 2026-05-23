@@ -1,4 +1,8 @@
 /* Bolivia Insight — Hero with Day/Night transition + floating widgets */
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
 
 function Hero({ variant = 'A', onCtaClick }) {
   const { t } = useI18n();
@@ -340,4 +344,4 @@ function WeatherWidget({ night }) {
   );
 }
 
-window.Hero = Hero;
+export default Hero;

@@ -1,3 +1,8 @@
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
+import I from '../ui/iconos.jsx';
+import Btn from '../ui/Boton.jsx';
+
 function NavBar({ current, onNav, dark, user, onLogout }) {
   const { t, locale, changeLocale } = useI18n();
   const [scrolled, setScrolled] = useState(false);
@@ -410,5 +415,4 @@ function LivePulse({ onLight }) {
   );
 }
 
-window.NavBar = NavBar;
-
+export default NavBar;
