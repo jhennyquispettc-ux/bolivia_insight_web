@@ -1,6 +1,15 @@
 const { useState } = React;
 
 function BookingPage({ onBack, onProfile, user }) {
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 640;
   const [step, setStep] = useState(0); // 0: duration, 1: calendar, 2: confirmation
   const [duration, setDuration] = useState(30);
   const [slot, setSlot] = useState(null);
@@ -89,15 +98,15 @@ function BookingPage({ onBack, onProfile, user }) {
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       {/* HERO */}
-      <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: isMobile ? '56px 0 140px' : '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px', position: 'relative' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', position: 'relative' }}>
           <button onClick={onBack} style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24 }}><I.ArrowL size={13}/> Back</button>
           <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Talk to a local · Video consultation</div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(44px,6vw,84px)', lineHeight: 1, color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.03em' }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(36px,9vw,52px)' : 'clamp(44px,6vw,84px)', lineHeight: 1, color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.03em' }}>
             Specific question?<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>Ask a Bolivian.</em>
           </h1>
-          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginTop: 18, maxWidth: 620, lineHeight: 1.55 }}>
+          <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.85)', marginTop: 18, maxWidth: 620, lineHeight: 1.55 }}>
             For when the guide and the AI run out. Book a 15- or 30-minute video call with a local writer who actually walks the routes — they answer your trip plan in plain language.
           </p>
         </div>
@@ -105,7 +114,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
       {/* MAIN CARD */}
       <section style={{ marginTop: -100, paddingBottom: 80, position: 'relative', zIndex: 2 }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px' : '0 32px' }}>
           <div style={{ background: '#fff', borderRadius: 20, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)', overflow: 'hidden' }}>
 
             {/* Stepper — hidden on confirmation */}
@@ -135,8 +144,8 @@ function BookingPage({ onBack, onProfile, user }) {
 
             {/* Step 0 — duration */}
             {step === 0 && (
-              <div style={{ padding: 40 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+              <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
                   {[
                     { mins: 15, usd: 12, bs: 84,  label: 'Quick question', desc: 'One topic, sharp answer. Best when you already know what you want to ask.' },
                     { mins: 30, usd: 22, bs: 153, label: 'Trip review',     desc: 'Walk through your full plan. They\'ll catch mistakes and add local stops.' },
@@ -174,7 +183,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
             {/* Step 1 — calendar */}
             {step === 1 && (
-              <div style={{ padding: 40 }}>
+              <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
                 <CalendarPicker
                   expert={defaultExpert}
                   weekStart={weekStart}
@@ -183,6 +192,7 @@ function BookingPage({ onBack, onProfile, user }) {
                   setSlot={setSlot}
                   tz={tz}
                   unavailable={unavailable}
+                  isMobile={isMobile}
                 />
               </div>
             )}
@@ -200,12 +210,13 @@ function BookingPage({ onBack, onProfile, user }) {
                 brief={brief}
                 setBrief={setBrief}
                 onProfile={onProfile}
+                isMobile={isMobile}
               />
             )}
 
             {/* Footer bar — hidden on confirmation */}
             {step < 2 && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: isMobile ? '16px 20px' : '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'var(--fg3)' }}>
                   <I.Shield size={14}/>
                   <span>Secure checkout · Stripe · Refundable up to 12h before</span>
@@ -239,9 +250,9 @@ function BookingPage({ onBack, onProfile, user }) {
 
           {/* FAQ strip — hide on confirmation */}
           {step < 2 && (
-            <div style={{ marginTop: 56 }}>
+            <div style={{ marginTop: isMobile ? 40 : 56 }}>
               <div className="eyebrow" style={{ marginBottom: 16 }}>How it works</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
                 {[
                   { n: '01', t: 'Pick & pay',     d: 'Choose a duration and slot. Pay by card. You get a confirmation + brief form.' },
                   { n: '02', t: 'Send your plan', d: 'Fill out a 2-min brief: dates, rough route, your top 3 questions. We review before the call.' },
@@ -270,7 +281,7 @@ function BookingPage({ onBack, onProfile, user }) {
 }
 
 /* ======================== Calendar ======================== */
-function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable }) {
+function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
   // Build 7 days starting at weekStart
   const days = [];
   for (let i = 0; i < 7; i++) {
@@ -322,7 +333,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
     <>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, gap: 12, flexWrap: 'wrap' }}>
         <div>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 500 }}>{rangeLabel}, {days[0].getFullYear()}</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 20 : 24, fontWeight: 500 }}>{rangeLabel}, {days[0].getFullYear()}</div>
           <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 2 }}>
             All times Bolivia (UTC −4) · Your timezone: <span style={{ fontFamily: 'var(--font-mono)' }}>{tz}</span>
           </div>
@@ -420,7 +431,7 @@ const navBtnStyle = {
 };
 
 /* ======================== Confirmation ======================== */
-function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBriefOpen, brief, setBrief, onProfile }) {
+function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBriefOpen, brief, setBrief, onProfile, isMobile }) {
   const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
   const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   const fmtTime = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -430,7 +441,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
       {/* Success header */}
       <div style={{
         background: 'linear-gradient(135deg, var(--green-500) 0%, #1f5f3e 100%)',
-        color: '#fff', padding: '40px 40px 36px', textAlign: 'center',
+        color: '#fff', padding: isMobile ? '32px 20px' : '40px 40px 36px', textAlign: 'center',
       }}>
         <div style={{
           width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.18)',
@@ -445,7 +456,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
       </div>
 
       {/* Booking summary */}
-      <div style={{ padding: 32 }}>
+      <div style={{ padding: isMobile ? '24px 20px' : 32 }}>
         <div style={{
           display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 18,
           padding: '20px 22px', background: 'var(--stone-25)', border: '1px solid var(--border)',

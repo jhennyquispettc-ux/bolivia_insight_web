@@ -1,23 +1,33 @@
 /* Bolivia Insight — Emergency SOS Hub
    Calm, scannable, mobile-first. Optimized for stress-state usage. */
 function EmergencyHub({ onBack }) {
+  const { t, locale } = useI18n();
   const [city, setCity] = useState('lapaz');
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 768;
 
   const cities = [
-    { id: 'lapaz',       label: 'La Paz' },
-    { id: 'sucre',       label: 'Sucre' },
-    { id: 'santacruz',   label: 'Santa Cruz' },
-    { id: 'cochabamba',  label: 'Cochabamba' },
-    { id: 'uyuni',       label: 'Uyuni' },
-    { id: 'copacabana',  label: 'Copacabana' },
-    { id: 'rurrenabaque',label: 'Rurrenabaque' },
-    { id: 'potosi',      label: 'Potosí' },
+    { id: 'lapaz',       label: locale === 'ja' ? 'ラパス' : locale === 'ko' ? '라파스' : 'La Paz' },
+    { id: 'sucre',       label: locale === 'ja' ? 'スクレ' : locale === 'ko' ? '수크레' : 'Sucre' },
+    { id: 'santacruz',   label: locale === 'ja' ? 'サンタクルス' : locale === 'ko' ? '산타크루즈' : 'Santa Cruz' },
+    { id: 'cochabamba',  label: locale === 'ja' ? 'コチャバンバ' : locale === 'ko' ? '코차반바' : 'Cochabamba' },
+    { id: 'uyuni',       label: locale === 'ja' ? 'ウユニ' : locale === 'ko' ? '우유니' : 'Uyuni' },
+    { id: 'copacabana',  label: locale === 'ja' ? 'コパカバーナ' : locale === 'ko' ? '코파카바나' : 'Copacabana' },
+    { id: 'rurrenabaque',label: locale === 'ja' ? 'ルレナバケ' : locale === 'ko' ? '루레나바케' : 'Rurrenabaque' },
+    { id: 'potosi',      label: locale === 'ja' ? 'ポトシ' : locale === 'ko' ? '포토시' : 'Potosí' },
   ];
 
   const critical = [
-    { id: 'police',  label: 'Police',         number: '110', icon: <I.Shield size={28}/>,   note: 'National emergency line' },
-    { id: 'medical', label: 'Medical / SAR',  number: '118', icon: <I.Heart size={28}/>,    note: 'Ambulance and search & rescue' },
-    { id: 'tourist', label: 'Tourist Police', number: '800-14-0081', icon: <I.Flag size={28}/>, note: 'English-speaking, tourist-focused' },
+    { id: 'police',  label: t('sos.police', 'Police'),         number: '110', icon: <I.Shield size={28}/>,   note: locale === 'es' ? 'Línea de emergencia nacional' : locale === 'pt' ? 'Linha de emergência nacional' : locale === 'fr' ? 'Ligne d\'urgence nationale' : locale === 'ja' ? '全国共通緊急ダイヤル' : locale === 'ko' ? '경찰 긴급 신고' : 'National emergency line' },
+    { id: 'medical', label: t('sos.medical', 'Medical / SAR'),  number: '118', icon: <I.Heart size={28}/>,    note: locale === 'es' ? 'Ambulancia y búsqueda y rescate' : locale === 'pt' ? 'Ambulância e busca & salvamento' : locale === 'fr' ? 'Ambulance et recherche & sauvetage' : locale === 'ja' ? '救急車・捜索救助' : locale === 'ko' ? '구급차 및 구조대' : 'Ambulance and search & rescue' },
+    { id: 'tourist', label: t('sos.touristPolice', 'Tourist Police'), number: '800-14-0081', icon: <I.Flag size={28}/>, note: locale === 'es' ? 'Atención en inglés, enfocado en turistas' : locale === 'pt' ? 'Atendimento em inglês, focado em turistas' : locale === 'fr' ? 'Anglophone, dédié aux touristes' : locale === 'ja' ? '観光警察（英語対応、旅行者向け）' : locale === 'ko' ? '관광 경찰 (영어 가능, 여행자 특화)' : 'English-speaking, tourist-focused' },
   ];
 
   // Per-city directories. Real numbers/addresses; verify monthly.
@@ -137,50 +147,97 @@ function EmergencyHub({ onBack }) {
     },
   };
 
+  const noteTranslations = {
+    'Best-equipped private hospital': { es: 'Hospital privado mejor equipado', pt: 'Hospital privado mais bem equipado', fr: 'Hôpital privé le mieux équipé', ja: '最高設備の私立病院', ko: '최고 시설의 사립 병원' },
+    'Public, altitude specialists': { es: 'Público, especialistas en altitud', pt: 'Público, especialistas em altitude', fr: 'Public, spécialiste de l\'altitude', ja: '公立、高山病専門', ko: '공립, 고산병 전문' },
+    'Mid-range, English staff': { es: 'Rango medio, personal habla inglés', pt: 'Padrão médio, equipe fala inglês', fr: 'Moyenne gamme, personnel anglophone', ja: '中規模、英語対応可', ko: '중형 병원, 영어 가능 직원' },
+    'Largest 24-hour chain': { es: 'La cadena de 24 horas más grande', pt: 'Maior rede 24 horas', fr: 'Plus grande chaîne 24h/24', ja: '最大手の24時間営業チェーン', ko: '최대 규모의 24시간 체인' },
+    'Central, English signage': { es: 'Central, señalización en inglés', pt: 'Central, sinalização em inglês', fr: 'Central, panneaux en anglais', ja: '中心部、英語の案内あり', ko: '시내 중심, 영어 안내판' },
+    'After-hours emergency line on website': { es: 'Línea de emergencia fuera de horario en el sitio web', pt: 'Linha de emergência fora de hora no site', fr: 'Ligne d\'urgence après fermeture sur le site', ja: '営業時間外의緊急連絡先はウェブに記載', ko: '근무 시간 외 긴급 연락처는 홈페이지 참고' },
+    'Consular emergencies 24h': { es: 'Emergencias consulares 24h', pt: 'Emergências consulares 24h', fr: 'Urgences consulaires 24h', ja: '領事緊急連絡先24時間対応', ko: '24시간 영사 긴급 연락 가능' },
+    'USD exchange, traveler\'s checks': { es: 'Cambio de USD, cheques de viajero', pt: 'Câmbio de USD, cheques de viagem', fr: 'Change USD, chèques de voyage', ja: '米ドル両替、トラベラーズチェック対応', ko: '미화 환전, 여행자 수표 가능' },
+    'Largest ATM network': { es: 'La red de cajeros automáticos más grande', pt: 'Maior rede de caixas eletrônicos', fr: 'Plus grand réseau de distributeurs', ja: '最大規模のATMネットワーク', ko: '최대 규모의 ATM 네트워크' },
+    'Cheapest, set your own price': { es: 'El más barato, tú propones el precio', pt: 'Mais barato, você define o preço', fr: 'Le moins cher, fixez votre prix', ja: '最安値、価格交渉可能', ko: '가장 저렴함, 직접 요금 제안' },
+    'Highest safety rating': { es: 'Calificación de seguridad más alta', pt: 'Maior classificação de segurança', fr: 'Niveau de sécurité le plus élevé', ja: '最高評価の安全性', ko: '가장 높은 안전 등급' },
+    'Phone-dispatched, fixed rates': { es: 'Despacho telefónico, tarifas fijas', pt: 'Chamada por telefone, tarifas fixas', fr: 'Sur appel téléphonique, tarifs fixes', ja: '電話配車、固定料金制', ko: '전화 배차, 고정 요금제' },
+    'Free maps, route advice': { es: 'Mapas gratis, asesoramiento de rutas', pt: 'Mapas grátis, dicas de rotas', fr: 'Cartes gratuites, conseils d\'itinéraires', ja: '無料地図、ルート案内', ko: '무료 지도, 경로 안내' },
+    'Public, central': { es: 'Público, céntrico', pt: 'Público, central', fr: 'Public, central', ja: '公立、中心部', ko: '공립, 시내 중심' },
+    'Private, mid-range': { es: 'Privado, rango medio', pt: 'Privado, médio padrão', fr: 'Privé, moyenne gamme', ja: '私立、中規模', ko: '사립, 중형 병원' },
+    'Best private in eastern lowlands': { es: 'Mejor hospital privado en tierras bajas', pt: 'Melhor hospital privado do leste', fr: 'Meilleur hôpital privé de l\'est', ja: '東部低地で最高の私立病院', ko: '동부 저지대 최고의 사립 병원' },
+    'Public reference hospital': { es: 'Hospital público de referencia', pt: 'Hospital público de referência', fr: 'Hôpital public de référence', ja: '公立の総合病院', ko: '공립 거점 병원' },
+    'Most active in Santa Cruz': { es: 'El más activo en Santa Cruz', pt: 'Mais usado em Santa Cruz', fr: 'Le plus actif à Santa Cruz', ja: 'サン타クルスで最も普及', ko: '산타크루즈에서 가장 활성화됨' },
+    'Basic care · serious cases evac to Potosí or La Paz': { es: 'Atención básica · casos graves se trasladan a Potosí o La Paz', pt: 'Atendimento básico · casos graves transferidos para Potosí ou La Paz', fr: 'Soins de base · évacuation vers Potosí ou La Paz pour les cas graves', ja: '基本治療のみ · 重症時はポトシやラパスへ移送', ko: '기초 치료 · 중증 환자는 포토시 또는 라파스로 이송' },
+    'Only ATM in town — bring backup cash': { es: 'Único cajero en el pueblo — lleva efectivo de respaldo', pt: 'Único caixa eletrônico da cidade — traga dinheiro extra', fr: 'Unique distributeur en ville — prévoyez du cash de secours', ja: '町で唯一のATM — 予備の現金を持参してください', ko: '마을의 유일한 ATM — 예비 현금 필수 지참' },
+    'Plaza Arce dispatch': { es: 'Despacho desde Plaza Arce', pt: 'Ponto na Plaza Arce', fr: 'Sur la Plaza Arce', ja: 'アルセ広場での配車', ko: '아르세 광장에서 배차' },
+    'Tour operators verified here': { es: 'Operadores turísticos verificados aquí', pt: 'Operadores turísticos verificados aqui', fr: 'Agences de voyage certifiées ici', ja: '公認のツアー会社リストあり', ko: '검증된 여행사 리스트 제공' },
+    'Basic · evac to La Paz for serious cases': { es: 'Básico · traslado a La Paz en casos graves', pt: 'Básico · transferência para La Paz para casos graves', fr: 'Basique · évacuation vers La Paz pour les cas graves', ja: '基本治療のみ · 重症時はラパスへ移送', ko: '기초 치료 · 중증 환자는 라파스로 이송' },
+    'Single ATM in town': { es: 'Único cajero en el pueblo', pt: 'Único caixa eletrônico na cidade', fr: 'Unique distributeur en ville', ja: '町で唯一のATM', ko: '마을의 유일한 ATM' },
+    'Basic · malaria & dengue care': { es: 'Básico · atención de malaria y dengue', pt: 'Básico · atendimento de malária e dengue', fr: 'Basique · soins pour le paludisme et la dengue', ja: '基本治療のみ · マラリアやデング熱に対応', ko: '기초 치료 · 말라리아 및 뎅기열 치료 가능' },
+    'Verifies Madidi operators': { es: 'Verifica operadores de Madidi', pt: 'Verifica agências de Madidi', fr: 'Certifie les agences pour le Madidi', ja: 'マディディの公認ツアー会社を調査', ko: '마디디 국립공원 공인 여행사 확인' },
+    'Public · altitude trained': { es: 'Público · capacitados para altitud', pt: 'Público · treinados para altitude', fr: 'Public · formé pour l\'altitude', ja: '公立 · 高地医療のトレーニングあり', ko: '공립 · 고산병 특화 치료 가능' }
+  };
+
+  const translateNote = (note) => {
+    if (!note) return '';
+    if (noteTranslations[note] && noteTranslations[note][locale]) {
+      return noteTranslations[note][locale];
+    }
+    return note;
+  };
+
   const dir = directories[city] || directories.lapaz;
   const today = new Date('2026-04-29');
-  const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  
+  // Format localized date
+  const dateStr = today.toLocaleDateString(
+    locale === 'es' ? 'es-ES' :
+    locale === 'pt' ? 'pt-PT' :
+    locale === 'fr' ? 'fr-FR' :
+    locale === 'ja' ? 'ja-JP' :
+    locale === 'ko' ? 'ko-KR' : 'en-US',
+    { year: 'numeric', month: 'long', day: 'numeric' }
+  );
 
   const altitudeAlts = {
-    lapaz: 'Coroico (1,700 m, 2.5h drive via RN-3)',
-    potosi: 'Sucre (2,810 m, 3h drive via RN-6)',
-    uyuni: 'Tupiza (2,950 m, 4h drive)',
-    copacabana: 'Coroico (1,700 m, via La Paz · 5h)',
+    lapaz: locale === 'ja' ? 'コロイコ (標高 1,700 m、RN-3経由で車で2.5時間)' : locale === 'ko' ? '코로이코 (고도 1,700m, RN-3 도로 기준 2.5시간 소요)' : 'Coroico (1,700 m, 2.5h drive via RN-3)',
+    potosi: locale === 'ja' ? 'スクレ (標高 2,810 m、RN-6経由で車で3時間)' : locale === 'ko' ? '수크레 (고도 2,810m, RN-6 도로 기준 3시간 소요)' : 'Sucre (2,810 m, 3h drive via RN-6)',
+    uyuni: locale === 'ja' ? 'トゥピサ (標高 2,950 m、車で4時間)' : locale === 'ko' ? '투피사 (고도 2,950m, 4시간 소요)' : 'Tupiza (2,950 m, 4h drive)',
+    copacabana: locale === 'ja' ? 'コロイコ (標高 1,700 m、ラパス経由で5時間)' : locale === 'ko' ? '코로이코 (고도 1,700m, 라파스 경유 5시간 소요)' : 'Coroico (1,700 m, via La Paz · 5h)',
   };
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       {/* HERO — calm, no decorative orbs */}
-      <section style={{ background: 'var(--navy-800)', color: '#fff', padding: '80px 0 88px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
+      <section style={{ background: 'var(--navy-800)', color: '#fff', padding: isMobile ? '56px 0 64px' : '80px 0 88px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
           <button onClick={onBack} style={{
             background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)',
             color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
             display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24,
-          }}><I.ArrowL size={13}/> Back to home</button>
+          }}><I.ArrowL size={13}/> {t('sos.back', 'Back to home')}</button>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 260 }}>
-              <div className="eyebrow" style={{ color: 'var(--rust-300)' }}>SOS · Emergency Hub</div>
+              <div className="eyebrow" style={{ color: 'var(--rust-300)' }}>{t('sos.eyebrow', 'SOS · Emergency Hub')}</div>
               <h1 style={{
-                fontFamily: 'var(--font-display)', fontSize: 'clamp(40px,5.5vw,72px)', lineHeight: 0.98,
+                fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(36px,9vw,52px)' : 'clamp(40px,5.5vw,72px)', lineHeight: 0.98,
                 color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.03em',
-              }}>SOS · Bolivia.</h1>
-              <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.78)', marginTop: 14, maxWidth: 580, lineHeight: 1.55 }}>
-                Real numbers, current as of {dateStr}. Save this page offline before you leave the hotel wifi.
+              }}>{t('sos.title', 'SOS · Bolivia.')}</h1>
+              <p style={{ fontSize: isMobile ? 15 : 16, color: 'rgba(255,255,255,0.78)', marginTop: 14, maxWidth: 580, lineHeight: 1.55 }}>
+                {t('sos.desc', 'Real numbers, current as of April 2026. Save this page offline before you leave the hotel wifi.').replace('April 2026', dateStr)}
               </p>
             </div>
-            <Btn kind="glass" size="md" onClick={() => window.print()} style={{ flexShrink: 0 }}>
-              <I.Download size={14}/> Save offline
+            <Btn kind="glass" size={isMobile ? "sm" : "md"} onClick={() => window.print()} style={{ flexShrink: 0, marginTop: isMobile ? 12 : 0 }}>
+              <I.Download size={14}/> {t('sos.saveOffline', 'Save offline')}
             </Btn>
           </div>
         </div>
       </section>
 
       {/* CRITICAL ROW — biggest tap targets, top of page for stress state */}
-      <section style={{ background: 'var(--bg)', padding: '32px 0 8px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+      <section style={{ background: 'var(--bg)', padding: isMobile ? '24px 0 8px' : '32px 0 8px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
           {critical.map(c => (
             <a key={c.id} href={`tel:${c.number.replace(/[\s-]/g, '')}`} style={{
               display: 'flex', alignItems: 'center', gap: 18,
@@ -209,22 +266,24 @@ function EmergencyHub({ onBack }) {
       </section>
 
       {/* CITY SELECTOR */}
-      <section style={{ padding: '32px 0 8px', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>Select your city</div>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      <section style={{ padding: isMobile ? '24px 0 8px' : '32px 0 8px', background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>{t('sos.selectCity', 'Select your city')}</div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', paddingBottom: isMobile ? 8 : 0, scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
             {cities.map(c => {
               const active = city === c.id;
               return (
                 <button key={c.id} onClick={() => setCity(c.id)}
                   aria-pressed={active}
                   style={{
-                    padding: '10px 18px', borderRadius: 999,
+                    padding: isMobile ? '8px 14px' : '10px 18px', borderRadius: 999,
                     border: active ? '1px solid var(--navy-700)' : '1px solid var(--border-strong)',
                     background: active ? 'var(--navy-700)' : '#fff',
                     color: active ? '#fff' : 'var(--fg1)',
-                    fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600,
-                    cursor: 'pointer', transition: 'all 160ms', minHeight: 44,
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 14, fontWeight: 600,
+                    cursor: 'pointer', transition: 'all 160ms', minHeight: isMobile ? 40 : 44,
+                    whiteSpace: isMobile ? 'nowrap' : 'normal',
+                    flexShrink: isMobile ? 0 : 1,
                   }}>{c.label}</button>
               );
             })}
@@ -235,7 +294,7 @@ function EmergencyHub({ onBack }) {
       {/* ALTITUDE CALLOUT — only relevant for high-altitude cities */}
       {altitudeAlts[city] && (
         <section style={{ padding: '20px 0 8px', background: 'var(--bg)' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
             <div style={{
               display: 'flex', gap: 16, padding: '20px 22px',
               background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)',
@@ -246,12 +305,12 @@ function EmergencyHub({ onBack }) {
                 color: 'var(--navy-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
               }}><I.Mountain size={22}/></div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--rust-600)' }}>Altitude red flags — get to lower ground</div>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--rust-600)' }}>{t('sos.redFlags', 'Altitude red flags — get to lower ground')}</div>
                 <p style={{ fontSize: 14, color: 'var(--fg1)', marginTop: 6, lineHeight: 1.55 }}>
-                  Vomiting, blue lips, can't walk straight, persistent headache after 24h. Don't wait it out — descend.
+                  {t('sos.vomiting', "Vomiting, blue lips, can't walk straight, persistent headache after 24h. Don't wait it out — descend.")}
                 </p>
                 <p style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 6 }}>
-                  Nearest lower-altitude town: <strong style={{ color: 'var(--fg1)' }}>{altitudeAlts[city]}</strong>.
+                  {t('sos.nearest', 'Nearest lower-altitude town:')} <strong style={{ color: 'var(--fg1)' }}>{altitudeAlts[city]}</strong>.
                 </p>
               </div>
             </div>
@@ -260,32 +319,34 @@ function EmergencyHub({ onBack }) {
       )}
 
       {/* CATEGORIES */}
-      <section style={{ padding: '40px 0 80px', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20 }}>
-          <CategoryBlock title="Hospitals"           icon={<I.Hospital size={18}/>}  items={dir.hospitals}/>
-          <CategoryBlock title="24-hour pharmacies"  icon={<I.Heart size={18}/>}     items={dir.pharmacies}/>
-          <CategoryBlock title="Embassies"           icon={<I.Flag size={18}/>}      items={dir.embassies}    empty="No consular presence in this city. Nearest in La Paz."/>
-          <CategoryBlock title="Banks · USD exchange" icon={<I.Building size={18}/>} items={dir.banks}/>
-          <CategoryBlock title="Verified taxis"      icon={<I.Route size={18}/>}     items={dir.taxis}/>
-          <CategoryBlock title="Tourist information" icon={<I.Pin size={18}/>}       items={dir.tourist}/>
+      <section style={{ padding: isMobile ? '32px 0 64px' : '40px 0 80px', background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(360px, 1fr))', gap: isMobile ? 16 : 20 }}>
+          <CategoryBlock title={t('sos.cat.hospitals', 'Hospitals')}           icon={<I.Hospital size={18}/>}  items={dir.hospitals} translateNote={translateNote}/>
+          <CategoryBlock title={t('sos.cat.pharmacies', '24-hour pharmacies')}  icon={<I.Heart size={18}/>}     items={dir.pharmacies} translateNote={translateNote}/>
+          <CategoryBlock title={t('sos.cat.embassies', 'Embassies')}           icon={<I.Flag size={18}/>}      items={dir.embassies}    empty={t('sos.cat.embassies.empty', 'No consular presence in this city. Nearest in La Paz.')} translateNote={translateNote}/>
+          <CategoryBlock title={t('sos.cat.banks', 'Banks · USD exchange')} icon={<I.Building size={18}/>} items={dir.banks} translateNote={translateNote}/>
+          <CategoryBlock title={t('sos.cat.taxis', 'Verified taxis')}      icon={<I.Route size={18}/>}     items={dir.taxis} translateNote={translateNote}/>
+          <CategoryBlock title={t('sos.cat.tourist', 'Tourist information')} icon={<I.Pin size={18}/>}       items={dir.tourist} translateNote={translateNote}/>
         </div>
       </section>
 
       {/* FOOTER NOTE */}
-      <section style={{ background: 'var(--stone-50)', padding: '28px 0', borderTop: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
-          display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
+      <section style={{ background: 'var(--stone-50)', padding: isMobile ? '20px 0' : '28px 0', borderTop: '1px solid var(--border)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+          display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', gap: 14, flexDirection: isMobile ? 'column' : 'row',
           fontSize: 13, color: 'var(--fg2)' }}>
           <I.Shield size={16}/>
-          <span>We verify these numbers monthly. Spotted a change? <a href="mailto:hello@boliviainsight.com" style={{ color: 'var(--rust-600)', fontWeight: 700 }}>Email us</a> — we'll update within 48 hours.</span>
+          <span>
+            {t('sos.verifyMonthly', 'We verify these numbers monthly. Spotted a change?')} <a href="mailto:hello@boliviainsight.com" style={{ color: 'var(--rust-600)', fontWeight: 700 }}>{t('sos.emailUs', 'Email us')}</a> {t('sos.updateNotice', "— we'll update within 24-48 hours.")}
+          </span>
         </div>
       </section>
     </div>
   );
 }
 
-function CategoryBlock({ title, icon, items, empty }) {
+function CategoryBlock({ title, icon, items, empty, translateNote }) {
   return (
     <section style={{
       background: '#fff', borderRadius: 16, border: '1px solid var(--border)',
@@ -336,7 +397,7 @@ function CategoryBlock({ title, icon, items, empty }) {
                 </div>
                 <div style={{ display: 'flex', gap: 14, marginTop: 8, fontSize: 12, color: 'var(--fg2)', flexWrap: 'wrap' }}>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><I.Clock size={12}/> {it.hours}</span>
-                  {it.note && <span>· {it.note}</span>}
+                  {it.note && <span>· {translateNote(it.note)}</span>}
                 </div>
               </li>
             );

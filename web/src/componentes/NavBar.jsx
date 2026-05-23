@@ -1,6 +1,9 @@
 function NavBar({ current, onNav, dark, user, onLogout }) {
+  const { t, locale, changeLocale } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [mobileLangOpen, setMobileLangOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
@@ -24,13 +27,25 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
   const onLight = !dark || scrolled;
 
   const items = [
-    { id: 'destinations', label: 'Destinations',  icon: <I.Pin size={16}/> },
-    { id: 'dashboard',    label: 'Live Dashboard', icon: <I.Activity size={16}/>, live: true },
-    { id: 'guides',       label: 'Travel Guide',   icon: <I.Book size={16}/> },
-    { id: 'sos',          label: 'SOS',            icon: <I.Alert size={16}/>, accent: 'rust' },
+    { id: 'destinations', label: t('nav.destinations', 'Destinations'),  icon: <I.Pin size={16}/> },
+    { id: 'dashboard',    label: t('nav.dashboard', 'Live Dashboard'), icon: <I.Activity size={16}/>, live: true },
+    { id: 'guides',       label: t('nav.guides', 'Travel Guide'),   icon: <I.Book size={16}/> },
+    { id: 'sos',          label: t('nav.sos', 'SOS'),            icon: <I.Alert size={16}/>, accent: 'rust' },
   ];
 
   const goto = (id) => { setDrawer(false); onNav(id); };
+
+  const getLangLabel = (code) => {
+    switch (code) {
+      case 'en': return 'EN';
+      case 'es': return 'ES';
+      case 'pt': return 'PT';
+      case 'fr': return 'FR';
+      case 'ja': return 'JA';
+      case 'ko': return 'KO';
+      default: return code.toUpperCase();
+    }
+  };
 
   return (
     <>
@@ -102,13 +117,57 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
           {/* Right cluster */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {!isMobile && (
-              <button aria-label="Language: English" style={{
-                background: 'transparent', border: 0, cursor: 'pointer',
-                color: onLight ? 'var(--navy-700)' : '#fff',
-                padding: '8px 12px', borderRadius: 999,
-                fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
-                display: 'flex', alignItems: 'center', gap: 6,
-              }}><I.Globe size={15}/> EN</button>
+              <div style={{ position: 'relative' }}>
+                <button aria-label="Language Selector" onClick={() => setLangOpen(!langOpen)} style={{
+                  background: 'transparent', border: 0, cursor: 'pointer',
+                  color: onLight ? 'var(--navy-700)' : '#fff',
+                  padding: '8px 12px', borderRadius: 999,
+                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                  display: 'flex', alignItems: 'center', gap: 6,
+                }}>
+                  <I.Globe size={15}/> {getLangLabel(locale)}
+                </button>
+                {langOpen && (
+                  <>
+                    <div onClick={() => setLangOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 90 }} />
+                    <div style={{
+                      position: 'absolute', top: '100%', right: 0, marginTop: 8,
+                      background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(13,18,30,0.92)',
+                      border: scrolled ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.15)',
+                      borderRadius: 14, padding: '6px', minWidth: 160,
+                      boxShadow: 'var(--shadow-lg)', zIndex: 100,
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      display: 'flex', flexDirection: 'column', gap: 2,
+                      animation: 'bi-fade 150ms var(--ease-out)',
+                    }}>
+                      {[
+                        { code: 'en', label: '🇺🇸 English' },
+                        { code: 'es', label: '🇪🇸 Español' },
+                        { code: 'pt', label: '🇧🇷 Português' },
+                        { code: 'fr', label: '🇫🇷 Français' },
+                        { code: 'ja', label: '🇯🇵 日本語' },
+                        { code: 'ko', label: '🇰🇷 한국어' },
+                      ].map(l => (
+                        <button key={l.code} onClick={() => { changeLocale(l.code); setLangOpen(false); }} style={{
+                          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                          width: '100%', textAlign: 'left',
+                          background: locale === l.code ? 'rgba(179,63,46,0.12)' : 'transparent',
+                          border: 0, padding: '8px 12px', borderRadius: 8, cursor: 'pointer',
+                          color: scrolled ? 'var(--navy-700)' : '#fff',
+                          fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                          transition: 'background 120ms',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+                        onMouseLeave={e => e.currentTarget.style.background = locale === l.code ? 'rgba(179,63,46,0.12)' : 'transparent'}>
+                          <span>{l.label}</span>
+                          {locale === l.code && <I.Check size={13} style={{ color: 'var(--amber-400)' }}/>}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
             )}
             {!isMobile && !user && (
               <button aria-label="Sign In" onClick={() => goto('auth')} style={{
@@ -117,7 +176,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
                 padding: '8px 12px', borderRadius: 999,
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
                 display: 'flex', alignItems: 'center', gap: 6,
-              }}>Acceder</button>
+              }}>{t('nav.signIn', 'Acceder')}</button>
             )}
             
             {!isMobile && user && (
@@ -136,36 +195,39 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
                       {user.name?.charAt(0) || 'U'}
                     </div>
                   )}
-                  {user.name ? user.name.split(' ')[0] : 'Perfil'}
+                  {user.name ? user.name.split(' ')[0] : t('nav.profile', 'Perfil')}
                 </button>
                 {profileOpen && (
-                  <div style={{
-                    position: 'absolute', top: '100%', right: 0, marginTop: 8,
-                    background: 'var(--bg)', border: '1px solid var(--border)',
-                    borderRadius: 12, padding: 8, minWidth: 160,
-                    boxShadow: 'var(--shadow-lg)', zIndex: 100,
-                  }}>
-                    <button onClick={() => { setProfileOpen(false); goto('profile'); }} style={{
-                      width: '100%', textAlign: 'left', background: 'transparent', border: 0,
-                      padding: '10px 12px', borderRadius: 8, cursor: 'pointer',
-                      color: 'var(--fg1)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                  <>
+                    <div onClick={() => setProfileOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 90 }} />
+                    <div style={{
+                      position: 'absolute', top: '100%', right: 0, marginTop: 8,
+                      background: 'var(--bg)', border: '1px solid var(--border)',
+                      borderRadius: 12, padding: 8, minWidth: 160,
+                      boxShadow: 'var(--shadow-lg)', zIndex: 100,
                     }}>
-                      Mi Perfil
-                    </button>
-                    <button onClick={() => { setProfileOpen(false); onLogout(); }} style={{
-                      width: '100%', textAlign: 'left', background: 'transparent', border: 0,
-                      padding: '10px 12px', borderRadius: 8, cursor: 'pointer',
-                      color: 'var(--rust-600)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
-                    }}>
-                      Cerrar sesión
-                    </button>
-                  </div>
+                      <button onClick={() => { setProfileOpen(false); goto('profile'); }} style={{
+                        width: '100%', textAlign: 'left', background: 'transparent', border: 0,
+                        padding: '10px 12px', borderRadius: 8, cursor: 'pointer',
+                        color: 'var(--fg1)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                      }}>
+                        {t('nav.profile', 'Mi Perfil')}
+                      </button>
+                      <button onClick={() => { setProfileOpen(false); onLogout(); }} style={{
+                        width: '100%', textAlign: 'left', background: 'transparent', border: 0,
+                        padding: '10px 12px', borderRadius: 8, cursor: 'pointer',
+                        color: 'var(--rust-600)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                      }}>
+                        {t('nav.logout', 'Cerrar sesión')}
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             )}
             {!isMobile && (
               <Btn kind="primary" size="sm" onClick={() => goto('expert')}>
-                Talk to a local <I.ArrowR size={13}/>
+                {t('nav.talkToLocal', 'Talk to a local')} <I.ArrowR size={13}/>
               </Btn>
             )}
             {isMobile && (
@@ -245,26 +307,60 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
 
               <div style={{ height: 1, background: 'var(--border)', margin: '14px 16px' }}/>
 
-              <button style={{
+              <button onClick={() => setMobileLangOpen(!mobileLangOpen)} style={{
                 width: '100%', textAlign: 'left',
                 background: 'transparent', border: 0, cursor: 'pointer',
                 padding: '14px 16px', borderRadius: 12,
                 fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600,
                 color: 'var(--fg2)',
                 display: 'flex', alignItems: 'center', gap: 12, minHeight: 52,
-              }}><I.Globe size={16}/> Language · English</button>
+                justifyContent: 'space-between',
+              }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <I.Globe size={16}/> {t('nav.lang', 'Language · English')}
+                </span>
+                <span style={{ transform: mobileLangOpen ? 'rotate(90deg)' : 'rotate(0)', transition: 'transform 200ms', fontSize: 18, color: 'var(--fg3)' }}>›</span>
+              </button>
+
+              {mobileLangOpen && (
+                <div style={{
+                  padding: '4px 12px 14px 44px',
+                  display: 'flex', flexDirection: 'column', gap: 4,
+                  animation: 'bi-fade 150ms var(--ease-out)',
+                }}>
+                  {[
+                    { code: 'en', label: '🇺🇸 English' },
+                    { code: 'es', label: '🇪🇸 Español' },
+                    { code: 'pt', label: '🇧🇷 Português' },
+                    { code: 'fr', label: '🇫🇷 Français' },
+                    { code: 'ja', label: '🇯🇵 日本語' },
+                    { code: 'ko', label: '🇰🇷 한국어' },
+                  ].map(l => (
+                    <button key={l.code} onClick={() => { changeLocale(l.code); setDrawer(false); setMobileLangOpen(false); }} style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      width: '100%', textAlign: 'left', background: locale === l.code ? 'rgba(27, 42, 65, 0.08)' : 'transparent',
+                      border: 0, padding: '10px 14px', borderRadius: 8, cursor: 'pointer',
+                      color: locale === l.code ? 'var(--rust-600)' : 'var(--fg1)',
+                      fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600,
+                    }}>
+                      <span>{l.label}</span>
+                      {locale === l.code && <I.Check size={14} style={{ color: 'var(--rust-500)' }}/>}
+                    </button>
+                  ))}
+                </div>
+              )}
             </nav>
 
             <div style={{ padding: 16, borderTop: '1px solid var(--border)' }}>
               <Btn kind="primary" size="lg" style={{ width: '100%', justifyContent: 'center', marginBottom: 12 }}
                 onClick={() => goto('expert')}>
-                Talk to a local <I.ArrowR size={15}/>
+                {t('nav.talkToLocal', 'Talk to a local')} <I.ArrowR size={15}/>
               </Btn>
               
               {!user ? (
                 <Btn kind="secondary" size="lg" style={{ width: '100%', justifyContent: 'center' }}
                   onClick={() => goto('auth')}>
-                  Acceder al Portal
+                  {t('nav.signIn', 'Acceder al Portal')}
                 </Btn>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -274,12 +370,12 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
                   </div>
                   <Btn kind="secondary" size="lg" style={{ width: '100%', justifyContent: 'center', color: 'var(--rust-600)' }}
                     onClick={() => { onLogout(); setDrawer(false); }}>
-                    Cerrar sesión
+                    {t('nav.logout', 'Cerrar sesión')}
                   </Btn>
                 </div>
               )}
               <p style={{ margin: '10px 0 0', fontSize: 11, color: 'var(--fg3)', textAlign: 'center', letterSpacing: 0.3 }}>
-                15-min call from $12 · Resident experts
+                {t('nav.drawerFooter', '15-min call from $12 · Resident experts')}
               </p>
             </div>
           </aside>
@@ -315,3 +411,4 @@ function LivePulse({ onLight }) {
 }
 
 window.NavBar = NavBar;
+

@@ -20,73 +20,137 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
 
 /* ===================== Compañero triptych ===================== */
 function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
+  const { t } = useI18n();
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 768;
+
   const tools = [
     {
       n: '01',
-      eyebrow: 'Tool 01 · Logistics',
-      title: 'Live Dashboard',
-      desc: 'Roads, cable car, weather, alerts — the things that change while you\'re on the road. One screen, refreshed every five minutes.',
-      cta: 'Open the dashboard',
+      eyebrow: t('companion.tool1Eyebrow', 'Tool 01 · Logistics'),
+      title: t('companion.tool1Title', 'Live Dashboard'),
+      desc: t('companion.tool1Desc', "Roads, cable car, weather, alerts — the things that change while you're on the road. One screen, refreshed every five minutes."),
+      cta: t('companion.tool1Cta', 'Open the dashboard'),
       onClick: onDashboard,
       preview: <DashboardPreview/>,
     },
     {
       n: '02',
-      eyebrow: 'Tool 02 · Language',
-      title: 'Cultural Dictionary',
-      desc: 'Bolivian-Spanish, Aymara, and Quechua words travelers actually hear — said by people who use them every day.',
-      cta: 'Open the dictionary',
+      eyebrow: t('companion.tool2Eyebrow', 'Tool 02 · Language'),
+      title: t('companion.tool2Title', 'Cultural Dictionary'),
+      desc: t('companion.tool2Desc', 'Bolivian-Spanish, Aymara, and Quechua words travelers actually hear — said by people who use them every day.'),
+      cta: t('companion.tool2Cta', 'Open the dictionary'),
       onClick: onDictionary,
       preview: <DictionaryPreview/>,
     },
     {
       n: '03',
-      eyebrow: 'Tool 03 · Safety',
-      title: 'Emergency SOS Hub',
-      desc: 'Numbers, hospitals, embassies, verified taxis — by city. Designed to load fast on a bad connection at the worst moment.',
-      cta: 'Open the SOS hub',
+      eyebrow: t('companion.tool3Eyebrow', 'Tool 03 · Safety'),
+      title: t('companion.tool3Title', 'Emergency SOS Hub'),
+      desc: t('companion.tool3Desc', 'Numbers, hospitals, embassies, verified taxis — by city. Designed to load fast on a bad connection at the worst moment.'),
+      cta: t('companion.tool3Cta', 'Open the SOS hub'),
       onClick: onSos,
       preview: <SosPreview/>,
     },
   ];
+
+  const formatTriptychTitle = (text) => {
+    const parts = text.split(/[\[\]]/);
+    if (parts.length === 3) {
+      return (
+        <>
+          {parts[0]}
+          <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--rust-500)' }}>{parts[1]}</em>
+          {parts[2]}
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
-    <section style={{ background: 'var(--bg)', padding: '120px 0' }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-        <div style={{ maxWidth: 760, marginBottom: 56 }}>
-          <div className="eyebrow" style={{ marginBottom: 12 }}>The Compañero · daily-use tools</div>
-          <h2 style={{ margin: 0, fontSize: 'clamp(36px,4vw,56px)', lineHeight: 1.04, fontFamily: 'var(--font-display)', fontWeight: 600, letterSpacing: '-0.02em' }}>
-            Three tools you'll open <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--rust-500)' }}>every morning.</em>
+    <section style={{ background: 'var(--bg)', padding: isMobile ? '72px 0 56px' : '120px 0' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
+        <div style={{ maxWidth: 760, marginBottom: isMobile ? 32 : 56 }}>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>{t('companion.eyebrow', 'The Compañero · daily-use tools')}</div>
+          <h2 style={{
+            margin: 0,
+            fontSize: isMobile ? 'clamp(28px,8vw,40px)' : 'clamp(36px,4vw,56px)',
+            lineHeight: 1.04, fontFamily: 'var(--font-display)', fontWeight: 600, letterSpacing: '-0.02em',
+          }}>
+            {formatTriptychTitle(t('companion.title', "Three tools you'll open [every morning]."))}
           </h2>
-          <p style={{ fontSize: 18, color: 'var(--fg2)', marginTop: 16, maxWidth: 600, lineHeight: 1.6 }}>
-            Free, no login, no commission. The Premium 1-to-1 advisory pays for them — so we can keep these honest.
-          </p>
+          {!isMobile && (
+            <p style={{ fontSize: 18, color: 'var(--fg2)', marginTop: 16, maxWidth: 600, lineHeight: 1.6 }}>
+              {t('companion.desc', 'Free, no login, no commission. The Premium 1-to-1 advisory pays for them — so we can keep these honest.')}
+            </p>
+          )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
-          {tools.map(t => (
-            <button key={t.n} onClick={t.onClick} style={{
-              background: '#fff', border: '1px solid var(--border)', borderRadius: 18,
+        {/* Cards: 1-col mobile, auto-fit tablet+desktop */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: isMobile ? 14 : 20,
+        }}>
+          {tools.map(tool => (
+            <button key={tool.n} onClick={tool.onClick} style={{
+              background: '#fff', border: '1px solid var(--border)', borderRadius: isMobile ? 14 : 18,
               padding: 0, cursor: 'pointer', textAlign: 'left',
-              boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column',
+              boxShadow: 'var(--shadow-sm)', display: 'flex',
+              flexDirection: isMobile ? 'row' : 'column',
               transition: 'transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out)',
               overflow: 'hidden',
+              alignItems: isMobile ? 'center' : 'stretch',
             }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}>
+
+              {/* Preview area: full-width on desktop, compact square on mobile */}
               <div style={{
-                height: 200, background: 'var(--stone-25)',
-                borderBottom: '1px solid var(--border)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden',
-              }}>{t.preview}</div>
-              <div style={{ padding: '24px 26px 26px' }}>
-                <div className="eyebrow" style={{ marginBottom: 8 }}>{t.eyebrow}</div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: 0, fontWeight: 500, lineHeight: 1.1 }}>{t.title}</h3>
-                <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.6, margin: '12px 0 18px' }}>{t.desc}</p>
+                width: isMobile ? 80 : '100%',
+                height: isMobile ? 80 : 200,
+                minWidth: isMobile ? 80 : undefined,
+                background: 'var(--stone-25)',
+                borderBottom: isMobile ? 0 : '1px solid var(--border)',
+                borderRight: isMobile ? '1px solid var(--border)' : 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                position: 'relative', overflow: 'hidden',
+                flexShrink: 0,
+              }}>
+                {/* On mobile just show tool number as big glyph */}
+                {isMobile ? (
+                  <span style={{
+                    fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 500,
+                    color: 'var(--rust-500)', opacity: 0.7,
+                  }}>{tool.n}</span>
+                ) : tool.preview}
+              </div>
+
+              {/* Text content */}
+              <div style={{ padding: isMobile ? '14px 16px' : '24px 26px 26px', flex: 1 }}>
+                <div className="eyebrow" style={{ marginBottom: 6 }}>{tool.eyebrow}</div>
+                <h3 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: isMobile ? 18 : 28,
+                  margin: 0, fontWeight: 500, lineHeight: 1.1,
+                }}>{tool.title}</h3>
+                {!isMobile && (
+                  <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.6, margin: '12px 0 18px' }}>{tool.desc}</p>
+                )}
                 <span style={{
                   display: 'inline-flex', alignItems: 'center', gap: 6,
                   fontSize: 13, fontWeight: 700, color: 'var(--rust-500)',
                   letterSpacing: 0.2,
-                }}>{t.cta} <I.ArrowR size={13}/></span>
+                  marginTop: isMobile ? 6 : 0,
+                }}>{tool.cta} <I.ArrowR size={13}/></span>
               </div>
             </button>
           ))}
@@ -175,56 +239,90 @@ function SosPreview() {
 
 /* ===================== Booking band (pre-footer) ===================== */
 function BookingBand({ onExpert }) {
+  const { t } = useI18n();
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 768;
+
   const experts = [
     { initials: 'CV', color: 'var(--rust-500)' },
     { initials: 'MR', color: 'var(--mystic-700)' },
     { initials: 'LM', color: 'var(--amber-600)' },
     { initials: 'DV', color: 'var(--green-500)' },
   ];
+
+  const formatBookingTitle = (text) => {
+    const parts = text.split(/[\[\]]/);
+    if (parts.length === 3) {
+      return (
+        <>
+          {parts[0]}
+          <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>{parts[1]}</em>
+          {parts[2]}
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
     <section style={{
       background: 'linear-gradient(135deg, var(--navy-700) 0%, var(--mystic-700) 100%)',
-      color: '#fff', padding: '96px 0', position: 'relative', overflow: 'hidden',
+      color: '#fff', padding: isMobile ? '64px 0' : '96px 0', position: 'relative', overflow: 'hidden',
     }}>
       <div style={{
         position: 'absolute', top: -80, right: -80, width: 360, height: 360, borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(255,183,3,0.14) 0%, transparent 70%)', pointerEvents: 'none',
       }}/>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
-        display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 60, alignItems: 'center', position: 'relative' }} className="bi-booking-grid">
+      <div style={{
+        maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr',
+        gap: isMobile ? 36 : 60,
+        alignItems: 'center', position: 'relative',
+      }}>
+        {/* Left: headline + stats */}
         <div>
-          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 14 }}>Premium 1-to-1 advisory · From $12</div>
+          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 14 }}>{t('booking.eyebrow', 'Premium 1-to-1 advisory · From $12')}</div>
           <h2 style={{
-            fontFamily: 'var(--font-display)', fontSize: 'clamp(36px,5vw,68px)', margin: 0,
-            fontWeight: 600, lineHeight: 0.98, letterSpacing: '-0.03em', color: '#fff',
+            fontFamily: 'var(--font-display)',
+            fontSize: isMobile ? 'clamp(28px,8vw,44px)' : 'clamp(36px,5vw,68px)',
+            margin: 0, fontWeight: 600, lineHeight: 0.98, letterSpacing: '-0.03em', color: '#fff',
           }}>
-            When the data and the dictionary run out — <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>talk to a person who walks the route.</em>
+            {formatBookingTitle(t('booking.title', 'When the data and the dictionary run out — [talk to a person who walks the route].'))}
           </h2>
-          <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.82)', marginTop: 22, maxWidth: 580, lineHeight: 1.55 }}>
-            Fifteen or thirty minutes by video with a resident writer. They audit your itinerary, optimize routes, and answer the questions no app can.
+          <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.82)', marginTop: 18, maxWidth: 580, lineHeight: 1.55 }}>
+            {t('booking.desc', 'Fifteen or thirty minutes by video with a resident writer. They audit your itinerary, optimize routes, and answer the questions no app can.')}
           </p>
-          <div style={{ display: 'flex', gap: 28, marginTop: 32, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: isMobile ? 20 : 28, marginTop: 28, flexWrap: 'wrap' }}>
             {[
-              { k: '4',     v: 'Local experts' },
-              { k: '~24h',  v: 'Avg confirm' },
-              { k: '4.9',   v: 'Avg rating · 887 calls' },
+              { k: t('booking.stat1Key', '4'),     v: t('booking.stat1Val', 'Local experts') },
+              { k: t('booking.stat2Key', '~24h'),  v: t('booking.stat2Val', 'Avg confirm') },
+              { k: t('booking.stat3Key', '4.9'),   v: t('booking.stat3Val', 'Avg rating · 887 calls') },
             ].map(s => (
               <div key={s.k}>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 24 : 30, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
                 <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 4 }}>{s.v}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 22 }}>
+        {/* Right: avatars + CTA */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'flex-start', gap: 22 }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {experts.map((e, i) => (
               <div key={i} style={{
-                width: 60, height: 60, borderRadius: '50%', background: e.color,
+                width: isMobile ? 48 : 60, height: isMobile ? 48 : 60, borderRadius: '50%', background: e.color,
                 color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 700, fontSize: 16,
-                border: '3px solid var(--navy-700)', marginLeft: i === 0 ? 0 : -16,
+                fontWeight: 700, fontSize: isMobile ? 13 : 16,
+                border: '3px solid var(--navy-700)', marginLeft: i === 0 ? 0 : -14,
                 boxShadow: '0 4px 14px -4px rgba(0,0,0,0.4)',
                 fontFamily: 'var(--font-sans)',
               }}>{e.initials}</div>
@@ -235,89 +333,126 @@ function BookingBand({ onExpert }) {
               fontSize: 12, fontWeight: 700, letterSpacing: 0.3,
             }}>From $12 · 15 min</div>
           </div>
-          <Btn kind="amber" size="lg" onClick={onExpert} style={{ alignSelf: 'flex-start' }}>
-            Book a 15-min call <I.ArrowR size={15}/>
+          <Btn kind="amber" size={isMobile ? 'md' : 'lg'} onClick={onExpert} style={{ alignSelf: 'flex-start' }}>
+            {t('booking.btn', 'Book a 15-min call')} <I.ArrowR size={15}/>
           </Btn>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', maxWidth: 320, lineHeight: 1.5, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
-            STRIPE CHECKOUT · REFUNDABLE 12H BEFORE · GOOGLE MEET LINK ARRIVES 1H BEFORE
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', maxWidth: 320, lineHeight: 1.5, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
+            {t('booking.note', 'STRIPE CHECKOUT · REFUNDABLE 12H BEFORE · GOOGLE MEET LINK ARRIVES 1H BEFORE')}
           </p>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 880px) {
-          .bi-booking-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }
 
 /* ===================== Footer ===================== */
 function Footer({ onNav }) {
+  const { t } = useI18n();
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [openCol, setOpenCol] = React.useState(null); // mobile accordion
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 640;
+
   const cols = [
-    { h: 'Explore',   l: [
-      { t: 'Destinations',     id: 'destinations' },
-      { t: 'Suggested routes', id: 'destinations' },
-      { t: 'What to do',       id: 'destinations' },
-      { t: 'Festivals & events', id: 'destinations' },
+    { h: t('footer.explore', 'Explore'),   l: [
+      { t: t('nav.destinations', 'Destinations'),              id: 'destinations' },
+      { t: t('footer.suggestedRoutes', 'Suggested routes'),    id: 'destinations' },
+      { t: t('footer.whatToDo', 'What to do'),                 id: 'destinations' },
+      { t: t('footer.festivalsEvents', 'Festivals & events'),  id: 'destinations' },
     ]},
-    { h: 'Tools',     l: [
-      { t: 'Live Dashboard',     id: 'dashboard' },
-      { t: 'Cultural Dictionary', id: 'dictionary' },
-      { t: 'Travel Guide',       id: 'guides' },
-      { t: 'Emergency Hub',      id: 'sos' },
+    { h: t('footer.tools', 'Tools'),     l: [
+      { t: t('nav.dashboard', 'Live Dashboard'),               id: 'dashboard' },
+      { t: t('nav.dictionary', 'Cultural Dictionary'),         id: 'dictionary' },
+      { t: t('nav.guides', 'Travel Guide'),                    id: 'guides' },
+      { t: t('nav.sos', 'Emergency Hub'),                      id: 'sos' },
     ]},
-    { h: 'Get help',  l: [
-      { t: 'Talk to a local · $12', id: 'expert' },
-      { t: 'AI concierge',          id: 'expert' },
-      { t: 'Contact',               id: 'expert' },
-      { t: 'Sources',               id: 'expert' },
+    { h: t('footer.getHelp', 'Get help'),  l: [
+      { t: t('footer.talkToLocal', 'Talk to a local · $12'),   id: 'expert' },
+      { t: t('footer.aiConcierge', 'AI concierge'),            id: 'expert' },
+      { t: t('footer.contact', 'Contact'),                     id: 'expert' },
+      { t: t('footer.sources', 'Sources'),                     id: 'expert' },
     ]},
   ];
+
   return (
-    <footer style={{ background: 'var(--navy-800)', color: 'rgba(255,255,255,0.7)', padding: '72px 0 36px' }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
-        display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40 }} className="bi-footer-grid">
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 32, filter: 'brightness(0) invert(1)' }}/>
-            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--rust-300)' }}>Bolivia<span style={{ color: 'var(--amber-400)', fontWeight: 600 }}>Insight</span></span>
+    <footer style={{ background: 'var(--navy-800)', color: 'rgba(255,255,255,0.7)', padding: isMobile ? '52px 0 28px' : '72px 0 36px' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
+
+        {/* Brand block — always full width on top in mobile */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr 1fr 1fr',
+          gap: isMobile ? 0 : 40,
+        }}>
+          {/* Brand */}
+          <div style={{ marginBottom: isMobile ? 32 : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 32, filter: 'brightness(0) invert(1)' }}/>
+              <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--rust-300)' }}>Bolivia<span style={{ color: 'var(--amber-400)', fontWeight: 600 }}>Insight</span></span>
+            </div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, maxWidth: 380, margin: 0 }}>
+              {t('footer.desc', 'An independent travel guide to Bolivia, written by people who live here. No bookings, no commission — just honest field notes for travelers exploring on their own terms.')}
+            </p>
+            <div style={{ marginTop: 18, fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: 0.4, opacity: 0.5 }}>LA PAZ · SUCRE · UYUNI</div>
           </div>
-          <p style={{ fontSize: 14, lineHeight: 1.6, maxWidth: 380 }}>
-            An independent travel guide to Bolivia, written by people who live here. No bookings, no commission — just honest field notes for travelers exploring on their own terms.
-          </p>
-          <div style={{ marginTop: 18, fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: 0.4, opacity: 0.5 }}>LA PAZ · SUCRE · UYUNI</div>
+
+          {/* Link columns — accordion on mobile, plain list on desktop */}
+          {cols.map((col, ci) => (
+            <div key={col.h} style={{ borderTop: isMobile ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
+              <button
+                onClick={() => isMobile ? setOpenCol(openCol === ci ? null : ci) : undefined}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%',
+                  background: 'transparent', border: 0, cursor: isMobile ? 'pointer' : 'default',
+                  padding: isMobile ? '14px 0' : '0 0 14px',
+                  color: 'var(--amber-400)',
+                  fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase',
+                  fontFamily: 'var(--font-sans)',
+                }}>
+                {col.h}
+                {isMobile && (
+                  <span style={{ fontSize: 18, opacity: 0.5, transform: openCol === ci ? 'rotate(90deg)' : 'none', transition: 'transform 200ms' }}>›</span>
+                )}
+              </button>
+
+              {/* Links: always visible on desktop, collapsible on mobile */}
+              {(!isMobile || openCol === ci) && (
+                <div style={{ paddingBottom: isMobile ? 14 : 0 }}>
+                  {col.l.map(x => (
+                    <button key={x.t} onClick={() => onNav?.(x.id)} style={{
+                      display: 'block', width: '100%', textAlign: 'left',
+                      background: 'transparent', border: 0, cursor: 'pointer',
+                      color: 'inherit', fontFamily: 'var(--font-sans)',
+                      fontSize: 14, padding: '6px 0',
+                    }}>{x.t}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-        {cols.map(col => (
-          <div key={col.h}>
-            <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--amber-400)', letterSpacing: 0.4, textTransform: 'uppercase', marginBottom: 14 }}>{col.h}</div>
-            {col.l.map(x => (
-              <button key={x.t} onClick={() => onNav?.(x.id)} style={{
-                display: 'block', width: '100%', textAlign: 'left',
-                background: 'transparent', border: 0, cursor: 'pointer',
-                color: 'inherit', fontFamily: 'var(--font-sans)',
-                fontSize: 14, padding: '6px 0',
-              }}>{x.t}</button>
-            ))}
-          </div>
-        ))}
       </div>
+
+      {/* Bottom bar */}
       <div style={{
-        maxWidth: 1400, margin: '40px auto 0', padding: '24px 32px 0',
+        maxWidth: 1400, margin: '32px auto 0', padding: isMobile ? '20px 20px 0' : '24px 32px 0',
         borderTop: '1px solid rgba(255,255,255,0.1)',
-        display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.5, flexWrap: 'wrap', gap: 12,
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        justifyContent: 'space-between',
+        fontSize: 12, opacity: 0.5,
+        gap: isMobile ? 6 : 12,
+        textAlign: isMobile ? 'center' : 'left',
       }}>
         <div>© 2026 Bolivia Insight S.R.L. · La Paz, Bolivia</div>
-        <div>Privacy · Terms · Cookies</div>
+        <div>{t('footer.privacy', 'Privacy · Terms · Cookies')}</div>
       </div>
-      <style>{`
-        @media (max-width: 880px) {
-          .bi-footer-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 540px) {
-          .bi-footer-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   );
 }

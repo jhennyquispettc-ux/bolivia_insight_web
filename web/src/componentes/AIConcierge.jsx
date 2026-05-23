@@ -6,6 +6,15 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
   const [input, setInput] = useState('');
   const [visible, setVisible] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
+  const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 640;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 200);
@@ -77,8 +86,8 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
     <>
       {/* Bubble */}
       <button onClick={onToggle} aria-label="Open AI concierge" style={{
-        position: 'fixed', right: 28, bottom: 28, zIndex: 80,
-        width: expanded ? 64 : 64, height: 64, borderRadius: 999,
+        position: 'fixed', right: isMobile ? 20 : 28, bottom: isMobile ? 20 : 28, zIndex: 80,
+        width: 64, height: 64, borderRadius: 999,
         background: 'var(--navy-600)',
         color: '#fff', border: 0, cursor: 'pointer',
         boxShadow: '0 12px 32px -8px rgba(27,42,65,0.5), 0 0 0 6px rgba(255,183,3,0.18)',
@@ -99,15 +108,21 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
       {/* Popover */}
       {expanded && (
         <div style={{
-          position: 'fixed', right: 28, bottom: 104, zIndex: 79,
-          width: 380, height: 520,
+          position: 'fixed',
+          right: isMobile ? 12 : 28,
+          bottom: isMobile ? 96 : 104,
+          left: isMobile ? 12 : 'auto',
+          zIndex: 79,
+          width: isMobile ? 'auto' : 380,
+          height: isMobile ? 'calc(100vh - 120px)' : 520,
+          maxHeight: 600,
           background: 'rgba(255,255,255,0.97)',
           backdropFilter: 'blur(20px)',
           borderRadius: 20,
           boxShadow: 'var(--shadow-xl)',
           border: '1px solid var(--border)',
           display: 'flex', flexDirection: 'column',
-          transformOrigin: 'bottom right',
+          transformOrigin: isMobile ? 'bottom center' : 'bottom right',
           animation: 'bi-grow 220ms var(--ease-spring)',
         }}>
           {/* Header */}
@@ -117,6 +132,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             color: '#fff',
             borderRadius: '20px 20px 0 0',
             display: 'flex', alignItems: 'center', gap: 12,
+            flexShrink: 0,
           }}>
             <div style={{
               width: 40, height: 40, borderRadius: 999,
@@ -137,7 +153,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             {messages.map((m, i) => (
               <div key={i} style={{
                 alignSelf: m.from === 'ai' ? 'flex-start' : 'flex-end',
-                maxWidth: '82%',
+                maxWidth: isMobile ? '90%' : '82%',
                 display: 'flex', flexDirection: 'column', gap: 8
               }}>
                 <div style={{
@@ -147,6 +163,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
                   fontSize: 14, lineHeight: 1.45,
                   border: m.from === 'ai' ? '1px solid var(--border)' : 0,
                   boxShadow: 'var(--shadow-xs)',
+                  whiteSpace: 'pre-wrap',
                 }}>{m.text}</div>
                 
                 {m.isCTA && (
@@ -177,7 +194,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
           </div>
 
           {/* Input */}
-          <div style={{ padding: 14, borderTop: '1px solid var(--border)', background: '#fff', borderRadius: '0 0 20px 20px' }}>
+          <div style={{ padding: 14, borderTop: '1px solid var(--border)', background: '#fff', borderRadius: '0 0 20px 20px', flexShrink: 0 }}>
             <div style={{ 
               display: 'flex', alignItems: 'center', gap: 8, padding: '6px 6px 6px 14px', 
               background: limitReached ? 'var(--stone-100)' : 'var(--stone-50)', 
@@ -185,20 +202,22 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             }}>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && send()}
                 disabled={limitReached}
-                placeholder={limitReached ? "Límite de mensajes alcanzado" : "Ask Ayni…"} style={{
+                placeholder={limitReached ? "Límite de mensajes" : "Ask Ayni…"} style={{
                 flex: 1, border: 0, background: 'transparent', outline: 'none',
                 fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
-                cursor: limitReached ? 'not-allowed' : 'text'
+                cursor: limitReached ? 'not-allowed' : 'text',
+                minWidth: 0,
               }}/>
               <button onClick={send} disabled={limitReached} style={{
                 width: 36, height: 36, borderRadius: 999,
                 background: limitReached ? 'var(--stone-300)' : 'var(--rust-500)', 
                 color: '#fff', border: 0, cursor: limitReached ? 'not-allowed' : 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
               }}><I.Send size={15}/></button>
             </div>
             <div style={{ fontSize: 10, color: 'var(--fg3)', marginTop: 8, textAlign: 'center', letterSpacing: 0.3 }}>
-              {limitReached ? "Habla con un experto para continuar la aventura" : "AI suggestions · cross-checked against our local writers' field notes"}
+              {limitReached ? "Habla con un experto" : "AI suggestions"}
             </div>
           </div>
         </div>
