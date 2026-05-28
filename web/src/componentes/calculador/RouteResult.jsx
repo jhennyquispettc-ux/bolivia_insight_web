@@ -1,6 +1,6 @@
 import React from 'react';
 import { useI18n } from '../../data/translations.jsx';
-import { MODE_COLORS, TELEFERICO_COLORS, CATEGORY_META, formatDuration } from '../../calculador/api.js';
+
 import Btn from '../../ui/Boton.jsx';
 import I from '../../ui/iconos.jsx';
 
@@ -10,6 +10,39 @@ function modeIcon(mode) {
   if (mode === 'taxi')       return <I.Route size={13}/>;
   return <I.ArrowR size={13}/>;
 }
+
+const CATEGORY_META = {
+  attraction:  { emoji: '🏛️', color: '#1a73e8' },
+  nature:      { emoji: '🏞️', color: '#2e9d4a' },
+  viewpoint:   { emoji: '🔭', color: '#16a34a' },
+  restaurant:  { emoji: '🍽️', color: '#e87722' },
+  plaza:       { emoji: '⛲', color: '#0d9488' },
+  station:     { emoji: '🚡', color: '#dc2626' },
+  airport:     { emoji: '✈️', color: '#4f46e5' },
+  reference:   { emoji: '📍', color: '#64748b' },
+};
+
+const TELEFERICO_COLORS = {
+  Roja: '#E31837', Amarilla: '#FFD100', Verde: '#009640',
+  Azul: '#0055A5', Celeste: '#00A1E4', Naranja: '#FF7F00',
+  Blanca: '#FFFFFF', Cafe: '#7A411B', Morada: '#6C217E', Plateada: '#A0A0A0',
+};
+
+const MODE_COLORS = {
+  caminata:   '#334155',
+  teleferico: '#d22d2d',
+  taxi:       '#2266dd',
+};
+
+function formatDuration(minutes) {
+  if (minutes < 1) return '0 min';
+  const h = Math.floor(minutes / 60);
+  const m = Math.round(minutes % 60);
+  if (h === 0) return `${m} min`;
+  if (m === 0) return `${h} h`;
+  return `${h} h ${m} min`;
+}
+
 
 function ModeChip({ mode, line }) {
   const color = (mode === 'teleferico' && line) ? (TELEFERICO_COLORS[line] || MODE_COLORS.teleferico) : (MODE_COLORS[mode] || '#888');

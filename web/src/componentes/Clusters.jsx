@@ -1,4 +1,3 @@
-/* Bolivia Insight — Cluster cards (4 large interactive) */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import { CLUSTERS } from '../data/destinos.jsx';
@@ -19,7 +18,7 @@ function Clusters({ onSelect }) {
   const isMobile = vw < 768;
   const isTablet = vw >= 768 && vw < 1024;
 
-  // Grid columns: 4 on desktop, 2 on tablet, 1 on mobile
+  
   const gridCols = isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)';
   const cardHeight = isMobile ? 220 : isTablet ? 360 : 460;
 
@@ -27,7 +26,7 @@ function Clusters({ onSelect }) {
     <section style={{ background: 'var(--bg)', padding: isMobile ? '72px 0 56px' : '120px 0 80px' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
 
-        {/* Header row */}
+        {}
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'flex-end',
           marginBottom: isMobile ? 28 : 48,
@@ -48,7 +47,7 @@ function Clusters({ onSelect }) {
           <Btn kind="ghost">{t('clusters.viewAll', 'View all destinations')} <I.ArrowR size={15}/></Btn>
         </div>
 
-        {/* Cards grid */}
+        {}
         <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? 12 : 18 }}>
           {CLUSTERS.map((c, i) => (
             <article key={c.id}
@@ -64,7 +63,7 @@ function Clusters({ onSelect }) {
                 transition: 'all 320ms var(--ease-out)',
               }}>
 
-              {/* Background image */}
+              {}
               <div style={{
                 position: 'absolute', inset: 0,
                 backgroundImage: c.img,
@@ -74,7 +73,7 @@ function Clusters({ onSelect }) {
                 transition: 'transform 700ms var(--ease-out)',
               }}/>
 
-              {/* Glyph silhouette — hidden on mobile */}
+              {}
               {!isMobile && (
                 <div style={{
                   position: 'absolute', top: -40, right: -40,
@@ -88,7 +87,7 @@ function Clusters({ onSelect }) {
                 </div>
               )}
 
-              {/* Gradient overlay */}
+              {}
               <div style={{
                 position: 'absolute', inset: 0,
                 background: isMobile
@@ -96,7 +95,7 @@ function Clusters({ onSelect }) {
                   : 'linear-gradient(180deg, rgba(13,18,30,0.15) 0%, rgba(13,18,30,0.0) 35%, rgba(13,18,30,0.55) 70%, rgba(13,18,30,0.92) 100%)',
               }}/>
 
-              {/* Glyph chip */}
+              {}
               <div style={{
                 position: 'absolute', top: isMobile ? 12 : 18, left: isMobile ? 12 : 18,
                 width: isMobile ? 38 : 52, height: isMobile ? 38 : 52, borderRadius: isMobile ? 10 : 14,
@@ -107,7 +106,7 @@ function Clusters({ onSelect }) {
                 {React.cloneElement(c.glyph, { size: isMobile ? 18 : 28 })}
               </div>
 
-              {/* Count badge — hidden on mobile */}
+              {}
               {!isMobile && (
                 <div style={{
                   position: 'absolute', top: 22, right: 18,
@@ -120,7 +119,7 @@ function Clusters({ onSelect }) {
                 }}>{c.count} {t('clusters.routes', 'routes')}</div>
               )}
 
-              {/* Hover highlights panel — desktop only */}
+              {}
               {!isMobile && (
                 <div style={{
                   position: 'absolute', top: 80, right: 18,
@@ -147,7 +146,7 @@ function Clusters({ onSelect }) {
                 </div>
               )}
 
-              {/* Body */}
+              {}
               <div style={{
                 position: 'absolute',
                 left: isMobile ? 12 : 22,
@@ -170,7 +169,7 @@ function Clusters({ onSelect }) {
                   {t('cluster.' + c.id + '.sub', c.sub)}
                 </div>
 
-                {/* Tourist info row — hidden on mobile */}
+                {}
                 {!isMobile && (
                   <div style={{
                     display: 'flex', flexWrap: 'wrap', gap: '6px 14px',

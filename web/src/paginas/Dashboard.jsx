@@ -1,6 +1,3 @@
-/* Bolivia Insight — Live Dashboard
-   Real-time logistics: ABC roads, Mi Teleférico, weather grid, alerts feed.
-   Mock data shaped to match a backend API later. */
 import React from 'react';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
@@ -42,7 +39,7 @@ function Dashboard({ onBack, onExpert }) {
   ];
 
   const [roads, setRoads] = React.useState([
-    // Altiplano & Salar
+    
     { code: 'RN-1',  name: 'La Paz → Oruro',          depts: ['LA PAZ', 'ORURO'],        region: 'altiplano', ok: true, note: 'Loading...', km: 230 },
     { code: 'RN-1',  name: 'Oruro → Potosí',          depts: ['ORURO', 'POTOSI'],        region: 'altiplano', ok: true, note: 'Loading...', km: 312 },
     { code: 'RN-30', name: 'Oruro → Uyuni',           depts: ['ORURO', 'POTOSI'],        region: 'altiplano', ok: true, note: 'Loading...', km: 314 },
@@ -50,12 +47,12 @@ function Dashboard({ onBack, onExpert }) {
     { code: 'RN-2',  name: 'La Paz → Copacabana',     depts: ['LA PAZ'],                 region: 'altiplano', ok: true, note: 'Loading...', km: 158 },
     { code: 'RN-1',  name: 'La Paz → Tiwanaku',       depts: ['LA PAZ'],                 region: 'altiplano', ok: true, note: 'Loading...', km: 72 },
     
-    // Valles Centrales
+    
     { code: 'RN-5',  name: 'Sucre → Potosí',          depts: ['CHUQUISACA', 'POTOSI'],   region: 'valles',    ok: true, note: 'Loading...', km: 156 },
     { code: 'RN-4',  name: 'Cochabamba → Santa Cruz', depts: ['COCHABAMBA', 'SANTA CRUZ'], region: 'valles',    ok: true, note: 'Loading...', km: 473 },
     { code: 'RN-4',  name: 'Oruro → Cochabamba',      depts: ['ORURO', 'COCHABAMBA'],    region: 'valles',    ok: true, note: 'Loading...', km: 212 },
 
-    // Amazonía & Yungas
+    
     { code: 'RN-3',  name: 'La Paz → Coroico',        depts: ['LA PAZ'],                 region: 'yungas',    ok: true, note: 'Loading...', km: 96 },
     { code: 'RN-3',  name: 'La Paz → Rurrenabaque',   depts: ['LA PAZ', 'BENI'],         region: 'oriente',   ok: true, note: 'Loading...', km: 422 },
     { code: 'RN-9',  name: 'Santa Cruz → Trinidad',   depts: ['SANTA CRUZ', 'BENI'],     region: 'oriente',   ok: true, note: 'Loading...', km: 543 },
@@ -67,9 +64,9 @@ function Dashboard({ onBack, onExpert }) {
         const res = await fetch('https://transitabilidad.abc.gob.bo/api/v1/data');
         const apiData = await res.json();
 
-        // Spanish → English — exact terms observed in live ABC API (47 records audited 2026-05-09)
+        
         const abcEN = {
-          // Most frequent (estado)
+          
           'TRANSITABLE CON PRECAUCIÓN':          'Passable with caution',
           'TRANSITABLE CON PRECAUCION':          'Passable with caution',
           'NO TRANSITABLE POR CONFLICTOS SOCIALES': 'Blocked — social conflict',
@@ -77,14 +74,14 @@ function Dashboard({ onBack, onExpert }) {
           'BLOQUEO POR MOTIVOS SOCIALES':        'Blocked — social protest',
           'BLOQUEO POR DEMANDAS LOCALES':        'Blocked — local demands',
           'NO TRANSITABLE, TRAFICO CERRADO':     'Road closed — no traffic',
-          // Construction / maintenance
+          
           'TRAMO EN CONSTRUCCION':               'Section under construction',
           'TRAMO EN CONSTRUCCIÓN':               'Section under construction',
           'REHABILITACION':                      'Road rehabilitation works',
           'REHABILITACIÓN':                      'Road rehabilitation works',
           'REPOSICION DE PLATAFORMA':            'Road surface restoration',
           'REPOSICIÓN DE PLATAFORMA':            'Road surface restoration',
-          // Surface / structural
+          
           'FALLA DE PLATAFORMA':                 'Road surface failure',
           'PERDIDA DE PLATAFORMA':               'Road surface loss',
           'PÉRDIDA DE PLATAFORMA':               'Road surface loss',
@@ -92,13 +89,13 @@ function Dashboard({ onBack, onExpert }) {
           'PLATAFORMA HÚMEDA':                   'Wet / muddy road surface',
           'AHUELLAMIENTOS PROFUNDOS EN PLATAFORMA': 'Deep rutting on road surface',
           'AHUELLAMIENTO EN PLATAFORMA':         'Rutting on road surface',
-          // Detours / restrictions
+          
           'TRANSITABLE CON DESVIOS':             'Passable via detour',
           'TRANSITABLE CON DESVÍOS':             'Passable via detour',
           'RESTRICCION VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCIÓN VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCION VEHICULAR, ESPECIAL':     'Special vehicle restriction',
-          // Geological / natural
+          
           'DERRUMBE':                            'Landslide',
           'DERRUMBES MENORES':                   'Minor landslides',
           'CAIDA DE ROCAS':                      'Rockfall',
@@ -106,13 +103,13 @@ function Dashboard({ onBack, onExpert }) {
           'FLUJO DE BARRO':                      'Mudflow / debris flow',
           'INUNDACION':                          'Flooding',
           'INUNDACIÓN':                          'Flooding',
-          // Infrastructure
+          
           'AFECTACION DE PUENTE':                'Bridge affected / damaged',
           'AFECTACIÓN DE PUENTE':                'Bridge affected / damaged',
-          // Accident / other
+          
           'ACCIDENTE DE TRANSITO':               'Traffic accident',
           'ACCIDENTE DE TRÁNSITO':               'Traffic accident',
-          // Neutral
+          
           'NINGUN EVENTO':                       'No incidents',
           'NINGÚN EVENTO':                       'No incidents',
         };
@@ -121,11 +118,11 @@ function Dashboard({ onBack, onExpert }) {
           if (!raw) return 'Incident reported';
           const key = raw.trim().toUpperCase();
           if (abcEN[key]) return abcEN[key];
-          // Partial match: check if any key is a substring
+          
           for (const [es, en] of Object.entries(abcEN)) {
             if (key.includes(es)) return en;
           }
-          // Fallback: capitalise original (still human-readable)
+          
           return raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase();
         };
 
@@ -182,7 +179,7 @@ function Dashboard({ onBack, onExpert }) {
   ]);
 
   React.useEffect(() => {
-    // No public API — status via @miteleferico / WhatsApp 71554749 / 800 116483
+    
     async function fetchTelefericoStatus() { await new Promise(r => setTimeout(r, 600)); }
     fetchTelefericoStatus();
   }, []);
@@ -237,7 +234,7 @@ function Dashboard({ onBack, onExpert }) {
       }
     }
     fetchWeather();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   const alerts = [
     { id: 1, level: 'high',   title: 'Sindical block on RN-2 · La Paz → Copacabana',
@@ -257,17 +254,17 @@ function Dashboard({ onBack, onExpert }) {
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
-      {/* COMPACT HERO */}
+      {}
       <section style={{
         color: '#fff', padding: '80px 0 88px', position: 'relative', overflow: 'hidden',
       }}>
-        {/* Background photo */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           backgroundImage: IMG.photoDashboard,
           backgroundSize: 'cover', backgroundPosition: 'center',
         }}/>
-        {/* Color overlay — navy + amber tint (live data, terrestrial) */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'linear-gradient(135deg, rgba(13,18,30,0.85) 0%, rgba(20,32,53,0.78) 50%, rgba(122,40,28,0.55) 100%)',
@@ -298,7 +295,7 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* STATUS STRIP */}
+      {}
       <section style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)', padding: '32px 0' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 18 }}>
@@ -315,13 +312,13 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* ROADS */}
+      {}
       <section style={{ padding: '72px 0', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
           <SectionHeader eyebrow="ABC · Administradora Boliviana de Carreteras" title="Roads & blockades."
             sub="Live status across the trunk network. Click a route to highlight on the map."/>
 
-          {/* Region filter */}
+          {}
           <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
             {[
               { id: 'all',       label: 'All regions' },
@@ -342,7 +339,7 @@ function Dashboard({ onBack, onExpert }) {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 24 }} className="bi-roads-grid">
-            {/* Routes list */}
+            {}
             <div style={{
               background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-xs)', overflow: 'hidden',
@@ -381,7 +378,7 @@ function Dashboard({ onBack, onExpert }) {
               ))}
             </div>
 
-            {/* Map */}
+            {}
             <div style={{
               background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-xs)', padding: 20,
@@ -401,14 +398,14 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* TELEFÉRICO */}
+      {}
       <section style={{ padding: '80px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: isXlarge ? 1800 : 1600, margin: '0 auto', padding: isLarge ? '0 48px' : '0 24px' }}>
           <SectionHeader eyebrow="Mi Teleférico · La Paz & El Alto"
             title="Cable network."
             sub="The world's longest urban cable car system. 10 lines · Bs 3 per ride · Cabins every ~12 sec"/>
 
-          {/* Info strip */}
+          {}
           <div style={{
             display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 28,
             padding: '14px 18px', borderRadius: 12,
@@ -428,7 +425,7 @@ function Dashboard({ onBack, onExpert }) {
             <span>📞 WhatsApp <strong>71554749</strong></span>
           </div>
 
-          {/* Cards + Map — side by side on large screens, stacked on small */}
+          {}
           <div style={{
             display: 'grid',
             gridTemplateColumns: isLarge
@@ -438,7 +435,7 @@ function Dashboard({ onBack, onExpert }) {
             alignItems: 'start',
           }}>
 
-            {/* Cards grid — narrows minmax on wide screens to fit more columns */}
+            {}
             <div style={{
               display: 'grid',
               gridTemplateColumns: isXlarge
@@ -455,13 +452,13 @@ function Dashboard({ onBack, onExpert }) {
                   padding: '16px 18px', display: 'flex', alignItems: 'flex-start', gap: 14,
                   boxShadow: t.ok ? 'var(--shadow-xs)' : '0 0 0 2px rgba(220,38,38,0.08)',
                 }}>
-                  {/* Color badge with cable car SVG */}
+                  {}
                   <div style={{
                     width: 44, height: 44, borderRadius: 13, background: t.hex, flexShrink: 0,
                     boxShadow: `0 6px 16px -4px ${t.hex}99`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
-                    {/* Cable car SVG icon */}
+                    {}
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M2 7h20" stroke="rgba(255,255,255,0.55)" strokeWidth="1.4" strokeLinecap="round"/>
                       <rect x="6" y="9" width="12" height="9" rx="2.5" fill="rgba(255,255,255,0.92)"/>
@@ -483,7 +480,7 @@ function Dashboard({ onBack, onExpert }) {
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--fg3)', marginTop: 3, lineHeight: 1.4, fontFamily: 'var(--font-mono)' }}>{t.stations}</div>
 
-                    {/* Stats row: duration + km */}
+                    {}
                     <div style={{ display: 'flex', gap: 14, marginTop: 8 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
@@ -511,7 +508,7 @@ function Dashboard({ onBack, onExpert }) {
               ))}
             </div>
 
-            {/* Interactive SVG network map */}
+            {}
             <div style={{
               background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               padding: 20, boxShadow: 'var(--shadow-xs)', position: 'sticky', top: 20,
@@ -546,9 +543,9 @@ function Dashboard({ onBack, onExpert }) {
                       onClick={e => { e.stopPropagation(); setActiveMapLine(isActive ? null : l.name); }}
                       onMouseEnter={() => setHoveredMapLine(l.name)}
                       onMouseLeave={() => setHoveredMapLine(null)}>
-                      {/* Fat invisible hit area */}
+                      {}
                       <polyline points={l.pts} fill="none" stroke="transparent" strokeWidth="18"/>
-                      {/* Actual line */}
+                      {}
                       <polyline points={l.pts} fill="none" stroke={l.color}
                         strokeWidth={isActive || isHov ? l.sw + 3 : l.sw}
                         strokeDasharray={l.dash ? '7,3' : undefined}
@@ -626,7 +623,7 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* WEATHER */}
+      {}
       <section style={{ padding: '72px 0', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
           <SectionHeader eyebrow="Open-Meteo · Live Data"
@@ -656,7 +653,7 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* ALERTS */}
+      {}
       <section style={{ padding: '72px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px' }}>
           <SectionHeader eyebrow="Alerts feed" title="What changed today."
@@ -667,7 +664,7 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* DISCLAIMER */}
+      {}
       <section style={{ background: 'var(--stone-50)', padding: '24px 0', borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
@@ -676,7 +673,7 @@ function Dashboard({ onBack, onExpert }) {
         </div>
       </section>
 
-      {/* CTA BAND */}
+      {}
       <section style={{ background: 'var(--navy-700)', color: '#fff', padding: '72px 0' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', justifyContent: 'space-between' }}>
@@ -699,7 +696,7 @@ function Dashboard({ onBack, onExpert }) {
         }
       `}</style>
 
-      {/* ── FULLSCREEN MAP MODAL ── */}
+      {}
       {mapFullscreen && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
@@ -712,7 +709,7 @@ function Dashboard({ onBack, onExpert }) {
             display: 'flex', overflow: 'hidden',
           }} onClick={e => e.stopPropagation()}>
 
-            {/* SVG map — large */}
+            {}
             <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <div>
@@ -770,7 +767,7 @@ function Dashboard({ onBack, onExpert }) {
               </svg>
             </div>
 
-            {/* Right info panel */}
+            {}
             <div style={{ width: 280, background: 'var(--bg-sunken)', borderLeft: '1px solid var(--border)',
               padding: 28, display: 'flex', flexDirection: 'column', gap: 12, overflowY: 'auto' }}>
               <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>
@@ -909,7 +906,6 @@ function AlertRow({ alert }) {
   );
 }
 
-/* Stylized Bolivia silhouette with route lines. Coordinates approximate cluster regions. */
 function BoliviaMap({ roads, highlighted }) {
   const cities = {
     'La Paz':       { x: 110, y: 130 },
@@ -948,11 +944,11 @@ function BoliviaMap({ roads, highlighted }) {
           <stop offset="100%" stopColor="var(--stone-100, #efe9df)"/>
         </linearGradient>
       </defs>
-      {/* Country silhouette (stylized) */}
+      {}
       <path d="M70 80 Q 60 60 90 50 Q 130 30 175 35 Q 230 30 270 60 Q 320 80 360 130 Q 380 180 360 240 Q 340 295 290 320 Q 230 335 175 325 Q 110 315 80 280 Q 50 240 50 180 Q 50 120 70 80 Z"
         fill="url(#biMapBg)" stroke="var(--border)" strokeWidth="1.4"/>
 
-      {/* Route lines */}
+      {}
       {roads.map((r, i) => {
         const seg = segMap[r.name];
         if (!seg) return null;
@@ -971,7 +967,7 @@ function BoliviaMap({ roads, highlighted }) {
         );
       })}
 
-      {/* City nodes */}
+      {}
       {Object.entries(cities).map(([name, p]) => (
         <g key={name}>
           <circle cx={p.x} cy={p.y} r="3.5" fill="var(--navy-700)"/>

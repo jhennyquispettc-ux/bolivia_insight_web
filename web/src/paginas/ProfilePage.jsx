@@ -27,7 +27,7 @@ function ProfilePage({ onBack, user }) {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh', paddingBottom: 80 }}>
-      {/* HERO */}
+      {}
       <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
         <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 32px', position: 'relative', display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
@@ -53,7 +53,7 @@ function ProfilePage({ onBack, user }) {
         </div>
       </section>
 
-      {/* MAIN CARD */}
+      {}
       <section style={{ marginTop: -100, position: 'relative', zIndex: 2 }}>
         <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 32px' }}>
           <div style={{ background: '#fff', borderRadius: 20, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)', overflow: 'hidden', padding: 40 }}>
@@ -95,7 +95,7 @@ function ProfilePage({ onBack, user }) {
                   const dateStr = b.date.substring(0, 10);
                   const [y, m, dNum] = dateStr.split('-');
                   const [h, min] = b.timeSlot.split(':');
-                  // Bolivia is UTC-4. Time in UTC = Bolivia time + 4 hours.
+                  
                   const localDateObj = new Date(Date.UTC(Number(y), Number(m)-1, Number(dNum), Number(h) + 4, Number(min)));
                   const isConfirmed = b.status === 'confirmed';
                   
@@ -105,7 +105,7 @@ function ProfilePage({ onBack, user }) {
                       padding: 24, display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap',
                       boxShadow: 'var(--shadow-sm)', transition: 'transform 0.2s, box-shadow 0.2s'
                     }}>
-                      {/* Date Block */}
+                      {}
                       <div style={{ 
                         background: isConfirmed ? 'var(--navy-50)' : 'var(--stone-50)', 
                         color: isConfirmed ? 'var(--navy-700)' : 'var(--fg3)', 
@@ -115,7 +115,7 @@ function ProfilePage({ onBack, user }) {
                         <div style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 600, lineHeight: 1 }}>{localDateObj.getDate()}</div>
                       </div>
                       
-                      {/* Details */}
+                      {}
                       <div style={{ flex: 1, minWidth: 240 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
                           <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 18, margin: 0, color: 'var(--fg1)' }}>{b.topic}</h4>
@@ -136,7 +136,7 @@ function ProfilePage({ onBack, user }) {
                         </div>
                       </div>
 
-                      {/* Action */}
+                      {}
                       {b.calendarLink && (
                         <div style={{ flexShrink: 0 }}>
                           <a href={b.calendarLink} target="_blank" rel="noreferrer" style={{ 

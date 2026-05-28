@@ -12,7 +12,7 @@ function BookingPage({ onBack, onProfile, user }) {
   }, []);
 
   const isMobile = vw < 640;
-  const [step, setStep] = useState(0); // 0: duration, 1: calendar, 2: confirmation
+  const [step, setStep] = useState(0); 
   const [duration, setDuration] = useState(30);
   const [slot, setSlot] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ function BookingPage({ onBack, onProfile, user }) {
         });
         if (res.ok) {
           const data = await res.json();
-          // Map to local date string 'YYYY-MM-DD' since prisma returns UTC ISO string
+          
           const mapped = data.map(b => ({
             dateISO: b.date.substring(0, 10),
             timeSlot: b.timeSlot
@@ -89,7 +89,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
       if (!res.ok) throw new Error('Failed to book session');
       
-      setStep(2); // Success step
+      setStep(2); 
     } catch (err) {
       setError('Could not complete booking. Please try again.');
     } finally {
@@ -99,7 +99,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {/* HERO */}
+      {}
       <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: isMobile ? '56px 0 140px' : '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', position: 'relative' }}>
@@ -114,12 +114,12 @@ function BookingPage({ onBack, onProfile, user }) {
         </div>
       </section>
 
-      {/* MAIN CARD */}
+      {}
       <section style={{ marginTop: -100, paddingBottom: 80, position: 'relative', zIndex: 2 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px' : '0 32px' }}>
           <div style={{ background: '#fff', borderRadius: 20, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)', overflow: 'hidden' }}>
 
-            {/* Stepper — hidden on confirmation */}
+            {}
             {step < 2 && (
               <div style={{ display: 'flex', borderBottom: '1px solid var(--border)' }} className="bi-stepper">
                 {['Choose duration', 'Pick a time'].map((s, i) => {
@@ -144,7 +144,7 @@ function BookingPage({ onBack, onProfile, user }) {
               </div>
             )}
 
-            {/* Step 0 — duration */}
+            {}
             {step === 0 && (
               <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
@@ -183,7 +183,7 @@ function BookingPage({ onBack, onProfile, user }) {
               </div>
             )}
 
-            {/* Step 1 — calendar */}
+            {}
             {step === 1 && (
               <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
                 <CalendarPicker
@@ -199,7 +199,7 @@ function BookingPage({ onBack, onProfile, user }) {
               </div>
             )}
 
-            {/* Step 2 — confirmation */}
+            {}
             {step === 2 && slot && (
               <Confirmation
                 expert={defaultExpert}
@@ -216,7 +216,7 @@ function BookingPage({ onBack, onProfile, user }) {
               />
             )}
 
-            {/* Footer bar — hidden on confirmation */}
+            {}
             {step < 2 && (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: isMobile ? '16px 20px' : '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'var(--fg3)' }}>
@@ -250,7 +250,7 @@ function BookingPage({ onBack, onProfile, user }) {
             )}
           </div>
 
-          {/* FAQ strip — hide on confirmation */}
+          {}
           {step < 2 && (
             <div style={{ marginTop: isMobile ? 40 : 56 }}>
               <div className="eyebrow" style={{ marginBottom: 16 }}>How it works</div>
@@ -282,9 +282,8 @@ function BookingPage({ onBack, onProfile, user }) {
   );
 }
 
-/* ======================== Calendar ======================== */
 function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
-  // Build 7 days starting at weekStart
+  
   const days = [];
   for (let i = 0; i < 7; i++) {
     const d = new Date(weekStart);
@@ -292,15 +291,15 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
     days.push(d);
   }
 
-  // Real availability checking
+  
   const slotsForDay = (date) => {
     const key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let candidates = ['09:00', '10:30', '14:00', '15:30', '17:00'];
     
-    // Filter out already booked slots
+    
     candidates = candidates.filter(time => !unavailable.some(u => u.dateISO === key && u.timeSlot === time));
     
-    // Filter out past times if it's today
+    
     const now = new Date();
     if (date.toDateString() === now.toDateString()) {
       const currentHour = now.getHours();
@@ -379,7 +378,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
                 const dKey = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
                 const selected = slot && slot.dateISO === dKey && slot.time === time;
                 
-                // Convert to user's local time for display
+                
                 const [h, min] = time.split(':');
                 const localD = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), Number(h) + 4, Number(min)));
                 const localTimeStr = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -432,7 +431,6 @@ const navBtnStyle = {
   transition: 'all 140ms',
 };
 
-/* ======================== Confirmation ======================== */
 function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBriefOpen, brief, setBrief, onProfile, isMobile }) {
   const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
   const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
@@ -440,7 +438,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
 
   return (
     <div style={{ padding: 0 }}>
-      {/* Success header */}
+      {}
       <div style={{
         background: 'linear-gradient(135deg, var(--green-500) 0%, #1f5f3e 100%)',
         color: '#fff', padding: isMobile ? '32px 20px' : '40px 40px 36px', textAlign: 'center',
@@ -457,7 +455,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
         </p>
       </div>
 
-      {/* Booking summary */}
+      {}
       <div style={{ padding: isMobile ? '24px 20px' : 32 }}>
         <div style={{
           display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 18,
@@ -479,7 +477,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </div>
         </div>
 
-        {/* Primary actions */}
+        {}
         <div style={{ display: 'flex', gap: 10, marginTop: 20, flexWrap: 'wrap' }}>
           <Btn kind="primary" size="md" onClick={onProfile}>
              Go to My Profile <I.ArrowR size={14}/>
@@ -489,7 +487,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </Btn>
         </div>
 
-        {/* Meet info */}
+        {}
         <div style={{
           marginTop: 22, padding: '14px 18px',
           background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)', borderRadius: 12,
@@ -501,7 +499,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </div>
         </div>
 
-        {/* Brief form (collapsible) */}
+        {}
         <details open={briefOpen} style={{
           marginTop: 22, background: '#fff',
           border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden',

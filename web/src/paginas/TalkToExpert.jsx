@@ -1,11 +1,10 @@
-/* Bolivia Insight — Talk to a local expert (paid info consultation) */
 function TalkToExpert({ onBack }) {
-  const [step, setStep] = useState(0); // 0..3 (3 = confirmation)
+  const [step, setStep] = useState(0); 
   const [duration, setDuration] = useState(30);
   const [expert, setExpert] = useState(null);
   const [slot, setSlot] = useState(null);
   const [weekStart, setWeekStart] = useState(() => {
-    // Monday of current week, anchored to 2026-04-27
+    
     const d = new Date('2026-04-27T00:00:00');
     return d;
   });
@@ -29,7 +28,7 @@ function TalkToExpert({ onBack }) {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {/* HERO */}
+      {}
       <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px', position: 'relative' }}>
@@ -56,12 +55,12 @@ function TalkToExpert({ onBack }) {
         </div>
       </section>
 
-      {/* MAIN CARD */}
+      {}
       <section style={{ marginTop: -100, paddingBottom: 80, position: 'relative', zIndex: 2 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
           <div style={{ background: '#fff', borderRadius: 20, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)', overflow: 'hidden' }}>
 
-            {/* Stepper — hidden on confirmation */}
+            {}
             {step < 3 && (
               <div style={{ display: 'flex', borderBottom: '1px solid var(--border)' }} className="bi-stepper">
                 {['Pick an expert', 'Choose duration', 'Pick a time'].map((s, i) => {
@@ -82,7 +81,7 @@ function TalkToExpert({ onBack }) {
               </div>
             )}
 
-            {/* Step 0 — experts */}
+            {}
             {step === 0 && (
               <div style={{ padding: 40 }}>
                 <div style={{ fontSize: 14, color: 'var(--fg2)', marginBottom: 22 }}>
@@ -120,7 +119,7 @@ function TalkToExpert({ onBack }) {
               </div>
             )}
 
-            {/* Step 1 — duration */}
+            {}
             {step === 1 && expert && (
               <div style={{ padding: 40 }}>
                 <SelectedExpertBar expert={expert} onChange={() => setStep(0)}/>
@@ -160,7 +159,7 @@ function TalkToExpert({ onBack }) {
               </div>
             )}
 
-            {/* Step 2 — calendar */}
+            {}
             {step === 2 && expert && (
               <div style={{ padding: 40 }}>
                 <SelectedExpertBar expert={expert} onChange={() => setStep(0)}/>
@@ -175,7 +174,7 @@ function TalkToExpert({ onBack }) {
               </div>
             )}
 
-            {/* Step 3 — confirmation */}
+            {}
             {step === 3 && expert && slot && (
               <Confirmation
                 expert={expert}
@@ -191,7 +190,7 @@ function TalkToExpert({ onBack }) {
               />
             )}
 
-            {/* Footer bar — hidden on confirmation */}
+            {}
             {step < 3 && (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'var(--fg3)' }}>
@@ -227,7 +226,7 @@ function TalkToExpert({ onBack }) {
             )}
           </div>
 
-          {/* FAQ strip — hide on confirmation */}
+          {}
           {step < 3 && (
             <div style={{ marginTop: 56 }}>
               <div className="eyebrow" style={{ marginBottom: 16 }}>How it works</div>
@@ -269,9 +268,8 @@ function SelectedExpertBar({ expert, onChange }) {
   );
 }
 
-/* ======================== Calendar ======================== */
 function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz }) {
-  // Build 7 days starting at weekStart
+  
   const days = [];
   for (let i = 0; i < 7; i++) {
     const d = new Date(weekStart);
@@ -279,7 +277,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz }) 
     days.push(d);
   }
 
-  // Mock availability — deterministic from expert id and date
+  
   const slotsForDay = (date) => {
     const key = date.toISOString().slice(0, 10);
     const seed = (key + expert.id).split('').reduce((s, c) => s + c.charCodeAt(0), 0);
@@ -381,14 +379,13 @@ const navBtnStyle = {
   transition: 'all 140ms',
 };
 
-/* ======================== Confirmation ======================== */
 function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBriefOpen, brief, setBrief, onClose }) {
   const fmtFullDate = slot.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
   const downloadIcs = () => {
     const start = new Date(slot.date);
     const [h, m] = slot.time.split(':').map(Number);
-    start.setHours(h - (-4), m, 0, 0); // Bolivia UTC-4 → UTC
+    start.setHours(h - (-4), m, 0, 0); 
     const end = new Date(start.getTime() + duration * 60 * 1000);
     const fmt = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     const ics = [
@@ -411,7 +408,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
 
   return (
     <div style={{ padding: 0 }}>
-      {/* Success header */}
+      {}
       <div style={{
         background: 'linear-gradient(135deg, var(--green-500) 0%, #1f5f3e 100%)',
         color: '#fff', padding: '40px 40px 36px', textAlign: 'center',
@@ -428,7 +425,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
         </p>
       </div>
 
-      {/* Booking summary */}
+      {}
       <div style={{ padding: 32 }}>
         <div style={{
           display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 18,
@@ -447,7 +444,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </div>
         </div>
 
-        {/* Primary actions */}
+        {}
         <div style={{ display: 'flex', gap: 10, marginTop: 20, flexWrap: 'wrap' }}>
           <Btn kind="primary" size="md" onClick={downloadIcs}>
             <I.Calendar size={14}/> Add to calendar
@@ -457,7 +454,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </Btn>
         </div>
 
-        {/* Meet info */}
+        {}
         <div style={{
           marginTop: 22, padding: '14px 18px',
           background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)', borderRadius: 12,
@@ -469,7 +466,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </div>
         </div>
 
-        {/* Brief form (collapsible) */}
+        {}
         <details open={briefOpen} style={{
           marginTop: 22, background: '#fff',
           border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden',
@@ -497,7 +494,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           </div>
         </details>
 
-        {/* Footnote */}
+        {}
         <div style={{
           marginTop: 22, paddingTop: 22, borderTop: '1px solid var(--border)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap',

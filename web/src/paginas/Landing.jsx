@@ -1,4 +1,3 @@
-/* Bolivia Insight — Landing page composition */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import Hero from '../componentes/Hero.jsx';
@@ -26,7 +25,6 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
   );
 }
 
-/* ===================== Compañero triptych ===================== */
 function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
   const { t } = useI18n();
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -102,7 +100,7 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
           )}
         </div>
 
-        {/* Cards: 1-col mobile, auto-fit tablet+desktop */}
+        {}
         <div style={{
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -121,7 +119,7 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}>
 
-              {/* Preview area: full-width on desktop, compact square on mobile */}
+              {}
               <div style={{
                 width: isMobile ? 80 : '100%',
                 height: isMobile ? 80 : 200,
@@ -133,7 +131,7 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
                 position: 'relative', overflow: 'hidden',
                 flexShrink: 0,
               }}>
-                {/* On mobile just show tool number as big glyph */}
+                {}
                 {isMobile ? (
                   <span style={{
                     fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 500,
@@ -142,7 +140,7 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
                 ) : tool.preview}
               </div>
 
-              {/* Text content */}
+              {}
               <div style={{ padding: isMobile ? '14px 16px' : '24px 26px 26px', flex: 1 }}>
                 <div className="eyebrow" style={{ marginBottom: 6 }}>{tool.eyebrow}</div>
                 <h3 style={{
@@ -168,7 +166,6 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
   );
 }
 
-/* SVG previews — static, on-brand, lightweight */
 function DashboardPreview() {
   return (
     <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
@@ -245,7 +242,6 @@ function SosPreview() {
   );
 }
 
-/* ===================== Booking band (pre-footer) ===================== */
 function BookingBand({ onExpert }) {
   const { t } = useI18n();
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -295,7 +291,7 @@ function BookingBand({ onExpert }) {
         gap: isMobile ? 36 : 60,
         alignItems: 'center', position: 'relative',
       }}>
-        {/* Left: headline + stats */}
+        {}
         <div>
           <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 14 }}>{t('booking.eyebrow', 'Premium 1-to-1 advisory · From $12')}</div>
           <h2 style={{
@@ -322,7 +318,7 @@ function BookingBand({ onExpert }) {
           </div>
         </div>
 
-        {/* Right: avatars + CTA */}
+        {}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'flex-start', gap: 22 }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {experts.map((e, i) => (
@@ -353,11 +349,10 @@ function BookingBand({ onExpert }) {
   );
 }
 
-/* ===================== Footer ===================== */
 function Footer({ onNav }) {
   const { t } = useI18n();
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
-  const [openCol, setOpenCol] = React.useState(null); // mobile accordion
+  const [openCol, setOpenCol] = React.useState(null); 
 
   React.useEffect(() => {
     const onResize = () => setVw(window.innerWidth);
@@ -392,13 +387,13 @@ function Footer({ onNav }) {
     <footer style={{ background: 'var(--navy-800)', color: 'rgba(255,255,255,0.7)', padding: isMobile ? '52px 0 28px' : '72px 0 36px' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
 
-        {/* Brand block — always full width on top in mobile */}
+        {}
         <div style={{
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr 1fr 1fr',
           gap: isMobile ? 0 : 40,
         }}>
-          {/* Brand */}
+          {}
           <div style={{ marginBottom: isMobile ? 32 : 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
               <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 32, filter: 'brightness(0) invert(1)' }}/>
@@ -410,7 +405,7 @@ function Footer({ onNav }) {
             <div style={{ marginTop: 18, fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: 0.4, opacity: 0.5 }}>LA PAZ · SUCRE · UYUNI</div>
           </div>
 
-          {/* Link columns — accordion on mobile, plain list on desktop */}
+          {}
           {cols.map((col, ci) => (
             <div key={col.h} style={{ borderTop: isMobile ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
               <button
@@ -429,7 +424,7 @@ function Footer({ onNav }) {
                 )}
               </button>
 
-              {/* Links: always visible on desktop, collapsible on mobile */}
+              {}
               {(!isMobile || openCol === ci) && (
                 <div style={{ paddingBottom: isMobile ? 14 : 0 }}>
                   {col.l.map(x => (
@@ -447,7 +442,7 @@ function Footer({ onNav }) {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {}
       <div style={{
         maxWidth: 1400, margin: '32px auto 0', padding: isMobile ? '20px 20px 0' : '24px 32px 0',
         borderTop: '1px solid rgba(255,255,255,0.1)',

@@ -1,4 +1,3 @@
-/* Bolivia Insight — Hero with Day/Night transition + floating widgets */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
@@ -15,10 +14,10 @@ function Hero({ variant = 'A', onCtaClick }) {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Sync dark mode globally
+  
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', night ? 'dark' : 'light');
-    // Ensure it resets when unmounting if needed, but for now we keep the user's choice
+    
   }, [night]);
 
   const isMobile = vw < 768;
@@ -58,7 +57,7 @@ function Hero({ variant = 'A', onCtaClick }) {
       display: 'flex',
       alignItems: 'center',
     }}>
-      {/* DAY layer */}
+      {}
       <div style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'url(assets/logos/uyuni-sunset.png)',
@@ -67,7 +66,7 @@ function Hero({ variant = 'A', onCtaClick }) {
         transition: 'opacity 1500ms var(--ease-in-out)',
       }} />
 
-      {/* NIGHT layer */}
+      {}
       <div style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'url(assets/logos/uyuni-night.png)',
@@ -76,7 +75,7 @@ function Hero({ variant = 'A', onCtaClick }) {
         transition: 'opacity 1500ms var(--ease-in-out)',
       }} />
 
-      {/* Gradients */}
+      {}
       <div style={{
         position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
         background: night
@@ -90,7 +89,7 @@ function Hero({ variant = 'A', onCtaClick }) {
         pointerEvents: 'none',
       }} />
 
-      {/* Content */}
+      {}
       <div style={{
         position: 'relative', zIndex: 5,
         maxWidth: 1400, margin: '0 auto',
@@ -138,8 +137,7 @@ function Hero({ variant = 'A', onCtaClick }) {
             </div>
           </>
         ) : (
-          /* VARIANT B */
-          <div style={{ textAlign: 'center', maxWidth: 1100, margin: '0 auto' }}>
+                    <div style={{ textAlign: 'center', maxWidth: 1100, margin: '0 auto' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '7px 14px', borderRadius: 999,
@@ -166,7 +164,7 @@ function Hero({ variant = 'A', onCtaClick }) {
         )}
       </div>
 
-      {/* Day/Night toggle */}
+      {}
       <button onClick={() => setNight(!night)} aria-label="Toggle day/night" style={{
         position: 'absolute',
         top: isMobile ? 'auto' : 110,
@@ -193,10 +191,10 @@ function Hero({ variant = 'A', onCtaClick }) {
         </div>
       </button>
 
-      {/* Floating weather widget — hidden on mobile */}
+      {}
       {!isMobile && <WeatherWidget night={night} />}
 
-      {/* Mobile compact weather strip */}
+      {}
       {isMobile && <MobileWeatherStrip night={night} />}
 
       <style>{`
@@ -211,7 +209,6 @@ function Hero({ variant = 'A', onCtaClick }) {
   );
 }
 
-/* Compact weather strip shown only on mobile, inline below CTAs */
 function MobileWeatherStrip({ night }) {
   const { t } = useI18n();
   const [citiesData, setCitiesData] = React.useState([
@@ -299,7 +296,7 @@ function WeatherWidget({ night }) {
       }
     }
     fetchWeather();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   const getCondition = (code, isNight) => {
     if (code === undefined) return { text: t('weather.loading', 'Loading...'), icon: <I.Cloud size={22} /> };

@@ -1,4 +1,3 @@
-/* Bolivia Insight — Destination Detail Page */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import { CLUSTERS } from '../data/destinos.jsx';
@@ -63,7 +62,7 @@ function ClusterDetail({ cluster, onBack, onBook }) {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {/* HERO */}
+      {}
       <section style={{ position: 'relative', height: isMobile ? 420 : 540, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: c.img, backgroundSize: 'cover', backgroundPosition: 'center' }}/>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(27,42,65,0.3) 0%, rgba(27,42,65,0) 30%, rgba(27,42,65,0.85) 100%)' }}/>
@@ -85,7 +84,7 @@ function ClusterDetail({ cluster, onBack, onBook }) {
         </div>
       </section>
 
-      {/* QUICK FACTS BAR */}
+      {}
       <section style={{ background: 'var(--navy-700)', color: '#fff', padding: isMobile ? '20px 0' : '28px 0', borderBottom: '4px solid var(--amber-500)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(5, 1fr)', gap: isMobile ? 20 : 24 }}>
           {[
@@ -103,7 +102,7 @@ function ClusterDetail({ cluster, onBack, onBook }) {
         </div>
       </section>
 
-      {/* SUGGESTED ROUTES */}
+      {}
       <section style={{ padding: isMobile ? '64px 0' : '100px 0' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
           <div className="eyebrow" style={{ marginBottom: 12 }}>{t('cluster.detail.suggestedRoutes', 'Suggested routes · No booking required')}</div>
@@ -142,7 +141,7 @@ function ClusterDetail({ cluster, onBack, onBook }) {
         </div>
       </section>
 
-      {/* JOURNAL TEASER */}
+      {}
       <section style={{ background: 'var(--stone-50)', padding: isMobile ? '64px 0' : '100px 0' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 60, alignItems: 'center' }}>
           <div style={{ height: isMobile ? 280 : 460, borderRadius: 18, backgroundImage: IMG.uyuniNight, backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'var(--shadow-lg)', order: isMobile ? -1 : 0 }}/>

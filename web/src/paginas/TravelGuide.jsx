@@ -1,4 +1,3 @@
-/* Bolivia Insight — Travel Guide page (essentials for flashpackers) */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
@@ -19,7 +18,7 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
 
   const isMobile = vw < 768;
 
-  // Local card translation data
+  
   const cardData = {
     arrive: {
       label: t('guide.tab.arrive', 'Arrive'),
@@ -266,15 +265,15 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {/* HERO */}
+      {}
       <section style={{ color: '#fff', padding: isMobile ? '56px 0 64px' : '80px 0 88px', position: 'relative', overflow: 'hidden' }}>
-        {/* Background photo */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           backgroundImage: IMG.photoEssentials,
           backgroundSize: 'cover', backgroundPosition: 'center',
         }}/>
-        {/* Color overlay — rust/navy (essentials/practical domain) */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'linear-gradient(135deg, rgba(20,32,53,0.85) 0%, rgba(122,40,28,0.78) 60%, rgba(13,18,30,0.92) 100%)',
@@ -293,7 +292,7 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
         </div>
       </section>
 
-      {/* TAB NAV */}
+      {}
       <section style={{ background: '#fff', borderBottom: '1px solid var(--border)', position: 'sticky', top: 64, zIndex: 20, backdropFilter: 'blur(12px)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'flex', gap: 4, overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
           {Object.entries(cardData).map(([id, s]) => (
@@ -309,7 +308,7 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
         </div>
       </section>
 
-      {/* CONTENT */}
+      {}
       {tab === 'dictionary' ? (
         <Dictionary embedded onExpert={onExpert}/>
       ) : (

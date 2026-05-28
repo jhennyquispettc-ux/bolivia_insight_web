@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 
 const TRANSLATIONS = {
   es: {
-    // Navigation
+    
     "nav.destinations": "Destinos",
     "nav.dashboard": "Tablero en Vivo",
     "nav.guides": "Guía de Viaje",
@@ -15,7 +15,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "Bolivia Insight",
     "nav.drawerFooter": "Llamada de 15 min desde $12 · Expertos locales",
 
-    // Hero
+    
     "hero.sparkleSunset": "Salar a las 18:42, atardecer",
     "hero.sparkleNight": "Salar a las 04:32 a.m.",
     "hero.titleDay": "Bolivia, en la [última luz].",
@@ -41,7 +41,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "Tormenta",
     "weather.variable": "Variable",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "El Compañero · herramientas de uso diario",
     "companion.title": "Tres herramientas que abrirás [cada mañana].",
     "companion.desc": "Gratis, sin iniciar sesión, sin comisiones. La asesoría premium 1-a-1 las financia, para que podamos mantenerlas honestas.",
@@ -58,7 +58,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "Números, hospitales, embajadas, taxis verificados — por ciudad. Diseñado para cargar rápido con mala conexión en el peor momento.",
     "companion.tool3Cta": "Abrir el centro SOS",
 
-    // Booking Band
+    
     "booking.eyebrow": "Asesoría Premium 1-a-1 · Desde $12",
     "booking.title": "Cuando los datos y el diccionario se agotan — [habla con alguien que recorre la ruta].",
     "booking.desc": "Quince o treinta minutos por video con un escritor residente. Auditan tu itinerario, optimizan rutas y responden preguntas que ninguna app puede resolver.",
@@ -71,14 +71,14 @@ const TRANSLATIONS = {
     "booking.btn": "Reservar llamada de 15 min",
     "booking.note": "PAGO POR STRIPE · REEMBOLSABLE 12H ANTES · EL ENLACE DE MEET LLEGA 1H ANTES",
 
-    // Footer
+    
     "footer.desc": "Una guía de viaje independiente de Bolivia, escrita por personas que viven aquí. Sin reservas, sin comisiones — solo notas de campo honestas para viajeros que exploran bajo sus propios términos.",
     "footer.explore": "Explorar",
     "footer.tools": "Herramientas",
     "footer.getHelp": "Obtener ayuda",
     "footer.privacy": "Privacidad · Términos · Cookies",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "Cuatro zonas · 34 rutas en temporada",
     "clusters.title": "Bolivia, por regiones.",
     "clusters.desc": "Cada zona es un viaje en sí mismo: el altiplano sagrado, la aventura metropolitana, los valles coloniales o la selva amazónica.",
@@ -87,7 +87,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "Destacados",
     "clusters.exploreHighlights": "Explorar atractivos",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "Altiplano Sagrado",
     "cluster.altiplano.sub": "Salar de Uyuni · Lago Titicaca · Tiwanaku",
     "cluster.altiplano.highlights.0": "Salar de Uyuni al atardecer",
@@ -132,7 +132,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "Leer ensayo",
     "cluster.detail.writerTitle": "Escritora de Altiplano · oriunda de La Paz",
 
-    // Travel Guide Page
+    
     "guide.back": "Volver al inicio",
     "guide.eyebrow": "Guía de Viaje · Para viajeros independientes",
     "guide.title": "Bolivia, lo",
@@ -142,7 +142,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "Reserva una videollamada de 15 o 30 min con un escritor local que conozca tu ruta — desde $12.",
     "guide.talkButton": "Habla con un local",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "Llegar",
     "guide.tab.altitude": "Altitud",
     "guide.tab.money": "Dinero y costos",
@@ -150,7 +150,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "Diccionario",
     "guide.tab.when": "Cuándo ir",
 
-    // SOS Hub
+    
     "sos.back": "Volver al inicio",
     "sos.eyebrow": "SOS · Centro de Emergencias",
     "sos.title": "SOS · Bolivia.",
@@ -164,7 +164,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "Escríbenos",
     "sos.updateNotice": "— lo actualizaremos en 24-48 horas.",
 
-    // Route Planner
+    
     "nav.planner": "Planificador",
     "planner.back": "Volver al inicio",
     "planner.eyebrow": "Herramienta 04 · Planificación",
@@ -213,12 +213,12 @@ const TRANSLATIONS = {
     "planner.cat.airport": "Aeropuerto",
     "planner.cat.reference": "Puntos de referencia",
 
-    // AI Concierge
+    
     "ai.greeting": "Hola, soy Ayni — tu concierge de Bolivia Insight. Bienvenido a Bolivia. ¿Cómo puedo ayudarte hoy?"
   },
 
   en: {
-    // Navigation
+    
     "nav.destinations": "Destinations",
     "nav.dashboard": "Live Dashboard",
     "nav.guides": "Travel Guide",
@@ -231,7 +231,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "Bolivia Insight",
     "nav.drawerFooter": "15-min call from $12 · Resident experts",
 
-    // Hero
+    
     "hero.sparkleSunset": "Salar at 18:42, sunset",
     "hero.sparkleNight": "Salar at 04:32 a.m.",
     "hero.titleDay": "Bolivia, in [last light].",
@@ -257,7 +257,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "Thunderstorm",
     "weather.variable": "Variable",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "The Compañero · daily-use tools",
     "companion.title": "Three tools you'll open [every morning].",
     "companion.desc": "Free, no login, no commission. The Premium 1-to-1 advisory pays for them — so we can keep these honest.",
@@ -274,7 +274,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "Numbers, hospitals, embassies, verified taxis — by city. Designed to load fast on a bad connection at the worst moment.",
     "companion.tool3Cta": "Open the SOS hub",
 
-    // Booking Band
+    
     "booking.eyebrow": "Premium 1-to-1 advisory · From $12",
     "booking.title": "When the data and the dictionary run out — [talk to a person who walks the route].",
     "booking.desc": "Fifteen or thirty minutes by video with a resident writer. They audit your itinerary, optimize routes, and answer the questions no app can.",
@@ -287,14 +287,14 @@ const TRANSLATIONS = {
     "booking.btn": "Book a 15-min call",
     "booking.note": "STRIPE CHECKOUT · REFUNDABLE 12H BEFORE · MEET LINK ARRIVES 1H BEFORE",
 
-    // Footer
+    
     "footer.desc": "An independent travel guide to Bolivia, written by people who live here. No bookings, no commission — just honest field notes for travelers exploring on their own terms.",
     "footer.explore": "Explore",
     "footer.tools": "Tools",
     "footer.getHelp": "Get help",
     "footer.privacy": "Privacy · Terms · Cookies",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "Four clusters · 34 routes in season",
     "clusters.title": "Bolivia, by region.",
     "clusters.desc": "Each cluster is a self-contained journey — high altiplano, urban metropolitan, colonial valley, or Amazon basin.",
@@ -303,7 +303,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "Top picks",
     "clusters.exploreHighlights": "Explore highlights",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "Sacred Altiplano",
     "cluster.altiplano.sub": "Salar de Uyuni · Lake Titicaca · Tiwanaku",
     "cluster.altiplano.highlights.0": "Salar de Uyuni at sunset",
@@ -348,7 +348,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "Read essay",
     "cluster.detail.writerTitle": "Altiplano writer · La Paz native",
 
-    // Travel Guide Page
+    
     "guide.back": "Back to home",
     "guide.eyebrow": "Travel Guide · For independent travelers",
     "guide.title": "Bolivia, the",
@@ -358,7 +358,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "Book a 15- or 30-min video call with a local writer who knows your route — from $12.",
     "guide.talkButton": "Talk to a local",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "Arrive",
     "guide.tab.altitude": "Altitude",
     "guide.tab.money": "Money & costs",
@@ -366,7 +366,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "Dictionary",
     "guide.tab.when": "When to go",
 
-    // SOS Hub
+    
     "sos.back": "Back to home",
     "sos.eyebrow": "SOS · Emergency Hub",
     "sos.title": "SOS · Bolivia.",
@@ -380,7 +380,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "Email us",
     "sos.updateNotice": "— we'll update within 24-48 hours.",
 
-    // Route Planner
+    
     "nav.planner": "Planner",
     "planner.back": "Back to home",
     "planner.eyebrow": "Tool 04 · Planning",
@@ -429,12 +429,12 @@ const TRANSLATIONS = {
     "planner.cat.airport": "Airport",
     "planner.cat.reference": "Reference points",
 
-    // AI Concierge
+    
     "ai.greeting": "Hola, I'm Ayni — your Bolivia Insight concierge. Welcome to Bolivia. How can I help you today?"
   },
 
   pt: {
-    // Navigation
+    
     "nav.destinations": "Destinos",
     "nav.dashboard": "Painel ao Vivo",
     "nav.guides": "Guia de Viagem",
@@ -447,7 +447,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "Bolivia Insight",
     "nav.drawerFooter": "Chamada de 15 min a partir de $12 · Especialistas",
 
-    // Hero
+    
     "hero.sparkleSunset": "Salar às 18:42, pôr do sol",
     "hero.sparkleNight": "Salar às 04:32 a.m.",
     "hero.titleDay": "Bolívia, na [última luz].",
@@ -473,7 +473,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "Tempestade",
     "weather.variable": "Variável",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "O Compañero · ferramentas diárias",
     "companion.title": "Três ferramentas que você abrirá [todas as manhãs].",
     "companion.desc": "Grátis, sem login, sem comissão. A consultoria premium 1 a 1 financia as ferramentas — para que continuem honestas.",
@@ -490,7 +490,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "Números, hospitais, embaixadas, táxis verificados — por cidade. Criado para carregar rápido mesmo com sinal fraco no pior momento.",
     "companion.tool3Cta": "Abrir o centro SOS",
 
-    // Booking Band
+    
     "booking.eyebrow": "Consultoria Premium 1 para 1 · Desde $12",
     "booking.title": "Quando os dados e o dicionário acabarem — [fale com uma pessoa que faz a rota].",
     "booking.desc": "Vídeo de 15 ou 30 min com um escritor local. Eles analisam seu itinerário, otimizam rotas e respondem às perguntas que nenhum app resolve.",
@@ -503,14 +503,14 @@ const TRANSLATIONS = {
     "booking.btn": "Agendar chamada de 15 min",
     "booking.note": "PAGAMENTO VIA STRIPE · REEMBOLSÁVEL 12H ANTES · LINK GOOGLE MEET 1H ANTES",
 
-    // Footer
+    
     "footer.desc": "Um guia de viagem independente sobre a Bolívia, escrito por moradores. Sem comissões ou reservas — apenas notas de campo honestas para explorar no seu próprio ritmo.",
     "footer.explore": "Explorar",
     "footer.tools": "Ferramentas",
     "footer.getHelp": "Ajuda",
     "footer.privacy": "Privacidade · Termos · Cookies",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "Quatro regiões · 34 rotas na temporada",
     "clusters.title": "Bolívia, por regiões.",
     "clusters.desc": "Cada região é uma jornada própria: altiplano sagrado, aventura metropolitana, vales coloniais ou selva amazônica.",
@@ -519,7 +519,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "Destaques",
     "clusters.exploreHighlights": "Ver atrações",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "Altiplano Sagrado",
     "cluster.altiplano.sub": "Salar de Uyuni · Lago Titicaca · Tiwanaku",
     "cluster.altiplano.highlights.0": "Salar de Uyuni ao pôr do sol",
@@ -564,7 +564,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "Ler ensaio",
     "cluster.detail.writerTitle": "Escritora de Altiplano · natural de La Paz",
 
-    // Travel Guide Page
+    
     "guide.back": "Voltar ao início",
     "guide.eyebrow": "Guia de Viagem · Para viajantes independentes",
     "guide.title": "Bolívia, o",
@@ -574,7 +574,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "Reserve uma conversa por vídeo de 15 ou 30 min com um escritor local que conhece seu roteiro — desde $12.",
     "guide.talkButton": "Falar com local",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "Chegada",
     "guide.tab.altitude": "Altitude",
     "guide.tab.money": "Dinheiro e custos",
@@ -582,7 +582,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "Dicionário",
     "guide.tab.when": "Quando ir",
 
-    // SOS Hub
+    
     "sos.back": "Voltar ao início",
     "sos.eyebrow": "SOS · Central de Emergências",
     "sos.title": "SOS · Bolívia.",
@@ -596,7 +596,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "Envie um e-mail",
     "sos.updateNotice": "— atualizaremos em 24 a 48 horas.",
 
-    // Route Planner
+    
     "nav.planner": "Planejador",
     "planner.back": "Voltar ao início",
     "planner.eyebrow": "Ferramenta 04 · Planejamento",
@@ -645,12 +645,12 @@ const TRANSLATIONS = {
     "planner.cat.airport": "Aeroporto",
     "planner.cat.reference": "Pontos de referência",
 
-    // AI Concierge
+    
     "ai.greeting": "Olá, sou Ayni — seu concierge do Bolivia Insight. Bem-vindo à Bolívia. Como posso ajudar hoje?"
   },
 
   fr: {
-    // Navigation
+    
     "nav.destinations": "Destinations",
     "nav.dashboard": "Tableau de Bord",
     "nav.guides": "Guide de Voyage",
@@ -663,7 +663,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "Bolivia Insight",
     "nav.drawerFooter": "Appel de 15 min dès 12 $ · Experts locaux",
 
-    // Hero
+    
     "hero.sparkleSunset": "Salar à 18h42, coucher de soleil",
     "hero.sparkleNight": "Salar à 04h32",
     "hero.titleDay": "La Bolivie, dans sa [dernière lueur].",
@@ -689,7 +689,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "Orage",
     "weather.variable": "Variable",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "Le Compañero · outils quotidiens",
     "companion.title": "Trois outils que vous ouvrirez [chaque matin].",
     "companion.desc": "Gratuit, sans inscription, sans commission. Notre service de conseil 1-à-1 finance le site pour le garder indépendant.",
@@ -706,7 +706,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "Urgences, hôpitaux, ambassades, taxis fiables par ville. Conçu pour charger vite même avec un réseau faible.",
     "companion.tool3Cta": "Ouvrir le centre SOS",
 
-    // Booking Band
+    
     "booking.eyebrow": "Conseil premium 1-à-1 · Dès 12 $",
     "booking.title": "Quand les données et le dictionnaire ne suffisent plus — [parlez à quelqu'un qui parcourt l'itinéraire].",
     "booking.desc": "Quinze ou trente minutes en visio avec un auteur local. Il relit votre itinéraire, optimise les temps de trajet et répond à vos questions.",
@@ -719,14 +719,14 @@ const TRANSLATIONS = {
     "booking.btn": "Réserver un appel (15 min)",
     "booking.note": "PAIEMENT STRIPE · ANNULABLE 12H AVANT · LIEN MEET ENVOYÉ 1H AVANT",
 
-    // Footer
+    
     "footer.desc": "Un guide de voyage indépendant sur la Bolivie, écrit par des habitants. Sans commissions ni intermédiaires — de vraies notes de terrain pour voyager libre.",
     "footer.explore": "Explorer",
     "footer.tools": "Outils",
     "footer.getHelp": "Assistance",
     "footer.privacy": "Confidentialité · Mentions · Cookies",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "Quatre régions · 34 itinéraires",
     "clusters.title": "La Bolivie, par régions.",
     "clusters.desc": "Chaque zone a sa propre âme : les mystères de l'altiplano, l'énergie des villes, le charme des vallées ou le souffle de l'Amazonie.",
@@ -735,7 +735,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "Coups de cœur",
     "clusters.exploreHighlights": "Voir les incontournables",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "Altiplano Sacré",
     "cluster.altiplano.sub": "Salar d'Uyuni · Lac Titicaca · Tiwanaku",
     "cluster.altiplano.highlights.0": "Le Salar d'Uyuni au coucher du soleil",
@@ -780,7 +780,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "Lire l'essai",
     "cluster.detail.writerTitle": "Auteure Altiplano · originaire de La Paz",
 
-    // Travel Guide Page
+    
     "guide.back": "Retour à l'accueil",
     "guide.eyebrow": "Guide pratique · Pour voyageurs indépendants",
     "guide.title": "La Bolivie, l'",
@@ -790,7 +790,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "Réservez un échange vidéo de 15 ou 30 min avec un auteur local sur votre itinéraire — dès 12 $.",
     "guide.talkButton": "Parler à un local",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "Arriver",
     "guide.tab.altitude": "Altitude",
     "guide.tab.money": "Budget & coûts",
@@ -798,7 +798,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "Dictionnaire",
     "guide.tab.when": "Saisons",
 
-    // SOS Hub
+    
     "sos.back": "Retour à l'accueil",
     "sos.eyebrow": "SOS · Guide d'Urgence",
     "sos.title": "SOS · Bolivie.",
@@ -812,7 +812,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "Contactez-nous",
     "sos.updateNotice": "— mise à jour sous 24 à 48 heures.",
 
-    // Route Planner
+    
     "nav.planner": "Planificateur",
     "planner.back": "Retour à l'accueil",
     "planner.eyebrow": "Outil 04 · Planification",
@@ -861,12 +861,12 @@ const TRANSLATIONS = {
     "planner.cat.airport": "Aéroport",
     "planner.cat.reference": "Points de repère",
 
-    // AI Concierge
+    
     "ai.greeting": "Bonjour, je suis Ayni — votre concierge Bolivia Insight. Bienvenue en Bolivie. Comment puis-je vous aider aujourd'hui ?"
   },
 
   ja: {
-    // Navigation
+    
     "nav.destinations": "目的地",
     "nav.dashboard": "ライブダッシュボード",
     "nav.guides": "旅行ガイド",
@@ -879,7 +879,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "ボリビア・インサイト",
     "nav.drawerFooter": "15分の相談 $12から · 地元在住スタッフ",
 
-    // Hero
+    
     "hero.sparkleSunset": "ウユニ塩湖 18:42、夕暮れ",
     "hero.sparkleNight": "ウユニ塩湖 04:32、夜明け前",
     "hero.titleDay": "ボリビア、[最後の光]の中で。",
@@ -905,7 +905,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "雷雨",
     "weather.variable": "不安定",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "コンパニェーロ · 日常お役立ちツール",
     "companion.title": "毎朝開くことになる[3つのツール]。",
     "companion.desc": "無料、登録不要、仲介手数料なし。個別相談のサポートにより、この透明性の高い情報発信を維持しています。",
@@ -922,7 +922,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "都市別の緊急連絡先、病院、大使館、信頼できるタクシー情報。電波の悪い場所でもすぐに開くよう軽量設計されています。",
     "companion.tool3Cta": "SOSハブを開く",
 
-    // Booking Band
+    
     "booking.eyebrow": "個別相談サービス · $12〜",
     "booking.title": "データや辞書だけでは足りない時 — [そのルートを実際に歩んでいる人と話しましょう]。",
     "booking.desc": "現地に暮らすライターと15分または30分、オンラインで直接相談できます。旅程のチェック、安全なルートのアドバイス、細かな疑問にお答えします。",
@@ -935,14 +935,14 @@ const TRANSLATIONS = {
     "booking.btn": "相談を予約する（15分間）",
     "booking.note": "STRIPE決済対応 · 12時間前までキャンセル無料 · 1時間前にMeetリンクを送付",
 
-    // Footer
+    
     "footer.desc": "ボリビアに住む現地の人々によって書かれた、独立した旅行ガイドです。手数料や予約の誘導はありません。自分の足で自由に旅をするための正直な現地メモです。",
     "footer.explore": "探索する",
     "footer.tools": "ツール",
     "footer.getHelp": "サポート",
     "footer.privacy": "プライバシー · 利用規約 · クッキーポリシー",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "4つのエリア · シーズン中34のルート",
     "clusters.title": "地域から探す",
     "clusters.desc": "聖なるアルティプラーノ、都会のアドベンチャー、歴史あるのどかな渓谷、神秘のアマゾン。それぞれの地域に、それぞれの魅力があります。",
@@ -951,7 +951,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "おすすめスポット",
     "clusters.exploreHighlights": "ハイライトを見る",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "聖なる高地",
     "cluster.altiplano.sub": "ウユニ塩湖 · チティカカ湖 · ティワナク",
     "cluster.altiplano.highlights.0": "夕暮れのウユニ塩湖",
@@ -996,7 +996,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "エッセイを読む",
     "cluster.detail.writerTitle": "アルティプラーノ担当ライター · ラパス生まれ",
 
-    // Travel Guide Page
+    
     "guide.back": "ホームに戻る",
     "guide.eyebrow": "旅行ガイド · 個人旅行者のための必須知識",
     "guide.title": "ボリビア旅行の",
@@ -1006,7 +1006,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "ルートをよく知る現地のライターとの15分または30分のオンライン相談を予約できます（$12から）。",
     "guide.talkButton": "スタッフに相談する",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "入国・到着",
     "guide.tab.altitude": "高山病対策",
     "guide.tab.money": "お金と物価",
@@ -1014,7 +1014,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "ミニ辞典",
     "guide.tab.when": "ベストシーズン",
 
-    // SOS Hub
+    
     "sos.back": "ホームに戻る",
     "sos.eyebrow": "緊急連絡先 · SOSハブ",
     "sos.title": "緊急連絡先 · ボリビア",
@@ -1028,7 +1028,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "メールで連絡する",
     "sos.updateNotice": "— 通常24〜48時間以内に修正します。",
 
-    // Route Planner
+    
     "nav.planner": "プランナー",
     "planner.back": "ホームへ戻る",
     "planner.eyebrow": "ツール 04 · プランニング",
@@ -1079,7 +1079,7 @@ const TRANSLATIONS = {
   },
 
   ko: {
-    // Navigation
+    
     "nav.destinations": "목적지",
     "nav.dashboard": "라이브 대시보드",
     "nav.guides": "여행 가이드",
@@ -1092,7 +1092,7 @@ const TRANSLATIONS = {
     "nav.drawerTitle": "볼리비아 인사이트",
     "nav.drawerFooter": "15분 상담 $12부터 · 현지 상주 전문가",
 
-    // Hero
+    
     "hero.sparkleSunset": "우유니 사막 18:42, 일몰",
     "hero.sparkleNight": "우유니 사막 04:32, 새벽",
     "hero.titleDay": "볼리비아, [마지막 빛] 속에서.",
@@ -1118,7 +1118,7 @@ const TRANSLATIONS = {
     "weather.thunderstorm": "뇌우",
     "weather.variable": "변덕스러움",
 
-    // Triptych (Landing tools)
+    
     "companion.eyebrow": "동반자 · 매일 쓰는 여행 도구",
     "companion.title": "매일 아침 열어볼 [세 가지 도구].",
     "companion.desc": "무료, 로그인 없음, 수수료 없음. 1대1 프리미엄 맞춤 상담 수익으로 투명하고 진실성 있는 정보를 운영합니다.",
@@ -1135,7 +1135,7 @@ const TRANSLATIONS = {
     "companion.tool3Desc": "도시별 긴급 번호, 병원, 대사관, 검증된 택시 정보. 인터넷 연결이 원활하지 않은 상황에서도 빠르게 열리도록 경량 설계되었습니다.",
     "companion.tool3Cta": "SOS 허브 열기",
 
-    // Booking Band
+    
     "booking.eyebrow": "프리미엄 1대1 자문 · $12부터",
     "booking.title": "데이터와 사전만으로 부족할 때 — [그 경로를 직접 걷는 사람과 이야기해 보세요].",
     "booking.desc": "볼리비아 현지 작가와 15분 또는 30분 동안 화상 통화로 이야기할 수 있습니다. 일정을 검토받고, 경로를 단축하며, 무엇이든 물어보세요.",
@@ -1148,14 +1148,14 @@ const TRANSLATIONS = {
     "booking.btn": "15분 상담 예약하기",
     "booking.note": "STRIPE 안전 결제 · 12시간 전 취소 시 전액 환불 · 1시간 전 구글 미트 링크 발송",
 
-    // Footer
+    
     "footer.desc": "볼리비아 현지에 사는 사람들이 작성한 독립 여행 가이드입니다. 예약 수수료나 광고 없이, 자유롭게 여행하는 이들을 위한 솔직한 현장 기록입니다.",
     "footer.explore": "탐색하기",
     "footer.tools": "도구",
     "footer.getHelp": "도움말",
     "footer.privacy": "개인정보 보호방침 · 이용약관 · 쿠키 설정",
 
-    // Clusters Section
+    
     "clusters.eyebrow": "4대 권역 · 시즌별 34개 루트",
     "clusters.title": "권역별 보기",
     "clusters.desc": "신비로운 고원 지대, 활기찬 도시 모험, 역사적인 계곡 지대, 아마존 열대우림 등 각 권역은 그 자체로 완벽한 여정이 됩니다.",
@@ -1164,7 +1164,7 @@ const TRANSLATIONS = {
     "clusters.topPicks": "추천 스팟",
     "clusters.exploreHighlights": "하이라이트 보기",
 
-    // Cluster Names and details
+    
     "cluster.altiplano.title": "성스러운 고원",
     "cluster.altiplano.sub": "우유니 소금사막 · 티티카카 호수 · 티와나쿠",
     "cluster.altiplano.highlights.0": "일몰 무렵의 우유니 소금사막",
@@ -1209,7 +1209,7 @@ const TRANSLATIONS = {
     "cluster.detail.readEssay": "에세이 읽기",
     "cluster.detail.writerTitle": "알티플라노 작가 · 라파스 현지인",
 
-    // Travel Guide Page
+    
     "guide.back": "홈으로 돌아가기",
     "guide.eyebrow": "여행 가이드 · 자유 여행 필수 지식",
     "guide.title": "볼리비아 여행의",
@@ -1219,7 +1219,7 @@ const TRANSLATIONS = {
     "guide.bookVideo": "당신의 여행 경로를 잘 아는 현지 작가와의 15분 또는 30분 화상 통화를 예약해 보세요 ($12부터).",
     "guide.talkButton": "현지 전문가와 상담",
 
-    // Travel Guide Tabs
+    
     "guide.tab.arrive": "입국·도착",
     "guide.tab.altitude": "고도 적응",
     "guide.tab.money": "비용 & 물가",
@@ -1227,7 +1227,7 @@ const TRANSLATIONS = {
     "guide.tab.dictionary": "미니 사전",
     "guide.tab.when": "여행 시즌",
 
-    // SOS Hub
+    
     "sos.back": "홈으로 돌아가기",
     "sos.eyebrow": "SOS · 긴급 연락처 허브",
     "sos.title": "SOS · 볼리비아",
@@ -1241,7 +1241,7 @@ const TRANSLATIONS = {
     "sos.emailUs": "이메일 보내기",
     "sos.updateNotice": "— 보통 24~48시간 이내에 반영됩니다.",
 
-    // Route Planner
+    
     "nav.planner": "플래너",
     "planner.back": "홈으로 돌아가기",
     "planner.eyebrow": "도구 04 · 일정 짜기",
@@ -1300,7 +1300,7 @@ function I18nProvider({ children }) {
       const saved = localStorage.getItem("bolivia_insight_lang");
       if (saved && TRANSLATIONS[saved]) return saved;
     } catch (e) {}
-    return "es"; // Fallback to Spanish as default
+    return "es"; 
   });
 
   const changeLocale = (lang) => {
@@ -1316,7 +1316,7 @@ function I18nProvider({ children }) {
     const localeDict = TRANSLATIONS[locale] || TRANSLATIONS["es"];
     const val = localeDict[key];
     if (val !== undefined) return val;
-    // Fallback to Spanish if not in localeDict
+    
     const esVal = TRANSLATIONS["es"][key];
     if (esVal !== undefined) return esVal;
     return defaultValue || key;

@@ -70,7 +70,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
           padding: isMobile ? '12px 18px' : '14px 32px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
         }}>
-          {/* Logo */}
+          {}
           <button onClick={() => goto('home')} aria-label="Bolivia Insight — home" style={{
             background: 'none', border: 0, cursor: 'pointer', padding: 0,
             display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0,
@@ -120,7 +120,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
             </nav>
           )}
 
-          {/* Right cluster */}
+          {}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {!isMobile && (
               <div style={{ position: 'relative' }}>
@@ -248,7 +248,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
         </div>
       </header>
 
-      {/* Mobile drawer */}
+      {}
       {isMobile && drawer && (
         <>
           <div onClick={() => setDrawer(false)} style={{

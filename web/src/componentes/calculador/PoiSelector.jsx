@@ -1,9 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import { useI18n } from '../../data/translations.jsx';
-import { CATEGORY_META } from '../../calculador/api.js';
+
 import I from '../../ui/iconos.jsx';
 
 const CATEGORY_ORDER = ['attraction', 'nature', 'viewpoint', 'restaurant', 'plaza', 'station', 'airport', 'reference'];
+
+const CATEGORY_META = {
+  attraction:  { emoji: '🏛️', color: '#1a73e8' },
+  nature:      { emoji: '🏞️', color: '#2e9d4a' },
+  viewpoint:   { emoji: '🔭', color: '#16a34a' },
+  restaurant:  { emoji: '🍽️', color: '#e87722' },
+  plaza:       { emoji: '⛲', color: '#0d9488' },
+  station:     { emoji: '🚡', color: '#dc2626' },
+  airport:     { emoji: '✈️', color: '#4f46e5' },
+  reference:   { emoji: '📍', color: '#64748b' },
+};
 
 function PoiSelector({ pois, selected, onToggle, startSlug, onStartChange }) {
   const { t } = useI18n();

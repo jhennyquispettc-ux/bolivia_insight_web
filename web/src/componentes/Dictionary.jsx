@@ -9,7 +9,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
   const [playing, setPlaying] = useState(null);
 
   const words = [
-    // Featured
+    
     { id: 'llajua',    word: 'Llajua',     ipa: '/ˈʝa.xwa/',     cat: 'food',    feat: true,
       def: 'Spicy salsa of locoto, tomato, and quirquiña. On every Bolivian table.',
       example: '"Pásame la llajua, por favor."', region: 'altiplano' },
@@ -29,7 +29,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
       def: 'Rotating savings circle. Quechua origin. Friends pool money monthly; one person collects each round.',
       example: '"Estoy en un pasanaku con las del trabajo."', region: 'all' },
 
-    // Alphabetical
+    
     { id: 'achachay',  word: 'Achachay',   ipa: '/a.tʃaˈtʃai/',  cat: 'slang',   def: 'It\'s freezing! Quechua exclamation.', example: '"Achachay, qué frío en La Paz."', region: 'altiplano' },
     { id: 'apthapi',   word: 'Apthapi',    ipa: '/apˈta.pi/',    cat: 'food',    def: 'Communal Aymara meal. Everyone brings something, food spread on a cloth.', example: '"Todos al apthapi del sábado."', region: 'altiplano' },
     { id: 'awicha',    word: 'Awicha',     ipa: '/aˈwi.tʃa/',    cat: 'culture', def: 'Grandmother (Aymara/Quechua mix). Affectionate.', example: '"Mi awicha vive en Achacachi."', region: 'altiplano' },
@@ -91,18 +91,18 @@ function Dictionary({ onBack, onExpert, embedded }) {
   return (
     <div style={{ background: 'var(--bg)', minHeight: embedded ? 'auto' : '100vh' }}>
 
-      {/* HERO */}
+      {}
       {!embedded && (
       <section style={{
         color: '#fff', padding: '80px 0 88px', position: 'relative', overflow: 'hidden',
       }}>
-        {/* Background photo */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           backgroundImage: IMG.photoCustoms,
           backgroundSize: 'cover', backgroundPosition: 'center',
         }}/>
-        {/* Color overlay — mystic/navy (cultural domain) */}
+        {}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'linear-gradient(135deg, rgba(20,32,53,0.85) 0%, rgba(66,47,92,0.8) 60%, rgba(13,18,30,0.92) 100%)',
@@ -127,7 +127,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
       </section>
       )}
 
-      {/* SEARCH + FILTERS (sticky) */}
+      {}
       <section style={{
         background: 'rgba(255,255,255,0.92)',
         backdropFilter: 'blur(14px)',
@@ -179,7 +179,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
         </div>
       </section>
 
-      {/* FEATURED WORDS */}
+      {}
       {featured.length > 0 && (
         <section style={{ padding: '56px 0 24px', background: 'var(--bg)' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
@@ -193,7 +193,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
         </section>
       )}
 
-      {/* BROWSE */}
+      {}
       <section style={{ padding: '40px 0 80px', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
           {browse.length > 0 ? (
@@ -218,7 +218,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
         </div>
       </section>
 
-      {/* HEARD IN THE WILD */}
+      {}
       <section style={{ padding: '80px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
           <div style={{ maxWidth: 720, marginBottom: 32 }}>
@@ -241,7 +241,7 @@ function Dictionary({ onBack, onExpert, embedded }) {
         </div>
       </section>
 
-      {/* CTA */}
+      {}
       <section style={{ background: 'var(--navy-700)', color: '#fff', padding: '64px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', justifyContent: 'space-between' }}>

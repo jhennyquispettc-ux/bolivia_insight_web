@@ -1,4 +1,3 @@
-/* Bolivia Insight — AI Concierge bubble (popover that grows from bubble) */
 import React, { useState, useEffect } from 'react';
 import I from '../ui/iconos.jsx';
 import { useI18n } from '../data/translations.jsx';
@@ -13,7 +12,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
   const [limitReached, setLimitReached] = useState(false);
   const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  // Update initial message when language changes
+  
   useEffect(() => {
     setMessages(prev => {
       const newMessages = [...prev];
@@ -42,10 +41,10 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
   const send = async () => {
     if (!input.trim() || limitReached) return;
     const text = input.trim();
-    // Check message limit (20 user messages)
+    
     const userMessages = messages.filter(m => m.from === 'me');
 
-    // Intent detection for expert consultation
+    
     const intentKeywords = ['información', 'informacion', 'experto', 'local', 'contacto', 'agendar', 'cita', 'hablar con alguien', 'más detalles'];
     const matchesIntent = intentKeywords.some(k => text.toLowerCase().includes(k));
 
@@ -95,12 +94,12 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
     }
   };
 
-  // Hide entirely when not yet scrolled past Hero (and popover is closed)
+  
   if (!visible && !expanded) return null;
 
   return (
     <>
-      {/* Bubble */}
+      {}
       <button onClick={onToggle} aria-label="Open AI concierge" style={{
         position: 'fixed', right: isMobile ? 20 : 28, bottom: isMobile ? 20 : 28, zIndex: 80,
         width: 64, height: 64, borderRadius: 999,
@@ -121,7 +120,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
         </div>
       </button>
 
-      {/* Popover */}
+      {}
       {expanded && (
         <div style={{
           position: 'fixed',
@@ -142,7 +141,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
           transformOrigin: isMobile ? 'bottom center' : 'bottom right',
           animation: isMobile ? 'bi-slide-up 220ms var(--ease-spring)' : 'bi-grow 220ms var(--ease-spring)',
         }}>
-          {/* Header */}
+          {}
           <div style={{
             padding: '18px 20px',
             paddingTop: isMobile ? 'max(18px, env(safe-area-inset-top))' : 18,
@@ -175,7 +174,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             )}
           </div>
 
-          {/* Messages */}
+          {}
           <div style={{ flex: 1, overflowY: 'auto', padding: 18, display: 'flex', flexDirection: 'column', gap: 12, background: 'var(--bg)' }}>
             {messages.map((m, i) => (
               <div key={i} style={{
@@ -207,7 +206,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
                 )}
               </div>
             ))}
-            {/* Quick chips */}
+            {}
             {!limitReached && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
                 {['Best time for Uyuni?', 'Altitude tips', 'Family with teens'].map(c => (
@@ -220,7 +219,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             )}
           </div>
 
-          {/* Input */}
+          {}
           <div style={{ padding: 14, borderTop: '1px solid var(--border)', background: 'var(--bg-elevated)', borderRadius: isMobile ? 0 : '0 0 20px 20px', flexShrink: 0 }}>
             <div style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '6px 6px 6px 14px',

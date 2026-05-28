@@ -1,87 +1,60 @@
-/* ============================================================
-   Bolivia Insight — Design Tokens
-   Premium tourism portal for flashpackers
-   ============================================================ */
 
-/* -------- Fonts (Bricolage Grotesque + Inter — variable, contemporary editorial) --
-   Display: Bricolage Grotesque (variable axes opsz/wdth/wght — humanist warmth)
-   Body:    Inter (clean UI, excellent diacritics for ES/AY/QU)
-   Mono:    JetBrains Mono (data, timestamps)
-   The HTML preload (Bolivia Insight Portal.html) already loads these; this
-   @import is a fallback for when the CSS is used standalone. */
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* =========================================================
-     COLOR — extracted from the brand logo
-     Navy (binoculars) · Rust (Bolivia) · Amber (Insight)
-     Supported by a warm Andean earth palette.
-     ========================================================= */
-
-  /* Primary — Navy (from the binoculars) — updated to brief #1B2A41 */
-  --navy-50:  #ecf0f5;
+  
+    --navy-50:  #ecf0f5;
   --navy-100: #d3dae4;
   --navy-200: #a7b5c8;
   --navy-300: #6b80a0;
   --navy-400: #3f567a;
   --navy-500: #283b58;
-  --navy-600: #1b2a41;  /* brand navy */
-  --navy-700: #142035;
+  --navy-600: #1b2a41;    --navy-700: #142035;
   --navy-800: #0d1727;
   --navy-900: #070d18;
 
-  /* Secondary — Rojo Tierra (from "Bolivia") — #B33F2E */
-  --rust-50:  #fbf0ed;
+    --rust-50:  #fbf0ed;
   --rust-100: #f3d9d2;
   --rust-200: #e6ad9f;
   --rust-300: #d6816d;
   --rust-400: #c45c43;
-  --rust-500: #b33f2e;  /* brand rust */
-  --rust-600: #983324;
+  --rust-500: #b33f2e;    --rust-600: #983324;
   --rust-700: #7a281c;
   --rust-800: #5a1d14;
   --rust-900: #3a120d;
 
-  /* Accent — Oro / Yellow (from "Insight") — #FFB703 */
-  --amber-50:  #fff8e1;
+    --amber-50:  #fff8e1;
   --amber-100: #ffeeb3;
   --amber-200: #ffe07a;
   --amber-300: #ffd14d;
   --amber-400: #ffc024;
-  --amber-500: #ffb703;  /* brand amber */
-  --amber-600: #d99800;
+  --amber-500: #ffb703;    --amber-600: #d99800;
   --amber-700: #a87500;
   --amber-800: #785300;
   --amber-900: #4a3300;
 
-  /* Nature — Verde (Naturaleza, Ecoturismo) — #2D6A4F */
-  --green-50:  #ebf5ef;
+    --green-50:  #ebf5ef;
   --green-100: #cfe7d8;
   --green-200: #9ecdb1;
   --green-300: #6db38a;
   --green-400: #459a6b;
-  --green-500: #2d6a4f;  /* brand green */
-  --green-600: #235540;
+  --green-500: #2d6a4f;    --green-600: #235540;
   --green-700: #1b4231;
   --green-800: #133024;
   --green-900: #0b1d16;
 
-  /* Mystic — Lila (Cultura) — #6A4C93 */
-  --mystic-50:  #f1ecf7;
+    --mystic-50:  #f1ecf7;
   --mystic-100: #ddd2ea;
   --mystic-200: #b9a4d3;
   --mystic-300: #9476bc;
   --mystic-400: #7c5fa6;
-  --mystic-500: #6a4c93;  /* brand mystic */
-  --mystic-600: #553d76;
+  --mystic-500: #6a4c93;    --mystic-600: #553d76;
   --mystic-700: #422f5c;
   --mystic-800: #2f2241;
   --mystic-900: #1c1428;
 
-  /* Neutrals — warm off-whites and stone greys (Andean adobe / salt flat) */
-  --stone-0:   #ffffff;
-  --stone-25:  #fbf8f3;  /* page canvas, warm paper */
-  --stone-50:  #f6f1e8;
+    --stone-0:   #ffffff;
+  --stone-25:  #fbf8f3;    --stone-50:  #f6f1e8;
   --stone-100: #ece4d3;
   --stone-200: #d9cdb5;
   --stone-300: #b9a987;
@@ -92,34 +65,21 @@
   --stone-800: #26221a;
   --stone-900: #141210;
 
-  /* Semantic accents */
-  --success: #4f8a4a;   /* jungle green */
-  --success-soft: #e5efe2;
-  --warning: #e09400;   /* desert warning */
-  --warning-soft: #fcefcf;
-  --danger:  #b5422e;   /* uses brand rust */
-  --danger-soft: #fbe5df;
-  --info:    #2b405a;   /* brand navy */
-  --info-soft: #e4eaf1;
+    --success: #4f8a4a;     --success-soft: #e5efe2;
+  --warning: #e09400;     --warning-soft: #fcefcf;
+  --danger:  #b5422e;     --danger-soft: #fbe5df;
+  --info:    #2b405a;     --info-soft: #e4eaf1;
 
-  /* Gradients — sunrise over the salt flats, amber through rust into navy dusk */
-  --gradient-sunrise:  linear-gradient(135deg, #f5b400 0%, #e67a2e 45%, #b5422e 100%);
+    --gradient-sunrise:  linear-gradient(135deg, #f5b400 0%, #e67a2e 45%, #b5422e 100%);
   --gradient-altiplano: linear-gradient(180deg, #f5b400 0%, #c86048 60%, #1f2f41 100%);
   --gradient-dusk:      linear-gradient(180deg, #1f2f41 0%, #2b405a 50%, #b5422e 100%);
   --gradient-paper:     linear-gradient(180deg, #fbf8f3 0%, #f6f1e8 100%);
 
-  /* =========================================================
-     SEMANTIC COLOR ROLES
-     ========================================================= */
-  --bg:            #F8F9FA;  /* Blanco Salar */
-  --bg-elevated:   var(--stone-0);
+    --bg:            #F8F9FA;    --bg-elevated:   var(--stone-0);
   --bg-sunken:     var(--stone-50);
   --bg-inverse:    var(--navy-600);
 
-  --fg1:           var(--navy-700);  /* primary text */
-  --fg2:           var(--stone-600); /* secondary text */
-  --fg3:           var(--stone-400); /* tertiary / captions */
-  --fg-inverse:    var(--stone-25);
+  --fg1:           var(--navy-700);    --fg2:           var(--stone-600);   --fg3:           var(--stone-400);   --fg-inverse:    var(--stone-25);
   --fg-on-brand:   var(--stone-0);
 
   --brand:         var(--navy-600);
@@ -132,8 +92,7 @@
 
   --focus-ring:    color-mix(in srgb, var(--amber-500) 55%, transparent);
 
-  /* Dark mode overrides */
-}
+  }
 
 [data-theme="dark"] {
   --bg:            var(--navy-900);
@@ -157,29 +116,11 @@
 }
 
 :root {
-  /* =========================================================
-     TYPOGRAPHY
-     Display: Bricolage Grotesque (variable sans, contemporary editorial)
-     Body:    Inter (clean, technical, neutral, excellent diacritics)
-     Mono:    JetBrains Mono (data, timestamps, codes)
-     ========================================================= */
-  --font-display: "Bricolage Grotesque", "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-display: "Bricolage Grotesque", "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
-  /* Type scale — generous, editorial-leaning */
-  --fs-xs:    0.75rem;   /* 12 */
-  --fs-sm:    0.875rem;  /* 14 */
-  --fs-base:  1rem;      /* 16 */
-  --fs-md:    1.125rem;  /* 18 */
-  --fs-lg:    1.25rem;   /* 20 */
-  --fs-xl:    1.5rem;    /* 24 */
-  --fs-2xl:   2rem;      /* 32 */
-  --fs-3xl:   2.75rem;   /* 44 */
-  --fs-4xl:   3.75rem;   /* 60 */
-  --fs-5xl:   5rem;      /* 80 */
-  --fs-6xl:   6.5rem;    /* 104 — hero */
-
+    --fs-xs:    0.75rem;     --fs-sm:    0.875rem;    --fs-base:  1rem;        --fs-md:    1.125rem;    --fs-lg:    1.25rem;     --fs-xl:    1.5rem;      --fs-2xl:   2rem;        --fs-3xl:   2.75rem;     --fs-4xl:   3.75rem;     --fs-5xl:   5rem;        --fs-6xl:   6.5rem;    
   --lh-tight:   1.05;
   --lh-snug:    1.2;
   --lh-normal:  1.5;
@@ -189,18 +130,14 @@
   --ls-tight:   -0.015em;
   --ls-normal:  0;
   --ls-wide:    0.04em;
-  --ls-wider:   0.12em;   /* section eyebrows */
-
+  --ls-wider:   0.12em;   
   --fw-light:   300;
   --fw-regular: 400;
   --fw-medium:  600;
   --fw-bold:    700;
   --fw-black:   900;
 
-  /* =========================================================
-     SPACING
-     ========================================================= */
-  --space-0:  0;
+    --space-0:  0;
   --space-1:  0.25rem;
   --space-2:  0.5rem;
   --space-3:  0.75rem;
@@ -212,11 +149,7 @@
   --space-9:  6rem;
   --space-10: 8rem;
 
-  /* =========================================================
-     RADII — slightly rounded; not pillowy. Matches the soft
-     rounded-sans wordmark without going gummy.
-     ========================================================= */
-  --r-none: 0;
+    --r-none: 0;
   --r-sm:   4px;
   --r-md:   8px;
   --r-lg:   14px;
@@ -224,10 +157,7 @@
   --r-2xl:  28px;
   --r-pill: 999px;
 
-  /* =========================================================
-     SHADOWS — warm-tinted, soft. Travel-journal, not SaaS.
-     ========================================================= */
-  --shadow-xs: 0 1px 2px rgba(31, 47, 65, 0.06);
+    --shadow-xs: 0 1px 2px rgba(31, 47, 65, 0.06);
   --shadow-sm: 0 2px 6px rgba(31, 47, 65, 0.08);
   --shadow-md: 0 8px 20px -6px rgba(31, 47, 65, 0.12), 0 2px 4px rgba(31, 47, 65, 0.06);
   --shadow-lg: 0 18px 40px -12px rgba(31, 47, 65, 0.22), 0 4px 8px rgba(31, 47, 65, 0.08);
@@ -236,10 +166,7 @@
   --shadow-rust:  0 10px 30px -8px rgba(181, 66, 46, 0.35);
   --shadow-inner: inset 0 1px 2px rgba(31, 47, 65, 0.08);
 
-  /* =========================================================
-     MOTION
-     ========================================================= */
-  --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --dur-fast:    140ms;
@@ -247,19 +174,13 @@
   --dur-slow:    400ms;
   --dur-xslow:   700ms;
 
-  /* =========================================================
-     LAYOUT
-     ========================================================= */
-  --container-sm: 640px;
+    --container-sm: 640px;
   --container-md: 880px;
   --container-lg: 1120px;
   --container-xl: 1320px;
   --container-2xl: 1480px;
 }
 
-/* =========================================================
-   RESET — remove browser defaults
-   ========================================================= */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -271,9 +192,6 @@ html, body, #root {
   width: 100%;
 }
 
-/* =========================================================
-   SEMANTIC ELEMENT STYLES
-   ========================================================= */
 
 html, body {
   background: var(--bg);
@@ -285,7 +203,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Eyebrow — tracked-out small caps label, used above section titles */
 .eyebrow {
   font-family: var(--font-sans);
   font-size: var(--fs-xs);
@@ -295,7 +212,6 @@ html, body {
   color: var(--rust-500);
 }
 
-/* Display — hero-scale editorial serif */
 .display, h1.display {
   font-family: var(--font-display);
   font-size: clamp(3rem, 6vw, var(--fs-6xl));

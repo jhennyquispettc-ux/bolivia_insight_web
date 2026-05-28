@@ -16,7 +16,7 @@ function Auth({ onBack, onLogin }) {
 
     setError(null);
     const client = window.google.accounts.oauth2.initTokenClient({
-      client_id: '648020306250-ad76806rdeqa45c1rr8enu79poiq0asg.apps.googleusercontent.com', // ¡REEMPLAZA ESTO!
+      client_id: '648020306250-ad76806rdeqa45c1rr8enu79poiq0asg.apps.googleusercontent.com', 
       scope: 'email profile https://www.googleapis.com/auth/calendar.events',
       prompt: 'consent',
       callback: async (response) => {
@@ -27,7 +27,7 @@ function Auth({ onBack, onLogin }) {
 
         setLoading(true);
         try {
-          // Send the access token to our NestJS backend
+          
           const res = await fetch('http://localhost:3000/auth/google', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -41,7 +41,7 @@ function Auth({ onBack, onLogin }) {
           
           if (onLogin) onLogin(data.user, data.accessToken);
           
-          // Store the raw Google access token for Calendar API usage later
+          
           localStorage.setItem('google_access_token', response.access_token);
           
           onBack();
@@ -67,14 +67,14 @@ function Auth({ onBack, onLogin }) {
       overflow: 'hidden',
       padding: '24px',
     }}>
-      {/* Background Image - Matches Hero Variant A */}
+      {}
       <div style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'url(assets/logos/uyuni-sunset.png)',
         backgroundSize: 'cover', backgroundPosition: 'center',
       }} />
 
-      {/* Dark gradient overlay for text and card legibility */}
+      {}
       <div style={{
         position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
         background: 'linear-gradient(180deg, rgba(27,42,65,0.45) 0%, rgba(27,42,65,0.15) 25%, rgba(27,42,65,0.65) 70%, rgba(27,42,65,0.9) 100%)',
@@ -94,7 +94,7 @@ function Auth({ onBack, onLogin }) {
         </button>
       </div>
 
-      {/* Glassmorphic Login Card */}
+      {}
       <div className="auth-glass-card">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 32 }}>
           <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 36, filter: 'brightness(0) invert(1)' }} />

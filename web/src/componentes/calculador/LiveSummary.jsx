@@ -1,7 +1,16 @@
 import React from 'react';
 import { useI18n } from '../../data/translations.jsx';
-import { formatDuration } from '../../calculador/api.js';
+
 import I from '../../ui/iconos.jsx';
+
+function formatDuration(minutes) {
+  if (minutes < 1) return '0 min';
+  const h = Math.floor(minutes / 60);
+  const m = Math.round(minutes % 60);
+  if (h === 0) return `${m} min`;
+  if (m === 0) return `${h} h`;
+  return `${h} h ${m} min`;
+}
 
 function LiveSummary({ count, stayMinutes, max = 10, min = 2, startSet }) {
   const { t } = useI18n();

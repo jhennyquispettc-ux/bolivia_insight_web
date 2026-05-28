@@ -1,4 +1,3 @@
-/* Bolivia Insight — Top 5 attractions section */
 import React, { useState, useEffect } from 'react';
 import IMG from '../ui/imagenes.jsx';
 import I from '../ui/iconos.jsx';
@@ -75,7 +74,7 @@ function TabsSection() {
     <section style={{ background: 'var(--navy-700)', color: '#fff', padding: isMobile ? '72px 0 56px' : '120px 0' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
 
-        {/* Header */}
+        {}
         <div style={{ maxWidth: 760, marginBottom: isMobile ? 32 : 56 }}>
           <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 12 }}>The list · most-visited landmarks</div>
           <h2 style={{
@@ -93,10 +92,10 @@ function TabsSection() {
           )}
         </div>
 
-        {/* MOBILE: stacked layout — tabs as horizontal scroll pills + card below */}
+        {}
         {isMobile ? (
           <div>
-            {/* Horizontal scrollable pill selector */}
+            {}
             <div style={{
               display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4,
               scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
@@ -118,7 +117,7 @@ function TabsSection() {
               ))}
             </div>
 
-            {/* Feature card — full width on mobile */}
+            {}
             <article key={item.n} style={{
               background: '#fff', color: 'var(--fg1)',
               borderRadius: 16, overflow: 'hidden',
@@ -148,9 +147,8 @@ function TabsSection() {
             </article>
           </div>
         ) : (
-          /* DESKTOP: side-by-side */
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 40, alignItems: 'start' }}>
-            {/* LEFT — list */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 40, alignItems: 'start' }}>
+            {}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {top5.map((t, i) => {
                 const selected = active === i;
@@ -179,7 +177,7 @@ function TabsSection() {
               })}
             </div>
 
-            {/* RIGHT — feature card */}
+            {}
             <article key={item.n} style={{
               background: '#fff', color: 'var(--fg1)',
               borderRadius: 20, overflow: 'hidden',

@@ -1,5 +1,3 @@
-/* Bolivia Insight — Emergency SOS Hub
-   Calm, scannable, mobile-first. Optimized for stress-state usage. */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
@@ -35,7 +33,7 @@ function EmergencyHub({ onBack }) {
     { id: 'tourist', label: t('sos.touristPolice', 'Tourist Police'), number: '800-14-0081', icon: <I.Flag size={28}/>, note: locale === 'es' ? 'Atención en inglés, enfocado en turistas' : locale === 'pt' ? 'Atendimento em inglês, focado em turistas' : locale === 'fr' ? 'Anglophone, dédié aux touristes' : locale === 'ja' ? '観光警察（英語対応、旅行者向け）' : locale === 'ko' ? '관광 경찰 (영어 가능, 여행자 특화)' : 'English-speaking, tourist-focused' },
   ];
 
-  // Per-city directories. Real numbers/addresses; verify monthly.
+  
   const directories = {
     lapaz: {
       hospitals: [
@@ -193,7 +191,7 @@ function EmergencyHub({ onBack }) {
   const dir = directories[city] || directories.lapaz;
   const today = new Date('2026-04-29');
   
-  // Format localized date
+  
   const dateStr = today.toLocaleDateString(
     locale === 'es' ? 'es-ES' :
     locale === 'pt' ? 'pt-PT' :
@@ -213,7 +211,7 @@ function EmergencyHub({ onBack }) {
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
-      {/* HERO — calm, no decorative orbs */}
+      {}
       <section style={{ background: 'var(--navy-800)', color: '#fff', padding: isMobile ? '56px 0 64px' : '80px 0 88px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
           <button onClick={onBack} style={{
@@ -239,7 +237,7 @@ function EmergencyHub({ onBack }) {
         </div>
       </section>
 
-      {/* CRITICAL ROW — biggest tap targets, top of page for stress state */}
+      {}
       <section style={{ background: 'var(--bg)', padding: isMobile ? '24px 0 8px' : '32px 0 8px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
           display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
@@ -270,7 +268,7 @@ function EmergencyHub({ onBack }) {
         </div>
       </section>
 
-      {/* CITY SELECTOR */}
+      {}
       <section style={{ padding: isMobile ? '24px 0 8px' : '32px 0 8px', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
           <div className="eyebrow" style={{ marginBottom: 14 }}>{t('sos.selectCity', 'Select your city')}</div>
@@ -296,7 +294,7 @@ function EmergencyHub({ onBack }) {
         </div>
       </section>
 
-      {/* ALTITUDE CALLOUT — only relevant for high-altitude cities */}
+      {}
       {altitudeAlts[city] && (
         <section style={{ padding: '20px 0 8px', background: 'var(--bg)' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
@@ -323,7 +321,7 @@ function EmergencyHub({ onBack }) {
         </section>
       )}
 
-      {/* CATEGORIES */}
+      {}
       <section style={{ padding: isMobile ? '32px 0 64px' : '40px 0 80px', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
           display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(360px, 1fr))', gap: isMobile ? 16 : 20 }}>
@@ -336,7 +334,7 @@ function EmergencyHub({ onBack }) {
         </div>
       </section>
 
-      {/* FOOTER NOTE */}
+      {}
       <section style={{ background: 'var(--stone-50)', padding: isMobile ? '20px 0' : '28px 0', borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
           display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', gap: 14, flexDirection: isMobile ? 'column' : 'row',

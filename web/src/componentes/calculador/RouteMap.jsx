@@ -1,9 +1,32 @@
 import React, { useEffect, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, CircleMarker, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { CATEGORY_META, TELEFERICO_COLORS, MODE_COLORS } from '../../calculador/api.js';
+
 
 const LA_PAZ_CENTER = [-16.505, -68.130];
+
+const CATEGORY_META = {
+  attraction:  { emoji: '🏛️', color: '#1a73e8' },
+  nature:      { emoji: '🏞️', color: '#2e9d4a' },
+  viewpoint:   { emoji: '🔭', color: '#16a34a' },
+  restaurant:  { emoji: '🍽️', color: '#e87722' },
+  plaza:       { emoji: '⛲', color: '#0d9488' },
+  station:     { emoji: '🚡', color: '#dc2626' },
+  airport:     { emoji: '✈️', color: '#4f46e5' },
+  reference:   { emoji: '📍', color: '#64748b' },
+};
+
+const TELEFERICO_COLORS = {
+  Roja: '#E31837', Amarilla: '#FFD100', Verde: '#009640',
+  Azul: '#0055A5', Celeste: '#00A1E4', Naranja: '#FF7F00',
+  Blanca: '#FFFFFF', Cafe: '#7A411B', Morada: '#6C217E', Plateada: '#A0A0A0',
+};
+
+const MODE_COLORS = {
+  caminata:   '#334155',
+  teleferico: '#d22d2d',
+  taxi:       '#2266dd',
+};
 
 function poiIcon(category, selected) {
   const meta = CATEGORY_META[category] || { emoji: '📍', color: '#64748b' };
@@ -76,7 +99,7 @@ function RouteMap({ pois, graph, selected, result }) {
         attribution="© OpenStreetMap"
       />
 
-      {/* Teleférico base network */}
+      {}
       {teleEdges.map((e, i) => {
         const a = nodeMap.get(e.fromSlug);
         const b = nodeMap.get(e.toSlug);
@@ -91,7 +114,7 @@ function RouteMap({ pois, graph, selected, result }) {
         );
       })}
 
-      {/* Station dots */}
+      {}
       {stations.map((s) => (
         <CircleMarker
           key={`st-${s.slug}`}
@@ -101,7 +124,7 @@ function RouteMap({ pois, graph, selected, result }) {
         />
       ))}
 
-      {/* POI markers (skip while result is shown to avoid clutter) */}
+      {}
       {!result && pois.map((p) => (
         <Marker
           key={p.slug}
@@ -110,7 +133,7 @@ function RouteMap({ pois, graph, selected, result }) {
         />
       ))}
 
-      {/* Calculated route */}
+      {}
       {result && result.segments.map((seg, si) => (
         seg.hops.map((h, hi) => {
           const color = (h.mode === 'teleferico' && h.line)

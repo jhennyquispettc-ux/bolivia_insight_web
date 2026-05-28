@@ -1,9 +1,7 @@
-/* Bolivia Insight — Route Calculator page (TSP planner for La Paz) */
 import React, { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
-import { fetchPois, fetchGraph, calculateRoute } from '../calculador/api.js';
 import PoiSelector from '../componentes/calculador/PoiSelector.jsx';
 import LiveSummary from '../componentes/calculador/LiveSummary.jsx';
 import ProfilePicker from '../componentes/calculador/ProfilePicker.jsx';
@@ -41,10 +39,28 @@ function RouteCalculator({ onBack }) {
   useEffect(() => {
     let alive = true;
     setLoadingBoot(true);
-    Promise.all([fetchPois('la-paz'), fetchGraph('la-paz')])
-      .then(([p, g]) => { if (alive) { setPois(p); setGraph(g); } })
-      .catch((err) => { if (alive) setBootError(err.message || 'network'); })
-      .finally(() => { if (alive) setLoadingBoot(false); });
+
+    const loadData = async () => {
+      try {
+        const [resPois, resGraph] = await Promise.all([
+          fetch('http://localhost:3000/routes/pois?city=la-paz'),
+          fetch('http://localhost:3000/routes/graph?city=la-paz')
+        ]);
+
+        if (!resPois.ok || !resGraph.ok) throw new Error('Request failed');
+
+        const p = await resPois.json();
+        const g = await resGraph.json();
+
+        if (alive) { setPois(p); setGraph(g); }
+      } catch (err) {
+        if (alive) setBootError(err.message || 'network');
+      } finally {
+        if (alive) setLoadingBoot(false);
+      }
+    };
+
+    loadData();
     return () => { alive = false; };
   }, []);
 
@@ -105,8 +121,21 @@ function RouteCalculator({ onBack }) {
         circuit,
         city: 'la-paz',
       };
-      const res = await calculateRoute(body);
-      setResult(res);
+
+      const res = await fetch('http://localhost:3000/routes/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        let detail = 'Request failed';
+        try { const j = await res.json(); detail = j.message || detail; } catch { }
+        throw new Error(detail);
+      }
+
+      const data = await res.json();
+      setResult(data);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       setCalcError(err.message || t('planner.error.network', 'No pudimos calcular la ruta. Intenta de nuevo.'));
@@ -132,17 +161,17 @@ function RouteCalculator({ onBack }) {
     <main style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: 90 }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '16px 18px 80px' : '24px 32px 100px' }}>
 
-        {/* Back link */}
+        { }
         <button onClick={onBack} style={{
           background: 'transparent', border: 0, cursor: 'pointer',
           display: 'inline-flex', alignItems: 'center', gap: 6,
           color: 'var(--fg2)', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 13,
           padding: '6px 0', marginBottom: 12,
         }}>
-          <I.ArrowL size={14}/> {t('planner.back', 'Volver al inicio')}
+          <I.ArrowL size={14} /> {t('planner.back', 'Volver al inicio')}
         </button>
 
-        {/* Header */}
+        { }
         <header style={{ marginBottom: isMobile ? 20 : 32, maxWidth: 760 }}>
           <div className="eyebrow">{t('planner.eyebrow', 'Herramienta 04 · Planificación')}</div>
           <h1 className="display" style={{
@@ -163,7 +192,7 @@ function RouteCalculator({ onBack }) {
             gap: isMobile ? 32 : 24,
             alignItems: 'start',
           }}>
-            {/* LEFT: Panel */}
+            { }
             <section style={{
               display: 'flex', flexDirection: 'column', gap: 16,
               width: isMobile ? '100%' : 'min(420px, 40%)',
@@ -174,7 +203,7 @@ function RouteCalculator({ onBack }) {
               overflowY: isMobile ? 'visible' : 'auto',
               paddingRight: isMobile ? 0 : 8,
             }}>
-              <ProfilePicker value={profile} onChange={(p) => { setProfile(p); setResult(null); }}/>
+              <ProfilePicker value={profile} onChange={(p) => { setProfile(p); setResult(null); }} />
 
               <label style={{
                 display: 'flex', alignItems: 'center', gap: 10,
@@ -218,7 +247,7 @@ function RouteCalculator({ onBack }) {
                 background: isMobile ? 'var(--bg)' : 'transparent',
                 paddingTop: isMobile ? 12 : 0,
                 paddingBottom: isMobile ? 12 : 0,
-                paddingRight: isMobile ? 76 : 0, // avoid chat bubble
+                paddingRight: isMobile ? 76 : 0,
                 marginTop: 4,
                 zIndex: 10,
               }}>
@@ -236,13 +265,13 @@ function RouteCalculator({ onBack }) {
                   {calcLoading
                     ? t('planner.calculating', 'Calculando…')
                     : t('planner.calculate', 'Calcular ruta')}
-                  <I.ArrowR size={15}/>
+                  <I.ArrowR size={15} />
                 </Btn>
               </div>
             </section>
 
-            {/* RIGHT: Map + Result */}
-            <section style={{ 
+            { }
+            <section style={{
               display: 'flex', flexDirection: 'column', gap: 0,
               flex: 1, width: '100%', minWidth: 0
             }}>
@@ -255,11 +284,11 @@ function RouteCalculator({ onBack }) {
                 border: '1px solid var(--border)',
                 background: 'var(--bg-elevated)',
               }}>
-                <RouteMap pois={pois} graph={graph} selected={selected} result={result}/>
+                <RouteMap pois={pois} graph={graph} selected={selected} result={result} />
               </div>
 
               {result && (
-                <RouteResult result={result} onModify={() => setResult(null)}/>
+                <RouteResult result={result} onModify={() => setResult(null)} />
               )}
 
               {!result && (
