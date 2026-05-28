@@ -35,6 +35,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
     { id: 'destinations', label: t('nav.destinations', 'Destinations'),  icon: <I.Pin size={16}/> },
     { id: 'dashboard',    label: t('nav.dashboard', 'Live Dashboard'), icon: <I.Activity size={16}/>, live: true },
     { id: 'guides',       label: t('nav.guides', 'Travel Guide'),   icon: <I.Book size={16}/> },
+    { id: 'planner',      label: t('nav.planner', 'Planificador'), icon: <I.Route size={16}/> },
     { id: 'sos',          label: t('nav.sos', 'SOS'),            icon: <I.Alert size={16}/>, accent: 'rust' },
   ];
 

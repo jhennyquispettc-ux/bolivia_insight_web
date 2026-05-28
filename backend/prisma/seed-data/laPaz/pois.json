@@ -1,0 +1,365 @@
+[
+  {
+    "id": "poi_plaza_murillo",
+    "nombre": "Plaza Murillo",
+    "categoria": "plaza",
+    "descripcion": "Plaza principal de La Paz, sede del gobierno boliviano.",
+    "lat": -16.4957,
+    "lon": -68.1336,
+    "idNodo": "n_plaza_murillo",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_catedral_basilica",
+    "nombre": "Catedral Basílica de Nuestra Señora de La Paz",
+    "categoria": "atractivo",
+    "descripcion": "Catedral metropolitana frente a la Plaza Murillo.",
+    "lat": -16.4962,
+    "lon": -68.1341,
+    "idNodo": "n_catedral_basilica",
+    "tiempoVisita": 15
+  },
+  {
+    "id": "poi_calle_jaen",
+    "nombre": "Calle Jaén",
+    "categoria": "atractivo",
+    "descripcion": "Calle colonial empedrada con varios museos pequeños.",
+    "lat": -16.4922,
+    "lon": -68.1359,
+    "idNodo": "n_calle_jaen",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_museo_etnografia",
+    "nombre": "Museo Nacional de Etnografía y Folklore",
+    "categoria": "atractivo",
+    "descripcion": "Colecciones de arte y tradiciones de los pueblos de Bolivia.",
+    "lat": -16.4945,
+    "lon": -68.1352,
+    "idNodo": "n_museo_etnografia",
+    "tiempoVisita": 60
+  },
+  {
+    "id": "poi_iglesia_san_francisco",
+    "nombre": "Basílica de San Francisco",
+    "categoria": "atractivo",
+    "descripcion": "Iglesia colonial en pleno centro turístico.",
+    "lat": -16.4965,
+    "lon": -68.1374,
+    "idNodo": "n_iglesia_san_francisco",
+    "tiempoVisita": 15
+  },
+  {
+    "id": "poi_plaza_san_francisco",
+    "nombre": "Plaza San Francisco",
+    "categoria": "plaza",
+    "descripcion": "Plaza popular junto a la basílica de San Francisco.",
+    "lat": -16.4961,
+    "lon": -68.1371,
+    "idNodo": "n_plaza_san_francisco",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_mercado_brujas",
+    "nombre": "Mercado de las Brujas",
+    "categoria": "atractivo",
+    "descripcion": "Mercado tradicional con amuletos y medicina andina.",
+    "lat": -16.4983,
+    "lon": -68.139,
+    "idNodo": "n_mercado_brujas",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_museo_coca",
+    "nombre": "Museo de la Coca",
+    "categoria": "atractivo",
+    "descripcion": "Museo dedicado a la historia y usos de la hoja de coca.",
+    "lat": -16.4977,
+    "lon": -68.1383,
+    "idNodo": "n_museo_coca",
+    "tiempoVisita": 25
+  },
+  {
+    "id": "poi_el_prado",
+    "nombre": "El Prado (Av. 16 de Julio)",
+    "categoria": "atractivo",
+    "descripcion": "Avenida central con paseo peatonal arbolado.",
+    "lat": -16.5025,
+    "lon": -68.1305,
+    "idNodo": "n_el_prado",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_plaza_avaroa",
+    "nombre": "Plaza Avaroa (Sopocachi)",
+    "categoria": "plaza",
+    "descripcion": "Plaza emblemática del barrio de Sopocachi.",
+    "lat": -16.5103,
+    "lon": -68.1267,
+    "idNodo": "n_plaza_avaroa",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_cementerio_general",
+    "nombre": "Cementerio General",
+    "categoria": "atractivo",
+    "descripcion": "Cementerio histórico con murales y tumbas notables.",
+    "lat": -16.4967,
+    "lon": -68.1514,
+    "idNodo": "n_cementerio_general",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_mirador_killi_killi",
+    "nombre": "Mirador Killi Killi",
+    "categoria": "mirador",
+    "descripcion": "Mirador con vista panorámica de la hoyada de La Paz.",
+    "lat": -16.4951,
+    "lon": -68.1275,
+    "idNodo": "n_mirador_killi_killi",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_mirador_jacha_apacheta",
+    "nombre": "Mirador Jach'a Apacheta (El Alto)",
+    "categoria": "mirador",
+    "descripcion": "Mirador en El Alto con vista al Illimani y la ciudad.",
+    "lat": -16.5145,
+    "lon": -68.181,
+    "idNodo": "n_mirador_jacha_apacheta",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_valle_luna",
+    "nombre": "Valle de la Luna",
+    "categoria": "naturaleza",
+    "descripcion": "Formaciones de arcilla erosionadas al sur de la ciudad.",
+    "lat": -16.5676,
+    "lon": -68.0938,
+    "idNodo": "n_valle_luna",
+    "tiempoVisita": 60
+  },
+  {
+    "id": "poi_gustu",
+    "nombre": "Gustu",
+    "categoria": "restaurante",
+    "descripcion": "Alta cocina boliviana con ingredientes nativos (Calacoto).",
+    "lat": -16.5445,
+    "lon": -68.0865,
+    "idNodo": "n_gustu",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_popular_cocina",
+    "nombre": "Popular Cocina Boliviana",
+    "categoria": "restaurante",
+    "descripcion": "Murillo 826, La Paz",
+    "lat": -16.4961,
+    "lon": -68.1384,
+    "idNodo": "n_popular_cocina",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_ali_pacha",
+    "nombre": "Ali Pacha",
+    "categoria": "restaurante",
+    "descripcion": "Cocina vegana de degustación, centro histórico.",
+    "lat": -16.4976,
+    "lon": -68.1332,
+    "idNodo": "n_ali_pacha",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_cafe_del_mundo",
+    "nombre": "Café del Mundo (Sopocachi)",
+    "categoria": "restaurante",
+    "descripcion": "Café-restaurante de ambiente bohemio en Sopocachi.",
+    "lat": -16.5095,
+    "lon": -68.128,
+    "idNodo": "n_cafe_del_mundo",
+    "tiempoVisita": 30
+  },
+  {
+    "id": "poi_pacena_saltena",
+    "nombre": "Paceña La Salteña",
+    "categoria": "restaurante",
+    "descripcion": "Salteñas clásicas paceñas, varias sucursales.",
+    "lat": -16.499,
+    "lon": -68.1331,
+    "idNodo": "n_pacena_saltena",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_saltenas_hornito",
+    "nombre": "Salteñas El Hornito",
+    "categoria": "restaurante",
+    "descripcion": "Salteñas tradicionales cerca de El Prado.",
+    "lat": -16.5005,
+    "lon": -68.131,
+    "idNodo": "n_saltenas_hornito",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_la_suisse",
+    "nombre": "La Suisse",
+    "categoria": "restaurante",
+    "descripcion": "Fondue y parrillas suizo-bolivianas en zona sur.",
+    "lat": -16.5403,
+    "lon": -68.0739,
+    "idNodo": "n_la_suisse",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_plaza_estudiante",
+    "nombre": "Plaza del Estudiante",
+    "categoria": "atractivo",
+    "descripcion": "Plaza al final de El Prado, frente a la UMSA.",
+    "lat": -16.5042,
+    "lon": -68.1312,
+    "idNodo": "n_plaza_estudiante",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_terminal_buses",
+    "nombre": "Terminal de Buses",
+    "categoria": "referencia",
+    "subcategoria": "hub",
+    "descripcion": "Terminal principal de buses de La Paz",
+    "lat": -16.4912,
+    "lon": -68.1408,
+    "idNodo": "n_terminal_buses",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_hub_sopocachi",
+    "nombre": "Estación Teleférico Sopocachi",
+    "categoria": "estacion",
+    "subcategoria": "hub",
+    "descripcion": "Estación Línea Amarilla (Sopocachi)",
+    "lat": -16.51454,
+    "lon": -68.13048,
+    "idNodo": "n_est_sopocachi",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_san_miguel",
+    "nombre": "21 de Calacoto (San Miguel)",
+    "categoria": "referencia",
+    "subcategoria": "hub",
+    "descripcion": "Centro comercial Zona Sur",
+    "lat": -16.5413,
+    "lon": -68.0772,
+    "idNodo": "n_san_miguel",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_hub_obrajes",
+    "nombre": "17 de Obrajes",
+    "categoria": "estacion",
+    "subcategoria": "hub",
+    "descripcion": "Estación Línea Verde (Obrajes)",
+    "lat": -16.52684,
+    "lon": -68.10072,
+    "idNodo": "n_est_obrajes17",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_manqa",
+    "nombre": "Manq'a",
+    "categoria": "restaurante",
+    "subcategoria": "comida",
+    "descripcion": "Plaza Abaroa, Av. 20 de octubre #927",
+    "lat": -16.5105,
+    "lon": -68.1265,
+    "idNodo": "n_manqa",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_aeropuerto",
+    "nombre": "Aeropuerto El Alto",
+    "categoria": "aeropuerto",
+    "subcategoria": "hub",
+    "descripcion": "Aeropuerto Internacional",
+    "lat": -16.5133,
+    "lon": -68.1923,
+    "idNodo": "n_aeropuerto",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_plaza_humbolt",
+    "nombre": "Plaza Humbolt (Zona Sur)",
+    "categoria": "plaza",
+    "subcategoria": "hub",
+    "descripcion": "Punto de conexión en Zona Sur",
+    "lat": -16.5385,
+    "lon": -68.0837,
+    "idNodo": "n_plaza_humbolt",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_av_illampu",
+    "nombre": "Av. Illampu",
+    "categoria": "referencia",
+    "subcategoria": "hub",
+    "descripcion": "Avenida turística",
+    "lat": -16.4951,
+    "lon": -68.1408,
+    "idNodo": "n_av_illampu",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_calle_sagarnaga",
+    "nombre": "Calle Sagárnaga",
+    "categoria": "atractivo",
+    "subcategoria": "cultural",
+    "descripcion": "Calle turística y artesanías",
+    "lat": -16.4965,
+    "lon": -68.1365,
+    "idNodo": "n_calle_sagarnaga",
+    "tiempoVisita": 20
+  },
+  {
+    "id": "poi_mercado_rodriguez",
+    "nombre": "Mercado Rodríguez",
+    "categoria": "atractivo",
+    "subcategoria": "cultural",
+    "descripcion": "Mercado tradicional de alimentos",
+    "lat": -16.5015,
+    "lon": -68.136,
+    "idNodo": "n_mercado_rodriguez",
+    "tiempoVisita": 30
+  },
+  {
+    "id": "poi_valle_animas",
+    "nombre": "Valle de las Ánimas",
+    "categoria": "naturaleza",
+    "subcategoria": "naturaleza",
+    "descripcion": "Formaciones geológicas",
+    "lat": -16.55,
+    "lon": -68.04,
+    "idNodo": "n_valle_animas",
+    "tiempoVisita": 90
+  },
+  {
+    "id": "poi_est_central",
+    "nombre": "Estación Central (Línea Roja)",
+    "categoria": "estacion",
+    "subcategoria": "hub",
+    "descripcion": "Antigua estación de trenes",
+    "lat": -16.4885,
+    "lon": -68.1404,
+    "idNodo": "n_est_central",
+    "tiempoVisita": 0
+  },
+  {
+    "id": "poi_est_mirador_amarillo",
+    "nombre": "Estación Mirador (Línea Amarilla)",
+    "categoria": "estacion",
+    "subcategoria": "hub",
+    "descripcion": "Ciudad Satélite",
+    "lat": -16.5126,
+    "lon": -68.1568,
+    "idNodo": "n_est_mirador_amarillo",
+    "tiempoVisita": 0
+  }
+]

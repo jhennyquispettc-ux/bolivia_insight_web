@@ -15,6 +15,12 @@ function Hero({ variant = 'A', onCtaClick }) {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Sync dark mode globally
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', night ? 'dark' : 'light');
+    // Ensure it resets when unmounting if needed, but for now we keep the user's choice
+  }, [night]);
+
   const isMobile = vw < 768;
 
   const formatTitle = (text, isNight) => {

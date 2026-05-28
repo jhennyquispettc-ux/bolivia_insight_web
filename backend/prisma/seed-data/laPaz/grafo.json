@@ -1,0 +1,6408 @@
+{
+  "nodos": [
+    {
+      "id": "n_plaza_murillo",
+      "tipo": "poi",
+      "lat": -16.4957,
+      "lon": -68.1336
+    },
+    {
+      "id": "n_catedral_basilica",
+      "tipo": "poi",
+      "lat": -16.4962,
+      "lon": -68.1341
+    },
+    {
+      "id": "n_calle_jaen",
+      "tipo": "poi",
+      "lat": -16.4922,
+      "lon": -68.1359
+    },
+    {
+      "id": "n_museo_etnografia",
+      "tipo": "poi",
+      "lat": -16.4945,
+      "lon": -68.1352
+    },
+    {
+      "id": "n_iglesia_san_francisco",
+      "tipo": "poi",
+      "lat": -16.4965,
+      "lon": -68.1374
+    },
+    {
+      "id": "n_plaza_san_francisco",
+      "tipo": "poi",
+      "lat": -16.4961,
+      "lon": -68.1371
+    },
+    {
+      "id": "n_mercado_brujas",
+      "tipo": "poi",
+      "lat": -16.4983,
+      "lon": -68.139
+    },
+    {
+      "id": "n_museo_coca",
+      "tipo": "poi",
+      "lat": -16.4977,
+      "lon": -68.1383
+    },
+    {
+      "id": "n_el_prado",
+      "tipo": "poi",
+      "lat": -16.5025,
+      "lon": -68.1305
+    },
+    {
+      "id": "n_plaza_avaroa",
+      "tipo": "poi",
+      "lat": -16.5103,
+      "lon": -68.1267
+    },
+    {
+      "id": "n_cementerio_general",
+      "tipo": "poi",
+      "lat": -16.4967,
+      "lon": -68.1514
+    },
+    {
+      "id": "n_mirador_killi_killi",
+      "tipo": "poi",
+      "lat": -16.4951,
+      "lon": -68.1275
+    },
+    {
+      "id": "n_mirador_jacha_apacheta",
+      "tipo": "poi",
+      "lat": -16.5145,
+      "lon": -68.181
+    },
+    {
+      "id": "n_valle_luna",
+      "tipo": "poi",
+      "lat": -16.5676,
+      "lon": -68.0938
+    },
+    {
+      "id": "n_gustu",
+      "tipo": "poi",
+      "lat": -16.5445,
+      "lon": -68.0865
+    },
+    {
+      "id": "n_popular_cocina",
+      "tipo": "poi",
+      "lat": -16.4961,
+      "lon": -68.1384
+    },
+    {
+      "id": "n_ali_pacha",
+      "tipo": "poi",
+      "lat": -16.4976,
+      "lon": -68.1332
+    },
+    {
+      "id": "n_cafe_del_mundo",
+      "tipo": "poi",
+      "lat": -16.5095,
+      "lon": -68.128
+    },
+    {
+      "id": "n_pacena_saltena",
+      "tipo": "poi",
+      "lat": -16.499,
+      "lon": -68.1331
+    },
+    {
+      "id": "n_saltenas_hornito",
+      "tipo": "poi",
+      "lat": -16.5005,
+      "lon": -68.131
+    },
+    {
+      "id": "n_la_suisse",
+      "tipo": "poi",
+      "lat": -16.5403,
+      "lon": -68.0739
+    },
+    {
+      "id": "n_plaza_estudiante",
+      "tipo": "poi",
+      "lat": -16.5042,
+      "lon": -68.1312
+    },
+    {
+      "id": "n_est_cementerio",
+      "tipo": "estacion",
+      "lat": -16.49783,
+      "lon": -68.15292
+    },
+    {
+      "id": "n_est_16_julio",
+      "tipo": "estacion",
+      "lat": -16.49805,
+      "lon": -68.16471
+    },
+    {
+      "id": "n_est_plaza_la_paz",
+      "tipo": "estacion",
+      "lat": -16.49227,
+      "lon": -68.18308
+    },
+    {
+      "id": "n_est_plaza_libertad",
+      "tipo": "estacion",
+      "lat": -16.49481,
+      "lon": -68.17349
+    },
+    {
+      "id": "n_est_upea",
+      "tipo": "estacion",
+      "lat": -16.4895,
+      "lon": -68.19307
+    },
+    {
+      "id": "n_est_rio_seco",
+      "tipo": "estacion",
+      "lat": -16.49003,
+      "lon": -68.20957
+    },
+    {
+      "id": "n_est_sopocachi",
+      "tipo": "estacion",
+      "lat": -16.51454,
+      "lon": -68.13048
+    },
+    {
+      "id": "n_est_libertador",
+      "tipo": "estacion",
+      "lat": -16.51871,
+      "lon": -68.11611
+    },
+    {
+      "id": "n_est_alto_obrajes",
+      "tipo": "estacion",
+      "lat": -16.52137,
+      "lon": -68.11031
+    },
+    {
+      "id": "n_est_obrajes17",
+      "tipo": "estacion",
+      "lat": -16.52684,
+      "lon": -68.10072
+    },
+    {
+      "id": "n_est_irpavi",
+      "tipo": "estacion",
+      "lat": -16.5381,
+      "lon": -68.08729
+    },
+    {
+      "id": "n_est_buenos_aires",
+      "tipo": "estacion",
+      "lat": -16.51547,
+      "lon": -68.1441
+    },
+    {
+      "id": "n_est_riosinho",
+      "tipo": "estacion",
+      "lat": -16.49032,
+      "lon": -68.1368
+    },
+    {
+      "id": "n_est_las_villas",
+      "tipo": "estacion",
+      "lat": -16.49761,
+      "lon": -68.1151
+    },
+    {
+      "id": "n_est_periferica",
+      "tipo": "estacion",
+      "lat": -16.48653,
+      "lon": -68.1314
+    },
+    {
+      "id": "n_est_villarroel",
+      "tipo": "estacion",
+      "lat": -16.48469,
+      "lon": -68.12194
+    },
+    {
+      "id": "n_est_busch",
+      "tipo": "estacion",
+      "lat": -16.49373,
+      "lon": -68.12107
+    },
+    {
+      "id": "n_est_triangular",
+      "tipo": "estacion",
+      "lat": -16.50411,
+      "lon": -68.12085
+    },
+    {
+      "id": "n_est_obelisco",
+      "tipo": "estacion",
+      "lat": -16.50014,
+      "lon": -68.13524
+    },
+    {
+      "id": "n_est_faro_murillo",
+      "tipo": "estacion",
+      "lat": -16.51225,
+      "lon": -68.15366
+    },
+    {
+      "id": "n_est_6_marzo",
+      "tipo": "estacion",
+      "lat": -16.52256,
+      "lon": -68.16956
+    },
+    {
+      "id": "n_est_prado",
+      "tipo": "estacion",
+      "lat": -16.50064,
+      "lon": -68.1326
+    },
+    {
+      "id": "n_cruce_av_camacho",
+      "tipo": "cruce",
+      "lat": -16.497,
+      "lon": -68.1355
+    },
+    {
+      "id": "n_cruce_calacoto",
+      "tipo": "cruce",
+      "lat": -16.538,
+      "lon": -68.082
+    },
+    {
+      "id": "n_terminal_buses",
+      "tipo": "poi",
+      "lat": -16.4912,
+      "lon": -68.1408
+    },
+    {
+      "id": "n_san_miguel",
+      "tipo": "poi",
+      "lat": -16.5413,
+      "lon": -68.0772
+    },
+    {
+      "id": "n_manqa",
+      "tipo": "poi",
+      "lat": -16.5105,
+      "lon": -68.1265
+    },
+    {
+      "id": "n_aeropuerto",
+      "tipo": "poi",
+      "lat": -16.5133,
+      "lon": -68.1923
+    },
+    {
+      "id": "n_plaza_humbolt",
+      "tipo": "poi",
+      "lat": -16.5385,
+      "lon": -68.0837
+    },
+    {
+      "id": "n_av_illampu",
+      "tipo": "poi",
+      "lat": -16.4951,
+      "lon": -68.1408
+    },
+    {
+      "id": "n_calle_sagarnaga",
+      "tipo": "poi",
+      "lat": -16.4965,
+      "lon": -68.1365
+    },
+    {
+      "id": "n_mercado_rodriguez",
+      "tipo": "poi",
+      "lat": -16.5015,
+      "lon": -68.136
+    },
+    {
+      "id": "n_valle_animas",
+      "tipo": "poi",
+      "lat": -16.55,
+      "lon": -68.04
+    },
+    {
+      "id": "n_est_central",
+      "tipo": "poi",
+      "lat": -16.4885,
+      "lon": -68.1404
+    },
+    {
+      "id": "n_est_mirador_amarillo",
+      "tipo": "poi",
+      "lat": -16.5126,
+      "lon": -68.1568
+    }
+  ],
+  "aristas": [
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_catedral_basilica",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_popular_cocina",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_ali_pacha",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_museo_etnografia",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_calle_jaen",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_cruce_av_camacho",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_museo_etnografia",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_calle_jaen",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_calle_jaen",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_popular_cocina",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cruce_av_camacho",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 1,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mercado_brujas",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_museo_coca",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_museo_coca",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_el_prado",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_pacena_saltena",
+      "tiempo": 21,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_sopocachi",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_est_sopocachi",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_cementerio",
+      "tiempo": 24,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_cementerio",
+      "destino": "n_cementerio_general",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_buenos_aires",
+      "tiempo": 32,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_las_villas",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 33,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_est_periferica",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_periferica",
+      "destino": "n_est_las_villas",
+      "tiempo": 30,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_16_julio",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 36,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_libertador",
+      "destino": "n_cruce_calacoto",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cruce_calacoto",
+      "destino": "n_gustu",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cruce_calacoto",
+      "destino": "n_la_suisse",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_el_prado",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_libertador",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_libertador",
+      "destino": "n_cruce_calacoto",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cruce_calacoto",
+      "destino": "n_gustu",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cruce_calacoto",
+      "destino": "n_la_suisse",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_irpavi",
+      "destino": "n_gustu",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_irpavi",
+      "destino": "n_valle_luna",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_gustu",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_la_suisse",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_la_suisse",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_valle_luna",
+      "tiempo": 25,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_valle_luna",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_16_julio",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_prado",
+      "destino": "n_el_prado",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_prado",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_prado",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obelisco",
+      "destino": "n_el_prado",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obelisco",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obelisco",
+      "destino": "n_est_prado",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_plaza_la_paz",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_plaza_la_paz",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_villarroel",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_busch",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_riosinho",
+      "destino": "n_cementerio_general",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_irpavi",
+      "destino": "n_gustu",
+      "tiempo": 25,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_triangular",
+      "destino": "n_est_faro_murillo",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_alto_obrajes",
+      "destino": "n_est_libertador",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_cementerio",
+      "destino": "n_est_16_julio",
+      "tiempo": 10,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Roja"
+    },
+    {
+      "origen": "n_est_libertador",
+      "destino": "n_est_alto_obrajes",
+      "tiempo": 6,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Verde"
+    },
+    {
+      "origen": "n_est_alto_obrajes",
+      "destino": "n_est_obrajes17",
+      "tiempo": 5,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Verde"
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_est_irpavi",
+      "tiempo": 6,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Verde"
+    },
+    {
+      "origen": "n_est_16_julio",
+      "destino": "n_est_plaza_la_paz",
+      "tiempo": 4,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Azul"
+    },
+    {
+      "origen": "n_est_plaza_la_paz",
+      "destino": "n_est_plaza_libertad",
+      "tiempo": 4,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Azul"
+    },
+    {
+      "origen": "n_est_plaza_libertad",
+      "destino": "n_est_upea",
+      "tiempo": 4,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Azul"
+    },
+    {
+      "origen": "n_est_upea",
+      "destino": "n_est_rio_seco",
+      "tiempo": 5,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Azul"
+    },
+    {
+      "origen": "n_est_prado",
+      "destino": "n_est_sopocachi",
+      "tiempo": 6,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Celeste"
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_est_libertador",
+      "tiempo": 6,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Celeste"
+    },
+    {
+      "origen": "n_est_buenos_aires",
+      "destino": "n_est_riosinho",
+      "tiempo": 3,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Naranja"
+    },
+    {
+      "origen": "n_est_riosinho",
+      "destino": "n_est_las_villas",
+      "tiempo": 3,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Naranja"
+    },
+    {
+      "origen": "n_est_las_villas",
+      "destino": "n_est_periferica",
+      "tiempo": 2,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Naranja"
+    },
+    {
+      "origen": "n_est_periferica",
+      "destino": "n_est_villarroel",
+      "tiempo": 2,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Naranja"
+    },
+    {
+      "origen": "n_est_6_marzo",
+      "destino": "n_est_faro_murillo",
+      "tiempo": 8,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Morada"
+    },
+    {
+      "origen": "n_est_faro_murillo",
+      "destino": "n_est_obelisco",
+      "tiempo": 8,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Morada"
+    },
+    {
+      "origen": "n_est_busch",
+      "destino": "n_est_las_villas",
+      "tiempo": 4,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Cafe"
+    },
+    {
+      "origen": "n_est_villarroel",
+      "destino": "n_est_triangular",
+      "tiempo": 5,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Blanca"
+    },
+    {
+      "origen": "n_est_16_julio",
+      "destino": "n_est_triangular",
+      "tiempo": 12,
+      "modo": "teleferico",
+      "bidireccional": true,
+      "linea": "Plateada"
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_cruce_calacoto",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_manqa",
+      "tiempo": 1,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_popular_cocina",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_popular_cocina",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_riosinho",
+      "destino": "n_calle_jaen",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_faro_murillo",
+      "destino": "n_aeropuerto",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 25,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_irpavi",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_valle_luna",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_riosinho",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_mercado_brujas",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_mercado_brujas",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_mercado_brujas",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_obelisco",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_mirador_amarillo",
+      "destino": "n_aeropuerto",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_irpavi",
+      "destino": "n_valle_animas",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_libertador",
+      "destino": "n_valle_animas",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_central",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_central",
+      "destino": "n_av_illampu",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_catedral_basilica",
+      "tiempo": 3,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_calle_jaen",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_museo_etnografia",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mercado_brujas",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mercado_brujas",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_museo_coca",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_museo_coca",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_el_prado",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_cementerio_general",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_gustu",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_popular_cocina",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_ali_pacha",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_pacena_saltena",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_pacena_saltena",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_la_suisse",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_terminal_buses",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_terminal_buses",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_san_miguel",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_obrajes17",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_manqa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_av_illampu",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_av_illampu",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_valle_animas",
+      "tiempo": 61,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_central",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_murillo",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_calle_jaen",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_museo_etnografia",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mercado_brujas",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mercado_brujas",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_museo_coca",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_museo_coca",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_el_prado",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_el_prado",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_cementerio_general",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_valle_luna",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_gustu",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_popular_cocina",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_popular_cocina",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_ali_pacha",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_ali_pacha",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_pacena_saltena",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_pacena_saltena",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_la_suisse",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_terminal_buses",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_terminal_buses",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_est_sopocachi",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_san_miguel",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_est_obrajes17",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_manqa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_aeropuerto",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_av_illampu",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_av_illampu",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_valle_animas",
+      "tiempo": 61,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_est_central",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_catedral_basilica",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_museo_etnografia",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mercado_brujas",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mercado_brujas",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_museo_coca",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_museo_coca",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_el_prado",
+      "tiempo": 18,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_el_prado",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_cementerio_general",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_valle_luna",
+      "tiempo": 51,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_gustu",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_popular_cocina",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_ali_pacha",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_pacena_saltena",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_pacena_saltena",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_la_suisse",
+      "tiempo": 46,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_terminal_buses",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_terminal_buses",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_est_sopocachi",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_san_miguel",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_est_obrajes17",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_manqa",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_aeropuerto",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_av_illampu",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_av_illampu",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_est_central",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_est_central",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_jaen",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_iglesia_san_francisco",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mercado_brujas",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mercado_brujas",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_museo_coca",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_museo_coca",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_el_prado",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_el_prado",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_cementerio_general",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_valle_luna",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_gustu",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_popular_cocina",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_popular_cocina",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_ali_pacha",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_pacena_saltena",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_la_suisse",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_terminal_buses",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_terminal_buses",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_san_miguel",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_manqa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_aeropuerto",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_av_illampu",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_av_illampu",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_valle_animas",
+      "tiempo": 62,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_est_central",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_est_central",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_etnografia",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_plaza_san_francisco",
+      "tiempo": 3,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mercado_brujas",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mercado_brujas",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_museo_coca",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_museo_coca",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_el_prado",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_el_prado",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_cementerio_general",
+      "tiempo": 21,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_cementerio_general",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_valle_luna",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_gustu",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_popular_cocina",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_popular_cocina",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_ali_pacha",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_pacena_saltena",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_la_suisse",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_terminal_buses",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_terminal_buses",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_san_miguel",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_manqa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_aeropuerto",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 3,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_valle_animas",
+      "tiempo": 63,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_central",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_iglesia_san_francisco",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mercado_brujas",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_museo_coca",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_el_prado",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_cementerio_general",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_valle_luna",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_gustu",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_popular_cocina",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_popular_cocina",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_ali_pacha",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_pacena_saltena",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_la_suisse",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_terminal_buses",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_san_miguel",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_manqa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_av_illampu",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 3,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_valle_animas",
+      "tiempo": 63,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_est_central",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_san_francisco",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_museo_coca",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_el_prado",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_el_prado",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_cementerio_general",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_cementerio_general",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 18,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 27,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_valle_luna",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_gustu",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_popular_cocina",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_ali_pacha",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_pacena_saltena",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_la_suisse",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_terminal_buses",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_est_sopocachi",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_san_miguel",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_manqa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_aeropuerto",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_est_central",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_brujas",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_el_prado",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_el_prado",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_cementerio_general",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_cementerio_general",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_valle_luna",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_gustu",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_popular_cocina",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_popular_cocina",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_ali_pacha",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_pacena_saltena",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_la_suisse",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_terminal_buses",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_terminal_buses",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_est_sopocachi",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_san_miguel",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_manqa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_aeropuerto",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_valle_animas",
+      "tiempo": 63,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_est_central",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_museo_coca",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_plaza_avaroa",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_cementerio_general",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_gustu",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_popular_cocina",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_popular_cocina",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_ali_pacha",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_pacena_saltena",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_pacena_saltena",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_la_suisse",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_terminal_buses",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_est_sopocachi",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_est_sopocachi",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_san_miguel",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_est_obrajes17",
+      "tiempo": 24,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_manqa",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_manqa",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_av_illampu",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_av_illampu",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_valle_animas",
+      "tiempo": 58,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_est_central",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_el_prado",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_cementerio_general",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_valle_luna",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_gustu",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_popular_cocina",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_ali_pacha",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_pacena_saltena",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_la_suisse",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_terminal_buses",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_sopocachi",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_san_miguel",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_obrajes17",
+      "tiempo": 20,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_manqa",
+      "tiempo": 3,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_aeropuerto",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_av_illampu",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_valle_animas",
+      "tiempo": 54,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_central",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_avaroa",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_mirador_killi_killi",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 22,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_valle_luna",
+      "tiempo": 53,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_gustu",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_popular_cocina",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_popular_cocina",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_ali_pacha",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_pacena_saltena",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_la_suisse",
+      "tiempo": 51,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_terminal_buses",
+      "tiempo": 18,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_terminal_buses",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_sopocachi",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_san_miguel",
+      "tiempo": 50,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_obrajes17",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_manqa",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_aeropuerto",
+      "tiempo": 27,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 46,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_av_illampu",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_av_illampu",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_central",
+      "tiempo": 21,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_central",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cementerio_general",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_mirador_jacha_apacheta",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_valle_luna",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_gustu",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_popular_cocina",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_popular_cocina",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_ali_pacha",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_pacena_saltena",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_pacena_saltena",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_la_suisse",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_terminal_buses",
+      "tiempo": 21,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_terminal_buses",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_san_miguel",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_est_obrajes17",
+      "tiempo": 26,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_manqa",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_aeropuerto",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 37,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_av_illampu",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_av_illampu",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_valle_animas",
+      "tiempo": 59,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_est_central",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_killi_killi",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 21,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_valle_luna",
+      "tiempo": 58,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_gustu",
+      "tiempo": 56,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_popular_cocina",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_ali_pacha",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_pacena_saltena",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_la_suisse",
+      "tiempo": 62,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_terminal_buses",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_est_sopocachi",
+      "tiempo": 30,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_san_miguel",
+      "tiempo": 60,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_est_obrajes17",
+      "tiempo": 46,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_manqa",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_aeropuerto",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_aeropuerto",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 57,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_av_illampu",
+      "tiempo": 27,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_est_central",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mirador_jacha_apacheta",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_popular_cocina",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_ali_pacha",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_pacena_saltena",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_terminal_buses",
+      "tiempo": 52,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_est_sopocachi",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_san_miguel",
+      "tiempo": 20,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_est_obrajes17",
+      "tiempo": 26,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_manqa",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_av_illampu",
+      "tiempo": 50,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 46,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_valle_animas",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_est_central",
+      "tiempo": 54,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_valle_luna",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_popular_cocina",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_ali_pacha",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_pacena_saltena",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 37,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_la_suisse",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_terminal_buses",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_est_sopocachi",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_san_miguel",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_san_miguel",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_est_obrajes17",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_manqa",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_aeropuerto",
+      "tiempo": 62,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_av_illampu",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 39,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_valle_animas",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_est_central",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_gustu",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_ali_pacha",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_pacena_saltena",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_pacena_saltena",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_la_suisse",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_terminal_buses",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_terminal_buses",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_est_sopocachi",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_san_miguel",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_est_obrajes17",
+      "tiempo": 29,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_manqa",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_aeropuerto",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_av_illampu",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_av_illampu",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_est_central",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_est_central",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_popular_cocina",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_cafe_del_mundo",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_pacena_saltena",
+      "tiempo": 2,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_pacena_saltena",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_la_suisse",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_terminal_buses",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_terminal_buses",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_est_sopocachi",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_san_miguel",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_est_obrajes17",
+      "tiempo": 27,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_manqa",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_av_illampu",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_av_illampu",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_valle_animas",
+      "tiempo": 61,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_est_central",
+      "tiempo": 18,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_est_central",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_ali_pacha",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_pacena_saltena",
+      "tiempo": 18,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_pacena_saltena",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_la_suisse",
+      "tiempo": 37,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_terminal_buses",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_est_sopocachi",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_san_miguel",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_est_obrajes17",
+      "tiempo": 20,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_manqa",
+      "tiempo": 3,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_manqa",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_aeropuerto",
+      "tiempo": 37,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_av_illampu",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_valle_animas",
+      "tiempo": 55,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_est_central",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_cafe_del_mundo",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 4,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_saltenas_hornito",
+      "tiempo": 4,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_la_suisse",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_terminal_buses",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_terminal_buses",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_est_sopocachi",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_san_miguel",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_est_obrajes17",
+      "tiempo": 26,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_manqa",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_manqa",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 37,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_av_illampu",
+      "tiempo": 13,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_av_illampu",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_valle_animas",
+      "tiempo": 60,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_est_central",
+      "tiempo": 19,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_est_central",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_pacena_saltena",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_la_suisse",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_terminal_buses",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_terminal_buses",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_est_sopocachi",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_san_miguel",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_est_obrajes17",
+      "tiempo": 25,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_manqa",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_manqa",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_av_illampu",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_av_illampu",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_valle_animas",
+      "tiempo": 59,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_est_central",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_saltenas_hornito",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_plaza_estudiante",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_terminal_buses",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_est_sopocachi",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_san_miguel",
+      "tiempo": 5,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_san_miguel",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_est_obrajes17",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_manqa",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 15,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_av_illampu",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_valle_animas",
+      "tiempo": 22,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_est_central",
+      "tiempo": 49,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_la_suisse",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 50,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_terminal_buses",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_est_sopocachi",
+      "tiempo": 16,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_est_sopocachi",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_san_miguel",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_est_obrajes17",
+      "tiempo": 24,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_manqa",
+      "tiempo": 12,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_manqa",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_av_illampu",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_av_illampu",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_valle_animas",
+      "tiempo": 58,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_est_central",
+      "tiempo": 13,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_estudiante",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_sopocachi",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_san_miguel",
+      "tiempo": 47,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_obrajes17",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_manqa",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_aeropuerto",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_av_illampu",
+      "tiempo": 6,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_av_illampu",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 10,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 17,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 9,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_central",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_terminal_buses",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_san_miguel",
+      "tiempo": 35,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_est_obrajes17",
+      "tiempo": 20,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_manqa",
+      "tiempo": 9,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_manqa",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_aeropuerto",
+      "tiempo": 36,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_av_illampu",
+      "tiempo": 15,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_valle_animas",
+      "tiempo": 55,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_est_central",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_sopocachi",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_est_obrajes17",
+      "tiempo": 18,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_manqa",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 11,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_av_illampu",
+      "tiempo": 46,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 43,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 41,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_valle_animas",
+      "tiempo": 23,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_est_central",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_san_miguel",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 48,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_manqa",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_aeropuerto",
+      "tiempo": 52,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_av_illampu",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 28,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 26,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_valle_animas",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_est_central",
+      "tiempo": 33,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_obrajes17",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_aeropuerto",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 31,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_av_illampu",
+      "tiempo": 14,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 12,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 20,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 10,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_valle_animas",
+      "tiempo": 54,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_est_central",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_manqa",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_plaza_humbolt",
+      "tiempo": 63,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_av_illampu",
+      "tiempo": 32,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_aeropuerto",
+      "destino": "n_est_central",
+      "tiempo": 34,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_av_illampu",
+      "tiempo": 42,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 40,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 38,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_valle_animas",
+      "tiempo": 27,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_est_central",
+      "tiempo": 44,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_plaza_humbolt",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 45,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 7,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_calle_sagarnaga",
+      "tiempo": 5,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_est_central",
+      "tiempo": 7,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_av_illampu",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 8,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_mercado_rodriguez",
+      "tiempo": 6,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_valle_animas",
+      "tiempo": 62,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_est_central",
+      "tiempo": 14,
+      "modo": "caminata",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_est_central",
+      "tiempo": 8,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_calle_sagarnaga",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 17,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_rodriguez",
+      "destino": "n_valle_animas",
+      "tiempo": 61,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_rodriguez",
+      "destino": "n_est_central",
+      "tiempo": 11,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_mercado_rodriguez",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 16,
+      "modo": "taxi",
+      "bidireccional": true
+    },
+    {
+      "origen": "n_est_central",
+      "destino": "n_est_mirador_amarillo",
+      "tiempo": 19,
+      "modo": "taxi",
+      "bidireccional": true
+    }
+  ]
+}

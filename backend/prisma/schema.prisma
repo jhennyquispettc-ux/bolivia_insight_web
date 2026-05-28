@@ -30,3 +30,50 @@ model Booking {
   calendarLink String?
   createdAt   DateTime @default(now())
 }
+
+model Poi {
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+  name         String
+  category     String
+  description  String?
+  lat          Float
+  lon          Float
+  visitMinutes Int      @default(0)
+  nodeId       String   @unique
+  city         String   @default("la-paz")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([city])
+}
+
+model GraphNode {
+  id        Int         @id @default(autoincrement())
+  slug      String      @unique
+  type      String
+  lat       Float
+  lon       Float
+  city      String      @default("la-paz")
+  edgesFrom GraphEdge[] @relation("FromNode")
+  edgesTo   GraphEdge[] @relation("ToNode")
+
+  @@index([city])
+}
+
+model GraphEdge {
+  id            Int       @id @default(autoincrement())
+  fromSlug      String
+  toSlug        String
+  minutes       Int
+  mode          String
+  line          String?
+  bidirectional Boolean   @default(false)
+  city          String    @default("la-paz")
+  from          GraphNode @relation("FromNode", fields: [fromSlug], references: [slug])
+  to            GraphNode @relation("ToNode",   fields: [toSlug],   references: [slug])
+
+  @@index([fromSlug])
+  @@index([toSlug])
+  @@index([city])
+}

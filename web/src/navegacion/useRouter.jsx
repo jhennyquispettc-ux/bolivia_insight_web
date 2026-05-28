@@ -18,6 +18,7 @@ function useRouter() {
     else if (id === 'dashboard')  goRoute('dashboard');
     else if (id === 'dictionary') goGuide('dictionary');
     else if (id === 'sos')        goRoute('sos');
+    else if (id === 'planner')    goRoute('planner');
     else if (id === 'expert')     goRoute('booking');
     else if (id === 'booking')    goRoute('booking');
     else if (id === 'profile')    goRoute('profile');
@@ -37,12 +38,12 @@ function useRouter() {
     guide: '03 Travel Guide', expert: '04 Talk to Expert',
     dashboard: '05 Live Dashboard', sos: '06 Emergency Hub',
     auth: '07 Authentication', booking: '08 Book Session',
-    profile: '09 Profile',
+    profile: '09 Profile', planner: '10 Route Planner',
   }[route];
 
   const navCurrent = ({
     guide: 'guides', expert: 'expert',
-    dashboard: 'dashboard', sos: 'sos',
+    dashboard: 'dashboard', sos: 'sos', planner: 'planner',
   })[route] || (route === 'home' ? '' : '');
 
   return {

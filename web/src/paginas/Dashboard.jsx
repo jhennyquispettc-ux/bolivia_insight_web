@@ -344,7 +344,7 @@ function Dashboard({ onBack, onExpert }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 24 }} className="bi-roads-grid">
             {/* Routes list */}
             <div style={{
-              background: '#fff', borderRadius: 16, border: '1px solid var(--border)',
+              background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-xs)', overflow: 'hidden',
             }}>
               <div style={{
@@ -383,7 +383,7 @@ function Dashboard({ onBack, onExpert }) {
 
             {/* Map */}
             <div style={{
-              background: '#fff', borderRadius: 16, border: '1px solid var(--border)',
+              background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-xs)', padding: 20,
               display: 'flex', flexDirection: 'column',
             }}>
@@ -450,7 +450,7 @@ function Dashboard({ onBack, onExpert }) {
             }}>
               {teleferico.map(t => (
                 <article key={t.line} style={{
-                  background: '#fff', borderRadius: 14,
+                  background: 'var(--bg-elevated)', borderRadius: 14,
                   border: `1px solid ${t.ok ? 'var(--border)' : '#fca5a5'}`,
                   padding: '16px 18px', display: 'flex', alignItems: 'flex-start', gap: 14,
                   boxShadow: t.ok ? 'var(--shadow-xs)' : '0 0 0 2px rgba(220,38,38,0.08)',
@@ -513,7 +513,7 @@ function Dashboard({ onBack, onExpert }) {
 
             {/* Interactive SVG network map */}
             <div style={{
-              background: '#fff', borderRadius: 16, border: '1px solid var(--border)',
+              background: 'var(--bg-elevated)', borderRadius: 16, border: '1px solid var(--border)',
               padding: 20, boxShadow: 'var(--shadow-xs)', position: 'sticky', top: 20,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
@@ -635,7 +635,7 @@ function Dashboard({ onBack, onExpert }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 14 }}>
             {citiesData.map(c => (
               <article key={c.city} style={{
-                background: '#fff', borderRadius: 14, border: '1px solid var(--border)',
+                background: 'var(--bg-elevated)', borderRadius: 14, border: '1px solid var(--border)',
                 padding: 22, boxShadow: 'var(--shadow-xs)',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -707,7 +707,7 @@ function Dashboard({ onBack, onExpert }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }} onClick={() => { setMapFullscreen(false); setActiveMapLine(null); }}>
           <div style={{
-            background: '#fff', borderRadius: 20, boxShadow: '0 32px 80px -16px rgba(0,0,0,0.6)',
+            background: 'var(--bg-elevated)', borderRadius: 20, boxShadow: '0 32px 80px -16px rgba(0,0,0,0.6)',
             width: 'min(96vw, 1300px)', maxHeight: '92vh',
             display: 'flex', overflow: 'hidden',
           }} onClick={e => e.stopPropagation()}>
@@ -716,12 +716,12 @@ function Dashboard({ onBack, onExpert }) {
             <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>Red de Integración Metropolitana</div>
-                  <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>Mi Teleférico · La Paz & El Alto · 10 líneas</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--fg1)' }}>Red de Integración Metropolitana</div>
+                  <div style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 2 }}>Mi Teleférico · La Paz & El Alto · 10 líneas</div>
                 </div>
                 <button onClick={() => { setMapFullscreen(false); setActiveMapLine(null); }}
-                  style={{ width: 36, height: 36, borderRadius: 10, border: '1px solid #e2e8f0',
-                    background: '#f8fafc', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: '#64748b' }}>✕</button>
+                  style={{ width: 36, height: 36, borderRadius: 10, border: '1px solid var(--border)',
+                    background: 'var(--bg-sunken)', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: 'var(--fg2)' }}>✕</button>
               </div>
               <svg viewBox="0 0 560 430" style={{ width: '100%', height: 'auto', flex: 1, cursor: 'pointer' }}
                 xmlns="http://www.w3.org/2000/svg" onClick={() => setActiveMapLine(null)}>
@@ -771,9 +771,9 @@ function Dashboard({ onBack, onExpert }) {
             </div>
 
             {/* Right info panel */}
-            <div style={{ width: 280, background: '#f8fafc', borderLeft: '1px solid #e2e8f0',
+            <div style={{ width: 280, background: 'var(--bg-sunken)', borderLeft: '1px solid var(--border)',
               padding: 28, display: 'flex', flexDirection: 'column', gap: 12, overflowY: 'auto' }}>
-              <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: 'uppercase', color: '#94a3b8', marginBottom: 4 }}>
+              <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>
                 {activeMapLine ? 'Selected line' : 'Select a line to explore'}
               </div>
               {activeMapLine ? (() => {
@@ -797,24 +797,24 @@ function Dashboard({ onBack, onExpert }) {
                       </div>
                       <div>
                         <div style={{ fontSize: 22, fontWeight: 700, color: l.color }}>Line {l.name}</div>
-                        <div style={{ fontSize: 12, color: '#64748b' }}>Mi Teleférico</div>
+                        <div style={{ fontSize: 12, color: 'var(--fg2)' }}>Mi Teleférico</div>
                       </div>
                     </div>
-                    <div style={{ background: '#fff', borderRadius: 12, padding: '14px 16px', border: '1px solid #e2e8f0' }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8 }}>ESTACIONES</div>
+                    <div style={{ background: 'var(--bg-elevated)', borderRadius: 12, padding: '14px 16px', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg3)', marginBottom: 8 }}>ESTACIONES</div>
                       {l.stations.split(' · ').map((s,i) => (
                         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff', border: `2px solid ${l.color}`, flexShrink: 0 }}/>
-                          <span style={{ fontSize: 13, color: '#334155' }}>{s}</span>
+                          <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--bg-elevated)', border: `2px solid ${l.color}`, flexShrink: 0 }}/>
+                          <span style={{ fontSize: 13, color: 'var(--fg1)' }}>{s}</span>
                         </div>
                       ))}
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                       {[['⏱', 'Duración', `${l.duration} min`],['📏', 'Distancia', `${l.km} km`]].map(([ic,lb,vl]) => (
-                        <div key={lb} style={{ background: '#fff', borderRadius: 10, padding: '12px 14px', border: '1px solid #e2e8f0' }}>
+                        <div key={lb} style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: '12px 14px', border: '1px solid var(--border)' }}>
                           <div style={{ fontSize: 18 }}>{ic}</div>
-                          <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 700, marginTop: 4 }}>{lb}</div>
-                          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginTop: 2 }}>{vl}</div>
+                          <div style={{ fontSize: 10, color: 'var(--fg3)', fontWeight: 700, marginTop: 4 }}>{lb}</div>
+                          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--fg1)', marginTop: 2 }}>{vl}</div>
                         </div>
                       ))}
                     </div>
@@ -823,11 +823,11 @@ function Dashboard({ onBack, onExpert }) {
                       <div style={{ fontSize: 12, fontWeight: 700, color: t.ok ? '#15803d' : '#dc2626' }}>
                         {t.ok ? `● Operativa · espera ${t.wait}` : `⚠ ${t.note || 'En mantenimiento'}`}
                       </div>
-                      {t.tourTip && <div style={{ fontSize: 11, color: '#64748b', marginTop: 4, fontStyle: 'italic' }}>💡 {t.tourTip}</div>}
+                      {t.tourTip && <div style={{ fontSize: 11, color: 'var(--fg2)', marginTop: 4, fontStyle: 'italic' }}>💡 {t.tourTip}</div>}
                     </div>}
                     <button onClick={() => setActiveMapLine(null)} style={{
-                      padding: '10px 0', borderRadius: 10, border: '1px solid #e2e8f0',
-                      background: '#fff', cursor: 'pointer', fontSize: 12, color: '#64748b', fontWeight: 600,
+                      padding: '10px 0', borderRadius: 10, border: '1px solid var(--border)',
+                      background: 'var(--bg-elevated)', cursor: 'pointer', fontSize: 12, color: 'var(--fg2)', fontWeight: 600,
                     }}>← Volver a todas las líneas</button>
                   </>
                 );
@@ -836,13 +836,13 @@ function Dashboard({ onBack, onExpert }) {
                   {svgLines.map(l => (
                     <button key={l.name} onClick={() => setActiveMapLine(l.name)} style={{
                       display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px',
-                      borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff',
+                      borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg-elevated)',
                       cursor: 'pointer', textAlign: 'left',
                     }}>
                       <div style={{ width: 14, height: 14, borderRadius: 4, background: l.color, flexShrink: 0 }}/>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>Line {l.name}</div>
-                        <div style={{ fontSize: 10, color: '#94a3b8' }}>{l.duration} min · {l.km} km</div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg1)' }}>Line {l.name}</div>
+                        <div style={{ fontSize: 10, color: 'var(--fg3)' }}>{l.duration} min · {l.km} km</div>
                       </div>
                     </button>
                   ))}
@@ -860,7 +860,7 @@ function KpiTile({ label, value, note, tone = 'ok' }) {
   const toneColor = tone === 'warn' ? 'var(--amber-600)' : tone === 'bad' ? 'var(--rust-600)' : 'var(--green-700, #1f4f3a)';
   return (
     <div style={{
-      background: '#fff', border: '1px solid var(--border)', borderRadius: 14,
+      background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 14,
       padding: '18px 20px', boxShadow: 'var(--shadow-xs)',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -888,7 +888,7 @@ function AlertRow({ alert }) {
   const bg = alert.level === 'high' ? 'var(--rust-50, #fdecea)' : alert.level === 'medium' ? 'var(--amber-50, #fff8e7)' : 'var(--stone-50)';
   return (
     <article style={{
-      background: '#fff', borderRadius: 14, border: '1px solid var(--border)',
+      background: 'var(--bg-elevated)', borderRadius: 14, border: '1px solid var(--border)',
       padding: 20, display: 'flex', gap: 16,
     }}>
       <div style={{

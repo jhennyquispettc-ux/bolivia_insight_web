@@ -132,6 +132,31 @@
 
   --focus-ring:    color-mix(in srgb, var(--amber-500) 55%, transparent);
 
+  /* Dark mode overrides */
+}
+
+[data-theme="dark"] {
+  --bg:            var(--navy-900);
+  --bg-elevated:   var(--navy-800);
+  --bg-sunken:     var(--navy-700);
+  --bg-inverse:    var(--stone-25);
+
+  --fg1:           var(--stone-25);
+  --fg2:           var(--stone-300);
+  --fg3:           var(--stone-400);
+  --fg-inverse:    var(--navy-900);
+  --fg-on-brand:   var(--navy-900);
+
+  --brand:         var(--amber-500);
+  --brand-accent:  var(--rust-500);
+  --brand-warm:    var(--amber-400);
+
+  --border:        color-mix(in srgb, var(--navy-500) 55%, transparent);
+  --border-strong: var(--navy-400);
+  --border-inverse: color-mix(in srgb, var(--navy-800) 20%, transparent);
+}
+
+:root {
   /* =========================================================
      TYPOGRAPHY
      Display: Bricolage Grotesque (variable sans, contemporary editorial)

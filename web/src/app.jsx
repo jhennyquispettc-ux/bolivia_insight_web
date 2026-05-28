@@ -9,6 +9,7 @@ import EmergencyHub from './paginas/EmergencyHub.jsx';
 import Auth from './paginas/Auth.jsx';
 import BookingPage from './paginas/BookingPage.jsx';
 import ProfilePage from './paginas/ProfilePage.jsx';
+import RouteCalculator from './paginas/RouteCalculator.jsx';
 import AIConcierge from './componentes/AIConcierge.jsx';
 import useRouter from './navegacion/useRouter.jsx';
 
@@ -54,6 +55,7 @@ function App() {
         {r.route === 'auth'      && <Auth onBack={r.onBack} onLogin={handleLogin}/>}
         {r.route === 'booking'   && <BookingPage onBack={r.onBack} onProfile={() => r.goRoute('profile')} user={user}/>}
         {r.route === 'profile'   && <ProfilePage onBack={r.onBack} user={user}/>}
+        {r.route === 'planner'   && <RouteCalculator onBack={r.onBack}/>}
 
         <AIConcierge expanded={aiOpen} onToggle={() => setAiOpen(!aiOpen)} onExpert={r.onExpert}/>
       </div>
