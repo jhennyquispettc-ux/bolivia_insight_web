@@ -7,5 +7,6 @@ import { PrismaModule } from '../prisma/prisma.module';
   imports: [PrismaModule],
   controllers: [BookingsController],
   providers: [BookingsService],
+  exports: [BookingsService], // PaymentsModule creates bookings after a verified capture
 })
 export class BookingsModule {}

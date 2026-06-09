@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Design tokens copied from the main web (web/src/index.css) so the admin
+   matches the traveler app's look & feel. */
+:root {
+  --navy-50:#ecf0f5; --navy-100:#d3dae4; --navy-200:#a7b5c8; --navy-300:#6b80a0;
+  --navy-400:#3f567a; --navy-500:#283b58; --navy-600:#1b2a41; --navy-700:#142035;
+  --navy-800:#0d1727; --navy-900:#070d18;
+
+  --rust-50:#fbf0ed; --rust-100:#f3d9d2; --rust-200:#e6ad9f; --rust-300:#d6816d;
+  --rust-400:#c45c43; --rust-500:#b33f2e; --rust-600:#983324; --rust-700:#7a281c;
+  --rust-800:#5a1d14; --rust-900:#3a120d;
+
+  --amber-50:#fff8e1; --amber-100:#ffeeb3; --amber-200:#ffe07a; --amber-300:#ffd14d;
+  --amber-400:#ffc024; --amber-500:#ffb703; --amber-600:#d99800; --amber-700:#a87500;
+  --amber-800:#785300; --amber-900:#4a3300;
+
+  --green-50:#ebf5ef; --green-100:#cfe7d8; --green-200:#9ecdb1; --green-300:#6db38a;
+  --green-400:#459a6b; --green-500:#2d6a4f; --green-600:#235540; --green-700:#1b4231;
+  --green-800:#133024; --green-900:#0b1d16;
+
+  --mystic-50:#f1ecf7; --mystic-100:#ddd2ea; --mystic-200:#b9a4d3; --mystic-300:#9476bc;
+  --mystic-400:#7c5fa6; --mystic-500:#6a4c93; --mystic-600:#553d76; --mystic-700:#422f5c;
+  --mystic-800:#2f2241; --mystic-900:#1c1428;
+
+  --stone-0:#ffffff; --stone-25:#fbf8f3; --stone-50:#f6f1e8; --stone-100:#ece4d3;
+  --stone-200:#d9cdb5; --stone-300:#b9a987; --stone-400:#928467; --stone-500:#6d624c;
+  --stone-600:#514938; --stone-700:#3a3428; --stone-800:#26221a; --stone-900:#141210;
+
+  --bg:#F8F9FA;
+  --bg-elevated:var(--stone-0);
+  --bg-sunken:var(--stone-50);
+
+  --fg1:var(--navy-700);
+  --fg2:var(--stone-600);
+  --fg3:var(--stone-400);
+
+  --border: color-mix(in srgb, var(--stone-300) 55%, transparent);
+  --border-strong: var(--stone-300);
+
+  --font-display:"Bricolage Grotesque","Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+
+  --shadow-sm: 0 2px 6px rgba(31,47,65,0.08);
+  --shadow-md: 0 8px 20px -6px rgba(31,47,65,0.12), 0 2px 4px rgba(31,47,65,0.06);
+  --shadow-lg: 0 18px 40px -12px rgba(31,47,65,0.22), 0 4px 8px rgba(31,47,65,0.08);
+  --shadow-xl: 0 32px 64px -20px rgba(31,47,65,0.28);
+
+  --ease-out: cubic-bezier(0.22,0.61,0.36,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg1);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rust-500);
+}
+
+a { color: var(--rust-500); text-underline-offset: 0.18em; }
+a:hover { color: var(--rust-600); }

@@ -53,7 +53,14 @@ function App() {
         {r.route === 'dashboard' && <Dashboard onBack={r.onBack} onExpert={r.onExpert} />}
         {r.route === 'sos' && <EmergencyHub onBack={r.onBack} />}
         {r.route === 'auth' && <Auth onBack={r.onBack} onLogin={handleLogin} />}
-        {r.route === 'booking' && <BookingPage onBack={r.onBack} onProfile={() => r.goRoute('profile')} user={user} />}
+        {r.route === 'booking' && (
+          user
+            ? <BookingPage onBack={r.onBack} onProfile={() => r.goRoute('profile')} user={user} />
+            // Booking requires a session (the PayPal capture is authenticated).
+            // Send guests to login; onSuccess brings them straight back to booking,
+            // while "Volver" (onBack) still exits to home.
+            : <Auth onBack={r.onBack} onLogin={handleLogin} onSuccess={() => r.goRoute('booking')} />
+        )}
         {r.route === 'profile' && <ProfilePage onBack={r.onBack} user={user} />}
         {r.route === 'planner' && <RouteCalculator onBack={r.onBack} />}
 

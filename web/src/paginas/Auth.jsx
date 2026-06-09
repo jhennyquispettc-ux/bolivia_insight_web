@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Auth({ onBack, onLogin }) {
+function Auth({ onBack, onLogin, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -40,11 +40,14 @@ function Auth({ onBack, onLogin }) {
           console.log("Usuario autenticado con éxito:", data);
           
           if (onLogin) onLogin(data.user, data.accessToken);
-          
-          
+
+
           localStorage.setItem('google_access_token', response.access_token);
-          
-          onBack();
+
+          // After login go where the caller wants (e.g. back to booking); falls
+          // back to the default "go home" behavior when no onSuccess is given.
+          if (onSuccess) onSuccess();
+          else onBack();
         } catch (err) {
           console.error(err);
           setError("No se pudo conectar con el servidor. ¿Está el backend encendido?");

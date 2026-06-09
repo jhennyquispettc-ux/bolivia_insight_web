@@ -28,6 +28,22 @@ model Booking {
   status      String   @default("confirmed")
   calendarId  String?
   calendarLink String?
+
+  // ── Sesión / precio ──────────────────────────────
+  durationMin Int      @default(30)
+  amount      Float    @default(0)
+  currency    String   @default("USD")
+
+  // ── Pago PayPal ──────────────────────────────────
+  paypalOrderId   String?
+  paypalCaptureId String?
+
+  // ── Brief de preparación (obligatorio en el flujo) ─
+  briefDates     String?
+  briefRoute     String?
+  briefQuestions String?
+  briefLocation  String?
+
   createdAt   DateTime @default(now())
 }
 

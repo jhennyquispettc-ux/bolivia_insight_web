@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BookingsModule } from './bookings/bookings.module';
+import { PaymentsModule } from './payments/payments.module';
+import { AdminModule } from './admin/admin.module';
 import { ChatModule } from './chat/chat.module';
 import { RoutesModule } from './routes/routes.module';
 
@@ -12,6 +14,8 @@ import { RoutesModule } from './routes/routes.module';
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     BookingsModule,
+    PaymentsModule,
+    AdminModule,
     ChatModule,
     RoutesModule
   ],

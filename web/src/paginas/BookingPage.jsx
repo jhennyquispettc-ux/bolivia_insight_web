@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
+import PayPalButton from '../componentes/PayPalButton.jsx';
 
 function BookingPage({ onBack, onProfile, user }) {
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -12,12 +13,14 @@ function BookingPage({ onBack, onProfile, user }) {
   }, []);
 
   const isMobile = vw < 640;
-  const [step, setStep] = useState(0); 
+  // Steps: 0 duration · 1 time · 2 brief (required) · 3 payment · 4 confirmation
+  const [step, setStep] = useState(0);
   const [duration, setDuration] = useState(30);
   const [slot, setSlot] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+  const [booking, setBooking] = useState(null);
+
   const [unavailable, setUnavailable] = React.useState([]);
 
   const [weekStart, setWeekStart] = useState(() => {
@@ -38,7 +41,7 @@ function BookingPage({ onBack, onProfile, user }) {
         });
         if (res.ok) {
           const data = await res.json();
-          
+
           const mapped = data.map(b => ({
             dateISO: b.date.substring(0, 10),
             timeSlot: b.timeSlot
@@ -51,8 +54,11 @@ function BookingPage({ onBack, onProfile, user }) {
     };
     fetchAvailability();
   }, []);
-  const [briefOpen, setBriefOpen] = useState(false);
+
+  // Mandatory trip brief — collected BEFORE payment so the expert can prepare.
   const [brief, setBrief] = useState({ dates: '', route: '', questions: '', location: '' });
+  const briefComplete =
+    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.location.trim();
 
   const price = duration === 15 ? 12 : 22;
   const priceBs = duration === 15 ? 84 : 153;
@@ -64,37 +70,31 @@ function BookingPage({ onBack, onProfile, user }) {
 
   const defaultExpert = { id: 'default', name: 'Local Guide', initials: 'BI', color: 'var(--rust-500)' };
 
-  const handleBook = async () => {
-    setLoading(true);
+  // The booking endpoints require an app JWT (saved at login). Without it the
+  // PayPal capture would 401, so we gate the payment step on being logged in.
+  const isLoggedIn = !!(user || (typeof localStorage !== 'undefined' && localStorage.getItem('bolivia_insight_token')));
+
+  const steps = ['Choose duration', 'Pick a time', 'Trip brief', 'Payment'];
+
+  // Can the user jump to step `i`? Forward navigation is gated by prerequisites.
+  const canGoTo = (i) => {
+    if (i <= 0) return true;
+    if (i === 1) return true;            // duration has a default
+    if (i === 2) return !!slot;          // a slot must be picked
+    if (i === 3) return !!slot && !!briefComplete; // brief must be complete
+    return false;
+  };
+
+  // Whether the "Continue" button at the current step is enabled.
+  const canContinue =
+    (step === 0) ||
+    (step === 1 && !!slot) ||
+    (step === 2 && !!briefComplete);
+
+  const handlePaid = (createdBooking) => {
+    setBooking(createdBooking);
     setError('');
-
-    try {
-      const token = localStorage.getItem('bolivia_insight_token');
-      const googleAccessToken = localStorage.getItem('google_access_token') || 'placeholder';
-
-      const res = await fetch('http://localhost:3000/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          date: slot.dateISO,
-          timeSlot: slot.time,
-          topic: `${duration}-min Trip Review`,
-          notes: '',
-          googleAccessToken
-        })
-      });
-
-      if (!res.ok) throw new Error('Failed to book session');
-      
-      setStep(2); 
-    } catch (err) {
-      setError('Could not complete booking. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    setStep(4);
   };
 
   return (
@@ -120,15 +120,17 @@ function BookingPage({ onBack, onProfile, user }) {
           <div style={{ background: '#fff', borderRadius: 20, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)', overflow: 'hidden' }}>
 
             {}
-            {step < 2 && (
+            {step < 4 && (
               <div style={{ display: 'flex', borderBottom: '1px solid var(--border)' }} className="bi-stepper">
-                {['Choose duration', 'Pick a time'].map((s, i) => {
+                {steps.map((s, i) => {
+                  const reachable = canGoTo(i);
                   return (
-                    <button key={i} onClick={() => setStep(i)} style={{
+                    <button key={i} onClick={() => reachable && setStep(i)} disabled={!reachable} style={{
                       flex: 1, padding: '20px 18px',
                       background: step === i ? 'var(--stone-50)' : '#fff',
                       border: 0, borderBottom: step === i ? '3px solid var(--rust-500)' : '3px solid transparent',
-                      cursor: 'pointer', textAlign: 'left',
+                      cursor: reachable ? 'pointer' : 'not-allowed', textAlign: 'left',
+                      opacity: reachable ? 1 : 0.45,
                     }}>
                       <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.4, color: step >= i ? 'var(--rust-500)' : 'var(--fg3)' }}>STEP {i+1}</div>
                       <div style={{ fontSize: 16, fontWeight: 700, color: step === i ? 'var(--fg1)' : 'var(--fg2)', marginTop: 2 }}>{s}</div>
@@ -177,7 +179,7 @@ function BookingPage({ onBack, onProfile, user }) {
                 <div style={{ marginTop: 22, padding: 16, background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)', borderRadius: 10, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                   <I.Sparkle size={18}/>
                   <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.55 }}>
-                    <strong style={{ color: 'var(--fg1)' }}>Send your trip notes ahead.</strong> Once you book, you'll get a form to share dates, route, and what you're stuck on — so the call gets straight to the answers.
+                    <strong style={{ color: 'var(--fg1)' }}>You'll fill a short trip brief before paying.</strong> Dates, route, and what you're stuck on — so the expert prepares and the call goes straight to the answers.
                   </div>
                 </div>
               </div>
@@ -200,65 +202,87 @@ function BookingPage({ onBack, onProfile, user }) {
             )}
 
             {}
-            {step === 2 && slot && (
+            {step === 2 && (
+              <BriefStep brief={brief} setBrief={setBrief} isMobile={isMobile} />
+            )}
+
+            {}
+            {step === 3 && slot && (
+              <PaymentStep
+                slot={slot}
+                duration={duration}
+                price={price}
+                priceBs={priceBs}
+                brief={brief}
+                isLoggedIn={isLoggedIn}
+                onPaid={handlePaid}
+                onError={(m) => setError(m)}
+                isMobile={isMobile}
+              />
+            )}
+
+            {}
+            {step === 4 && slot && (
               <Confirmation
                 expert={defaultExpert}
                 slot={slot}
                 duration={duration}
                 price={price}
                 priceBs={priceBs}
-                briefOpen={briefOpen}
-                setBriefOpen={setBriefOpen}
                 brief={brief}
-                setBrief={setBrief}
+                booking={booking}
                 onProfile={onProfile}
                 isMobile={isMobile}
               />
             )}
 
             {}
-            {step < 2 && (
+            {step < 3 && (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: isMobile ? '16px 20px' : '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'var(--fg3)' }}>
                   <I.Shield size={14}/>
-                  <span>Secure checkout · Stripe · Refundable up to 12h before</span>
+                  <span>Secure checkout · PayPal · Refundable up to 12h before</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                   {step > 0 && (
                     <div style={{ fontSize: 13, color: 'var(--fg2)' }}>
                       {<span>{duration} min</span>}
-                      {step === 1 && <span> · <strong style={{ color: 'var(--rust-500)', fontFamily: 'var(--font-display)', fontSize: 16 }}>${price}</strong></span>}
+                      <span> · <strong style={{ color: 'var(--rust-500)', fontFamily: 'var(--font-display)', fontSize: 16 }}>${price}</strong></span>
                     </div>
                   )}
                   <div style={{ display: 'flex', gap: 10 }}>
                     {step > 0 && <Btn kind="ghost" size="md" onClick={() => setStep(step - 1)}>Back</Btn>}
-                    {step < 1 && (
-                      <Btn kind="primary" size="md" onClick={() => setStep(step + 1)}>
-                        Continue <I.ArrowR size={14}/>
-                      </Btn>
-                    )}
-                    {step === 1 && (
-                      <Btn kind="primary" size="md"
-                        onClick={handleBook}
-                        style={{ opacity: (!slot || loading) ? 0.4 : 1, pointerEvents: (!slot || loading) ? 'none' : 'auto' }}>
-                        {loading ? 'Booking...' : `Pay $${price} & confirm`} {!loading && <I.ArrowR size={14}/>}
-                      </Btn>
-                    )}
+                    <Btn kind="primary" size="md"
+                      onClick={() => canContinue && setStep(step + 1)}
+                      style={{ opacity: canContinue ? 1 : 0.4, pointerEvents: canContinue ? 'auto' : 'none' }}>
+                      {step === 2 ? 'Continue to payment' : 'Continue'} <I.ArrowR size={14}/>
+                    </Btn>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {}
+            {step === 3 && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: isMobile ? '16px 20px' : '20px 32px', borderTop: '1px solid var(--border)', background: 'var(--stone-25)', gap: 16, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'var(--fg3)' }}>
+                  <I.Shield size={14}/>
+                  <span>Secure checkout · PayPal · Refundable up to 12h before</span>
+                </div>
+                <Btn kind="ghost" size="md" onClick={() => setStep(2)}>Back</Btn>
               </div>
             )}
           </div>
 
           {}
-          {step < 2 && (
+          {step < 3 && (
             <div style={{ marginTop: isMobile ? 40 : 56 }}>
               <div className="eyebrow" style={{ marginBottom: 16 }}>How it works</div>
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
                 {[
-                  { n: '01', t: 'Pick & pay',     d: 'Choose a duration and slot. Pay by card. You get a confirmation + brief form.' },
-                  { n: '02', t: 'Send your plan', d: 'Fill out a 2-min brief: dates, rough route, your top 3 questions. We review before the call.' },
-                  { n: '03', t: 'Hop on the call', d: 'Google Meet link arrives 1h before. Bring questions. Get a written summary by email after.' },
+                  { n: '01', t: 'Pick & brief',    d: 'Choose a duration and slot, then fill a 2-min brief: dates, rough route, your top questions.' },
+                  { n: '02', t: 'Pay securely',    d: 'Pay with PayPal. Your booking is only confirmed once the payment goes through.' },
+                  { n: '03', t: 'Hop on the call', d: 'Google Meet link arrives 1h before. We come prepared. Get a written summary by email after.' },
                 ].map(s => (
                   <div key={s.n} style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 14, padding: 24 }}>
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--rust-500)', fontWeight: 700, letterSpacing: 0.4 }}>STEP {s.n}</div>
@@ -282,8 +306,109 @@ function BookingPage({ onBack, onProfile, user }) {
   );
 }
 
+// ── Step 2: mandatory trip brief ───────────────────────────────────────────────
+function BriefStep({ brief, setBrief, isMobile }) {
+  const fields = [
+    { key: 'dates',     label: 'Travel dates',      hint: 'e.g. May 12 – May 28' },
+    { key: 'route',     label: 'Rough route',       hint: 'La Paz → Uyuni → Sucre → Santa Cruz', multiline: true },
+    { key: 'questions', label: 'Top 3 questions',   hint: 'One per line — what you really want answered.', multiline: true },
+    { key: 'location',  label: 'Where you are now', hint: 'So we know your timezone and connection.' },
+  ];
+  return (
+    <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
+      <div style={{ marginBottom: 18 }}>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500 }}>Tell us about your trip</div>
+        <div style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 6, lineHeight: 1.55, maxWidth: 560 }}>
+          This is required so the local expert can prepare and bring the right maps and materials to your call. It takes about two minutes.
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {fields.map(f => (
+          <BriefField
+            key={f.key}
+            label={f.label}
+            hint={f.hint}
+            multiline={f.multiline}
+            required
+            value={brief[f.key]}
+            onChange={v => setBrief({ ...brief, [f.key]: v })}
+          />
+        ))}
+      </div>
+      <div style={{ marginTop: 16, fontSize: 12, color: 'var(--fg3)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <I.Alert size={14}/> All fields are required to continue to payment.
+      </div>
+    </div>
+  );
+}
+
+// ── Step 3: payment via PayPal ─────────────────────────────────────────────────
+function PaymentStep({ slot, duration, price, priceBs, brief, isLoggedIn, onPaid, onError, isMobile }) {
+  const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
+  const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  const fmtTime = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  return (
+    <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 24 : 40 }}>
+        {/* Order summary */}
+        <div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>Order summary</div>
+          <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 14, padding: 22 }}>
+            <Row label="Session" value={`${duration}-min Trip Review`} />
+            <Row label="When" value={`${fmtFullDate}, ${fmtTime}`} />
+            <Row label="Bolivia time" value={`${slot.time} (UTC −4)`} />
+            <div style={{ borderTop: '1px solid var(--border)', margin: '14px 0' }} />
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>Total</span>
+              <span>
+                <strong style={{ fontFamily: 'var(--font-display)', fontSize: 28, color: 'var(--rust-500)' }}>${price}</strong>
+                <span style={{ fontSize: 12, color: 'var(--fg3)', fontFamily: 'var(--font-mono)', marginLeft: 8 }}>≈ Bs {priceBs}</span>
+              </span>
+            </div>
+          </div>
+          <div style={{ marginTop: 14, fontSize: 12, color: 'var(--fg3)', lineHeight: 1.55, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+            <I.Shield size={14}/>
+            <span>Your booking is created only after PayPal confirms the payment. Charged in USD.</span>
+          </div>
+        </div>
+
+        {/* PayPal */}
+        <div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>Pay with PayPal</div>
+          {isLoggedIn ? (
+            <PayPalButton
+              durationMin={duration}
+              slot={slot}
+              brief={brief}
+              onPaid={onPaid}
+              onError={onError}
+            />
+          ) : (
+            <div style={{
+              background: 'var(--rust-50)', border: '1px solid var(--rust-200)',
+              borderRadius: 12, padding: '16px 18px', fontSize: 14, color: 'var(--rust-700)', lineHeight: 1.55,
+            }}>
+              <strong>Inicia sesión para pagar.</strong> Debes entrar con Google antes de pagar y agendar la cita, así la reserva queda asociada a tu cuenta y recibes la confirmación por correo.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Row({ label, value }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, padding: '6px 0', fontSize: 14 }}>
+      <span style={{ color: 'var(--fg3)' }}>{label}</span>
+      <span style={{ color: 'var(--fg1)', fontWeight: 600, textAlign: 'right' }}>{value}</span>
+    </div>
+  );
+}
+
 function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
-  
+
   const days = [];
   for (let i = 0; i < 7; i++) {
     const d = new Date(weekStart);
@@ -291,15 +416,15 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
     days.push(d);
   }
 
-  
+
   const slotsForDay = (date) => {
     const key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let candidates = ['09:00', '10:30', '14:00', '15:30', '17:00'];
-    
-    
+
+
     candidates = candidates.filter(time => !unavailable.some(u => u.dateISO === key && u.timeSlot === time));
-    
-    
+
+
     const now = new Date();
     if (date.toDateString() === now.toDateString()) {
       const currentHour = now.getHours();
@@ -311,7 +436,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
         return false;
       });
     }
-    
+
     return candidates;
   };
 
@@ -377,17 +502,17 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
               {slots.map(time => {
                 const dKey = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
                 const selected = slot && slot.dateISO === dKey && slot.time === time;
-                
-                
+
+
                 const [h, min] = time.split(':');
                 const localD = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), Number(h) + 4, Number(min)));
                 const localTimeStr = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
+
                 const boliviaMidnightUTC = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate());
                 const localMidnightUTC = Date.UTC(localD.getFullYear(), localD.getMonth(), localD.getDate());
                 const diffDays = Math.round((localMidnightUTC - boliviaMidnightUTC) / 86400000);
                 const dayShift = diffDays > 0 ? ' (+1d)' : diffDays < 0 ? ' (-1d)' : '';
-                
+
                 return (
                   <button key={time} onClick={() => !past && setSlot({ dateISO: dKey, date: d, time })}
                     disabled={past}
@@ -431,7 +556,7 @@ const navBtnStyle = {
   transition: 'all 140ms',
 };
 
-function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBriefOpen, brief, setBrief, onProfile, isMobile }) {
+function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, onProfile, isMobile }) {
   const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
   const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   const fmtTime = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -448,10 +573,10 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
         }}><I.Check size={32}/></div>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px,4vw,40px)', margin: 0, fontWeight: 600, letterSpacing: '-0.02em' }}>
-          Session Confirmed!
+          Payment received — session confirmed!
         </h2>
         <p style={{ marginTop: 10, fontSize: 14, color: 'rgba(255,255,255,0.85)' }}>
-          We've added it to your Google Calendar and sent a confirmation email.
+          We've added it to your Google Calendar and sent a confirmation email with your brief.
         </p>
       </div>
 
@@ -472,7 +597,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
               <strong>{fmtTime}</strong> (Your local time) · {duration} min
             </div>
             <div style={{ fontSize: 13, color: 'var(--fg3)', marginTop: 2 }}>
-              Original: {slot.time} (Bolivia Time) · ${price} <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>≈ Bs {priceBs}</span>
+              Original: {slot.time} (Bolivia Time) · Paid ${price} <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>≈ Bs {priceBs}</span>
             </div>
           </div>
         </div>
@@ -482,9 +607,11 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
           <Btn kind="primary" size="md" onClick={onProfile}>
              Go to My Profile <I.ArrowR size={14}/>
           </Btn>
-          <Btn kind="ghost" size="md" onClick={() => setBriefOpen(true)}>
-            <I.Sparkle size={14}/> Send brief now
-          </Btn>
+          {booking?.calendarLink && (
+            <Btn kind="ghost" size="md" onClick={() => window.open(booking.calendarLink, '_blank')}>
+              <I.Calendar size={14}/> View in Calendar
+            </Btn>
+          )}
         </div>
 
         {}
@@ -495,53 +622,54 @@ function Confirmation({ expert, slot, duration, price, priceBs, briefOpen, setBr
         }}>
           <I.Sparkle size={18}/>
           <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.55 }}>
-            <strong style={{ color: 'var(--fg1)' }}>You'll get a Google Meet link one hour before the call.</strong> We recommend sending your brief beforehand so we can prepare answers.
+            <strong style={{ color: 'var(--fg1)' }}>You'll get a Google Meet link one hour before the call.</strong> We've received your brief and will prepare the right maps and materials.
           </div>
         </div>
 
         {}
-        <details open={briefOpen} style={{
+        <div style={{
           marginTop: 22, background: '#fff',
           border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden',
         }}>
-          <summary onClick={(e) => { e.preventDefault(); setBriefOpen(!briefOpen); }} style={{
-            padding: '18px 22px', cursor: 'pointer', listStyle: 'none',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12,
-            background: briefOpen ? 'var(--stone-50)' : '#fff',
-            borderBottom: briefOpen ? '1px solid var(--border)' : 0,
-          }}>
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500 }}>2-minute trip brief</div>
-              <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4 }}>Optional. Helps the call go straight to answers.</div>
-            </div>
-            {briefOpen ? <I.X size={18}/> : <I.ArrowR size={18}/>}
-          </summary>
-          <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <BriefField label="Travel dates"           hint="e.g. May 12 – May 28"                    value={brief.dates}     onChange={v => setBrief({ ...brief, dates: v })}/>
-            <BriefField label="Rough route"            hint="La Paz → Uyuni → Sucre → Santa Cruz"      value={brief.route}     onChange={v => setBrief({ ...brief, route: v })} multiline/>
-            <BriefField label="Top 3 questions"        hint="One per line — what you really want answered." value={brief.questions} onChange={v => setBrief({ ...brief, questions: v })} multiline/>
-            <BriefField label="Where you are now"      hint="So we know your timezone and connection."   value={brief.location} onChange={v => setBrief({ ...brief, location: v })}/>
-            <Btn kind="navy" size="md" style={{ alignSelf: 'flex-start', marginTop: 4 }} onClick={() => setBriefOpen(false)}>
-              Save brief
-            </Btn>
+          <div style={{ padding: '16px 22px', borderBottom: '1px solid var(--border)', background: 'var(--stone-50)' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500 }}>Your trip brief</div>
+            <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4 }}>Shared with the expert so they can prepare.</div>
           </div>
-        </details>
+          <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <BriefReadOnly label="Travel dates"      value={brief.dates} />
+            <BriefReadOnly label="Rough route"       value={brief.route} />
+            <BriefReadOnly label="Top 3 questions"   value={brief.questions} />
+            <BriefReadOnly label="Where you are now" value={brief.location} />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function BriefField({ label, hint, value, onChange, multiline }) {
+function BriefReadOnly({ label, value }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>{label}</span>
+      <span style={{ fontSize: 14, color: 'var(--fg1)', whiteSpace: 'pre-line', lineHeight: 1.5 }}>{value || '—'}</span>
+    </div>
+  );
+}
+
+function BriefField({ label, hint, value, onChange, multiline, required }) {
   const Tag = multiline ? 'textarea' : 'input';
+  const empty = required && !value.trim();
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>{label}</span>
+      <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
+        {label}{required && <span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>}
+      </span>
       <Tag value={value} onChange={e => onChange(e.target.value)} placeholder={hint}
         rows={multiline ? 3 : undefined}
         style={{
           fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
           padding: '10px 14px', borderRadius: 10,
-          border: '1px solid var(--border-strong)', background: '#fff', outline: 'none',
+          border: `1px solid ${empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
           minHeight: 44, resize: multiline ? 'vertical' : 'none',
         }}/>
     </label>
