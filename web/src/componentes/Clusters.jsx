@@ -34,13 +34,13 @@ function Clusters({ onSelect }) {
           gap: isMobile ? 16 : 24,
         }}>
           <div style={{ maxWidth: 720 }}>
-            <div className="eyebrow" style={{ marginBottom: 12 }}>{t('clusters.eyebrow', 'Four clusters · 34 routes in season')}</div>
+            <div className="eyebrow" style={{ marginBottom: 12 }}>{t('clusters.eyebrow', 'Cuatro destinos principales · 34 rutas en temporada')}</div>
             <h2 style={{ margin: 0, fontSize: isMobile ? 'clamp(28px,8vw,40px)' : 'clamp(36px,4vw,56px)', lineHeight: 1.04 }}>
-              {t('clusters.title', 'Bolivia, by region.')}
+              {t('clusters.title', 'Explora los destinos de Bolivia.')}
             </h2>
             {!isMobile && (
               <p style={{ fontSize: 18, color: 'var(--fg2)', marginTop: 16, maxWidth: 580 }}>
-                {t('clusters.desc', 'Each cluster is a self-contained journey — high altiplano, urban metropolitan, colonial valley, or Amazon basin.')}
+                {t('clusters.desc', 'Explora las regiones más icónicas: el inmenso altiplano, los majestuosos valles, la vibrante zona metropolitana y la profunda amazonía.')}
               </p>
             )}
           </div>
@@ -116,7 +116,7 @@ function Clusters({ onSelect }) {
                   backdropFilter: 'blur(10px)',
                   fontSize: 11, fontWeight: 700, letterSpacing: 0.4,
                   textShadow: '0 1px 2px rgba(0,0,0,0.4)',
-                }}>{c.count} {t('clusters.routes', 'routes')}</div>
+                }}>{c.count} {t('clusters.routes', 'rutas')}</div>
               )}
 
               {}
@@ -156,7 +156,7 @@ function Clusters({ onSelect }) {
                 textShadow: '0 1px 4px rgba(0,0,0,0.4)',
               }}>
                 {!isMobile && (
-                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--amber-300)' }}>{`Cluster 0${i+1}`}</div>
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--amber-300)' }}>{`Destino 0${i+1}`}</div>
                 )}
                 <h3 style={{
                   margin: isMobile ? '0 0 2px' : '8px 0 6px',

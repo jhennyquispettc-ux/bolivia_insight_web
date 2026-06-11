@@ -57,9 +57,9 @@ function BookingPage({ onBack, onProfile, user }) {
   }, []);
 
   // Mandatory trip brief — collected BEFORE payment so the expert can prepare.
-  const [brief, setBrief] = useState({ dates: '', route: '', questions: '', location: '', origin: '', companions: '', age: '', gender: '' });
+  const [brief, setBrief] = useState({ dates: '', route: '', questions: '', arrival: '', origin: '', companions: '', age: '', gender: '' });
   const briefComplete =
-    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.location.trim() && brief.origin.trim() && brief.companions.trim() && brief.age.trim() && brief.gender.trim();
+    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.arrival.trim() && brief.origin.trim() && brief.companions.trim() && brief.age.trim() && brief.gender.trim();
 
   const price = duration === 15 ? 12 : 22;
   const priceBs = duration === 15 ? 84 : 153;
@@ -356,7 +356,7 @@ function BriefStep({ brief, setBrief, isMobile }) {
     { key: 'gender',    label: 'Gender',            type: 'select', options: ['', 'Femenino', 'Masculino', 'Otro', 'Prefiero no decirlo'] },
     { key: 'companions',label: 'Who are you traveling with', type: 'select', options: ['', 'Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo Guiado'] },
     { key: 'dates',     label: 'Travel dates',      hint: 'e.g. May 12 – May 28' },
-    { key: 'location',  label: 'Where you are now', hint: 'So we know your timezone and connection.' },
+    { key: 'arrival',   label: 'How are you arriving to Bolivia', type: 'select', options: ['', '✈️ Vuelo internacional (aeropuerto)', '🚌 Bus / Coach desde país vecino', '🚗 En vehículo propio', '🚶 Cruzó la frontera a pie', '🚢 Crucero fluvial'] },
     { key: 'route',     label: 'Rough route',       hint: 'La Paz → Uyuni → Sucre → Santa Cruz (Min. 15 chars)', multiline: true },
     { key: 'questions', label: 'Top 3 questions',   hint: 'What you really want answered (Min. 15 chars).', multiline: true },
   ];
@@ -691,7 +691,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
               <BriefReadOnly label="Travel dates" value={brief.dates} />
               <BriefReadOnly label="Traveling with" value={brief.companions} />
             </div>
-            <BriefReadOnly label="Where you are now" value={brief.location} />
+            <BriefReadOnly label="Arriving to Bolivia" value={brief.arrival} />
             <BriefReadOnly label="Rough route"       value={brief.route} />
             <BriefReadOnly label="Top 3 questions"   value={brief.questions} />
           </div>

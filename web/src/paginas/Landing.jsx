@@ -10,6 +10,7 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
   return (
     <>
       <Hero variant={heroVariant} onCtaClick={onExpress}/>
+      <AboutSection onExpert={onExpert} />
       <Clusters onSelect={onClusterSelect}/>
       <TabsSection/>
       <CompanionTriptych onDashboard={onDashboard} onDictionary={onDictionary} onSos={onSos}/>
@@ -22,6 +23,56 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
         else if (id === 'expert') onExpert?.();
       }}/>
     </>
+  );
+}
+
+function AboutSection({ onExpert }) {
+  const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  React.useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = vw < 768;
+
+  return (
+    <section style={{ background: 'var(--bg-elevated)', padding: isMobile ? '56px 0 48px' : '100px 0 80px', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 36 : 80, alignItems: 'center' }}>
+          <div>
+            <div className="eyebrow" style={{ color: 'var(--rust-500)', marginBottom: 14 }}>Sobre Bolivia Insight</div>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(26px,7vw,36px)' : 48, fontWeight: 600, lineHeight: 1.05, margin: 0, color: 'var(--fg1)' }}>
+              Un entorno digital que facilita tu viaje.
+            </h2>
+            <p style={{ fontSize: isMobile ? 15 : 18, color: 'var(--fg2)', lineHeight: 1.65, marginTop: 20 }}>
+              Creado por personas que aman Bolivia y expertos locales dispuestos a ayudarte.
+              Nuestra misión es darte las herramientas y el conocimiento nativo para que tú también seas parte de la planificación y construcción de tu propia aventura, sin depender de agencias restrictivas.
+            </p>
+            {!isMobile && (
+              <div style={{ marginTop: 32 }}>
+                <Btn kind="primary" size="md" onClick={onExpert}>Hablar con un experto local <I.ArrowR size={14}/></Btn>
+              </div>
+            )}
+            {isMobile && (
+              <div style={{ marginTop: 24 }}>
+                <Btn kind="primary" size="md" onClick={onExpert} style={{ width: '100%', justifyContent: 'center' }}>Hablar con un experto local <I.ArrowR size={14}/></Btn>
+              </div>
+            )}
+          </div>
+          <div style={{ position: 'relative', paddingBottom: isMobile ? 0 : 40 }}>
+            <div style={{ width: '100%', aspectRatio: isMobile ? '16/9' : '4/3', borderRadius: isMobile ? 16 : 24, background: 'url(/assets/images/local_expert.png) center/cover', boxShadow: 'var(--shadow-xl)' }} />
+            {!isMobile && (
+              <div style={{ position: 'absolute', bottom: 0, left: -20, background: 'var(--bg-elevated)', padding: '16px 24px', borderRadius: 16, boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border)' }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--fg3)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Hablemos de tu viaje</div>
+                <div style={{ fontSize: 14, color: 'var(--fg1)', fontWeight: 600, marginTop: 4 }}>Expertos disponibles hoy ✓</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -108,7 +159,7 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
         }}>
           {tools.map(tool => (
             <button key={tool.n} onClick={tool.onClick} style={{
-              background: '#fff', border: '1px solid var(--border)', borderRadius: isMobile ? 14 : 18,
+              background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: isMobile ? 14 : 18,
               padding: 0, cursor: 'pointer', textAlign: 'left',
               boxShadow: 'var(--shadow-sm)', display: 'flex',
               flexDirection: isMobile ? 'row' : 'column',
@@ -169,19 +220,19 @@ function CompanionTriptych({ onDashboard, onDictionary, onSos }) {
 function DashboardPreview() {
   return (
     <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
-      <rect x="20" y="30" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="30" width="280" height="48" rx="10" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <circle cx="40" cy="54" r="6" fill="var(--green-500)"/>
       <rect x="56" y="44" width="120" height="8" rx="2" fill="var(--fg1)"/>
       <rect x="56" y="58" width="80" height="6" rx="2" fill="var(--fg3)"/>
       <text x="270" y="58" fontSize="12" fontFamily="var(--font-mono)" fill="var(--fg3)" textAnchor="end">RN-1</text>
 
-      <rect x="20" y="86" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="86" width="280" height="48" rx="10" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <circle cx="40" cy="110" r="6" fill="var(--rust-500)"/>
       <rect x="56" y="100" width="140" height="8" rx="2" fill="var(--fg1)"/>
       <rect x="56" y="114" width="100" height="6" rx="2" fill="var(--rust-500)" opacity="0.6"/>
       <text x="270" y="114" fontSize="12" fontFamily="var(--font-mono)" fill="var(--fg3)" textAnchor="end">RN-2</text>
 
-      <rect x="20" y="142" width="280" height="48" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="142" width="280" height="48" rx="10" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <circle cx="40" cy="166" r="6" fill="var(--green-500)"/>
       <rect x="56" y="156" width="110" height="8" rx="2" fill="var(--fg1)"/>
       <rect x="56" y="170" width="90" height="6" rx="2" fill="var(--fg3)"/>
@@ -198,7 +249,7 @@ function DictionaryPreview() {
   ];
   return (
     <svg viewBox="0 0 320 200" width="100%" style={{ display: 'block', maxWidth: 320 }}>
-      <rect x="20" y="20" width="280" height="36" rx="18" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="20" width="280" height="36" rx="18" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <circle cx="38" cy="38" r="6" stroke="var(--fg3)" strokeWidth="1.6" fill="none"/>
       <line x1="42" y1="42" x2="48" y2="48" stroke="var(--fg3)" strokeWidth="1.6"/>
       <rect x="60" y="34" width="120" height="6" rx="2" fill="var(--fg3)" opacity="0.5"/>
@@ -231,11 +282,11 @@ function SosPreview() {
       <text x="231" y="56" fontSize="9" fontFamily="var(--font-sans)" fill="rgba(255,255,255,0.85)" fontWeight="800" letterSpacing="0.4">MEDICAL</text>
       <text x="231" y="78" fontSize="22" fontFamily="var(--font-display)" fill="#fff" fontWeight="500">118</text>
 
-      <rect x="20" y="110" width="280" height="36" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="110" width="280" height="36" rx="10" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <rect x="32" y="122" width="80" height="12" rx="3" fill="var(--navy-700)"/>
       <text x="120" y="132" fontSize="10" fontFamily="var(--font-sans)" fill="var(--fg2)" fontWeight="500">Hospital · Sopocachi</text>
 
-      <rect x="20" y="152" width="280" height="36" rx="10" fill="#fff" stroke="var(--border)"/>
+      <rect x="20" y="152" width="280" height="36" rx="10" fill="var(--bg-elevated)" stroke="var(--border)"/>
       <rect x="32" y="164" width="80" height="12" rx="3" fill="var(--navy-700)"/>
       <text x="120" y="174" fontSize="10" fontFamily="var(--font-sans)" fill="var(--fg2)" fontWeight="500">Embassy · La Paz</text>
     </svg>
