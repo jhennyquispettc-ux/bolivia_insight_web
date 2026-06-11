@@ -3,6 +3,8 @@ import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 import IMG from '../ui/imagenes.jsx';
 import StatusDot from '../ui/StatusDot.jsx';
+import { CLUSTERS } from '../data/destinos.jsx';
+import { BO_VIEWBOX, BO_DEPARTMENTS } from '../data/boliviaDepartments.js';
 
 function useWindowWidth() {
   const [w, setW] = React.useState(window.innerWidth);
@@ -91,7 +93,7 @@ function Dashboard({ onBack, onExpert }) {
           'AHUELLAMIENTO EN PLATAFORMA':         'Rutting on road surface',
           
           'TRANSITABLE CON DESVIOS':             'Passable via detour',
-          'TRANSITABLE CON DESVÍOS':             'Passable via detour',
+          'TRANSITABLE CON DESVÃOS':             'Passable via detour',
           'RESTRICCION VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCIÓN VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCION VEHICULAR, ESPECIAL':     'Special vehicle restriction',
@@ -99,7 +101,7 @@ function Dashboard({ onBack, onExpert }) {
           'DERRUMBE':                            'Landslide',
           'DERRUMBES MENORES':                   'Minor landslides',
           'CAIDA DE ROCAS':                      'Rockfall',
-          'CAÍDA DE ROCAS':                      'Rockfall',
+          'CAÃDA DE ROCAS':                      'Rockfall',
           'FLUJO DE BARRO':                      'Mudflow / debris flow',
           'INUNDACION':                          'Flooding',
           'INUNDACIÓN':                          'Flooding',
@@ -108,7 +110,7 @@ function Dashboard({ onBack, onExpert }) {
           'AFECTACIÓN DE PUENTE':                'Bridge affected / damaged',
           
           'ACCIDENTE DE TRANSITO':               'Traffic accident',
-          'ACCIDENTE DE TRÁNSITO':               'Traffic accident',
+          'ACCIDENTE DE TRÃNSITO':               'Traffic accident',
           
           'NINGUN EVENTO':                       'No incidents',
           'NINGÚN EVENTO':                       'No incidents',
@@ -169,7 +171,7 @@ function Dashboard({ onBack, onExpert }) {
     { line: 'Roja',     stations: 'Central → Cementerio → 16 de Julio',                   hex: '#d32f2f', ok: true, wait: '~4 min', duration: 11, km: 3.0, tourTip: 'Most iconic line — connects La Paz & El Alto' },
     { line: 'Amarilla', stations: 'Mirador → Buenos Aires → Sopocachi → Libertador',       hex: '#d4a800', ok: true, wait: '~6 min', duration: 17, km: 4.6, tourTip: 'Panoramic views of Mt. Illimani' },
     { line: 'Verde',    stations: 'Libertador → Alto Obrajes → Obrajes → Irpavi',          hex: '#2e7d32', ok: true, wait: '~5 min', duration: 16, km: 4.2, tourTip: 'Southern neighbourhoods to city centre' },
-    { line: 'Azul',     stations: 'Río Seco → UPEA → Plaza La Paz → 16 de Julio',         hex: '#1565c0', ok: true, wait: '~7 min', duration: 20, km: 5.0, tourTip: 'Main El Alto ↔ La Paz corridor' },
+    { line: 'Azul',     stations: 'Río Seco → UPEA → Plaza La Paz → 16 de Julio',         hex: '#1565c0', ok: true, wait: '~7 min', duration: 20, km: 5.0, tourTip: 'Main El Alto â†” La Paz corridor' },
     { line: 'Naranja',  stations: 'Central → Armentia → Periférica → Villarroel',          hex: '#e65100', ok: true, wait: '~5 min', duration: 10, km: 2.8, tourTip: 'Northern La Paz districts' },
     { line: 'Blanca',   stations: 'Plaza Villarroel → Busch → Av. Poeta',                  hex: '#546e7a', ok: true, wait: '~6 min', duration: 13, km: 3.5, tourTip: 'Connects to the Celeste line' },
     { line: 'Celeste',  stations: 'Prado → Teatro al Aire Libre → Av. Poeta → Libertad',   hex: '#0288d1', ok: true, wait: '~5 min', duration: 15, km: 3.9, tourTip: 'Heart of the Prado to the south' },
@@ -244,10 +246,10 @@ function Dashboard({ onBack, onExpert }) {
       body: 'Scheduled cabin inspection until 14:00 today. Use Blue line to El Alto, transfer at 16 de Julio.',
       time: '07:00', source: 'Mi Teleférico' },
     { id: 3, level: 'low',    title: 'Cruz Festival · Tarija',
-      body: 'Light traffic disruption in Tarija city centre today and tomorrow. Folklore parades 15:00–22:00.',
+      body: 'Light traffic disruption in Tarija city centre today and tomorrow. Folklore parades 15:00â€“22:00.',
       time: 'Yesterday', source: 'Cultura BO' },
     { id: 4, level: 'low',    title: 'Cold front · Altiplano',
-      body: 'Overnight temperatures drop to −5°C in Uyuni and Potosí through Friday. Bring a 0°C-rated sleeping bag.',
+      body: 'Overnight temperatures drop to âˆ’5Â°C in Uyuni and Potosí through Friday. Bring a 0Â°C-rated sleeping bag.',
       time: 'Yesterday', source: 'SENAMHI' },
   ];
 
@@ -305,10 +307,20 @@ function Dashboard({ onBack, onExpert }) {
                    value={(() => {
                      const altCities = citiesData.filter(c => ['La Paz', 'Uyuni', 'Copacabana'].includes(c.city));
                      const valid = altCities.filter(c => typeof c.temp === 'number').map(c => c.temp);
-                     return valid.length > 0 ? `${Math.round(valid.reduce((a,b)=>a+b,0)/valid.length)}°C` : '--°C';
+                     return valid.length > 0 ? `${Math.round(valid.reduce((a,b)=>a+b,0)/valid.length)}Â°C` : '--Â°C';
                    })()}
                    tone="ok" note="Live data from Open-Meteo"/>
           <KpiTile label="Active alerts"      value={String(alerts.length)}                 tone={alerts.find(a => a.level === 'high') ? 'warn' : 'ok'} note="1 high · 1 medium"/>
+        </div>
+      </section>
+
+      {}
+      <section style={{ padding: '72px 0', background: 'var(--stone-25)' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
+          <SectionHeader eyebrow="Geography · Regions by altitude"
+            title="Bolivia, region by region."
+            sub="Hover a zone (or tap a chip) to see its altitude band and what defines it — from the 180 m Amazon basin to the 4,000 m+ Altiplano."/>
+          <ClusterMap/>
         </div>
       </section>
 
@@ -412,17 +424,17 @@ function Dashboard({ onBack, onExpert }) {
             background: 'var(--bg)', border: '1px solid var(--border)',
             fontSize: 12, color: 'var(--fg2)',
           }}>
-            <span>🕐 <strong>Mon–Sat</strong> 06:30–22:30</span>
+            <span>ðŸ• <strong>Monâ€“Sat</strong> 06:30â€“22:30</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>🕐 <strong>Sun & holidays</strong> 07:00–21:00</span>
+            <span>ðŸ• <strong>Sun & holidays</strong> 07:00â€“21:00</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>💳 Standard <strong>Bs 3.00</strong> · Discounted <strong>Bs 1.50</strong></span>
+            <span>ðŸ’³ Standard <strong>Bs 3.00</strong> · Discounted <strong>Bs 1.50</strong></span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>🔄 Transfer <strong>Bs 2.00</strong> / <strong>Bs 1.00</strong></span>
+            <span>ðŸ”„ Transfer <strong>Bs 2.00</strong> / <strong>Bs 1.00</strong></span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>📱 App <strong>YALA</strong> (QR top-up)</span>
+            <span>ðŸ“± App <strong>YALA</strong> (QR top-up)</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>📞 WhatsApp <strong>71554749</strong></span>
+            <span>ðŸ“ž WhatsApp <strong>71554749</strong></span>
           </div>
 
           {}
@@ -496,12 +508,12 @@ function Dashboard({ onBack, onExpert }) {
                         <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg2)' }}>{t.km} km</span>
                       </div>
                       <div style={{ fontSize: 11, fontWeight: 700, color: t.ok ? '#15803d' : '#dc2626', marginLeft: 'auto' }}>
-                        {t.ok ? `● ${t.wait}` : '⚠ Maintenance'}
+                        {t.ok ? `â— ${t.wait}` : 'âš  Maintenance'}
                       </div>
                     </div>
 
                     {t.tourTip && (
-                      <div style={{ marginTop: 6, fontSize: 10.5, color: 'var(--fg3)', fontStyle: 'italic', lineHeight: 1.35 }}>💡 {t.tourTip}</div>
+                      <div style={{ marginTop: 6, fontSize: 10.5, color: 'var(--fg3)', fontStyle: 'italic', lineHeight: 1.35 }}>ðŸ’¡ {t.tourTip}</div>
                     )}
                   </div>
                 </article>
@@ -596,8 +608,8 @@ function Dashboard({ onBack, onExpert }) {
                       <div style={{ fontWeight: 700, fontSize: 13, color: l.color }}>Línea {l.name}</div>
                       <div style={{ fontSize: 11, color: 'var(--fg3)', marginTop: 3, lineHeight: 1.5 }}>{l.stations}</div>
                       <div style={{ fontSize: 11, marginTop: 6, display: 'flex', gap: 12 }}>
-                        <span>⏱ <strong>{l.duration} min</strong></span>
-                        <span>📏 <strong>{l.km} km</strong></span>
+                        <span>â± <strong>{l.duration} min</strong></span>
+                        <span>ðŸ“ <strong>{l.km} km</strong></span>
                       </div>
                     </>
                   ) : null; })()}
@@ -606,7 +618,7 @@ function Dashboard({ onBack, onExpert }) {
                 <div style={{ fontSize: 10, color: 'var(--fg3)', marginTop: 8, textAlign: 'center' }}>
                   Click a line to see details · <button onClick={() => setMapFullscreen(true)}
                     style={{ background: 'none', border: 'none', color: 'var(--amber-500)', fontWeight: 700, fontSize: 10, cursor: 'pointer' }}>
-                    Full map ↗
+                    Full map â†—
                   </button>
                 </div>
               )}
@@ -614,7 +626,7 @@ function Dashboard({ onBack, onExpert }) {
           </div>
 
           <div style={{ marginTop: 16, fontSize: 12, color: 'var(--fg3)', textAlign: 'center' }}>
-            ⚡ No real-time public API available — status verified via
+            âš¡ No real-time public API available — status verified via
             <a href="https://www.miteleferico.bo" target="_blank" rel="noreferrer"
               style={{ color: 'var(--amber-500)', marginLeft: 4, textDecoration: 'none', fontWeight: 600 }}>
               miteleferico.bo
@@ -643,8 +655,8 @@ function Dashboard({ onBack, onExpert }) {
                   <div style={{ color: 'var(--amber-600)' }}>{c.icon}</div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 14 }}>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 500, lineHeight: 1, color: 'var(--fg1)' }}>{c.temp}°</div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{c.lo}° / {c.hi}°</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 500, lineHeight: 1, color: 'var(--fg1)' }}>{c.temp}Â°</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{c.lo}Â° / {c.hi}Â°</div>
                 </div>
                 <div style={{ marginTop: 10, fontSize: 13, color: 'var(--fg2)' }}>{c.conditions}</div>
               </article>
@@ -669,7 +681,7 @@ function Dashboard({ onBack, onExpert }) {
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
           fontSize: 12, color: 'var(--fg3)', fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
-          <I.Shield size={14}/> Data from ABC, Mi Teleférico, SENAMHI, OpenWeather. Refreshed every 5 min · 6:00–22:00 BOT.
+          <I.Shield size={14}/> Data from ABC, Mi Teleférico, SENAMHI, OpenWeather. Refreshed every 5 min · 6:00â€“22:00 BOT.
         </div>
       </section>
 
@@ -718,7 +730,7 @@ function Dashboard({ onBack, onExpert }) {
                 </div>
                 <button onClick={() => { setMapFullscreen(false); setActiveMapLine(null); }}
                   style={{ width: 36, height: 36, borderRadius: 10, border: '1px solid var(--border)',
-                    background: 'var(--bg-sunken)', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: 'var(--fg2)' }}>✕</button>
+                    background: 'var(--bg-sunken)', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: 'var(--fg2)' }}>âœ•</button>
               </div>
               <svg viewBox="0 0 560 430" style={{ width: '100%', height: 'auto', flex: 1, cursor: 'pointer' }}
                 xmlns="http://www.w3.org/2000/svg" onClick={() => setActiveMapLine(null)}>
@@ -807,7 +819,7 @@ function Dashboard({ onBack, onExpert }) {
                       ))}
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                      {[['⏱', 'Duración', `${l.duration} min`],['📏', 'Distancia', `${l.km} km`]].map(([ic,lb,vl]) => (
+                      {[['â±', 'Duración', `${l.duration} min`],['ðŸ“', 'Distancia', `${l.km} km`]].map(([ic,lb,vl]) => (
                         <div key={lb} style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: '12px 14px', border: '1px solid var(--border)' }}>
                           <div style={{ fontSize: 18 }}>{ic}</div>
                           <div style={{ fontSize: 10, color: 'var(--fg3)', fontWeight: 700, marginTop: 4 }}>{lb}</div>
@@ -818,14 +830,14 @@ function Dashboard({ onBack, onExpert }) {
                     {t && <div style={{ background: t.ok ? '#f0fdf4' : '#fef2f2', borderRadius: 10, padding: '10px 14px',
                       border: `1px solid ${t.ok ? '#bbf7d0' : '#fecaca'}` }}>
                       <div style={{ fontSize: 12, fontWeight: 700, color: t.ok ? '#15803d' : '#dc2626' }}>
-                        {t.ok ? `● Operativa · espera ${t.wait}` : `⚠ ${t.note || 'En mantenimiento'}`}
+                        {t.ok ? `â— Operativa · espera ${t.wait}` : `âš  ${t.note || 'En mantenimiento'}`}
                       </div>
-                      {t.tourTip && <div style={{ fontSize: 11, color: 'var(--fg2)', marginTop: 4, fontStyle: 'italic' }}>💡 {t.tourTip}</div>}
+                      {t.tourTip && <div style={{ fontSize: 11, color: 'var(--fg2)', marginTop: 4, fontStyle: 'italic' }}>ðŸ’¡ {t.tourTip}</div>}
                     </div>}
                     <button onClick={() => setActiveMapLine(null)} style={{
                       padding: '10px 0', borderRadius: 10, border: '1px solid var(--border)',
                       background: 'var(--bg-elevated)', cursor: 'pointer', fontSize: 12, color: 'var(--fg2)', fontWeight: 600,
-                    }}>← Volver a todas las líneas</button>
+                    }}>â† Volver a todas las líneas</button>
                   </>
                 );
               })() : (
@@ -907,48 +919,54 @@ function AlertRow({ alert }) {
 }
 
 function BoliviaMap({ roads, highlighted }) {
+  // City positions mapped to the real BO_VIEWBOX coordinate system ("74 21 852 958")
   const cities = {
-    'La Paz':       { x: 110, y: 130 },
-    'Oruro':        { x: 130, y: 200 },
-    'Potosí':       { x: 175, y: 270 },
-    'Sucre':        { x: 220, y: 260 },
-    'Uyuni':        { x: 130, y: 285 },
-    'Cochabamba':   { x: 200, y: 200 },
-    'Santa Cruz':   { x: 320, y: 200 },
-    'Trinidad':     { x: 290, y: 130 },
-    'Copacabana':   { x: 75,  y: 100 },
-    'Coroico':      { x: 145, y: 110 },
-    'Caranavi':     { x: 175, y: 100 },
-    'Rurrenabaque': { x: 165, y: 60 },
+    'La Paz':       { x: 194, y: 404 },
+    'Oruro':        { x: 235, y: 653 },
+    'Potosí':       { x: 289, y: 777 },
+    'Sucre':        { x: 475, y: 746 },
+    'Uyuni':        { x: 200, y: 820 },
+    'Cochabamba':   { x: 365, y: 554 },
+    'Santa Cruz':   { x: 660, y: 541 },
+    'Trinidad':     { x: 433, y: 299 },
+    'Copacabana':   { x: 130, y: 320 },
+    'Coroico':      { x: 230, y: 430 },
+    'Rurrenabaque': { x: 260, y: 200 },
   };
+
   const segMap = {
     'La Paz → Oruro':           ['La Paz', 'Oruro'],
     'Oruro → Potosí':           ['Oruro', 'Potosí'],
     'Oruro → Uyuni':            ['Oruro', 'Uyuni'],
+    'Potosí → Uyuni':           ['Potosí', 'Uyuni'],
     'La Paz → Copacabana':      ['La Paz', 'Copacabana'],
+    'La Paz → Tiwanaku':        ['La Paz', 'Copacabana'],
     'La Paz → Coroico':         ['La Paz', 'Coroico'],
-    'Coroico → Caranavi':       ['Coroico', 'Caranavi'],
-    'Cochabamba → Santa Cruz':  ['Cochabamba', 'Santa Cruz'],
-    'Cochabamba → Sucre':       ['Cochabamba', 'Sucre'],
     'Sucre → Potosí':           ['Sucre', 'Potosí'],
+    'Cochabamba → Santa Cruz':  ['Cochabamba', 'Santa Cruz'],
+    'Oruro → Cochabamba':       ['Oruro', 'Cochabamba'],
     'Santa Cruz → Trinidad':    ['Santa Cruz', 'Trinidad'],
     'La Paz → Rurrenabaque':    ['La Paz', 'Rurrenabaque'],
   };
 
   return (
-    <svg viewBox="0 0 400 360" role="img" aria-label="Bolivia road network status"
+    <svg viewBox={BO_VIEWBOX} role="img" aria-label="Bolivia road network status"
       style={{ width: '100%', height: 'auto', display: 'block' }}>
       <defs>
-        <linearGradient id="biMapBg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--stone-50)"/>
-          <stop offset="100%" stopColor="var(--stone-100, #efe9df)"/>
+        <linearGradient id="biRoadMapBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#e8f4f0"/>
+          <stop offset="100%" stopColor="#dde8e4"/>
         </linearGradient>
       </defs>
-      {}
-      <path d="M70 80 Q 60 60 90 50 Q 130 30 175 35 Q 230 30 270 60 Q 320 80 360 130 Q 380 180 360 240 Q 340 295 290 320 Q 230 335 175 325 Q 110 315 80 280 Q 50 240 50 180 Q 50 120 70 80 Z"
-        fill="url(#biMapBg)" stroke="var(--border)" strokeWidth="1.4"/>
 
-      {}
+      {/* Bolivia silhouette using real department outlines */}
+      {BO_DEPARTMENTS.map(dp => (
+        <path key={dp.id} d={dp.d}
+          fill="url(#biRoadMapBg)"
+          stroke="#c8d8d2" strokeWidth="4" strokeLinejoin="round"/>
+      ))}
+
+      {/* Roads */}
       {roads.map((r, i) => {
         const seg = segMap[r.name];
         if (!seg) return null;
@@ -956,22 +974,24 @@ function BoliviaMap({ roads, highlighted }) {
         const b = cities[seg[1]];
         if (!a || !b) return null;
         const isHi = highlighted === `${r.code}-${i}`;
-        const stroke = r.ok ? 'var(--green-500)' : 'var(--rust-500)';
+        const stroke = r.ok ? '#15803d' : '#dc2626';
         return (
           <line key={`${r.code}-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
             stroke={stroke}
-            strokeWidth={isHi ? 4 : 2.2}
+            strokeWidth={isHi ? 14 : 8}
             strokeLinecap="round"
-            opacity={isHi ? 1 : 0.78}
-            strokeDasharray={r.ok ? '0' : '6 4'}/>
+            opacity={isHi ? 1 : 0.7}
+            strokeDasharray={r.ok ? undefined : '20 12'}/>
         );
       })}
 
-      {}
+      {/* City dots */}
       {Object.entries(cities).map(([name, p]) => (
         <g key={name}>
-          <circle cx={p.x} cy={p.y} r="3.5" fill="var(--navy-700)"/>
-          <text x={p.x + 7} y={p.y + 3} fontSize="9" fill="var(--fg2)" fontFamily="var(--font-mono)" style={{ letterSpacing: '0.3px' }}>
+          <circle cx={p.x} cy={p.y} r="10" fill="var(--navy-700, #1e3a5f)" opacity="0.85"/>
+          <text x={p.x + 14} y={p.y + 5} fontSize="22" fill="#1e3a5f"
+            fontFamily="system-ui, sans-serif" fontWeight="600"
+            style={{ letterSpacing: '0.3px' }}>
             {name}
           </text>
         </g>
@@ -980,4 +1000,272 @@ function BoliviaMap({ roads, highlighted }) {
   );
 }
 
+const ATTRACTIONS = [
+  { id: 'uyuni',     name: 'Salar de Uyuni',       alt: 3656, x: 248, y: 754, emoji: '🧂', region: 'Altiplano',
+    type: 'Maravilla Natural', temp: '-5°C a 15°C', img: IMG.photoUyuni || IMG.altiplano,
+    tip: 'El espejo natural más grande del mundo. En temporada de lluvias (nov–mar) el agua crea el famoso efecto reflejo, un paraíso para la fotografía. Evita el invierno extremo si sufres de frío.',
+    best: 'Nov – Mar' },
+  { id: 'titicaca',  name: 'Lago Titicaca',         alt: 3810, x: 133, y: 390, emoji: '🌊', region: 'Altiplano',
+    type: 'Lago Sagrado', temp: '0°C a 14°C', img: IMG.photoTiticaca || IMG.altiplano,
+    tip: 'El lago navegable más alto del mundo. Visita la Isla del Sol y Copacabana para entender los orígenes de la cultura andina.',
+    best: 'May – Oct' },
+  { id: 'tiwanaku',  name: 'Tiwanaku',              alt: 3840, x: 146, y: 426, emoji: '🏛️', region: 'Altiplano',
+    type: 'Sitio Arqueológico', temp: '-2°C a 17°C', img: IMG.altiplano,
+    tip: 'Ruinas de una de las civilizaciones precolombinas más avanzadas de América. Su Puerta del Sol es un imperdible.',
+    best: 'Abr – Oct' },
+  { id: 'lapaz',     name: 'La Paz',                alt: 3640, x: 194, y: 420, emoji: '🏙️', region: 'Metro',
+    type: 'Ciudad Principal', temp: '1°C a 16°C', img: IMG.laPaz,
+    tip: 'La sede de gobierno más alta del mundo. Explora su red de Mi Teleférico, el Mercado de las Brujas y disfruta su vibrante gastronomía.',
+    best: 'Todo el año' },
+  { id: 'elalto',    name: 'El Alto',               alt: 4150, x: 186, y: 422, emoji: '⛪', region: 'Metro',
+    type: 'Ciudad Aymara', temp: '-4°C a 14°C', img: IMG.photoMetro || IMG.laPaz,
+    tip: 'La metrópoli aymara. Descubre la arquitectura de los Cholets y el inmenso Mercado 16 de Julio los jueves y domingos.',
+    best: 'Todo el año' },
+  { id: 'sajama',    name: 'Sajama',                alt: 6542, x: 128, y: 568, emoji: '🌋', region: 'Altiplano',
+    type: 'Parque Nacional', temp: '-15°C a 10°C', img: IMG.altiplano,
+    tip: 'Dominado por el volcán Sajama, el pico más alto de Bolivia. Relájate en sus aguas termales rodeado de alpacas y géiseres.',
+    best: 'May – Sep' },
+  { id: 'colorada',  name: 'Laguna Colorada',       alt: 4278, x: 224, y: 942, emoji: '🦩', region: 'Altiplano',
+    type: 'Reserva Natural', temp: '-10°C a 12°C', img: IMG.altiplano,
+    tip: 'Famosa por sus intensos tonos rojizos y por albergar miles de flamencos de James en sus aguas poco profundas.',
+    best: 'Nov – Mar' },
+  { id: 'verde',     name: 'Laguna Verde',          alt: 4400, x: 220, y: 997, emoji: '💚', region: 'Altiplano',
+    type: 'Reserva Natural', temp: '-12°C a 10°C', img: IMG.altiplano,
+    tip: 'Espectacular laguna color esmeralda a los pies del imponente volcán Licancabur, cerca de la frontera con Chile.',
+    best: 'Nov – Mar' },
+  { id: 'potosi',    name: 'Potosí',                alt: 3967, x: 397, y: 702, emoji: '⛏️', region: 'Altiplano',
+    type: 'Ciudad Colonial', temp: '-3°C a 15°C', img: IMG.photoPotosi || IMG.valles,
+    tip: 'Patrimonio UNESCO. Explora las históricas minas del Cerro Rico y la emblemática Casa de la Moneda colonial.',
+    best: 'Abr – Oct' },
+  { id: 'sucre',     name: 'Sucre',                 alt: 2810, x: 439, y: 654, emoji: '⚖️', region: 'Valles',
+    type: 'Ciudad Capital', temp: '8°C a 23°C', img: IMG.photoValles || IMG.valles,
+    tip: 'La "Ciudad Blanca" y capital constitucional. Sus calles coloniales invitan a caminar y probar el famoso chocolate local.',
+    best: 'May – Oct' },
+  { id: 'tarija',    name: 'Tarija',                alt: 1850, x: 485, y: 882, emoji: '🍷', region: 'Valles',
+    type: 'Ruta del Vino', temp: '10°C a 28°C', img: IMG.valles,
+    tip: 'El centro vinícola de Bolivia. Disfruta vinos de altura, singani, y la hospitalidad cálida de los chapacos.',
+    best: 'Abr – Nov' },
+  { id: 'torotoro',  name: 'Toro Toro',             alt: 2700, x: 396, y: 570, emoji: '🦕', region: 'Valles',
+    type: 'Parque Nacional', temp: '5°C a 24°C', img: IMG.valles,
+    tip: 'Un paraíso paleontológico. Camina entre miles de huellas de dinosaurio auténticas y desciende a la caverna Umajalanta.',
+    best: 'May – Oct' },
+  { id: 'samaipata', name: 'Samaipata / El Fuerte', alt: 1950, x: 563, y: 575, emoji: '🗿', region: 'Oriente',
+    type: 'Sitio Arqueológico', temp: '12°C a 26°C', img: IMG.photoAmazon || IMG.amazon,
+    tip: 'El Fuerte es la roca tallada más grande de América. Un santuario místico preinca con vistas espectaculares del valle.',
+    best: 'Abr – Nov' },
+  { id: 'muerte',    name: 'Camino de la Muerte',   alt: 1500, x: 219, y: 401, emoji: '🚵', region: 'Yungas',
+    type: 'Aventura / Ciclismo', temp: '15°C a 25°C', img: IMG.photoYungas || IMG.trek,
+    tip: 'Asciende desde las nieves de La Paz para lanzarte en bicicleta montaña abajo por la selva subtropical de los Yungas.',
+    best: 'Jun – Nov' },
+  { id: 'misiones',  name: 'Misiones Jesuíticas',   alt: 300,  x: 717, y: 387, emoji: '⛪', region: 'Oriente',
+    type: 'Patrimonio Cultural', temp: '20°C a 32°C', img: IMG.amazon,
+    tip: 'Seis impresionantes iglesias barrocas que mantienen viva la fusión de la cultura jesuita e indígena de la Chiquitania.',
+    best: 'Abr – Oct' },
+  { id: 'madidi',    name: 'Madidi / Rurrenabaque', alt: 180,  x: 245, y: 232, emoji: '🐒', region: 'Amazonía',
+    type: 'Selva Amazónica', temp: '22°C a 33°C', img: IMG.photoMadidi || IMG.amazon,
+    tip: 'Uno de los parques con mayor biodiversidad del mundo. Camina por la jungla buscando jaguares o realiza tours de supervivencia.',
+    best: 'Jun – Nov' },
+  { id: 'pampas',    name: 'Pampas del Yacuma',     alt: 200,  x: 301, y: 207, emoji: '🐊', region: 'Amazonía',
+    type: 'Humedales / Vida Silvestre', temp: '21°C a 34°C', img: IMG.amazon,
+    tip: 'Safaris en bote ideales para ver fácilmente caimanes, capibaras, anacondas y los raros delfines rosados de río (bufeos).',
+    best: 'Jun – Oct' },
+];
+
+// Color by altitude band
+function altColor(alt) {
+  if (alt > 5000) return '#94a3b8'; // Glaciar
+  if (alt > 3500) return '#7c6f5b'; // Altiplano
+  if (alt > 2000) return '#6b7c4e'; // Valles altos
+  if (alt > 800)  return '#4a7a3a'; // Valles bajos
+  return '#2d6a4f';                  // Tierras bajas
+}
+
+const BANDS = [
+  { label: 'Tierras bajas', sub: '< 800 m',       color: '#2d6a4f' },
+  { label: 'Valles',        sub: '800–2,000 m',    color: '#4a7a3a' },
+  { label: 'Valles altos',  sub: '2,000–3,500 m',  color: '#6b7c4e' },
+  { label: 'Altiplano',     sub: '3,500–5,000 m',  color: '#7c6f5b' },
+  { label: 'Cumbres',       sub: '> 5,000 m',      color: '#94a3b8' },
+];
+
+function ClusterMap({ onExplore }) {
+  const winW = useWindowWidth();
+  const isMobile = winW < 920;
+  const [hovered, setHovered] = React.useState(null);
+  const [selected, setSelected] = React.useState(ATTRACTIONS[0].id);
+  const activeId = hovered || selected;
+  const active = ATTRACTIONS.find(a => a.id === activeId) || ATTRACTIONS[0];
+
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 340px',
+      gap: isMobile ? 20 : 24, alignItems: 'start',
+    }}>
+      {/* ── Map card ─────────────────────────────────────────────────────────── */}
+      <div style={{
+        background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 18,
+        boxShadow: 'var(--shadow-xs)', padding: isMobile ? 14 : 20, position: 'relative',
+        height: 'fit-content'
+      }}>
+        <svg viewBox={BO_VIEWBOX} role="img" aria-label="Mapa orográfico de Bolivia"
+          style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 700, margin: '0 auto' }}>
+          <defs>
+            <linearGradient id="oroGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#c8d8b0"/>
+              <stop offset="55%" stopColor="#a89070"/>
+              <stop offset="100%" stopColor="#e8e0d0"/>
+            </linearGradient>
+            
+            {/* Salar de Uyuni pattern (white salt) */}
+            <pattern id="salarPattern" width="4" height="4" patternUnits="userSpaceOnUse">
+              <rect width="4" height="4" fill="#ffffff"/>
+              <circle cx="2" cy="2" r="1" fill="#f1f5f9"/>
+            </pattern>
+          </defs>
+
+          {/* Bolivia silhouette — orographic tones by department altitude WITHOUT borders */}
+          {BO_DEPARTMENTS.map(dp => {
+            const deptAlt = { BOL: 3400, BOO: 3700, BOP: 3800, BOT: 1800, BOS: 400, BOH: 2600, BON: 300, BOB: 250, BOC: 2500 };
+            const a = deptAlt[dp.id] || 1000;
+            return (
+              <path key={dp.id} d={dp.d}
+                fill={altColor(a)} fillOpacity="0.55"
+                stroke="none" strokeWidth="0" strokeLinejoin="round"/>
+            );
+          })}
+          
+          {/* Uyuni White Patch (Approximation) */}
+          <path d="M 210 750 Q 240 730 270 760 Q 280 800 230 810 Q 180 790 210 750 Z" 
+                fill="url(#salarPattern)" opacity="0.95" />
+
+          {/* Attraction markers */}
+          {ATTRACTIONS.map(att => {
+            const isActive = att.id === activeId;
+            const c = altColor(att.alt);
+            return (
+              <g key={att.id}
+                style={{ cursor: 'pointer' }}
+                onClick={() => setSelected(att.id)}
+                onMouseEnter={() => setHovered(att.id)}
+                onMouseLeave={() => setHovered(null)}>
+                {/* Pulse ring on active */}
+                {isActive && (
+                  <circle cx={att.x} cy={att.y} r="32"
+                    fill="none" stroke={c} strokeWidth="6" opacity="0.35"/>
+                )}
+                {/* Marker */}
+                <circle cx={att.x} cy={att.y}
+                  r={isActive ? 20 : 14}
+                  fill={c} stroke="#fff" strokeWidth={isActive ? 5 : 3}
+                  style={{ transition: 'all 180ms', filter: isActive ? `drop-shadow(0 3px 8px ${c}99)` : 'none' }}/>
+                {/* Altitude label on active */}
+                {isActive && (
+                  <>
+                    <rect x={att.x + 24} y={att.y - 22} width="220" height="42" rx="12"
+                      fill="rgba(13,18,30,0.82)"/>
+                    <text x={att.x + 34} y={att.y - 4} fontSize="20" fill="#fff" fontWeight="700"
+                      fontFamily="system-ui, sans-serif">
+                      {att.name}
+                    </text>
+                    <text x={att.x + 34} y={att.y + 14} fontSize="16" fill="#fbbf24" fontWeight="600"
+                      fontFamily="system-ui, monospace">
+                      {att.alt.toLocaleString()} m.s.n.m.
+                    </text>
+                  </>
+                )}
+                {!isActive && (
+                  <text x={att.x} y={att.y + 6} fontSize="18" textAnchor="middle" fill="#fff">
+                    {att.emoji}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Altitude band legend */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: 'center' }}>
+          {BANDS.map(b => (
+            <div key={b.label} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--fg2)' }}>
+              <div style={{ width: 10, height: 10, borderRadius: 3, background: b.color }}/>
+              <span><strong>{b.label}</strong> {b.sub}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Detail Card (Ficha) ──────────────────────────────────────────────── */}
+      <div style={{
+        background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 18,
+        boxShadow: 'var(--shadow-md)', position: 'sticky', top: 24,
+        display: 'flex', flexDirection: 'column', overflow: 'hidden'
+      }}>
+        {/* Attraction Image Header */}
+        <div style={{
+          height: 180, background: active.img || 'var(--stone-200)',
+          backgroundSize: 'cover', backgroundPosition: 'center', position: 'relative'
+        }}>
+          <div style={{
+            position: 'absolute', top: 12, right: 12, background: 'rgba(13,18,30,0.85)',
+            color: '#fbbf24', padding: '6px 12px', borderRadius: 999, fontSize: 11, fontWeight: 800,
+            letterSpacing: 0.5, backdropFilter: 'blur(4px)'
+          }}>
+            {active.type}
+          </div>
+          <div style={{
+            position: 'absolute', bottom: -20, left: 20,
+            width: 56, height: 56, borderRadius: 16,
+            background: altColor(active.alt), color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28,
+            boxShadow: `0 6px 16px -4px ${altColor(active.alt)}99`, border: '3px solid var(--bg-elevated)'
+          }}>
+            {active.emoji}
+          </div>
+        </div>
+
+        {/* Content Body */}
+        <div style={{ padding: '26px 20px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Title and Region */}
+          <div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 700, lineHeight: 1.1, color: 'var(--fg1)' }}>{active.name}</div>
+            <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 800 }}>
+              {active.region}
+            </div>
+          </div>
+
+          {/* Description Tip */}
+          <div style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.6 }}>
+            {active.tip}
+          </div>
+
+          {/* Info Grid (Altitud, Temp, Temporada) */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px' }}>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Altitud</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: altColor(active.alt), fontFamily: 'var(--font-display)' }}>{active.alt.toLocaleString()} <span style={{fontSize:12, fontWeight:600}}>msnm</span></div>
+            </div>
+            <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px' }}>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Temperatura</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>{active.temp}</div>
+            </div>
+            <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px', gridColumn: '1 / -1' }}>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Mejor época</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>{active.best}</div>
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <div style={{ marginTop: 8 }}>
+            <Btn kind="amber" size="lg" onClick={() => onExplore ? onExplore(active.id) : null} style={{ width: '100%', justifyContent: 'center' }}>
+              Ver detalles del destino <I.ArrowR size={15}/>
+            </Btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default Dashboard;
+

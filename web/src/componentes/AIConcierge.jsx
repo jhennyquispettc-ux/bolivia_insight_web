@@ -157,7 +157,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}><I.Sparkle size={20} /></div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>Ayni · Concierge</div>
+              <div style={{ fontWeight: 700, fontSize: 14 }}>Wara · Concierge</div>
               <div style={{ fontSize: 11, opacity: 0.7, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ width: 6, height: 6, borderRadius: 999, background: 'var(--green-400)' }} />
                 Online · La Paz
@@ -228,7 +228,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
             }}>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && send()}
                 disabled={limitReached}
-                placeholder={limitReached ? "Límite de mensajes" : "Ask Ayni…"} style={{
+                placeholder={limitReached ? "Límite de mensajes" : "Ask Wara…"} style={{
                   flex: 1, border: 0, background: 'transparent', outline: 'none',
                   fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
                   cursor: limitReached ? 'not-allowed' : 'text',

@@ -261,14 +261,35 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
     }
   };
 
+  // Per-tab visual identity: icon, accent color, featured photo and a per-card
+  // icon set — reuses the existing image assets (web/public/assets/images) and
+  // icon library (ui/iconos.jsx) to keep the design system consistent.
+  const tabMeta = {
+    arrive:     { icon: I.Globe,    accent: 'var(--green-500)',   image: IMG.photoCustoms,   cardIcons: [I.Building, I.Flag, I.Star, I.Phone, I.Volume, I.Coffee] },
+    altitude:   { icon: I.Mountain, accent: 'var(--mystic-600)',  image: IMG.photoAltiplano, cardIcons: [I.Sun, I.Route, I.Boot, I.Heart, I.Alert, I.Mountain] },
+    money:      { icon: I.Coffee,   accent: 'var(--amber-600)',   image: IMG.photoValles,    cardIcons: [I.Building, I.Building, I.Coffee, I.Star, I.Route, I.Tram] },
+    safe:       { icon: I.Shield,   accent: 'var(--rust-500)',    image: IMG.photoYungas,    cardIcons: [I.Shield, I.Alert, I.Route, I.Boot, I.Heart, I.Cloud] },
+    dictionary: { icon: I.Book,     accent: 'var(--rust-500)',    image: IMG.photoMetro,     cardIcons: [] },
+    when:       { icon: I.Calendar, accent: 'var(--navy-600)',    image: IMG.photoUyuni,     cardIcons: [I.Sun, I.Cloud, I.Star, I.Sparkle, I.Heart, I.Moon] },
+  };
+
   const active = cardData[tab];
+  const meta = tabMeta[tab] || tabMeta.arrive;
+
+  const gallery = [
+    { img: IMG.photoUyuni,    label: { en: 'Salar de Uyuni', es: 'Salar de Uyuni' } },
+    { img: IMG.photoTiticaca, label: { en: 'Lake Titicaca',  es: 'Lago Titicaca' } },
+    { img: IMG.photoYungas,   label: { en: 'The Yungas',     es: 'Los Yungas' } },
+    { img: IMG.photoMadidi,   label: { en: 'Madidi',         es: 'Madidi' } },
+  ];
+  const galLabel = (l) => l[locale] || l.en;
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       {}
       <section style={{ color: '#fff', padding: isMobile ? '56px 0 64px' : '80px 0 88px', position: 'relative', overflow: 'hidden' }}>
         {}
-        <div style={{
+        <div className="bi-hero-photo" style={{
           position: 'absolute', inset: 0,
           backgroundImage: IMG.photoEssentials,
           backgroundSize: 'cover', backgroundPosition: 'center',
@@ -289,22 +310,44 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
           <p style={{ fontSize: isMobile ? 15 : 19, color: 'rgba(255,255,255,0.85)', marginTop: 20, maxWidth: 640, lineHeight: 1.55 }}>
             {t('guide.descIntro', "No bookings, no commission. Just what we wish we'd known on day one — pulled together by people who actually live here.")}
           </p>
+
+          {}
+          <div style={{ display: 'flex', gap: isMobile ? 18 : 36, marginTop: isMobile ? 26 : 34, flexWrap: 'wrap' }}>
+            {[
+              { k: '3,640 m', v: { en: 'La Paz elevation', es: 'Altitud de La Paz' } },
+              { k: '6', v: { en: 'Essential topics', es: 'Temas esenciales' } },
+              { k: '100%', v: { en: 'Free · no login', es: 'Gratis · sin login' } },
+            ].map((s) => (
+              <div key={s.k}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 28, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 5 }}>{galLabel(s.v)}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {}
       <section style={{ background: '#fff', borderBottom: '1px solid var(--border)', position: 'sticky', top: 64, zIndex: 20, backdropFilter: 'blur(12px)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'flex', gap: 4, overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
-          {Object.entries(cardData).map(([id, s]) => (
-            <button key={id} onClick={() => setTab(id)} style={{
-              padding: '20px 22px', background: 'transparent',
-              border: 0, borderBottom: tab === id ? '3px solid var(--rust-500)' : '3px solid transparent',
-              cursor: 'pointer', whiteSpace: 'nowrap',
-              fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 700,
-              color: tab === id ? 'var(--fg1)' : 'var(--fg3)',
-              transition: 'all 180ms',
-            }}>{s.label}</button>
-          ))}
+          {Object.entries(cardData).map(([id, s]) => {
+            const TabIcon = (tabMeta[id] || {}).icon;
+            const activeTab = tab === id;
+            return (
+              <button key={id} onClick={() => setTab(id)} style={{
+                padding: isMobile ? '18px 16px' : '20px 20px', background: 'transparent',
+                border: 0, borderBottom: activeTab ? '3px solid var(--rust-500)' : '3px solid transparent',
+                cursor: 'pointer', whiteSpace: 'nowrap',
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 700,
+                color: activeTab ? 'var(--fg1)' : 'var(--fg3)',
+                transition: 'all 180ms',
+              }}>
+                {TabIcon && <TabIcon size={16}/>}
+                {s.label}
+              </button>
+            );
+          })}
         </div>
       </section>
 
@@ -312,49 +355,167 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
       {tab === 'dictionary' ? (
         <Dictionary embedded onExpert={onExpert}/>
       ) : (
-      <section style={{ padding: isMobile ? '48px 0 64px' : '72px 0 100px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
-          <div style={{ maxWidth: 720, marginBottom: isMobile ? 32 : 48 }}>
-            <h2 style={{ fontSize: isMobile ? 'clamp(28px,7vw,36px)' : 'clamp(32px,4vw,52px)', margin: 0, lineHeight: 1.05 }}>{active.title}</h2>
-            <p style={{ fontSize: isMobile ? 15 : 18, color: 'var(--fg2)', marginTop: 16, lineHeight: 1.6 }}>{active.sub}</p>
+      <section style={{ padding: isMobile ? '40px 0 64px' : '64px 0 100px' }}>
+        <div key={tab} className="bi-guide-content" style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
+
+          {}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, maxWidth: 760, marginBottom: isMobile ? 24 : 32 }}>
+            <div style={{
+              width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, borderRadius: 14, flexShrink: 0,
+              background: `color-mix(in srgb, ${meta.accent} 14%, #fff)`, color: meta.accent,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              border: `1px solid color-mix(in srgb, ${meta.accent} 30%, transparent)`,
+            }}>
+              <meta.icon size={isMobile ? 22 : 26}/>
+            </div>
+            <div>
+              <h2 style={{ fontSize: isMobile ? 'clamp(26px,7vw,34px)' : 'clamp(30px,4vw,48px)', margin: 0, lineHeight: 1.05 }}>{active.title}</h2>
+              <p style={{ fontSize: isMobile ? 15 : 18, color: 'var(--fg2)', marginTop: 12, lineHeight: 1.6 }}>{active.sub}</p>
+            </div>
           </div>
+
+          {}
+          <div style={{
+            display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.55fr 1fr',
+            gap: isMobile ? 14 : 20, marginBottom: isMobile ? 28 : 40,
+          }}>
+            {}
+            <div style={{
+              position: 'relative', borderRadius: 18, overflow: 'hidden',
+              minHeight: isMobile ? 200 : 300, boxShadow: 'var(--shadow-md)',
+            }}>
+              <div className="bi-feature-photo" style={{
+                position: 'absolute', inset: 0, backgroundImage: meta.image,
+                backgroundSize: 'cover', backgroundPosition: 'center',
+              }}/>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(13,18,30,0.05) 0%, rgba(13,18,30,0.78) 100%)' }}/>
+              <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: isMobile ? 18 : 24 }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,0.16)', border: '1px solid rgba(255,255,255,0.28)', backdropFilter: 'blur(8px)', color: '#fff', padding: '6px 12px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase' }}>
+                  <meta.icon size={13}/> {active.label}
+                </div>
+                <div style={{ color: '#fff', fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 30, fontWeight: 600, marginTop: 12, letterSpacing: '-0.02em', lineHeight: 1.05 }}>
+                  {active.title}
+                </div>
+              </div>
+            </div>
+
+            {}
+            <button type="button" aria-label="Video placeholder" style={{
+              position: 'relative', borderRadius: 18, overflow: 'hidden', border: 0, cursor: 'pointer',
+              minHeight: isMobile ? 180 : 300, padding: 0, textAlign: 'left',
+              background: `linear-gradient(150deg, ${meta.accent} 0%, var(--navy-800) 100%)`,
+              boxShadow: 'var(--shadow-md)',
+            }}>
+              <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.16) 0%, transparent 70%)' }}/>
+              <div style={{ position: 'absolute', top: 16, left: 16, fontSize: 10, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)', background: 'rgba(0,0,0,0.25)', padding: '4px 9px', borderRadius: 999 }}>
+                {t('guide.videoBadge', 'Video · placeholder')}
+              </div>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+                <div className="bi-play" style={{
+                  width: isMobile ? 56 : 70, height: isMobile ? 56 : 70, borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.92)', color: 'var(--navy-800)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 10px 30px -8px rgba(0,0,0,0.5)',
+                }}>
+                  <I.Video size={isMobile ? 24 : 30}/>
+                </div>
+                <div style={{ color: '#fff', fontSize: 13, fontWeight: 700, textAlign: 'center', padding: '0 16px', opacity: 0.92 }}>
+                  {t('guide.videoSoon', 'Local clip coming soon')}
+                </div>
+              </div>
+            </button>
+          </div>
+
+          {}
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 18 }}>
             {active.cards.map((c, i) => {
               const translatedK = c.k[locale] || c.k['en'] || c.k;
               const translatedV = c.v[locale] || c.v['en'] || c.v;
               const translatedN = c.n[locale] || c.n['en'] || c.n;
-              
+              const CardIcon = (meta.cardIcons || [])[i] || meta.icon;
+
               return (
-                <article key={i} style={{
-                  background: '#fff', borderRadius: 14,
-                  padding: 24, border: '1px solid var(--border)',
+                <article key={i} className="bi-guide-card" style={{
+                  background: '#fff', borderRadius: 16,
+                  padding: 22, border: '1px solid var(--border)',
                   boxShadow: 'var(--shadow-xs)',
-                }}>
+                  animationDelay: `${Math.min(i, 6) * 60}ms`,
+                  transition: 'transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out)',
+                  cursor: 'default',
+                }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-xs)'; }}>
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 11, marginBottom: 14,
+                    background: `color-mix(in srgb, ${meta.accent} 12%, #fff)`, color: meta.accent,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <CardIcon size={20}/>
+                  </div>
                   <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)' }}>{translatedK}</div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 500, color: 'var(--rust-500)', marginTop: 6, lineHeight: 1.15 }}>{translatedV}</div>
-                  <div style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 10, lineHeight: 1.55, fontFamily: 'var(--font-sans)' }}>{translatedN}</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 23, fontWeight: 500, color: 'var(--fg1)', marginTop: 6, lineHeight: 1.15 }}>{translatedV}</div>
+                  <div style={{ height: 3, width: 34, borderRadius: 999, background: meta.accent, margin: '12px 0', opacity: 0.85 }}/>
+                  <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.55, fontFamily: 'var(--font-sans)' }}>{translatedN}</div>
                 </article>
               );
             })}
           </div>
 
+          {}
+          <div style={{ marginTop: isMobile ? 44 : 64 }}>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>{t('guide.galleryEyebrow', 'More of Bolivia')}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 10 : 16 }}>
+              {gallery.map((g, i) => (
+                <div key={i} className="bi-gallery-item" style={{
+                  position: 'relative', borderRadius: 14, overflow: 'hidden',
+                  height: isMobile ? 120 : 170, boxShadow: 'var(--shadow-sm)',
+                }}>
+                  <div className="bi-gallery-photo" style={{
+                    position: 'absolute', inset: 0, backgroundImage: g.img,
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'transform 500ms var(--ease-out)',
+                  }}/>
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(13,18,30,0.72) 100%)' }}/>
+                  <div style={{ position: 'absolute', left: 12, bottom: 10, color: '#fff', fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-sans)', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>{galLabel(g.label)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {}
           <div style={{
-            marginTop: isMobile ? 40 : 56, padding: isMobile ? 24 : 32, borderRadius: 16,
-            background: 'var(--navy-700)', color: '#fff',
+            marginTop: isMobile ? 40 : 56, padding: isMobile ? 24 : 32, borderRadius: 18,
+            background: 'linear-gradient(135deg, var(--navy-700) 0%, var(--mystic-700) 100%)', color: '#fff',
             display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 16 : 24, flexWrap: 'wrap',
+            position: 'relative', overflow: 'hidden',
           }}>
-            <div style={{ width: isMobile ? 48 : 56, height: isMobile ? 48 : 56, borderRadius: 14, background: 'var(--amber-500)', color: 'var(--navy-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.16) 0%, transparent 70%)', pointerEvents: 'none' }}/>
+            <div style={{ width: isMobile ? 48 : 56, height: isMobile ? 48 : 56, borderRadius: 14, background: 'var(--amber-500)', color: 'var(--navy-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative' }}>
               <I.Sparkle size={isMobile ? 22 : 26}/>
             </div>
-            <div style={{ flex: 1, minWidth: isMobile ? '100%' : 260 }}>
+            <div style={{ flex: 1, minWidth: isMobile ? '100%' : 260, position: 'relative' }}>
               <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--amber-300)' }}>{t('guide.needPerson', 'Need a person, not a page?')}</div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 18 : 22, marginTop: 6, fontWeight: 500 }}>{t('guide.bookVideo', 'Book a 15- or 30-min video call with a local writer who knows your route — from $12.')}</div>
             </div>
-            <Btn kind="amber" size="md" onClick={onExpert} style={{ width: isMobile ? '100%' : 'auto', justifyContent: 'center' }}>{t('guide.talkButton', 'Talk to a local')} <I.ArrowR size={14}/></Btn>
+            <Btn kind="amber" size="md" onClick={onExpert} style={{ width: isMobile ? '100%' : 'auto', justifyContent: 'center', position: 'relative' }}>{t('guide.talkButton', 'Talk to a local')} <I.ArrowR size={14}/></Btn>
           </div>
         </div>
       </section>
       )}
+
+      <style>{`
+        .bi-guide-content { animation: bi-guide-fade 360ms var(--ease-out) both; }
+        .bi-guide-card { animation: bi-guide-rise 420ms var(--ease-out) both; }
+        .bi-feature-photo { transition: transform 600ms var(--ease-out); }
+        .bi-gallery-item:hover .bi-gallery-photo { transform: scale(1.06); }
+        .bi-play { transition: transform 220ms var(--ease-spring); }
+        button:hover > .bi-play, button:focus-visible > .bi-play { transform: scale(1.08); }
+        @keyframes bi-guide-fade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bi-guide-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) {
+          .bi-guide-content, .bi-guide-card { animation: none; }
+        }
+      `}</style>
     </div>
   );
 }

@@ -93,3 +93,13 @@ model GraphEdge {
   @@index([toSlug])
   @@index([city])
 }
+
+model ScheduleBlock {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  timeSlot  String?  // If null, whole day is blocked
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@unique([date, timeSlot])
+}

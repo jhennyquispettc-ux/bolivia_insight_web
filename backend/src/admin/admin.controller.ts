@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Req, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AdminGuard } from '../auth/admin.guard';
 
@@ -17,5 +17,20 @@ export class AdminController {
   @Get('meetings')
   meetings() {
     return this.adminService.findAllMeetings();
+  }
+
+  @Get('schedule-blocks')
+  getScheduleBlocks() {
+    return this.adminService.getScheduleBlocks();
+  }
+
+  @Post('schedule-blocks')
+  createScheduleBlock(@Body() body: any) {
+    return this.adminService.createScheduleBlock(body);
+  }
+
+  @Delete('schedule-blocks/:id')
+  deleteScheduleBlock(@Param('id') id: string) {
+    return this.adminService.deleteScheduleBlock(parseInt(id, 10));
   }
 }

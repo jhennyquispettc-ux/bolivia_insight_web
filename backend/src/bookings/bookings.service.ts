@@ -217,6 +217,16 @@ export class BookingsService {
       throw new ConflictException('That time slot is no longer available');
     }
 
+    const block = await this.prisma.scheduleBlock.findFirst({
+      where: {
+        date,
+        OR: [{ timeSlot: params.timeSlot }, { timeSlot: null }],
+      },
+    });
+    if (block) {
+      throw new ConflictException('That time slot is no longer available (blocked)');
+    }
+
     const topic = `${params.durationMin}-min Trip Review`;
     const brief = {
       dates: params.briefDates,
@@ -306,9 +316,19 @@ export class BookingsService {
   async getAvailability() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return this.prisma.booking.findMany({
+    const bookings = await this.prisma.booking.findMany({
       where: { date: { gte: today }, status: { in: ['pending', 'confirmed'] } },
       select: { date: true, timeSlot: true },
     });
+
+    const blocks = await this.prisma.scheduleBlock.findMany({
+      where: { date: { gte: today } },
+      select: { date: true, timeSlot: true },
+    });
+
+    return [
+      ...bookings,
+      ...blocks.map(b => ({ date: b.date, timeSlot: b.timeSlot || 'ALL' }))
+    ];
   }
 }

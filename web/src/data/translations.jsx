@@ -214,7 +214,7 @@ const TRANSLATIONS = {
     "planner.cat.reference": "Puntos de referencia",
 
     
-    "ai.greeting": "Hola, soy Ayni — tu concierge de Bolivia Insight. Bienvenido a Bolivia. ¿Cómo puedo ayudarte hoy?"
+    "ai.greeting": "Hola, soy Wara — tu concierge de Bolivia Insight. Bienvenido a Bolivia. ¿Cómo puedo ayudarte hoy?"
   },
 
   en: {
@@ -430,7 +430,7 @@ const TRANSLATIONS = {
     "planner.cat.reference": "Reference points",
 
     
-    "ai.greeting": "Hola, I'm Ayni — your Bolivia Insight concierge. Welcome to Bolivia. How can I help you today?"
+    "ai.greeting": "Hola, I'm Wara — your Bolivia Insight concierge. Welcome to Bolivia. How can I help you today?"
   },
 
   pt: {
@@ -646,7 +646,7 @@ const TRANSLATIONS = {
     "planner.cat.reference": "Pontos de referência",
 
     
-    "ai.greeting": "Olá, sou Ayni — seu concierge do Bolivia Insight. Bem-vindo à Bolívia. Como posso ajudar hoje?"
+    "ai.greeting": "Olá, sou Wara — seu concierge do Bolivia Insight. Bem-vindo à Bolívia. Como posso ajudar hoje?"
   },
 
   fr: {
@@ -862,7 +862,7 @@ const TRANSLATIONS = {
     "planner.cat.reference": "Points de repère",
 
     
-    "ai.greeting": "Bonjour, je suis Ayni — votre concierge Bolivia Insight. Bienvenue en Bolivie. Comment puis-je vous aider aujourd'hui ?"
+    "ai.greeting": "Bonjour, je suis Wara — votre concierge Bolivia Insight. Bienvenue en Bolivie. Comment puis-je vous aider aujourd'hui ?"
   },
 
   ja: {

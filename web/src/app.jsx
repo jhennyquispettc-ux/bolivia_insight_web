@@ -50,7 +50,7 @@ function App() {
           onExpert={r.onExpert} />}
         {r.route === 'cluster' && <ClusterDetail cluster={r.cluster} onBack={r.onBack} onBook={r.onGuide} />}
         {r.route === 'guide' && <TravelGuide onBack={r.onBack} onExpert={r.onExpert} initialTab={r.guideTab} />}
-        {r.route === 'dashboard' && <Dashboard onBack={r.onBack} onExpert={r.onExpert} />}
+        {r.route === 'dashboard' && <Dashboard onBack={r.onBack} onExpert={r.onExpert} onExplore={r.onGuide} />}
         {r.route === 'sos' && <EmergencyHub onBack={r.onBack} />}
         {r.route === 'auth' && <Auth onBack={r.onBack} onLogin={handleLogin} />}
         {r.route === 'booking' && (

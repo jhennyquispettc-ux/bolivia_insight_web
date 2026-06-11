@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import MeetingCard from '@/components/MeetingCard';
+import ScheduleManager from '@/components/ScheduleManager';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
@@ -20,7 +21,7 @@ export default function AdminPage() {
   const [token, setToken] = useState(null);
   const [adminEmail, setAdminEmail] = useState('');
   const [meetings, setMeetings] = useState([]);
-  const [tab, setTab] = useState('upcoming'); // upcoming | past | all
+  const [tab, setTab] = useState('upcoming'); // upcoming | past | all | availability
   const [error, setError] = useState('');
   const [loadingMeetings, setLoadingMeetings] = useState(false);
 
@@ -45,13 +46,14 @@ export default function AdminPage() {
     } catch {
       setPhase('login');
       setError('No se pudo conectar con el servidor. ¿Está el backend encendido?');
+      setError('No se pudo conectar con el servidor. ¿ Está el backend encendido?');
     }
   }
 
   async function loadMeetings(t) {
     setLoadingMeetings(true);
     try {
-      const res = await fetch(`${API}/admin/meetings`, { headers: { Authorization: `Bearer ${t}` } });
+      const res = await fetch(`${API}/admin/meetings?t=${Date.now()}`, { headers: { Authorization: `Bearer ${t}` } });
       if (!res.ok) throw new Error('No se pudieron cargar los meetings');
       setMeetings(await res.json());
     } catch (e) {
@@ -174,6 +176,7 @@ export default function AdminPage() {
     { key: 'upcoming', label: 'Próximas', count: upcoming.length },
     { key: 'past', label: 'Pasadas', count: past.length },
     { key: 'all', label: 'Todas', count: meetings.length },
+    { key: 'availability', label: 'Disponibilidad' },
   ];
 
   return (
@@ -218,7 +221,7 @@ export default function AdminPage() {
                   fontSize: 12, fontWeight: 800, padding: '1px 8px', borderRadius: 999,
                   background: active ? 'rgba(255,255,255,0.2)' : 'var(--stone-50)',
                   color: active ? '#fff' : 'var(--fg3)',
-                }}>{t.count}</span>
+                }}>{t.count !== undefined ? t.count : ''}</span>
               </button>
             );
           })}
@@ -234,7 +237,9 @@ export default function AdminPage() {
           </div>
         )}
 
-        {loadingMeetings ? (
+        {tab === 'availability' ? (
+          <ScheduleManager token={token} meetings={visible} />
+        ) : loadingMeetings ? (
           <div style={{ color: 'var(--fg3)', padding: '40px 0', textAlign: 'center' }}>Cargando meetings…</div>
         ) : visible.length === 0 ? (
           <div style={{

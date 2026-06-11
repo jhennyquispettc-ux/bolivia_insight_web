@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 import PayPalButton from '../componentes/PayPalButton.jsx';
+import Modal from '../ui/Modal.jsx';
 
 function BookingPage({ onBack, onProfile, user }) {
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -18,7 +19,7 @@ function BookingPage({ onBack, onProfile, user }) {
   const [duration, setDuration] = useState(30);
   const [slot, setSlot] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', message: '', type: 'info' });
   const [booking, setBooking] = useState(null);
 
   const [unavailable, setUnavailable] = React.useState([]);
@@ -36,7 +37,7 @@ function BookingPage({ onBack, onProfile, user }) {
     const fetchAvailability = async () => {
       try {
         const token = localStorage.getItem('bolivia_insight_token');
-        const res = await fetch('http://localhost:3000/bookings/availability', {
+        const res = await fetch(`http://localhost:3000/bookings/availability?t=${Date.now()}`, {
           headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
         if (res.ok) {
@@ -93,13 +94,19 @@ function BookingPage({ onBack, onProfile, user }) {
 
   const handlePaid = (createdBooking) => {
     setBooking(createdBooking);
-    setError('');
     setStep(4);
   };
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {}
+      <Modal 
+        isOpen={modalConfig.isOpen} 
+        onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        type={modalConfig.type}
+      />
+      {/* Hero section */}
       <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: isMobile ? '56px 0 140px' : '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', position: 'relative' }}>
@@ -140,11 +147,7 @@ function BookingPage({ onBack, onProfile, user }) {
               </div>
             )}
 
-            {error && (
-              <div style={{ background: 'var(--rust-50)', color: 'var(--rust-700)', padding: 16, borderBottom: '1px solid var(--rust-200)', fontSize: 14 }}>
-                {error}
-              </div>
-            )}
+            {/* Error display removed in favor of modal */}
 
             {}
             {step === 0 && (
@@ -216,7 +219,7 @@ function BookingPage({ onBack, onProfile, user }) {
                 brief={brief}
                 isLoggedIn={isLoggedIn}
                 onPaid={handlePaid}
-                onError={(m) => setError(m)}
+                onError={(m) => setModalConfig({ isOpen: true, type: 'error', title: 'Error en el pago', message: m })}
                 isMobile={isMobile}
               />
             )}
@@ -253,8 +256,19 @@ function BookingPage({ onBack, onProfile, user }) {
                   <div style={{ display: 'flex', gap: 10 }}>
                     {step > 0 && <Btn kind="ghost" size="md" onClick={() => setStep(step - 1)}>Back</Btn>}
                     <Btn kind="primary" size="md"
-                      onClick={() => canContinue && setStep(step + 1)}
-                      style={{ opacity: canContinue ? 1 : 0.4, pointerEvents: canContinue ? 'auto' : 'none' }}>
+                      onClick={() => {
+                        if (step === 2 && !briefComplete) {
+                          setModalConfig({
+                            isOpen: true,
+                            type: 'warning',
+                            title: 'Faltan detalles',
+                            message: 'Por favor, completa los detalles de tu viaje. El experto necesita esta información para prepararse y darte las mejores respuestas durante la llamada.'
+                          });
+                          return;
+                        }
+                        if (canContinue) setStep(step + 1);
+                      }}
+                      style={{ opacity: canContinue || step === 2 ? 1 : 0.4, pointerEvents: canContinue || step === 2 ? 'auto' : 'none' }}>
                       {step === 2 ? 'Continue to payment' : 'Continue'} <I.ArrowR size={14}/>
                     </Btn>
                   </div>
@@ -407,7 +421,7 @@ function Row({ label, value }) {
   );
 }
 
-function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
+const CalendarPicker = React.memo(function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
 
   const days = [];
   for (let i = 0; i < 7; i++) {
@@ -421,9 +435,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
     const key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
     let candidates = ['09:00', '10:30', '14:00', '15:30', '17:00'];
 
-
-    candidates = candidates.filter(time => !unavailable.some(u => u.dateISO === key && u.timeSlot === time));
-
+    candidates = candidates.filter(time => !unavailable.some(u => u.dateISO === key && (u.timeSlot === time || u.timeSlot === 'ALL')));
 
     const now = new Date();
     if (date.toDateString() === now.toDateString()) {
@@ -546,7 +558,7 @@ function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, un
       `}</style>
     </>
   );
-}
+});
 
 const navBtnStyle = {
   width: 36, height: 36, borderRadius: 10,
@@ -657,14 +669,20 @@ function BriefReadOnly({ label, value }) {
 }
 
 function BriefField({ label, hint, value, onChange, multiline, required }) {
+  const [localValue, setLocalValue] = useState(value);
+  
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
+
   const Tag = multiline ? 'textarea' : 'input';
-  const empty = required && !value.trim();
+  const empty = required && !localValue.trim();
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
         {label}{required && <span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>}
       </span>
-      <Tag value={value} onChange={e => onChange(e.target.value)} placeholder={hint}
+      <Tag value={localValue} onChange={e => setLocalValue(e.target.value)} onBlur={() => onChange(localValue)} placeholder={hint}
         rows={multiline ? 3 : undefined}
         style={{
           fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
