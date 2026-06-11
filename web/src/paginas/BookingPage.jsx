@@ -57,9 +57,9 @@ function BookingPage({ onBack, onProfile, user }) {
   }, []);
 
   // Mandatory trip brief — collected BEFORE payment so the expert can prepare.
-  const [brief, setBrief] = useState({ dates: '', route: '', questions: '', location: '' });
+  const [brief, setBrief] = useState({ dates: '', route: '', questions: '', location: '', origin: '', companions: '', age: '', gender: '' });
   const briefComplete =
-    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.location.trim();
+    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.location.trim() && brief.origin.trim() && brief.companions.trim() && brief.age.trim() && brief.gender.trim();
 
   const price = duration === 15 ? 12 : 22;
   const priceBs = duration === 15 ? 84 : 153;
@@ -257,14 +257,34 @@ function BookingPage({ onBack, onProfile, user }) {
                     {step > 0 && <Btn kind="ghost" size="md" onClick={() => setStep(step - 1)}>Back</Btn>}
                     <Btn kind="primary" size="md"
                       onClick={() => {
-                        if (step === 2 && !briefComplete) {
-                          setModalConfig({
-                            isOpen: true,
-                            type: 'warning',
-                            title: 'Faltan detalles',
-                            message: 'Por favor, completa los detalles de tu viaje. El experto necesita esta información para prepararse y darte las mejores respuestas durante la llamada.'
-                          });
-                          return;
+                        if (step === 2) {
+                          if (!briefComplete) {
+                            setModalConfig({
+                              isOpen: true,
+                              type: 'warning',
+                              title: 'Faltan detalles',
+                              message: 'Por favor, completa los detalles de tu viaje. El experto necesita esta información para prepararse y darte las mejores respuestas durante la llamada.'
+                            });
+                            return;
+                          }
+                          if (brief.route.trim().length < 15) {
+                            setModalConfig({
+                              isOpen: true,
+                              type: 'warning',
+                              title: 'Ruta demasiado corta',
+                              message: 'Por favor, describe tu ruta con al menos 15 caracteres para que podamos ayudarte mejor.'
+                            });
+                            return;
+                          }
+                          if (brief.questions.trim().length < 15) {
+                            setModalConfig({
+                              isOpen: true,
+                              type: 'warning',
+                              title: 'Preguntas demasiado cortas',
+                              message: 'Por favor, elabora tus preguntas con al menos 15 caracteres. Así el experto preparará la respuesta perfecta.'
+                            });
+                            return;
+                          }
                         }
                         if (canContinue) setStep(step + 1);
                       }}
@@ -322,11 +342,23 @@ function BookingPage({ onBack, onProfile, user }) {
 
 // ── Step 2: mandatory trip brief ───────────────────────────────────────────────
 function BriefStep({ brief, setBrief, isMobile }) {
+  const COUNTRIES = [
+    "Alemania", "Argentina", "Australia", "Austria", "Bélgica", "Bolivia", "Brasil", "Canadá", "Chile", "China", 
+    "Colombia", "Corea del Sur", "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "España", 
+    "Estados Unidos", "Francia", "Grecia", "Guatemala", "Honduras", "India", "Irlanda", "Israel", "Italia", 
+    "Japón", "México", "Nicaragua", "Noruega", "Nueva Zelanda", "Países Bajos", "Panamá", "Paraguay", "Perú", 
+    "Polonia", "Portugal", "Reino Unido", "República Dominicana", "Rusia", "Suecia", "Suiza", "Uruguay", "Venezuela"
+  ];
+
   const fields = [
+    { key: 'origin',    label: 'Where are you from', hint: 'Escribe para buscar...', type: 'country', options: COUNTRIES },
+    { key: 'age',       label: 'Your age',          hint: 'e.g. 28', type: 'number' },
+    { key: 'gender',    label: 'Gender',            type: 'select', options: ['', 'Femenino', 'Masculino', 'Otro', 'Prefiero no decirlo'] },
+    { key: 'companions',label: 'Who are you traveling with', type: 'select', options: ['', 'Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo Guiado'] },
     { key: 'dates',     label: 'Travel dates',      hint: 'e.g. May 12 – May 28' },
-    { key: 'route',     label: 'Rough route',       hint: 'La Paz → Uyuni → Sucre → Santa Cruz', multiline: true },
-    { key: 'questions', label: 'Top 3 questions',   hint: 'One per line — what you really want answered.', multiline: true },
     { key: 'location',  label: 'Where you are now', hint: 'So we know your timezone and connection.' },
+    { key: 'route',     label: 'Rough route',       hint: 'La Paz → Uyuni → Sucre → Santa Cruz (Min. 15 chars)', multiline: true },
+    { key: 'questions', label: 'Top 3 questions',   hint: 'What you really want answered (Min. 15 chars).', multiline: true },
   ];
   return (
     <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
@@ -336,17 +368,20 @@ function BriefStep({ brief, setBrief, isMobile }) {
           This is required so the local expert can prepare and bring the right maps and materials to your call. It takes about two minutes.
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16 }}>
         {fields.map(f => (
-          <BriefField
-            key={f.key}
-            label={f.label}
-            hint={f.hint}
-            multiline={f.multiline}
-            required
-            value={brief[f.key]}
-            onChange={v => setBrief({ ...brief, [f.key]: v })}
-          />
+          <div key={f.key} style={{ gridColumn: f.multiline ? '1 / -1' : 'auto' }}>
+            <BriefField
+              label={f.label}
+              hint={f.hint}
+              multiline={f.multiline}
+              type={f.type}
+              options={f.options}
+              required
+              value={brief[f.key]}
+              onChange={v => setBrief({ ...brief, [f.key]: v })}
+            />
+          </div>
         ))}
       </div>
       <div style={{ marginTop: 16, fontSize: 12, color: 'var(--fg3)', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -648,10 +683,17 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
             <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4 }}>Shared with the expert so they can prepare.</div>
           </div>
           <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <BriefReadOnly label="Travel dates"      value={brief.dates} />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <BriefReadOnly label="From" value={brief.origin} />
+              <BriefReadOnly label="Age / Gender" value={`${brief.age} · ${brief.gender}`} />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <BriefReadOnly label="Travel dates" value={brief.dates} />
+              <BriefReadOnly label="Traveling with" value={brief.companions} />
+            </div>
+            <BriefReadOnly label="Where you are now" value={brief.location} />
             <BriefReadOnly label="Rough route"       value={brief.route} />
             <BriefReadOnly label="Top 3 questions"   value={brief.questions} />
-            <BriefReadOnly label="Where you are now" value={brief.location} />
           </div>
         </div>
       </div>
@@ -668,28 +710,43 @@ function BriefReadOnly({ label, value }) {
   );
 }
 
-function BriefField({ label, hint, value, onChange, multiline, required }) {
+function BriefField({ label, hint, value, onChange, multiline, required, type, options }) {
   const [localValue, setLocalValue] = useState(value);
   
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
 
-  const Tag = multiline ? 'textarea' : 'input';
   const empty = required && !localValue.trim();
+  const baseStyle = {
+    fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
+    padding: '10px 14px', borderRadius: 10,
+    border: `1px solid ${empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
+    minHeight: 44, resize: multiline ? 'vertical' : 'none',
+    width: '100%', boxSizing: 'border-box'
+  };
+
   return (
-    <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
       <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
         {label}{required && <span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>}
       </span>
-      <Tag value={localValue} onChange={e => setLocalValue(e.target.value)} onBlur={() => onChange(localValue)} placeholder={hint}
-        rows={multiline ? 3 : undefined}
-        style={{
-          fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
-          padding: '10px 14px', borderRadius: 10,
-          border: `1px solid ${empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
-          minHeight: 44, resize: multiline ? 'vertical' : 'none',
-        }}/>
+      {type === 'country' ? (
+        <React.Fragment>
+          <input list={`${label}-list`} value={localValue} onChange={e => { setLocalValue(e.target.value); onChange(e.target.value); }} onBlur={() => onChange(localValue)} placeholder={hint} style={baseStyle} />
+          <datalist id={`${label}-list`}>
+            {options.map((opt, i) => <option key={i} value={opt} />)}
+          </datalist>
+        </React.Fragment>
+      ) : type === 'select' ? (
+        <select value={localValue} onChange={e => { setLocalValue(e.target.value); onChange(e.target.value); }} style={baseStyle}>
+          {options.map((opt, i) => <option key={i} value={opt} disabled={opt === ''}>{opt === '' ? 'Seleccionar...' : opt}</option>)}
+        </select>
+      ) : multiline ? (
+        <textarea value={localValue} onChange={e => setLocalValue(e.target.value)} onBlur={() => onChange(localValue)} placeholder={hint} rows={3} style={baseStyle} />
+      ) : (
+        <input type={type || 'text'} value={localValue} onChange={e => setLocalValue(e.target.value)} onBlur={() => onChange(localValue)} placeholder={hint} style={baseStyle} min={type === 'number' ? 18 : undefined} />
+      )}
     </label>
   );
 }
