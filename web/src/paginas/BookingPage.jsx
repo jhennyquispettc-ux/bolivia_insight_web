@@ -3,6 +3,8 @@ import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 import PayPalButton from '../componentes/PayPalButton.jsx';
 import Modal from '../ui/Modal.jsx';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 function BookingPage({ onBack, onProfile, user }) {
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
@@ -57,9 +59,11 @@ function BookingPage({ onBack, onProfile, user }) {
   }, []);
 
   // Mandatory trip brief — collected BEFORE payment so the expert can prepare.
-  const [brief, setBrief] = useState({ dates: '', route: '', questions: '', arrival: '', origin: '', companions: '', age: '', gender: '' });
+  const [brief, setBrief] = useState({ phone: '', origin: '', companions: '', startDate: '', endDate: '', route: [], questions: '' });
+  const [errors, setErrors] = useState({});
+
   const briefComplete =
-    brief.dates.trim() && brief.route.trim() && brief.questions.trim() && brief.arrival.trim() && brief.origin.trim() && brief.companions.trim() && brief.age.trim() && brief.gender.trim();
+    brief.phone && brief.startDate && brief.endDate && brief.route.length > 0 && brief.questions.trim() && brief.origin.trim() && brief.companions.trim();
 
   const price = duration === 15 ? 12 : 22;
   const priceBs = duration === 15 ? 84 : 153;
@@ -206,7 +210,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
             {}
             {step === 2 && (
-              <BriefStep brief={brief} setBrief={setBrief} isMobile={isMobile} />
+              <BriefStep brief={brief} setBrief={setBrief} isMobile={isMobile} errors={errors} setErrors={setErrors} />
             )}
 
             {}
@@ -258,35 +262,25 @@ function BookingPage({ onBack, onProfile, user }) {
                     <Btn kind="primary" size="md"
                       onClick={() => {
                         if (step === 2) {
-                          if (!briefComplete) {
-                            setModalConfig({
-                              isOpen: true,
-                              type: 'warning',
-                              title: 'Faltan detalles',
-                              message: 'Por favor, completa los detalles de tu viaje. El experto necesita esta información para prepararse y darte las mejores respuestas durante la llamada.'
-                            });
+                          const newErrors = {};
+                          if (!brief.origin.trim()) newErrors.origin = 'Por favor selecciona tu país de origen.';
+                          if (!brief.companions.trim()) newErrors.companions = 'Por favor indica con quién viajas.';
+                          if (!brief.startDate) newErrors.startDate = 'Selecciona tu fecha de llegada.';
+                          if (!brief.endDate) newErrors.endDate = 'Selecciona tu fecha de salida.';
+                          else if (new Date(brief.startDate) > new Date(brief.endDate)) newErrors.endDate = 'La salida debe ser después de la llegada.';
+                          if (brief.route.length === 0) newErrors.route = 'Selecciona al menos un destino.';
+                          if (brief.questions.trim().length < 15) newErrors.questions = 'Tus preguntas deben tener al menos 15 caracteres.';
+                          if (!brief.phone || !isValidPhoneNumber(brief.phone)) newErrors.phone = 'Ingresa un número de celular válido.';
+
+                          if (Object.keys(newErrors).length > 0) {
+                            setErrors(newErrors);
+                            // Scroll to first error roughly
+                            window.scrollBy({ top: -100, behavior: 'smooth' });
                             return;
                           }
-                          if (brief.route.trim().length < 15) {
-                            setModalConfig({
-                              isOpen: true,
-                              type: 'warning',
-                              title: 'Ruta demasiado corta',
-                              message: 'Por favor, describe tu ruta con al menos 15 caracteres para que podamos ayudarte mejor.'
-                            });
-                            return;
-                          }
-                          if (brief.questions.trim().length < 15) {
-                            setModalConfig({
-                              isOpen: true,
-                              type: 'warning',
-                              title: 'Preguntas demasiado cortas',
-                              message: 'Por favor, elabora tus preguntas con al menos 15 caracteres. Así el experto preparará la respuesta perfecta.'
-                            });
-                            return;
-                          }
+                          setErrors({});
                         }
-                        if (canContinue) setStep(step + 1);
+                        if (canContinue || step === 2) setStep(step + 1);
                       }}
                       style={{ opacity: canContinue || step === 2 ? 1 : 0.4, pointerEvents: canContinue || step === 2 ? 'auto' : 'none' }}>
                       {step === 2 ? 'Continue to payment' : 'Continue'} <I.ArrowR size={14}/>
@@ -335,13 +329,32 @@ function BookingPage({ onBack, onProfile, user }) {
           .bi-stepper { flex-direction: column; }
           .bi-stepper button { border-bottom: 1px solid var(--border) !important; border-left: 3px solid transparent !important; }
         }
+        .PhoneInputInput {
+          border: none;
+          outline: none;
+          font-family: var(--font-sans);
+          font-size: 14px;
+          color: var(--fg1);
+          background: transparent;
+        }
+        .PhoneInputInput::placeholder {
+          color: #9ca3af;
+        }
+        .PhoneInput {
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+        .PhoneInputCountry {
+          margin-right: 12px;
+        }
       `}</style>
     </div>
   );
 }
 
 // ── Step 2: mandatory trip brief ───────────────────────────────────────────────
-function BriefStep({ brief, setBrief, isMobile }) {
+function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
   const COUNTRIES = [
     "Alemania", "Argentina", "Australia", "Austria", "Bélgica", "Bolivia", "Brasil", "Canadá", "Chile", "China", 
     "Colombia", "Corea del Sur", "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "España", 
@@ -349,43 +362,160 @@ function BriefStep({ brief, setBrief, isMobile }) {
     "Japón", "México", "Nicaragua", "Noruega", "Nueva Zelanda", "Países Bajos", "Panamá", "Paraguay", "Perú", 
     "Polonia", "Portugal", "Reino Unido", "República Dominicana", "Rusia", "Suecia", "Suiza", "Uruguay", "Venezuela"
   ];
+  const COUNTRY_ISO_MAP = {
+    "Alemania": "DE", "Argentina": "AR", "Australia": "AU", "Austria": "AT", "Bélgica": "BE", "Bolivia": "BO", "Brasil": "BR", "Canadá": "CA", "Chile": "CL", "China": "CN", 
+    "Colombia": "CO", "Corea del Sur": "KR", "Costa Rica": "CR", "Cuba": "CU", "Dinamarca": "DK", "Ecuador": "EC", "Egipto": "EG", "El Salvador": "SV", "España": "ES", 
+    "Estados Unidos": "US", "Francia": "FR", "Grecia": "GR", "Guatemala": "GT", "Honduras": "HN", "India": "IN", "Irlanda": "IE", "Israel": "IL", "Italia": "IT", 
+    "Japón": "JP", "México": "MX", "Nicaragua": "NI", "Noruega": "NO", "Nueva Zelanda": "NZ", "Países Bajos": "NL", "Panamá": "PA", "Paraguay": "PY", "Perú": "PE", 
+    "Polonia": "PL", "Portugal": "PT", "Reino Unido": "GB", "República Dominicana": "DO", "Rusia": "RU", "Suecia": "SE", "Suiza": "CH", "Uruguay": "UY", "Venezuela": "VE"
+  };
 
-  const fields = [
-    { key: 'origin',    label: 'Where are you from', hint: 'Escribe para buscar...', type: 'country', options: COUNTRIES },
-    { key: 'age',       label: 'Your age',          hint: 'e.g. 28', type: 'number' },
-    { key: 'gender',    label: 'Gender',            type: 'select', options: ['', 'Femenino', 'Masculino', 'Otro', 'Prefiero no decirlo'] },
-    { key: 'companions',label: 'Who are you traveling with', type: 'select', options: ['', 'Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo Guiado'] },
-    { key: 'dates',     label: 'Travel dates',      hint: 'e.g. May 12 – May 28' },
-    { key: 'arrival',   label: 'How are you arriving to Bolivia', type: 'select', options: ['', '✈️ Vuelo internacional (aeropuerto)', '🚌 Bus / Coach desde país vecino', '🚗 En vehículo propio', '🚶 Cruzó la frontera a pie', '🚢 Crucero fluvial'] },
-    { key: 'route',     label: 'Rough route',       hint: 'La Paz → Uyuni → Sucre → Santa Cruz (Min. 15 chars)', multiline: true },
-    { key: 'questions', label: 'Top 3 questions',   hint: 'What you really want answered (Min. 15 chars).', multiline: true },
-  ];
+  const DESTINATIONS = ["La Paz", "Salar de Uyuni", "Lago Titicaca", "Sucre", "Potosí", "Rurrenabaque (Amazonía)", "Santa Cruz"];
+
+  let days = 0;
+  if (brief.startDate && brief.endDate) {
+    const diff = new Date(brief.endDate) - new Date(brief.startDate);
+    days = Math.max(0, diff / (1000 * 60 * 60 * 24));
+  }
+
   return (
     <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
       <div style={{ marginBottom: 18 }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500 }}>Tell us about your trip</div>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500 }}>Cuéntanos sobre tu viaje</div>
         <div style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 6, lineHeight: 1.55, maxWidth: 560 }}>
-          This is required so the local expert can prepare and bring the right maps and materials to your call. It takes about two minutes.
+          Esta información es esencial para que el experto local pueda prepararse y brindarte las mejores recomendaciones durante la videollamada.
         </div>
       </div>
+      
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16 }}>
-        {fields.map(f => (
-          <div key={f.key} style={{ gridColumn: f.multiline ? '1 / -1' : 'auto' }}>
-            <BriefField
-              label={f.label}
-              hint={f.hint}
-              multiline={f.multiline}
-              type={f.type}
-              options={f.options}
-              required
-              value={brief[f.key]}
-              onChange={v => setBrief({ ...brief, [f.key]: v })}
+        
+        {/* Origen */}
+        <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
+          <BriefField
+            label="¿De dónde nos visitas?"
+            hint="Escribe para buscar tu país..."
+            type="country"
+            options={COUNTRIES}
+            required
+            error={errors?.origin}
+            value={brief.origin}
+            onChange={v => {
+              setBrief({ ...brief, origin: v });
+              if (errors?.origin) setErrors({ ...errors, origin: null });
+            }}
+          />
+        </div>
+
+        {/* Acompañantes */}
+        <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
+          <BriefField
+            label="¿Con quién viajas?"
+            type="select"
+            options={['', 'Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo Guiado']}
+            required
+            error={errors?.companions}
+            value={brief.companions}
+            onChange={v => {
+              setBrief({ ...brief, companions: v });
+              if (errors?.companions) setErrors({ ...errors, companions: null });
+            }}
+          />
+        </div>
+
+        {/* Fechas */}
+        <div style={{ gridColumn: '1 / -1', marginTop: 8 }}>
+          <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)', display: 'block', marginBottom: 6 }}>
+            Travel Window<span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>
+            {days > 0 && <span style={{ marginLeft: 8, background: 'var(--stone-100)', padding: '2px 8px', borderRadius: 99, color: 'var(--fg1)', fontWeight: 600 }}>Viaje de {days} días</span>}
+          </span>
+          <div style={{ display: 'flex', gap: 12, flexDirection: isMobile ? 'column' : 'row', padding: 16, background: 'var(--stone-50)', border: `1px solid ${errors?.startDate || errors?.endDate ? 'var(--rust-500)' : 'var(--border)'}`, borderRadius: 14 }}>
+            <div style={{ flex: 1 }}>
+              <BriefField
+                label="Ingreso a Bolivia"
+                type="date"
+                required
+                value={brief.startDate}
+                onChange={v => { setBrief({ ...brief, startDate: v }); if (errors?.startDate) setErrors({ ...errors, startDate: null }); }}
+              />
+              {errors?.startDate && <div style={{ fontSize: 12, color: 'var(--rust-500)', marginTop: 4, fontWeight: 500 }}>{errors.startDate}</div>}
+            </div>
+            <div style={{ flex: 1 }}>
+              <BriefField
+                label="Salida de Bolivia"
+                type="date"
+                required
+                value={brief.endDate}
+                onChange={v => { setBrief({ ...brief, endDate: v }); if (errors?.endDate) setErrors({ ...errors, endDate: null }); }}
+              />
+              {errors?.endDate && <div style={{ fontSize: 12, color: 'var(--rust-500)', marginTop: 4, fontWeight: 500 }}>{errors.endDate}</div>}
+            </div>
+          </div>
+        </div>
+        
+        {/* Destinos */}
+        <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
+          <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
+            Destinos que deseas visitar<span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>
+          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {DESTINATIONS.map(d => {
+              const isSelected = brief.route.includes(d);
+              return (
+                <button key={d} onClick={() => {
+                  if (isSelected) setBrief({ ...brief, route: brief.route.filter(x => x !== d) });
+                  else setBrief({ ...brief, route: [...brief.route, d] });
+                  if (errors?.route) setErrors({ ...errors, route: null });
+                }} style={{
+                  padding: '8px 14px', borderRadius: 99, fontSize: 13, fontWeight: 600,
+                  background: isSelected ? 'var(--rust-500)' : '#fff',
+                  color: isSelected ? '#fff' : 'var(--fg2)',
+                  border: isSelected ? '1px solid var(--rust-500)' : `1px solid ${errors?.route ? 'var(--rust-300)' : 'var(--border)'}`,
+                  cursor: 'pointer', transition: 'all 0.2s'
+                }}>
+                  {d}
+                </button>
+              );
+            })}
+          </div>
+          {errors?.route && <div style={{ fontSize: 12, color: 'var(--rust-500)', fontWeight: 500 }}>{errors.route}</div>}
+        </div>
+
+        {/* Preguntas */}
+        <div style={{ gridColumn: '1 / -1', marginTop: 12 }}>
+          <BriefField
+            label="Top 3 dudas principales"
+            hint="¿Qué es lo que más necesitas saber en la videollamada? Puedes detallar tu ruta aquí o dudas específicas. (Mín. 15 caracteres)"
+            multiline={true}
+            required
+            error={errors?.questions}
+            value={brief.questions}
+            onChange={v => { setBrief({ ...brief, questions: v }); if (errors?.questions) setErrors({ ...errors, questions: null }); }}
+          />
+        </div>
+
+        {/* Teléfono */}
+        <div style={{ gridColumn: '1 / -1', marginTop: 12 }}>
+          <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)', display: 'block', marginBottom: 6 }}>
+            WhatsApp / Celular<span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>
+          </span>
+          <div style={{
+            padding: '4px 14px', borderRadius: 10, background: '#fff',
+            border: `1px solid ${errors?.phone ? 'var(--rust-500)' : 'var(--border-strong)'}`
+          }}>
+            <PhoneInput
+              international
+              defaultCountry={brief.origin && COUNTRY_ISO_MAP[brief.origin] ? COUNTRY_ISO_MAP[brief.origin] : 'BO'}
+              value={brief.phone}
+              onChange={v => { setBrief({ ...brief, phone: v }); if (errors?.phone) setErrors({ ...errors, phone: null }); }}
+              style={{ minHeight: 36 }}
             />
           </div>
-        ))}
+          {errors?.phone && <div style={{ fontSize: 12, color: 'var(--rust-500)', marginTop: 4, fontWeight: 500 }}>{errors.phone}</div>}
+        </div>
+
       </div>
-      <div style={{ marginTop: 16, fontSize: 12, color: 'var(--fg3)', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <I.Alert size={14}/> All fields are required to continue to payment.
+      <div style={{ marginTop: 24, fontSize: 12, color: 'var(--fg3)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <I.Alert size={14}/> Todos los campos son obligatorios para continuar al pago.
       </div>
     </div>
   );
@@ -684,15 +814,14 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
           </div>
           <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <BriefReadOnly label="WhatsApp / Phone" value={brief.phone} />
               <BriefReadOnly label="From" value={brief.origin} />
-              <BriefReadOnly label="Age / Gender" value={`${brief.age} · ${brief.gender}`} />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              <BriefReadOnly label="Travel dates" value={brief.dates} />
+              <BriefReadOnly label="Travel dates" value={`${brief.startDate} to ${brief.endDate}`} />
               <BriefReadOnly label="Traveling with" value={brief.companions} />
             </div>
-            <BriefReadOnly label="Arriving to Bolivia" value={brief.arrival} />
-            <BriefReadOnly label="Rough route"       value={brief.route} />
+            <BriefReadOnly label="Destinations"      value={Array.isArray(brief.route) ? brief.route.join(' · ') : brief.route} />
             <BriefReadOnly label="Top 3 questions"   value={brief.questions} />
           </div>
         </div>
@@ -710,7 +839,7 @@ function BriefReadOnly({ label, value }) {
   );
 }
 
-function BriefField({ label, hint, value, onChange, multiline, required, type, options }) {
+function BriefField({ label, hint, value, onChange, multiline, required, type, options, error }) {
   const [localValue, setLocalValue] = useState(value);
   
   useEffect(() => {
@@ -718,19 +847,22 @@ function BriefField({ label, hint, value, onChange, multiline, required, type, o
   }, [value]);
 
   const empty = required && !localValue.trim();
+  const hasError = !!error;
   const baseStyle = {
     fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
     padding: '10px 14px', borderRadius: 10,
-    border: `1px solid ${empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
+    border: `1px solid ${hasError ? 'var(--rust-500)' : empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
     minHeight: 44, resize: multiline ? 'vertical' : 'none',
     width: '100%', boxSizing: 'border-box'
   };
 
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
-      <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
-        {label}{required && <span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>}
-      </span>
+      {label && (
+        <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.3, textTransform: 'uppercase', color: 'var(--fg3)' }}>
+          {label}{required && <span style={{ color: 'var(--rust-500)', marginLeft: 4 }}>*</span>}
+        </span>
+      )}
       {type === 'country' ? (
         <React.Fragment>
           <input list={`${label}-list`} value={localValue} onChange={e => { setLocalValue(e.target.value); onChange(e.target.value); }} onBlur={() => onChange(localValue)} placeholder={hint} style={baseStyle} />
@@ -747,6 +879,7 @@ function BriefField({ label, hint, value, onChange, multiline, required, type, o
       ) : (
         <input type={type || 'text'} value={localValue} onChange={e => setLocalValue(e.target.value)} onBlur={() => onChange(localValue)} placeholder={hint} style={baseStyle} min={type === 'number' ? 18 : undefined} />
       )}
+      {hasError && <div style={{ fontSize: 12, color: 'var(--rust-500)', marginTop: 2, fontWeight: 500 }}>{error}</div>}
     </label>
   );
 }

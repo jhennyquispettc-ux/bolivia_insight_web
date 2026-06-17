@@ -17,7 +17,10 @@ function Hero({ variant = 'A', onCtaClick }) {
   
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', night ? 'dark' : 'light');
-    
+    // Reset to light theme when the Hero unmounts (user navigates away from landing)
+    return () => {
+      document.documentElement.setAttribute('data-theme', 'light');
+    };
   }, [night]);
 
   const isMobile = vw < 768;
