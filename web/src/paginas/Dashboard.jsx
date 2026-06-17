@@ -64,7 +64,9 @@ function Dashboard({ onBack, onExpert }) {
     async function fetchAbcRoads() {
       try {
         const res = await fetch('https://transitabilidad.abc.gob.bo/api/v1/data');
+        if (!res.ok) throw new Error(`ABC API Error: ${res.status}`);
         const apiData = await res.json();
+        if (!Array.isArray(apiData)) throw new Error('ABC API data is not an array');
 
         
         const abcEN = {

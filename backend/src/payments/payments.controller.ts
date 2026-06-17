@@ -63,6 +63,10 @@ export class PaymentsController {
   ) {
     const expected = this.paymentsService.priceFor(dto.durationMin);
 
+    // Ensure the slot is still available BEFORE capturing the user's money.
+    // If it's taken, this throws a ConflictException (409) and aborts the capture.
+    await this.bookingsService.assertSlotAvailable(dto.date, dto.timeSlot);
+
     const capture = await this.paymentsService.captureOrder(orderId);
 
     if (capture.status !== 'COMPLETED') {

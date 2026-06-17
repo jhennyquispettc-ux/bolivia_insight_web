@@ -187,17 +187,15 @@ export class BookingsService {
   }
 
   // ── Public methods ───────────────────────────────────────────────────────────
-  async create(params: CreateBookingParams) {
-    const date = new Date(params.date);
+  async assertSlotAvailable(dateStr: string, timeSlot: string) {
+    const date = new Date(dateStr);
     if (isNaN(date.getTime())) throw new BadRequestException('Invalid date');
 
-    // The slot must be one we actually offer (defense against tampered requests).
-    if (!ALLOWED_SLOTS.includes(params.timeSlot)) {
+    if (!ALLOWED_SLOTS.includes(timeSlot)) {
       throw new BadRequestException('Invalid time slot');
     }
 
-    // The booking instant (Bolivia time, UTC−4) must be in the future.
-    const [h, m] = params.timeSlot.split(':').map(Number);
+    const [h, m] = timeSlot.split(':').map(Number);
     const slotInstant = new Date(
       Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), h + 4, m),
     );
@@ -205,27 +203,26 @@ export class BookingsService {
       throw new BadRequestException('That slot is in the past');
     }
 
-    // No double-booking: that date + slot must not already be taken.
     const clash = await this.prisma.booking.findFirst({
-      where: {
-        date,
-        timeSlot: params.timeSlot,
-        status: { in: ['pending', 'confirmed'] },
-      },
+      where: { date, timeSlot, status: { in: ['pending', 'confirmed'] } },
     });
     if (clash) {
       throw new ConflictException('That time slot is no longer available');
     }
 
     const block = await this.prisma.scheduleBlock.findFirst({
-      where: {
-        date,
-        OR: [{ timeSlot: params.timeSlot }, { timeSlot: null }],
-      },
+      where: { date, OR: [{ timeSlot }, { timeSlot: null }] },
     });
     if (block) {
       throw new ConflictException('That time slot is no longer available (blocked)');
     }
+    
+    return { date, slotInstant };
+  }
+
+  async create(params: CreateBookingParams) {
+    // Run the pre-flight checks to ensure the slot is still fully available
+    const { date } = await this.assertSlotAvailable(params.date, params.timeSlot);
 
     const topic = `${params.durationMin}-min Trip Review`;
     const brief = {

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
+import IMG from '../ui/imagenes.jsx';
 import Btn from '../ui/Boton.jsx';
 import PoiSelector from '../componentes/calculador/PoiSelector.jsx';
 import LiveSummary from '../componentes/calculador/LiveSummary.jsx';
@@ -158,28 +159,90 @@ function RouteCalculator({ onBack }) {
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: 90 }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '16px 18px 80px' : '24px 32px 100px' }}>
+    <main style={{ minHeight: '100vh', background: 'var(--bg)' }}>
 
-        { }
-        <button onClick={onBack} style={{
-          background: 'transparent', border: 0, cursor: 'pointer',
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-          color: 'var(--fg2)', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 13,
-          padding: '6px 0', marginBottom: 12,
-        }}>
-          <I.ArrowL size={14} /> {t('planner.back', 'Volver al inicio')}
-        </button>
+      {/* ═══════════════════════════════════════════ HERO */}
+      <section style={{
+        color: '#fff',
+        padding: isMobile ? '56px 0 64px' : '80px 0 96px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* Photo background */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: IMG.photoMetro,
+          backgroundSize: 'cover', backgroundPosition: 'center 40%',
+        }} />
+        {/* Overlay gradient */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(179,63,46,0.70) 55%, rgba(13,18,30,0.92) 100%)',
+        }} />
+        {/* Amber glow top-right */}
+        <div style={{ position: 'absolute', top: -100, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 65%)', pointerEvents: 'none' }} />
+        {/* Blue glow bottom-left */}
+        <div style={{ position: 'absolute', bottom: -100, left: -80, width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, rgba(29,78,216,0.15) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
-        { }
-        <header style={{ marginBottom: isMobile ? 20 : 32, maxWidth: 760 }}>
-          <div className="eyebrow">{t('planner.eyebrow', 'Herramienta 04 · Planificación')}</div>
-          <h1 className="display" style={{
-            fontSize: isMobile ? 'clamp(2rem, 8vw, 3rem)' : 'clamp(2.5rem, 5vw, 4rem)',
-            marginTop: 6, marginBottom: 12,
-          }}>{t('planner.title', 'Planifica tu día en La Paz')}</h1>
-          <p className="lead">{t('planner.desc', 'Elige los lugares que quieres visitar y tu estilo de viaje. Calculamos el mejor orden, qué medios de transporte usar y cuánto tiempo te tomará — incluyendo cuánto pasarás en cada lugar.')}</p>
-        </header>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', position: 'relative' }}>
+
+          {/* Back button */}
+          <button onClick={onBack} style={{
+            background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)',
+            color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            fontSize: 12, fontWeight: 700, marginBottom: 24, fontFamily: 'var(--font-sans)',
+          }}>
+            <I.ArrowL size={13} /> {t('planner.back', 'Volver al inicio')}
+          </button>
+
+          {/* Eyebrow */}
+          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 12 }}>
+            {t('planner.eyebrow', 'Herramienta 04 · Planificación')}
+          </div>
+
+          {/* Title */}
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: isMobile ? 'clamp(36px,9vw,48px)' : 'clamp(48px,6vw,80px)',
+            lineHeight: 0.95, color: '#fff', margin: '0 0 0', fontWeight: 600,
+            letterSpacing: '-0.035em', maxWidth: 900,
+          }}>
+            {t('planner.title', 'Planifica tu día')}<br />
+            <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>en La Paz.</em>
+          </h1>
+
+          {/* Description */}
+          <p style={{
+            fontSize: isMobile ? 15 : 18, color: 'rgba(255,255,255,0.82)',
+            marginTop: 20, maxWidth: 620, lineHeight: 1.6,
+            fontFamily: 'var(--font-sans)',
+          }}>
+            Elige los lugares que quieres conocer y arma en segundos el{' '}
+            <strong style={{ color: '#fff' }}>orden más eficiente</strong> para visitarlos.
+            El sistema calcula qué combinación de transporte funciona mejor según tu estilo
+            de viaje — incluyendo el tiempo en cada lugar.
+          </p>
+
+          {/* Stats row */}
+          <div style={{ display: 'flex', gap: isMobile ? 20 : 40, marginTop: isMobile ? 28 : 36, flexWrap: 'wrap' }}>
+            {[
+              { k: 'Hasta 10', v: 'lugares por recorrido' },
+              { k: '3 perfiles', v: 'Mochilero · Equilibrado · Confort' },
+              { k: '3 modos', v: 'Caminata · Teleférico · Taxi' },
+            ].map(s => (
+              <div key={s.k}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 28, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.65)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 5 }}>{s.v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════ PLANNER CONTENT */}
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '24px 18px 80px' : '40px 64px 100px' }}>
+
 
         {loadingBoot ? (
           <div style={{ padding: 40, textAlign: 'center', color: 'var(--fg2)' }}>
@@ -192,16 +255,11 @@ function RouteCalculator({ onBack }) {
             gap: isMobile ? 32 : 24,
             alignItems: 'start',
           }}>
-            { }
+            {/* LEFT COLUMN: Controls, POIs, and Results */}
             <section style={{
               display: 'flex', flexDirection: 'column', gap: 16,
-              width: isMobile ? '100%' : 'min(420px, 40%)',
+              width: isMobile ? '100%' : 'min(460px, 42%)',
               flexShrink: 0,
-              position: isMobile ? 'static' : 'sticky',
-              top: isMobile ? 'auto' : 90,
-              maxHeight: isMobile ? 'none' : 'calc(100vh - 110px)',
-              overflowY: isMobile ? 'visible' : 'auto',
-              paddingRight: isMobile ? 0 : 8,
             }}>
               <ProfilePicker value={profile} onChange={(p) => { setProfile(p); setResult(null); }} />
 
@@ -242,14 +300,15 @@ function RouteCalculator({ onBack }) {
               )}
 
               <div style={{
-                position: isMobile ? 'sticky' : 'static',
-                bottom: isMobile ? 0 : 'auto',
-                background: isMobile ? 'var(--bg)' : 'transparent',
-                paddingTop: isMobile ? 12 : 0,
-                paddingBottom: isMobile ? 12 : 0,
+                position: 'sticky',
+                bottom: 0,
+                background: 'var(--bg)',
+                paddingTop: 16,
+                paddingBottom: isMobile ? 12 : 16,
                 paddingRight: isMobile ? 76 : 0,
-                marginTop: 4,
+                marginTop: 8,
                 zIndex: 10,
+                borderTop: '1px solid var(--border)',
               }}>
                 <Btn
                   kind="primary"
@@ -262,38 +321,19 @@ function RouteCalculator({ onBack }) {
                     cursor: (!canCalculate || calcLoading) ? 'not-allowed' : 'pointer',
                   }}
                 >
-                  {calcLoading
-                    ? t('planner.calculating', 'Calculando…')
-                    : t('planner.calculate', 'Calcular ruta')}
-                  <I.ArrowR size={15} />
                 </Btn>
               </div>
-            </section>
 
-            { }
-            <section style={{
-              display: 'flex', flexDirection: 'column', gap: 0,
-              flex: 1, width: '100%', minWidth: 0
-            }}>
-              <div style={{
-                height: isMobile ? '40vh' : 'min(60vh, 560px)',
-                minHeight: 320,
-                borderRadius: 'var(--r-xl)',
-                overflow: 'hidden',
-                boxShadow: 'var(--shadow-md)',
-                border: '1px solid var(--border)',
-                background: 'var(--bg-elevated)',
-              }}>
-                <RouteMap pois={pois} graph={graph} selected={selected} result={result} />
-              </div>
-
+              {/* Itinerary Result goes here on the left side below the button */}
               {result && (
-                <RouteResult result={result} onModify={() => setResult(null)} />
+                <div style={{ marginTop: 8 }}>
+                  <RouteResult result={result} onModify={() => setResult(null)} />
+                </div>
               )}
 
               {!result && (
                 <div style={{
-                  marginTop: 16, padding: 20,
+                  marginTop: 8, padding: 20,
                   background: 'var(--bg-elevated)', border: '1px dashed var(--border-strong)',
                   borderRadius: 'var(--r-lg)', color: 'var(--fg3)',
                   fontFamily: 'var(--font-sans)', fontSize: 13.5, textAlign: 'center',
@@ -301,6 +341,29 @@ function RouteCalculator({ onBack }) {
                   {t('planner.placeholder', 'Selecciona tus lugares y aprieta "Calcular ruta" para ver el itinerario aquí.')}
                 </div>
               )}
+            </section>
+
+            {/* RIGHT COLUMN: Map (Sticky) */}
+            <section style={{
+              display: 'flex', flexDirection: 'column', gap: 0,
+              flex: 1, width: '100%', minWidth: 0,
+              position: isMobile ? 'static' : 'sticky',
+              top: isMobile ? 'auto' : 110,
+              alignSelf: 'start', // Required for sticky in flexbox
+            }}>
+              <div style={{
+                height: isMobile ? '40vh' : 'calc(100vh - 140px)',
+                minHeight: 320,
+                borderRadius: 'var(--r-xl)',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-md)',
+                border: '1px solid var(--border)',
+                background: 'var(--bg-elevated)',
+                position: 'relative',
+                zIndex: 1, // Creates a new stacking context to prevent Leaflet from overlapping the navbar
+              }}>
+                <RouteMap pois={pois} graph={graph} selected={selected} result={result} />
+              </div>
             </section>
           </div>
         )}
