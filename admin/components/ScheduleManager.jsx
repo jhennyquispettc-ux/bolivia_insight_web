@@ -314,11 +314,11 @@ export default function ScheduleManager({ token, meetings = [] }) {
             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: 'var(--fg2)' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: 'var(--green-100, #dcfce7)', border: '1px solid var(--green-300, #86efac)' }} />
+                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: 'var(--green-100, #cfe7d8)', border: '1px solid var(--green-300, #6db38a)' }} />
                   Cita agendada
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: 'var(--rust-100, #fee2e2)', border: '1px solid var(--rust-300, #fca5a5)' }} />
+                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: 'var(--rust-100, #f3d9d2)', border: '1px solid var(--rust-300, #d6816d)' }} />
                   Bloqueado
                 </span>
               </div>
@@ -345,7 +345,7 @@ export default function ScheduleManager({ token, meetings = [] }) {
               return (
                 <div key={d.toISOString()} style={{
                   border: '1px solid var(--border)', borderRadius: '12px', padding: '12px',
-                  background: dayBlock ? 'var(--rust-50, #fff1f1)' : '#fff',
+                  background: dayBlock ? 'var(--rust-50, #fbf0ed)' : '#fff',
                   minHeight: '260px', display: 'flex', flexDirection: 'column',
                 }}>
                   <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -380,16 +380,16 @@ export default function ScheduleManager({ token, meetings = [] }) {
                         let textColor = 'var(--fg2)';
                         let tooltip = '';
                         if (meeting) {
-                          bg = 'var(--green-50, #f0fdf4)';
-                          border = '1px solid var(--green-400, #4ade80)';
+                          bg = 'var(--green-50, #ebf5ef)';
+                          border = '1px solid var(--green-400, #459a6b)';
                           text = `${time} – CITA`;
-                          textColor = 'var(--green-700, #15803d)';
+                          textColor = 'var(--green-700, #1b4231)';
                           tooltip = `Agendado con ${meeting.user?.name || 'Usuario'}`;
                         } else if (block) {
-                          bg = 'var(--rust-50, #fff1f1)';
-                          border = '1px solid var(--rust-300, #fca5a5)';
+                          bg = 'var(--rust-50, #fbf0ed)';
+                          border = '1px solid var(--rust-300, #d6816d)';
                           text = `${time} – BLOQ.`;
-                          textColor = 'var(--rust-700, #b91c1c)';
+                          textColor = 'var(--rust-700, #7a281c)';
                           tooltip = block.reason || 'Horario bloqueado por admin';
                         }
                         return (

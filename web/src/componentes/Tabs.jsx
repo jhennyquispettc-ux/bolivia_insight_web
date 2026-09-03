@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useI18n } from '../data/translations.jsx';
 import IMG from '../ui/imagenes.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 
-function TabsSection() {
+function TabsSection({ onGuide }) {
+  const { t } = useI18n();
   const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
@@ -76,14 +78,14 @@ function TabsSection() {
 
         {}
         <div style={{ maxWidth: 760, marginBottom: isMobile ? 32 : 56 }}>
-          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 12 }}>The list · most-visited landmarks</div>
+          <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 12 }}>{t('ranking.eyebrow', 'The list · most-visited landmarks')}</div>
           <h2 style={{
             margin: 0, color: '#fff',
             fontSize: isMobile ? 'clamp(28px,8vw,44px)' : 'clamp(36px,4vw,60px)',
             lineHeight: 1.04, letterSpacing: '-0.025em',
             fontFamily: 'var(--font-display)', fontWeight: 600,
           }}>
-            Bolivia's <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>five greats.</em>
+            {t('ranking.title', "Bolivia's five greats.")}
           </h2>
           {!isMobile && (
             <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.72)', marginTop: 18, maxWidth: 600, lineHeight: 1.6 }}>
@@ -106,7 +108,7 @@ function TabsSection() {
                   flexShrink: 0,
                   background: active === i ? 'var(--amber-300)' : 'rgba(255,255,255,0.1)',
                   border: active === i ? '0' : '1px solid rgba(255,255,255,0.18)',
-                  borderRadius: 999, padding: '8px 16px', cursor: 'pointer',
+                  borderRadius: 999, padding: '12px 16px', minHeight: 44, cursor: 'pointer',
                   color: active === i ? 'var(--navy-700)' : '#fff',
                   fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
                   transition: 'all 180ms',
@@ -141,7 +143,7 @@ function TabsSection() {
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 26, lineHeight: 1.05, fontWeight: 600, margin: '6px 0 0', letterSpacing: '-0.02em' }}>{item.name}</h3>
                 <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.6, marginTop: 12 }}>{item.blurb}</p>
                 <div style={{ marginTop: 18, display: 'flex', gap: 10 }}>
-                  <Btn kind="navy" size="sm">Read the guide <I.ArrowR size={13}/></Btn>
+                  <Btn kind="navy" size="sm" onClick={onGuide}>{t('ranking.readGuide', 'Read the guide')} <I.ArrowR size={13}/></Btn>
                 </div>
               </div>
             </article>
@@ -202,8 +204,7 @@ function TabsSection() {
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 3.5vw, 44px)', lineHeight: 1.05, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>{item.name}</h3>
                 <p style={{ fontSize: 16, color: 'var(--fg2)', lineHeight: 1.65, marginTop: 16 }}>{item.blurb}</p>
                 <div style={{ marginTop: 24, display: 'flex', gap: 10 }}>
-                  <Btn kind="navy" size="md">Read the guide <I.ArrowR size={14}/></Btn>
-                  <Btn kind="ghost" size="md">View on map <I.Pin size={14}/></Btn>
+                  <Btn kind="navy" size="md" onClick={onGuide}>{t('ranking.readGuide', 'Read the guide')} <I.ArrowR size={14}/></Btn>
                 </div>
               </div>
             </article>

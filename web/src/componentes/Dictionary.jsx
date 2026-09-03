@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useI18n } from '../data/translations.jsx';
 import IMG from '../ui/imagenes.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 
 function Dictionary({ onBack, onExpert, embedded }) {
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('all');
   const [playing, setPlaying] = useState(null);
@@ -114,14 +116,14 @@ function Dictionary({ onBack, onExpert, embedded }) {
             background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)',
             color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
             display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24,
-          }}><I.ArrowL size={13}/> Back to home</button>
-          <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Cultural Dictionary · Bolivian Spanish, Aymara, Quechua</div>
+          }}><I.ArrowL size={13}/> {t('common.backHome', 'Back to home')}</button>
+          <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>{t('dict.eyebrow', 'Cultural Dictionary')}</div>
           <h1 style={{
             fontFamily: 'var(--font-display)', fontSize: 'clamp(48px,7vw,96px)', lineHeight: 0.95,
             color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.035em', maxWidth: 1000,
-          }}>The words that aren't<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>in the phrasebook.</em></h1>
+          }}>{t('dict.title1', "The words that aren't")}<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>{t('dict.title2', 'in the phrasebook.')}</em></h1>
           <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginTop: 18, maxWidth: 660, lineHeight: 1.55 }}>
-            Hundred-plus Bolivian-Spanish, Aymara, and Quechua words travelers actually hear — said by people who use them every day.
+            {t('dict.desc', 'Bolivian-Spanish, Aymara and Quechua words travellers actually hear.')}
           </p>
         </div>
       </section>
@@ -145,14 +147,14 @@ function Dictionary({ onBack, onExpert, embedded }) {
             <I.Search size={18}/>
             <input id="bi-dict-search"
               value={query} onChange={e => setQuery(e.target.value)}
-              placeholder="Search a word, meaning, or example…"
-              aria-label="Search dictionary"
+              placeholder={t('dict.searchPlaceholder', 'Search a word, meaning, or example…')}
+              aria-label={t('dict.searchLabel', 'Search dictionary')}
               style={{
                 flex: 1, border: 0, outline: 'none', background: 'transparent',
                 fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--fg1)', minHeight: 24,
               }}/>
             {query && (
-              <button onClick={() => setQuery('')} aria-label="Clear search" style={{
+              <button onClick={() => setQuery('')} aria-label={t('dict.clearSearch', 'Clear search')} style={{
                 background: 'transparent', border: 0, cursor: 'pointer', padding: 4,
                 color: 'var(--fg3)', display: 'flex', alignItems: 'center',
               }}><I.X size={16}/></button>
@@ -210,9 +212,9 @@ function Dictionary({ onBack, onExpert, embedded }) {
               padding: '72px 32px', textAlign: 'center', borderRadius: 16,
               background: 'var(--stone-50)', border: '1px dashed var(--border-strong)',
             }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 500 }}>Nothing matches "{query}".</div>
-              <p style={{ color: 'var(--fg2)', marginTop: 10 }}>Try a different word or clear the filter — we add new entries every month.</p>
-              <Btn kind="ghost" size="md" style={{ marginTop: 18 }} onClick={() => { setQuery(''); setFilter('all'); }}>Reset filters</Btn>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 500 }}>{t('dict.noMatch', 'Nothing matches')} “{query}”.</div>
+              <p style={{ color: 'var(--fg2)', marginTop: 10 }}>{t('dict.noMatchHelp', 'Try a different word or clear the filter.')}</p>
+              <Btn kind="ghost" size="md" style={{ marginTop: 18 }} onClick={() => { setQuery(''); setFilter('all'); }}>{t('dict.resetFilters', 'Reset filters')}</Btn>
             </div>
           )}
         </div>
@@ -222,9 +224,9 @@ function Dictionary({ onBack, onExpert, embedded }) {
       <section style={{ padding: '80px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
           <div style={{ maxWidth: 720, marginBottom: 32 }}>
-            <div className="eyebrow" style={{ marginBottom: 10 }}>Heard in the wild</div>
+            <div className="eyebrow" style={{ marginBottom: 10 }}>{t('dict.heardEyebrow', 'Heard in the wild')}</div>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px,3.4vw,44px)', margin: 0, fontWeight: 600, lineHeight: 1.05 }}>
-              Three sentences you'll wish you had on day one.
+              {t('dict.heardTitle', "Three sentences you'll wish you had on day one.")}
             </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18 }}>
@@ -248,13 +250,13 @@ function Dictionary({ onBack, onExpert, embedded }) {
           <div style={{ flex: 1, minWidth: 260 }}>
             <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Want to practice before you go?</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(26px,3.2vw,36px)', margin: '8px 0 0', fontWeight: 600, lineHeight: 1.15 }}>
-              Book a 15-minute call with a local writer.
+              {t('dict.ctaTitle', 'Book a 15-minute call with a local guide.')}
             </h3>
             <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.78)', marginTop: 10, maxWidth: 520, lineHeight: 1.55 }}>
-              They'll teach you the five words you'll need at customs, in a market, and in a taxi. From $12.
+              {t('dict.ctaDesc', 'The five words you need at customs, in a market and in a taxi.')}
             </p>
           </div>
-          <Btn kind="amber" size="lg" onClick={onExpert}>Talk to a local <I.ArrowR size={15}/></Btn>
+          <Btn kind="amber" size="lg" onClick={onExpert}>{t('common.talkToLocal', 'Talk to a local')} <I.ArrowR size={15}/></Btn>
         </div>
       </section>
     </div>
@@ -276,7 +278,7 @@ function FeaturedCard({ word, playing, onPlay }) {
           width: 44, height: 44, borderRadius: 999,
           background: playing ? 'var(--rust-500)' : '#fff',
           color: playing ? '#fff' : 'var(--rust-500)',
-          border: '1px solid var(--rust-200, #f4c8bf)',
+          border: '1px solid var(--rust-200, #e6ad9f)',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0, transition: 'all 160ms',
         }}><I.Volume size={18}/></button>

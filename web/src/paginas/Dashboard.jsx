@@ -1,10 +1,12 @@
 import React from 'react';
+import { useI18n } from '../data/translations.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 import IMG from '../ui/imagenes.jsx';
 import StatusDot from '../ui/StatusDot.jsx';
 import { CLUSTERS } from '../data/destinos.jsx';
 import { BO_VIEWBOX, BO_DEPARTMENTS } from '../data/boliviaDepartments.js';
+import { apiUrl } from '../data/api.js';
 
 function useWindowWidth() {
   const [w, setW] = React.useState(window.innerWidth);
@@ -16,10 +18,12 @@ function useWindowWidth() {
   return w;
 }
 
-function Dashboard({ onBack, onExpert }) {
+function Dashboard({ onBack, onExpert, onExploreSector }) {
+  const { t } = useI18n();
   const [region, setRegion] = React.useState('all');
   const [highlightedRoute, setHighlightedRoute] = React.useState(null);
-  const updatedMin = 4;
+  const [abcStatus, setAbcStatus] = React.useState('loading');
+  const [abcFetchedAt, setAbcFetchedAt] = React.useState(null);
   const winW = useWindowWidth();
   const isLarge  = winW >= 1200;
   const isXlarge = winW >= 1600;
@@ -63,10 +67,14 @@ function Dashboard({ onBack, onExpert }) {
   React.useEffect(() => {
     async function fetchAbcRoads() {
       try {
-        const res = await fetch('https://transitabilidad.abc.gob.bo/api/v1/data');
-        if (!res.ok) throw new Error(`ABC API Error: ${res.status}`);
-        const apiData = await res.json();
-        if (!Array.isArray(apiData)) throw new Error('ABC API data is not an array');
+        const res = await fetch(apiUrl('/roads/status'), { signal: AbortSignal.timeout(9000) });
+        if (!res.ok) throw new Error(`Proxy error: ${res.status}`);
+        const payload = await res.json();
+        if (payload.status !== 'ok' || !Array.isArray(payload.data)) {
+          throw new Error(payload.reason || 'upstream_unavailable');
+        }
+        const apiData = payload.data;
+        setAbcFetchedAt(payload.fetchedAt || null);
 
         
         const abcEN = {
@@ -95,7 +103,7 @@ function Dashboard({ onBack, onExpert }) {
           'AHUELLAMIENTO EN PLATAFORMA':         'Rutting on road surface',
           
           'TRANSITABLE CON DESVIOS':             'Passable via detour',
-          'TRANSITABLE CON DESVÃOS':             'Passable via detour',
+          'TRANSITABLE CON DESVÍOS':             'Passable via detour',
           'RESTRICCION VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCIÓN VEHICULAR':               'Vehicle restriction in effect',
           'RESTRICCION VEHICULAR, ESPECIAL':     'Special vehicle restriction',
@@ -103,7 +111,7 @@ function Dashboard({ onBack, onExpert }) {
           'DERRUMBE':                            'Landslide',
           'DERRUMBES MENORES':                   'Minor landslides',
           'CAIDA DE ROCAS':                      'Rockfall',
-          'CAÃDA DE ROCAS':                      'Rockfall',
+          'CAÍDA DE ROCAS':                      'Rockfall',
           'FLUJO DE BARRO':                      'Mudflow / debris flow',
           'INUNDACION':                          'Flooding',
           'INUNDACIÓN':                          'Flooding',
@@ -112,7 +120,7 @@ function Dashboard({ onBack, onExpert }) {
           'AFECTACIÓN DE PUENTE':                'Bridge affected / damaged',
           
           'ACCIDENTE DE TRANSITO':               'Traffic accident',
-          'ACCIDENTE DE TRÃNSITO':               'Traffic accident',
+          'ACCIDENTE DE TRÁNSITO':               'Traffic accident',
           
           'NINGUN EVENTO':                       'No incidents',
           'NINGÚN EVENTO':                       'No incidents',
@@ -153,34 +161,35 @@ function Dashboard({ onBack, onExpert }) {
 
           return { ...road, ok: true, note: 'Clear' };
         }));
+        setAbcStatus('ok');
       } catch (err) {
-        console.error('Failed to fetch ABC roads, using mock fallback', err);
-        setRoads(prev => prev.map(r => {
-          if (r.code === 'RN-2' && r.name.includes('Copacabana')) return { ...r, ok: false, note: 'Road blocked — social conflict' };
-          if (r.code === 'RN-4' && r.name.includes('Cochabamba')) return { ...r, ok: true, note: 'Caution: section under construction' };
-          return { ...r, ok: true, note: 'Clear' };
-        }));
+        console.error('ABC road data unavailable:', err.message);
+        setAbcStatus('unavailable');
+        setAbcFetchedAt(null);
       }
     }
     fetchAbcRoads();
+    // Real five-minute refresh, so the copy that promises it is true.
+    const id = setInterval(fetchAbcRoads, 5 * 60 * 1000);
+    return () => clearInterval(id);
   }, []);
 
   const filtered = region === 'all' ? roads : roads.filter(r => r.region === region);
   const clear = roads.filter(r => r.ok).length;
   const blocked = roads.length - clear;
 
-  const [teleferico, setTeleferico] = React.useState([
-    { line: 'Roja',     stations: 'Central → Cementerio → 16 de Julio',                   hex: '#d32f2f', ok: true, wait: '~4 min', duration: 11, km: 3.0, tourTip: 'Most iconic line — connects La Paz & El Alto' },
-    { line: 'Amarilla', stations: 'Mirador → Buenos Aires → Sopocachi → Libertador',       hex: '#d4a800', ok: true, wait: '~6 min', duration: 17, km: 4.6, tourTip: 'Panoramic views of Mt. Illimani' },
-    { line: 'Verde',    stations: 'Libertador → Alto Obrajes → Obrajes → Irpavi',          hex: '#2e7d32', ok: true, wait: '~5 min', duration: 16, km: 4.2, tourTip: 'Southern neighbourhoods to city centre' },
-    { line: 'Azul',     stations: 'Río Seco → UPEA → Plaza La Paz → 16 de Julio',         hex: '#1565c0', ok: true, wait: '~7 min', duration: 20, km: 5.0, tourTip: 'Main El Alto â†” La Paz corridor' },
-    { line: 'Naranja',  stations: 'Central → Armentia → Periférica → Villarroel',          hex: '#e65100', ok: true, wait: '~5 min', duration: 10, km: 2.8, tourTip: 'Northern La Paz districts' },
-    { line: 'Blanca',   stations: 'Plaza Villarroel → Busch → Av. Poeta',                  hex: '#546e7a', ok: true, wait: '~6 min', duration: 13, km: 3.5, tourTip: 'Connects to the Celeste line' },
-    { line: 'Celeste',  stations: 'Prado → Teatro al Aire Libre → Av. Poeta → Libertad',   hex: '#0288d1', ok: true, wait: '~5 min', duration: 15, km: 3.9, tourTip: 'Heart of the Prado to the south' },
-    { line: 'Morada',   stations: '6 de Marzo → Faro Murillo → San José',                  hex: '#6a1b9a', ok: true, wait: '~4 min', duration: 17, km: 4.4, tourTip: 'Northern zone, popular neighbourhoods' },
-    { line: 'Café',     stations: 'Monumento Busch → Villa Copacabana',                    hex: '#5d4037', ok: true, wait: '~6 min', duration: 6,  km: 1.5, tourTip: 'Short line — El Alto gateway' },
-    { line: 'Plateada', stations: '16 de Julio → Faro Murillo → Mirador',                  hex: '#78909c', ok: true, wait: '~5 min', duration: 10, km: 2.6, tourTip: 'Closes the ring — spectacular views' },
-  ]);
+  const teleferico = [
+    { line: 'Roja',     stations: 'Central → Cementerio → 16 de Julio',                   hex: '#d32f2f', duration: 11, km: 3.0, tourTip: 'Most iconic line — connects La Paz & El Alto' },
+    { line: 'Amarilla', stations: 'Mirador → Buenos Aires → Sopocachi → Libertador',       hex: '#d4a800', duration: 17, km: 4.6, tourTip: 'Panoramic views of Mt. Illimani' },
+    { line: 'Verde',    stations: 'Libertador → Alto Obrajes → Obrajes → Irpavi',          hex: '#2e7d32', duration: 16, km: 4.2, tourTip: 'Southern neighbourhoods to city centre' },
+    { line: 'Azul',     stations: 'Río Seco → UPEA → Plaza La Paz → 16 de Julio',         hex: '#1565c0', duration: 20, km: 5.0, tourTip: 'Main El Alto ↔ La Paz corridor' },
+    { line: 'Naranja',  stations: 'Central → Armentia → Periférica → Villarroel',          hex: '#e65100', duration: 10, km: 2.8, tourTip: 'Northern La Paz districts' },
+    { line: 'Blanca',   stations: 'Plaza Villarroel → Busch → Av. Poeta',                  hex: '#546e7a', duration: 13, km: 3.5, tourTip: 'Connects to the Celeste line' },
+    { line: 'Celeste',  stations: 'Prado → Teatro al Aire Libre → Av. Poeta → Libertad',   hex: '#0288d1', duration: 15, km: 3.9, tourTip: 'Heart of the Prado to the south' },
+    { line: 'Morada',   stations: '6 de Marzo → Faro Murillo → San José',                  hex: '#6a1b9a', duration: 17, km: 4.4, tourTip: 'Northern zone, popular neighbourhoods' },
+    { line: 'Café',     stations: 'Monumento Busch → Villa Copacabana',                    hex: '#5d4037', duration: 6,  km: 1.5, tourTip: 'Short line — El Alto gateway' },
+    { line: 'Plateada', stations: '16 de Julio → Faro Murillo → Mirador',                  hex: '#78909c', duration: 10, km: 2.6, tourTip: 'Closes the ring — spectacular views' },
+  ];
 
   React.useEffect(() => {
     
@@ -238,22 +247,9 @@ function Dashboard({ onBack, onExpert }) {
       }
     }
     fetchWeather();
-  }, []); 
-
-  const alerts = [
-    { id: 1, level: 'high',   title: 'Sindical block on RN-2 · La Paz → Copacabana',
-      body: 'Driver guild action started 06:00. Pass through Tiquina expected to reopen by 18:00. Use Achacachi alt route (+45 min).',
-      time: '08:12', source: 'ABC' },
-    { id: 2, level: 'medium', title: 'Mi Teleférico Sky line maintenance',
-      body: 'Scheduled cabin inspection until 14:00 today. Use Blue line to El Alto, transfer at 16 de Julio.',
-      time: '07:00', source: 'Mi Teleférico' },
-    { id: 3, level: 'low',    title: 'Cruz Festival · Tarija',
-      body: 'Light traffic disruption in Tarija city centre today and tomorrow. Folklore parades 15:00â€“22:00.',
-      time: 'Yesterday', source: 'Cultura BO' },
-    { id: 4, level: 'low',    title: 'Cold front · Altiplano',
-      body: 'Overnight temperatures drop to âˆ’5Â°C in Uyuni and Potosí through Friday. Bring a 0Â°C-rated sleeping bag.',
-      time: 'Yesterday', source: 'SENAMHI' },
-  ];
+    const id = setInterval(fetchWeather, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
@@ -280,22 +276,24 @@ function Dashboard({ onBack, onExpert }) {
             background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)',
             color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
             display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24,
-          }}><I.ArrowL size={13}/> Back to home</button>
+          }}><I.ArrowL size={13}/> {t('dash.backHome', 'Back to home')}</button>
 
           <div className="eyebrow" style={{ color: 'var(--amber-300)', display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ width: 8, height: 8, borderRadius: 999, background: 'var(--green-400)', boxShadow: '0 0 0 4px rgba(45,106,79,0.3)', animation: 'bi-pulse 1.8s ease-in-out infinite' }}/>
-            Live · Bolivia Insight Dashboard
+            {t('dash.eyebrow', 'Live · Bolivia Insight dashboard')}
           </div>
           <h1 style={{
             fontFamily: 'var(--font-display)', fontSize: 'clamp(48px,7vw,96px)', lineHeight: 0.95,
             color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.035em', maxWidth: 1100,
-          }}>What's<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>open today.</em></h1>
+          }}>{t('dash.title1', "What's")}<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>{t('dash.title2', 'open today.')}</em></h1>
           <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.78)', marginTop: 14, maxWidth: 620, lineHeight: 1.6 }}>
-            Roads, cable car, weather, and alerts — pulled from ABC, Mi Teleférico, and SENAMHI. Refreshed every five minutes during business hours.
+            {t('dash.intro', 'Live weather via Open-Meteo. Roads and cable car: published data, no real-time API.')}
           </p>
-          <div style={{ marginTop: 18, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(255,255,255,0.6)', letterSpacing: 0.4 }}>
-            UPDATED {updatedMin} MIN AGO
-          </div>
+          {abcFetchedAt && (
+            <div style={{ marginTop: 18, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(255,255,255,0.6)', letterSpacing: 0.4 }}>
+              {t('dash.updatedAt', 'ROADS UPDATED')} {new Date(abcFetchedAt).toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -303,34 +301,36 @@ function Dashboard({ onBack, onExpert }) {
       <section style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)', padding: '32px 0' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 18 }}>
-          <KpiTile label="Roads clear"        value={`${clear}/${roads.length}`}            tone={blocked > 1 ? 'warn' : 'ok'} note={`${blocked} blocked or restricted`}/>
-          <KpiTile label="Cable car lines" value={`${teleferico.filter(t => t.ok).length}/${teleferico.length}`} tone="ok" note="All lines operational"/>
-          <KpiTile label="Avg altiplano temp" 
+          <KpiTile label={t('dash.kpiRoads', 'Road status')}
+                   value={abcStatus === 'ok' ? `${clear}/${roads.length}` : '—'}
+                   tone={abcStatus !== 'ok' ? 'warn' : (blocked > 1 ? 'warn' : 'ok')}
+                   note={abcStatus === 'ok' ? `${blocked} ${t('dash.kpiRoadsBlocked', 'blocked or restricted')}` : t('dash.kpiRoadsNoSource', 'ABC source unavailable')}/>
+          <KpiTile label={t('dash.kpiCable', 'Cable car lines')} value={String(teleferico.length)} tone="ok" note={t('dash.kpiCableNote', 'Published network')}/>
+          <KpiTile label={t('dash.kpiTemp', 'Avg altiplano temp')} 
                    value={(() => {
                      const altCities = citiesData.filter(c => ['La Paz', 'Uyuni', 'Copacabana'].includes(c.city));
                      const valid = altCities.filter(c => typeof c.temp === 'number').map(c => c.temp);
-                     return valid.length > 0 ? `${Math.round(valid.reduce((a,b)=>a+b,0)/valid.length)}Â°C` : '--Â°C';
+                     return valid.length > 0 ? `${Math.round(valid.reduce((a,b)=>a+b,0)/valid.length)}°C` : '—';
                    })()}
-                   tone="ok" note="Live data from Open-Meteo"/>
-          <KpiTile label="Active alerts"      value={String(alerts.length)}                 tone={alerts.find(a => a.level === 'high') ? 'warn' : 'ok'} note="1 high · 1 medium"/>
+                   tone="ok" note={t('dash.kpiTempNote', 'Live data from Open-Meteo')}/>
         </div>
       </section>
 
       {}
       <section style={{ padding: '72px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <SectionHeader eyebrow="Geography · Regions by altitude"
-            title="Bolivia, region by region."
-            sub="Hover a zone (or tap a chip) to see its altitude band and what defines it — from the 180 m Amazon basin to the 4,000 m+ Altiplano."/>
-          <ClusterMap/>
+          <SectionHeader eyebrow={t('dash.geoEyebrow', 'Geography · Regions by altitude')}
+            title={t('dash.geoTitle', 'Bolivia, region by region.')}
+            sub={t('dash.geoSub', 'Tap a landmark to see its altitude and what defines it.')}/>
+          <ClusterMap onExplore={onExploreSector}/>
         </div>
       </section>
 
       {}
       <section style={{ padding: '72px 0', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <SectionHeader eyebrow="ABC · Administradora Boliviana de Carreteras" title="Roads & blockades."
-            sub="Live status across the trunk network. Click a route to highlight on the map."/>
+          <SectionHeader eyebrow="ABC · Administradora Boliviana de Carreteras" title={t('dash.roadsTitle', 'Roads and blockades.')}
+            sub={t('dash.roadsSub', 'Trunk network status according to ABC.')}/>
 
           {}
           <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
@@ -366,30 +366,55 @@ function Dashboard({ onBack, onExpert }) {
               }}>
                 <div>Route</div><div>Section · note</div><div style={{ textAlign: 'right' }}>Distance</div>
               </div>
-              {filtered.map((r, i) => (
-                <button key={`${r.code}-${i}`}
-                  onMouseEnter={() => setHighlightedRoute(`${r.code}-${i}`)}
-                  onMouseLeave={() => setHighlightedRoute(null)}
-                  onClick={() => setHighlightedRoute(`${r.code}-${i}`)}
-                  style={{
-                    display: 'grid', gridTemplateColumns: '70px 1fr 90px',
-                    gap: 12, padding: '14px 18px', alignItems: 'center', width: '100%',
-                    background: highlightedRoute === `${r.code}-${i}` ? 'var(--stone-50)' : '#fff',
-                    border: 0, borderBottom: i < filtered.length - 1 ? '1px solid var(--border)' : 0,
-                    cursor: 'pointer', textAlign: 'left',
-                    transition: 'background 160ms',
-                  }}>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700, color: 'var(--fg2)' }}>{r.code}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <StatusDot ok={r.ok}/>
-                    <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--fg1)' }}>{r.name}</div>
-                      <div style={{ fontSize: 12, color: r.ok ? 'var(--fg3)' : 'var(--rust-600)', marginTop: 2 }}>{r.note}</div>
-                    </div>
+              {abcStatus !== 'ok' ? (
+                <div style={{ padding: 28, textAlign: 'center' }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--stone-50)', color: 'var(--fg3)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+                    <I.Alert size={20}/>
                   </div>
-                  <div style={{ textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{r.km} km</div>
-                </button>
-              ))}
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--fg1)' }}>
+                    {abcStatus === 'loading' ? 'Consultando a la ABC…' : 'No podemos confirmar el estado de las carreteras'}
+                  </div>
+                  {abcStatus === 'unavailable' && (
+                    <>
+                      <p style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.6, margin: '8px auto 0', maxWidth: 420 }}>
+                        La fuente oficial no publica una API abierta: exige verificación manual.
+                        Preferimos no mostrar nada antes que mostrar un dato que no podemos sostener.
+                      </p>
+                      <a href="https://transitabilidad.abc.gob.bo" target="_blank" rel="noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 14,
+                          fontSize: 13, fontWeight: 700, color: 'var(--rust-600)' }}>
+                        Consultar la ABC directamente <I.ArrowR size={14}/>
+                      </a>
+                    </>
+                  )}
+                </div>
+              ) : (
+                filtered.map((r, i) => (
+                  <button key={`${r.code}-${i}`}
+                    onMouseEnter={() => setHighlightedRoute(`${r.code}-${i}`)}
+                    onMouseLeave={() => setHighlightedRoute(null)}
+                    onClick={() => setHighlightedRoute(`${r.code}-${i}`)}
+                    style={{
+                      display: 'grid', gridTemplateColumns: '70px 1fr 90px',
+                      gap: 12, padding: '14px 18px', alignItems: 'center', width: '100%',
+                      background: highlightedRoute === `${r.code}-${i}` ? 'var(--stone-50)' : '#fff',
+                      border: 0, borderBottom: i < filtered.length - 1 ? '1px solid var(--border)' : 0,
+                      cursor: 'pointer', textAlign: 'left',
+                      transition: 'background 160ms',
+                    }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700, color: 'var(--fg2)' }}>{r.code}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <StatusDot ok={r.ok}/>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--fg1)' }}>{r.name}</div>
+                        <div style={{ fontSize: 12, color: r.ok ? 'var(--fg3)' : 'var(--rust-600)', marginTop: 2 }}>{r.note}</div>
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{r.km} km</div>
+                  </button>
+                ))
+              )}
             </div>
 
             {}
@@ -415,9 +440,9 @@ function Dashboard({ onBack, onExpert }) {
       {}
       <section style={{ padding: '80px 0', background: 'var(--stone-25)' }}>
         <div style={{ maxWidth: isXlarge ? 1800 : 1600, margin: '0 auto', padding: isLarge ? '0 48px' : '0 24px' }}>
-          <SectionHeader eyebrow="Mi Teleférico · La Paz & El Alto"
-            title="Cable network."
-            sub="The world's longest urban cable car system. 10 lines · Bs 3 per ride · Cabins every ~12 sec"/>
+          <SectionHeader eyebrow="Mi Teleférico · La Paz y El Alto"
+            title={t('dash.cableTitle', 'Cable car network.')}
+            sub={t('dash.cableSub', "The world's longest urban cable car network.")}/>
 
           {}
           <div style={{
@@ -426,17 +451,17 @@ function Dashboard({ onBack, onExpert }) {
             background: 'var(--bg)', border: '1px solid var(--border)',
             fontSize: 12, color: 'var(--fg2)',
           }}>
-            <span>ðŸ• <strong>Monâ€“Sat</strong> 06:30â€“22:30</span>
+            <span>🕐 <strong>Mon–Sat</strong> 06:30–22:30</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>ðŸ• <strong>Sun & holidays</strong> 07:00â€“21:00</span>
+            <span>🕐 <strong>Sun & holidays</strong> 07:00–21:00</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>ðŸ’³ Standard <strong>Bs 3.00</strong> · Discounted <strong>Bs 1.50</strong></span>
+            <span>💳 Standard <strong>Bs 3.00</strong> · Discounted <strong>Bs 1.50</strong></span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>ðŸ”„ Transfer <strong>Bs 2.00</strong> / <strong>Bs 1.00</strong></span>
+            <span>🔄 Transfer <strong>Bs 2.00</strong> / <strong>Bs 1.00</strong></span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>ðŸ“± App <strong>YALA</strong> (QR top-up)</span>
+            <span>📱 App <strong>YALA</strong> (QR top-up)</span>
             <span style={{ opacity: 0.35 }}>|</span>
-            <span>ðŸ“ž WhatsApp <strong>71554749</strong></span>
+            <span>📞 WhatsApp <strong>71554749</strong></span>
           </div>
 
           {}
@@ -462,9 +487,9 @@ function Dashboard({ onBack, onExpert }) {
               {teleferico.map(t => (
                 <article key={t.line} style={{
                   background: 'var(--bg-elevated)', borderRadius: 14,
-                  border: `1px solid ${t.ok ? 'var(--border)' : '#fca5a5'}`,
+                  border: '1px solid var(--border)',
                   padding: '16px 18px', display: 'flex', alignItems: 'flex-start', gap: 14,
-                  boxShadow: t.ok ? 'var(--shadow-xs)' : '0 0 0 2px rgba(220,38,38,0.08)',
+                  boxShadow: 'var(--shadow-xs)',
                 }}>
                   {}
                   <div style={{
@@ -490,7 +515,6 @@ function Dashboard({ onBack, onExpert }) {
                       <div style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 600, lineHeight: 1.1 }}>
                         Línea <span style={{ color: t.hex }}>{t.line}</span>
                       </div>
-                      <StatusDot ok={t.ok} />
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--fg3)', marginTop: 3, lineHeight: 1.4, fontFamily: 'var(--font-mono)' }}>{t.stations}</div>
 
@@ -509,13 +533,13 @@ function Dashboard({ onBack, onExpert }) {
                         </svg>
                         <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg2)' }}>{t.km} km</span>
                       </div>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: t.ok ? '#15803d' : '#dc2626', marginLeft: 'auto' }}>
-                        {t.ok ? `â— ${t.wait}` : 'âš  Maintenance'}
+                      <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg2)', marginLeft: 'auto' }}>
+                        {t.duration} min
                       </div>
                     </div>
 
                     {t.tourTip && (
-                      <div style={{ marginTop: 6, fontSize: 10.5, color: 'var(--fg3)', fontStyle: 'italic', lineHeight: 1.35 }}>ðŸ’¡ {t.tourTip}</div>
+                      <div style={{ marginTop: 6, fontSize: 10.5, color: 'var(--fg3)', fontStyle: 'italic', lineHeight: 1.35 }}>💡 {t.tourTip}</div>
                     )}
                   </div>
                 </article>
@@ -610,8 +634,8 @@ function Dashboard({ onBack, onExpert }) {
                       <div style={{ fontWeight: 700, fontSize: 13, color: l.color }}>Línea {l.name}</div>
                       <div style={{ fontSize: 11, color: 'var(--fg3)', marginTop: 3, lineHeight: 1.5 }}>{l.stations}</div>
                       <div style={{ fontSize: 11, marginTop: 6, display: 'flex', gap: 12 }}>
-                        <span>â± <strong>{l.duration} min</strong></span>
-                        <span>ðŸ“ <strong>{l.km} km</strong></span>
+                        <span>⏱ <strong>{l.duration} min</strong></span>
+                        <span>📏 <strong>{l.km} km</strong></span>
                       </div>
                     </>
                   ) : null; })()}
@@ -620,7 +644,7 @@ function Dashboard({ onBack, onExpert }) {
                 <div style={{ fontSize: 10, color: 'var(--fg3)', marginTop: 8, textAlign: 'center' }}>
                   Click a line to see details · <button onClick={() => setMapFullscreen(true)}
                     style={{ background: 'none', border: 'none', color: 'var(--amber-500)', fontWeight: 700, fontSize: 10, cursor: 'pointer' }}>
-                    Full map â†—
+                    Full map ↗
                   </button>
                 </div>
               )}
@@ -628,7 +652,7 @@ function Dashboard({ onBack, onExpert }) {
           </div>
 
           <div style={{ marginTop: 16, fontSize: 12, color: 'var(--fg3)', textAlign: 'center' }}>
-            âš¡ No real-time public API available — status verified via
+            ⚡ No real-time public API available — status verified via
             <a href="https://www.miteleferico.bo" target="_blank" rel="noreferrer"
               style={{ color: 'var(--amber-500)', marginLeft: 4, textDecoration: 'none', fontWeight: 600 }}>
               miteleferico.bo
@@ -640,9 +664,9 @@ function Dashboard({ onBack, onExpert }) {
       {}
       <section style={{ padding: '72px 0', background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px' }}>
-          <SectionHeader eyebrow="Open-Meteo · Live Data"
-            title="Weather across Bolivia."
-            sub="Seven cities, three altitude bands. Pack the layers the data tells you to."/>
+          <SectionHeader eyebrow={t('dash.weatherEyebrow', 'Open-Meteo · Live data')}
+            title={t('dash.weatherTitle', 'Weather across Bolivia.')}
+            sub={t('dash.weatherSub', 'Seven cities, three altitude bands.')}/>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 14 }}>
             {citiesData.map(c => (
               <article key={c.city} style={{
@@ -657,8 +681,8 @@ function Dashboard({ onBack, onExpert }) {
                   <div style={{ color: 'var(--amber-600)' }}>{c.icon}</div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 14 }}>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 500, lineHeight: 1, color: 'var(--fg1)' }}>{c.temp}Â°</div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{c.lo}Â° / {c.hi}Â°</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 500, lineHeight: 1, color: 'var(--fg1)' }}>{c.temp}°</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg3)' }}>{c.lo}° / {c.hi}°</div>
                 </div>
                 <div style={{ marginTop: 10, fontSize: 13, color: 'var(--fg2)' }}>{c.conditions}</div>
               </article>
@@ -668,22 +692,11 @@ function Dashboard({ onBack, onExpert }) {
       </section>
 
       {}
-      <section style={{ padding: '72px 0', background: 'var(--stone-25)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px' }}>
-          <SectionHeader eyebrow="Alerts feed" title="What changed today."
-            sub="Triaged from official channels and field reports. Most recent first."/>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {alerts.map(a => <AlertRow key={a.id} alert={a}/>)}
-          </div>
-        </div>
-      </section>
-
-      {}
       <section style={{ background: 'var(--stone-50)', padding: '24px 0', borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
           fontSize: 12, color: 'var(--fg3)', fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
-          <I.Shield size={14}/> Data from ABC, Mi Teleférico, SENAMHI, OpenWeather. Refreshed every 5 min · 6:00â€“22:00 BOT.
+          <I.Shield size={14}/> Clima: Open-Meteo (en vivo). Carreteras: ABC. Teleférico: red publicada por Mi Teleférico.
         </div>
       </section>
 
@@ -692,15 +705,15 @@ function Dashboard({ onBack, onExpert }) {
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px',
           display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <div style={{ flex: 1, minWidth: 280 }}>
-            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>When the data isn't enough</div>
+            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>{t('dash.ctaEyebrow', "When the data isn't enough")}</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px,3.4vw,40px)', margin: '10px 0 0', fontWeight: 600, lineHeight: 1.1 }}>
-              Talk to someone on the ground today.
+              {t('dash.ctaTitle', 'Talk to someone on the ground today.')}
             </h3>
             <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.78)', marginTop: 12, maxWidth: 520, lineHeight: 1.55 }}>
-              The dashboard tells you the road is blocked. A local tells you which alt route the truckers are using right now.
+              {t('dash.ctaDesc', 'A local tells you which detour the truckers are using right now.')}
             </p>
           </div>
-          <Btn kind="amber" size="lg" onClick={onExpert}>Talk to a local <I.ArrowR size={15}/></Btn>
+          <Btn kind="amber" size="lg" onClick={onExpert}>{t('common.talkToLocal', 'Talk to a local')} <I.ArrowR size={15}/></Btn>
         </div>
       </section>
 
@@ -732,7 +745,7 @@ function Dashboard({ onBack, onExpert }) {
                 </div>
                 <button onClick={() => { setMapFullscreen(false); setActiveMapLine(null); }}
                   style={{ width: 36, height: 36, borderRadius: 10, border: '1px solid var(--border)',
-                    background: 'var(--bg-sunken)', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: 'var(--fg2)' }}>âœ•</button>
+                    background: 'var(--bg-sunken)', cursor: 'pointer', fontSize: 18, lineHeight: 1, color: 'var(--fg2)' }}>✕</button>
               </div>
               <svg viewBox="0 0 560 430" style={{ width: '100%', height: 'auto', flex: 1, cursor: 'pointer' }}
                 xmlns="http://www.w3.org/2000/svg" onClick={() => setActiveMapLine(null)}>
@@ -821,7 +834,7 @@ function Dashboard({ onBack, onExpert }) {
                       ))}
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                      {[['â±', 'Duración', `${l.duration} min`],['ðŸ“', 'Distancia', `${l.km} km`]].map(([ic,lb,vl]) => (
+                      {[['⏱', 'Duración', `${l.duration} min`],['📏', 'Distancia', `${l.km} km`]].map(([ic,lb,vl]) => (
                         <div key={lb} style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: '12px 14px', border: '1px solid var(--border)' }}>
                           <div style={{ fontSize: 18 }}>{ic}</div>
                           <div style={{ fontSize: 10, color: 'var(--fg3)', fontWeight: 700, marginTop: 4 }}>{lb}</div>
@@ -829,17 +842,17 @@ function Dashboard({ onBack, onExpert }) {
                         </div>
                       ))}
                     </div>
-                    {t && <div style={{ background: t.ok ? '#f0fdf4' : '#fef2f2', borderRadius: 10, padding: '10px 14px',
-                      border: `1px solid ${t.ok ? '#bbf7d0' : '#fecaca'}` }}>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: t.ok ? '#15803d' : '#dc2626' }}>
-                        {t.ok ? `â— Operativa · espera ${t.wait}` : `âš  ${t.note || 'En mantenimiento'}`}
+                    {t && <div style={{ background: 'var(--stone-50)', borderRadius: 10, padding: '10px 14px',
+                      border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--fg1)' }}>
+                        {`Recorrido ${t.duration} min · ${t.km} km`}
                       </div>
-                      {t.tourTip && <div style={{ fontSize: 11, color: 'var(--fg2)', marginTop: 4, fontStyle: 'italic' }}>ðŸ’¡ {t.tourTip}</div>}
+                      {t.tourTip && <div style={{ fontSize: 11, color: 'var(--fg2)', marginTop: 4, fontStyle: 'italic' }}>💡 {t.tourTip}</div>}
                     </div>}
                     <button onClick={() => setActiveMapLine(null)} style={{
                       padding: '10px 0', borderRadius: 10, border: '1px solid var(--border)',
                       background: 'var(--bg-elevated)', cursor: 'pointer', fontSize: 12, color: 'var(--fg2)', fontWeight: 600,
-                    }}>â† Volver a todas las líneas</button>
+                    }}>← Volver a todas las líneas</button>
                   </>
                 );
               })() : (
@@ -868,7 +881,7 @@ function Dashboard({ onBack, onExpert }) {
 }
 
 function KpiTile({ label, value, note, tone = 'ok' }) {
-  const toneColor = tone === 'warn' ? 'var(--amber-600)' : tone === 'bad' ? 'var(--rust-600)' : 'var(--green-700, #1f4f3a)';
+  const toneColor = tone === 'warn' ? 'var(--amber-600)' : tone === 'bad' ? 'var(--rust-600)' : 'var(--green-700, #1b4231)';
   return (
     <div style={{
       background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 14,
@@ -894,33 +907,8 @@ function SectionHeader({ eyebrow, title, sub }) {
   );
 }
 
-function AlertRow({ alert }) {
-  const tone = alert.level === 'high' ? 'var(--rust-600)' : alert.level === 'medium' ? 'var(--amber-600)' : 'var(--fg3)';
-  const bg = alert.level === 'high' ? 'var(--rust-50, #fdecea)' : alert.level === 'medium' ? 'var(--amber-50, #fff8e7)' : 'var(--stone-50)';
-  return (
-    <article style={{
-      background: 'var(--bg-elevated)', borderRadius: 14, border: '1px solid var(--border)',
-      padding: 20, display: 'flex', gap: 16,
-    }}>
-      <div style={{
-        width: 44, height: 44, borderRadius: 10, background: bg, color: tone,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-      }}><I.Alert size={20}/></div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-          <h3 style={{ margin: 0, fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 700, color: 'var(--fg1)' }}>{alert.title}</h3>
-          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.5, textTransform: 'uppercase', color: tone }}>{alert.level}</span>
-        </div>
-        <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--fg2)', lineHeight: 1.55 }}>{alert.body}</p>
-        <div style={{ marginTop: 10, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg3)', letterSpacing: 0.3 }}>
-          {alert.time} · {alert.source}
-        </div>
-      </div>
-    </article>
-  );
-}
-
 function BoliviaMap({ roads, highlighted }) {
+  const { t } = useI18n();
   // City positions mapped to the real BO_VIEWBOX coordinate system ("74 21 852 958")
   const cities = {
     'La Paz':       { x: 194, y: 404 },
@@ -952,7 +940,7 @@ function BoliviaMap({ roads, highlighted }) {
   };
 
   return (
-    <svg viewBox={BO_VIEWBOX} role="img" aria-label="Bolivia road network status"
+    <svg viewBox={BO_VIEWBOX} role="img" aria-label={t('a11y.roadMap', 'Bolivia road network status')}
       style={{ width: '100%', height: 'auto', display: 'block' }}>
       <defs>
         <linearGradient id="biRoadMapBg" x1="0" y1="0" x2="0" y2="1">
@@ -1003,23 +991,23 @@ function BoliviaMap({ roads, highlighted }) {
 }
 
 const ATTRACTIONS = [
-  { id: 'uyuni',     name: 'Salar de Uyuni',       alt: 3656, x: 248, y: 754, emoji: '🧂', region: 'Altiplano',
+  { id: 'uyuni', sector: 'altiplano-sur',     name: 'Salar de Uyuni',       alt: 3656, x: 248, y: 754, emoji: '🧂', region: 'Altiplano',
     type: 'Maravilla Natural', temp: '-5°C a 15°C', img: IMG.photoUyuni || IMG.altiplano,
     tip: 'El espejo natural más grande del mundo. En temporada de lluvias (nov–mar) el agua crea el famoso efecto reflejo, un paraíso para la fotografía. Evita el invierno extremo si sufres de frío.',
     best: 'Nov – Mar' },
-  { id: 'titicaca',  name: 'Lago Titicaca',         alt: 3810, x: 133, y: 390, emoji: '🌊', region: 'Altiplano',
+  { id: 'titicaca', sector: 'altiplano',  name: 'Lago Titicaca',         alt: 3810, x: 133, y: 390, emoji: '🌊', region: 'Altiplano',
     type: 'Lago Sagrado', temp: '0°C a 14°C', img: IMG.photoTiticaca || IMG.altiplano,
     tip: 'El lago navegable más alto del mundo. Visita la Isla del Sol y Copacabana para entender los orígenes de la cultura andina.',
     best: 'May – Oct' },
-  { id: 'tiwanaku',  name: 'Tiwanaku',              alt: 3840, x: 146, y: 426, emoji: '🏛️', region: 'Altiplano',
+  { id: 'tiwanaku', sector: 'altiplano',  name: 'Tiwanaku',              alt: 3840, x: 146, y: 426, emoji: '🏛️', region: 'Altiplano',
     type: 'Sitio Arqueológico', temp: '-2°C a 17°C', img: IMG.photoTiwanaku,
     tip: 'Ruinas de una de las civilizaciones precolombinas más avanzadas de América. Su Puerta del Sol es un imperdible.',
     best: 'Abr – Oct' },
-  { id: 'lapaz',     name: 'La Paz',                alt: 3640, x: 194, y: 420, emoji: '🏙️', region: 'Metro',
+  { id: 'lapaz', sector: 'metro',     name: 'La Paz',                alt: 3640, x: 194, y: 420, emoji: '🏙️', region: 'Metro',
     type: 'Ciudad Principal', temp: '1°C a 16°C', img: IMG.laPaz,
     tip: 'La sede de gobierno más alta del mundo. Explora su red de Mi Teleférico, el Mercado de las Brujas y disfruta su vibrante gastronomía.',
     best: 'Todo el año' },
-  { id: 'elalto',    name: 'El Alto',               alt: 4150, x: 186, y: 422, emoji: '⛪', region: 'Metro',
+  { id: 'elalto', sector: 'metro',    name: 'El Alto',               alt: 4150, x: 186, y: 422, emoji: '⛪', region: 'Metro',
     type: 'Ciudad Aymara', temp: '-4°C a 14°C', img: IMG.photoMetro,
     tip: 'La metrópoli aymara. Descubre la arquitectura de los Cholets y el inmenso Mercado 16 de Julio los jueves y domingos.',
     best: 'Todo el año' },
@@ -1027,19 +1015,19 @@ const ATTRACTIONS = [
     type: 'Parque Nacional', temp: '-15°C a 10°C', img: IMG.photoSajama,
     tip: 'Dominado por el volcán Sajama, el pico más alto de Bolivia. Relájate en sus aguas termales rodeado de alpacas y géiseres.',
     best: 'May – Sep' },
-  { id: 'colorada',  name: 'Laguna Colorada',       alt: 4278, x: 224, y: 942, emoji: '🦩', region: 'Altiplano',
+  { id: 'colorada', sector: 'altiplano-sur',  name: 'Laguna Colorada',       alt: 4278, x: 224, y: 942, emoji: '🦩', region: 'Altiplano',
     type: 'Reserva Natural', temp: '-10°C a 12°C', img: IMG.photoColorada,
     tip: 'Famosa por sus intensos tonos rojizos y por albergar miles de flamencos de James en sus aguas poco profundas.',
     best: 'Nov – Mar' },
-  { id: 'verde',     name: 'Laguna Verde',          alt: 4400, x: 220, y: 997, emoji: '💚', region: 'Altiplano',
+  { id: 'verde', sector: 'altiplano-sur',     name: 'Laguna Verde',          alt: 4400, x: 220, y: 997, emoji: '💚', region: 'Altiplano',
     type: 'Reserva Natural', temp: '-12°C a 10°C', img: IMG.photoVerde,
     tip: 'Espectacular laguna color esmeralda a los pies del imponente volcán Licancabur, cerca de la frontera con Chile.',
     best: 'Nov – Mar' },
-  { id: 'potosi',    name: 'Potosí',                alt: 3967, x: 397, y: 702, emoji: '⛏️', region: 'Altiplano',
+  { id: 'potosi', sector: 'valles',    name: 'Potosí',                alt: 3967, x: 397, y: 702, emoji: '⛏️', region: 'Altiplano',
     type: 'Ciudad Colonial', temp: '-3°C a 15°C', img: IMG.photoPotosi,
     tip: 'Patrimonio UNESCO. Explora las históricas minas del Cerro Rico y la emblemática Casa de la Moneda colonial.',
     best: 'Abr – Oct' },
-  { id: 'sucre',     name: 'Sucre',                 alt: 2810, x: 439, y: 654, emoji: '⚖️', region: 'Valles',
+  { id: 'sucre', sector: 'valles',     name: 'Sucre',                 alt: 2810, x: 439, y: 654, emoji: '⚖️', region: 'Valles',
     type: 'Ciudad Capital', temp: '8°C a 23°C', img: IMG.photoValles,
     tip: 'La "Ciudad Blanca" y capital constitucional. Sus calles coloniales invitan a caminar y probar el famoso chocolate local.',
     best: 'May – Oct' },
@@ -1047,7 +1035,7 @@ const ATTRACTIONS = [
     type: 'Ruta del Vino', temp: '10°C a 28°C', img: IMG.photoTarija,
     tip: 'El centro vinícola de Bolivia. Disfruta vinos de altura, singani, y la hospitalidad cálida de los chapacos.',
     best: 'Abr – Nov' },
-  { id: 'torotoro',  name: 'Toro Toro',             alt: 2700, x: 396, y: 570, emoji: '🦕', region: 'Valles',
+  { id: 'torotoro', sector: 'valles',  name: 'Toro Toro',             alt: 2700, x: 396, y: 570, emoji: '🦕', region: 'Valles',
     type: 'Parque Nacional', temp: '5°C a 24°C', img: IMG.photoTorotoro,
     tip: 'Un paraíso paleontológico. Camina entre miles de huellas de dinosaurio auténticas y desciende a la caverna Umajalanta.',
     best: 'May – Oct' },
@@ -1055,7 +1043,7 @@ const ATTRACTIONS = [
     type: 'Sitio Arqueológico', temp: '12°C a 26°C', img: IMG.photoSamaipata,
     tip: 'El Fuerte es la roca tallada más grande de América. Un santuario místico preinca con vistas espectaculares del valle.',
     best: 'Abr – Nov' },
-  { id: 'muerte',    name: 'Camino de la Muerte',   alt: 1500, x: 219, y: 401, emoji: '🚵', region: 'Yungas',
+  { id: 'muerte', sector: 'metro',    name: 'Camino de la Muerte',   alt: 1500, x: 219, y: 401, emoji: '🚵', region: 'Yungas',
     type: 'Aventura / Ciclismo', temp: '15°C a 25°C', img: IMG.photoYungas,
     tip: 'Asciende desde las nieves de La Paz para lanzarte en bicicleta montaña abajo por la selva subtropical de los Yungas.',
     best: 'Jun – Nov' },
@@ -1063,11 +1051,11 @@ const ATTRACTIONS = [
     type: 'Patrimonio Cultural', temp: '20°C a 32°C', img: IMG.photoMisiones,
     tip: 'Seis impresionantes iglesias barrocas que mantienen viva la fusión de la cultura jesuita e indígena de la Chiquitania.',
     best: 'Abr – Oct' },
-  { id: 'madidi',    name: 'Madidi / Rurrenabaque', alt: 180,  x: 245, y: 232, emoji: '🐒', region: 'Amazonía',
+  { id: 'madidi', sector: 'amazon',    name: 'Madidi / Rurrenabaque', alt: 180,  x: 245, y: 232, emoji: '🐒', region: 'Amazonía',
     type: 'Selva Amazónica', temp: '22°C a 33°C', img: IMG.photoMadidi,
     tip: 'Uno de los parques con mayor biodiversidad del mundo. Camina por la jungla buscando jaguares o realiza tours de supervivencia.',
     best: 'Jun – Nov' },
-  { id: 'pampas',    name: 'Pampas del Yacuma',     alt: 200,  x: 301, y: 207, emoji: '🐊', region: 'Amazonía',
+  { id: 'pampas', sector: 'amazon',    name: 'Pampas del Yacuma',     alt: 200,  x: 301, y: 207, emoji: '🐊', region: 'Amazonía',
     type: 'Humedales / Vida Silvestre', temp: '21°C a 34°C', img: IMG.photoPampas,
     tip: 'Safaris en bote ideales para ver fácilmente caimanes, capibaras, anacondas y los raros delfines rosados de río (bufeos).',
     best: 'Jun – Oct' },
@@ -1091,6 +1079,7 @@ const BANDS = [
 ];
 
 function ClusterMap({ onExplore }) {
+  const { t } = useI18n();
   const winW = useWindowWidth();
   const isMobile = winW < 920;
   const [hovered, setHovered] = React.useState(null);
@@ -1110,7 +1099,7 @@ function ClusterMap({ onExplore }) {
         boxShadow: 'var(--shadow-xs)', padding: isMobile ? 14 : 20, position: 'relative',
         height: 'fit-content'
       }}>
-        <svg viewBox={BO_VIEWBOX} role="img" aria-label="Mapa orográfico de Bolivia"
+        <svg viewBox={BO_VIEWBOX} role="img" aria-label={t('a11y.reliefMap', 'Relief map of Bolivia')}
           style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 700, margin: '0 auto' }}>
           <defs>
             <linearGradient id="oroGrad" x1="0" y1="0" x2="1" y2="1">
@@ -1172,7 +1161,7 @@ function ClusterMap({ onExplore }) {
                     </text>
                     <text x={att.x + 34} y={att.y + 14} fontSize="16" fill="#fbbf24" fontWeight="600"
                       fontFamily="system-ui, monospace">
-                      {att.alt.toLocaleString()} m.s.n.m.
+                      {att.alt.toLocaleString()} {t('dash.masl', 'm above sea level')}
                     </text>
                   </>
                 )}
@@ -1247,23 +1236,25 @@ function ClusterMap({ onExplore }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px' }}>
               <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Altitud</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: altColor(active.alt), fontFamily: 'var(--font-display)' }}>{active.alt.toLocaleString()} <span style={{fontSize:12, fontWeight:600}}>msnm</span></div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: altColor(active.alt), fontFamily: 'var(--font-display)' }}>{active.alt.toLocaleString()} <span style={{fontSize:12, fontWeight:600}}>{t('dash.maslShort', 'm asl')}</span></div>
             </div>
             <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px' }}>
               <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Temperatura</div>
               <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>{active.temp}</div>
             </div>
             <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 12, padding: '12px 14px', gridColumn: '1 / -1' }}>
-              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>Mejor época</div>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--fg3)', marginBottom: 4 }}>{t('dash.bestSeason', 'Best season')}</div>
               <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>{active.best}</div>
             </div>
           </div>
 
           {/* Action Button */}
           <div style={{ marginTop: 8 }}>
-            <Btn kind="amber" size="lg" onClick={() => onExplore ? onExplore(active.id) : null} style={{ width: '100%', justifyContent: 'center' }}>
-              Ver detalles del destino <I.ArrowR size={15}/>
+            {onExplore && active.sector && (
+            <Btn kind="amber" size="lg" onClick={() => onExplore(active.sector)} style={{ width: '100%', justifyContent: 'center' }}>
+              {t('dash.viewDestination', 'See destination details')} <I.ArrowR size={15}/>
             </Btn>
+            )}
           </div>
         </div>
       </div>

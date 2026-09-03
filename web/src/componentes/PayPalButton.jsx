@@ -1,6 +1,7 @@
+import { API_BASE } from '../data/api.js';
 import React, { useEffect, useRef, useState } from 'react';
 
-const API = 'http://localhost:3000';
+const API = API_BASE;
 
 // Load the PayPal JS SDK exactly once per clientId. Returns a promise that
 // resolves when window.paypal is ready.
@@ -186,7 +187,7 @@ function PayPalButton({ durationMin, slot, brief, onPaid, onError }) {
 
       {status === 'not-configured' && (
         <div style={{
-          background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)',
+          background: 'var(--amber-50, #fff8e1)', border: '1px solid var(--amber-200, #ffe07a)',
           borderRadius: 12, padding: '14px 18px', fontSize: 13, color: 'var(--fg2)', lineHeight: 1.55,
         }}>
           <strong style={{ color: 'var(--fg1)' }}>Pago no configurado.</strong> Falta

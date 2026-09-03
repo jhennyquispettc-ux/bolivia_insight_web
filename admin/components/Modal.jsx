@@ -5,15 +5,15 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info', 
   if (!isOpen) return null;
 
   const colors = {
-    info: 'var(--navy-500, #1e293b)',
-    warning: 'var(--amber-500, #f59e0b)',
-    error: 'var(--rust-500, #c2410c)'
+    info: 'var(--navy-500, #283b58)',
+    warning: 'var(--amber-500, #ffb703)',
+    error: 'var(--rust-500, #b33f2e)'
   };
   
   const bgColors = {
-    info: 'var(--navy-50, #f8fafc)',
-    warning: 'var(--amber-50, #fffbeb)',
-    error: 'var(--rust-50, #fff7ed)'
+    info: 'var(--navy-50, #ecf0f5)',
+    warning: 'var(--amber-50, #fff8e1)',
+    error: 'var(--rust-50, #fbf0ed)'
   };
 
   const Icons = {

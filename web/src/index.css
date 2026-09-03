@@ -92,6 +92,17 @@
 
   --focus-ring:    color-mix(in srgb, var(--amber-500) 55%, transparent);
 
+  /* Text and hairlines on dark surfaces. Replaces the ad-hoc rgba(255,255,255,.xx)
+     values that were scattered across the landing page. */
+  --on-dark-1:     rgba(255, 255, 255, 0.92);
+  --on-dark-2:     rgba(255, 255, 255, 0.78);
+  --on-dark-3:     rgba(255, 255, 255, 0.55);
+  --on-dark-line:  rgba(255, 255, 255, 0.16);
+  --on-dark-fill:  rgba(255, 255, 255, 0.10);
+
+  /* Promoted from a one-off gradient in BookingBand. */
+  --grad-premium:  linear-gradient(135deg, var(--navy-700) 0%, var(--mystic-700) 100%);
+
   }
 
 [data-theme="dark"] {
@@ -325,3 +336,47 @@ a {
 a:hover { color: var(--rust-600); text-decoration-color: var(--rust-500); }
 
 ::selection { background: var(--amber-200); color: var(--navy-700); }
+
+/* ---------------------------------------------------------------------------
+   Interaction states for <Btn> (ui/Boton.jsx).
+   The component has always applied .bi-btn, but the class was never defined,
+   so every button on the site had no hover, focus or pressed state.
+   brightness() is used instead of per-variant colours so a single rule covers
+   all six `kind` variants.
+   --------------------------------------------------------------------------- */
+.bi-btn:hover:not(:disabled)  { filter: brightness(1.06); transform: translateY(-1px); }
+.bi-btn:active:not(:disabled) { filter: brightness(0.96); transform: translateY(0); }
+.bi-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.bi-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+/* Keyboard affordance for card-shaped links (destination cards, etc.). */
+.bi-card-link:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Shared keyframes.
+   bi-pulse used to live inside Hero.jsx's inline <style>, which meant the
+   StatusDot and the navbar "Live" indicator silently stopped animating on
+   every page except the landing. */
+@keyframes bi-pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes bi-fadeup  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bi-btn,
+  .bi-btn:hover,
+  .bi-btn:active { transition: none; transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

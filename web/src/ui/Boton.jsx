@@ -10,8 +10,10 @@ function Btn({ kind = 'primary', size = 'md', children, onClick, style = {}, ico
     glass:   { background: 'rgba(255,255,255,0.16)', color: '#fff', border: '1px solid rgba(255,255,255,0.28)', backdropFilter: 'blur(10px)' },
   }[kind];
   const s = {
-    sm: { padding: '8px 14px', fontSize: 13 },
-    md: { padding: '12px 22px', fontSize: 14 },
+    // minHeight keeps every button a valid touch target (44px) without
+    // changing how the small variant reads.
+    sm: { padding: '8px 14px', fontSize: 13, minHeight: 44 },
+    md: { padding: '12px 22px', fontSize: 14, minHeight: 44 },
     lg: { padding: '15px 28px', fontSize: 15 },
   }[size];
   return <button onClick={onClick} className="bi-btn" style={{

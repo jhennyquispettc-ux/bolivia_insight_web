@@ -5,6 +5,7 @@ import Landing from './paginas/Landing.jsx';
 import ClusterDetail from './paginas/ClusterDetail.jsx';
 import TravelGuide from './paginas/TravelGuide.jsx';
 import Dashboard from './paginas/Dashboard.jsx';
+import { CLUSTERS } from './data/destinos.jsx';
 import EmergencyHub from './paginas/EmergencyHub.jsx';
 import Auth from './paginas/Auth.jsx';
 import BookingPage from './paginas/BookingPage.jsx';
@@ -47,10 +48,19 @@ function App() {
           onDashboard={r.onDashboard}
           onDictionary={r.onDictionary}
           onSos={r.onSos}
-          onExpert={r.onExpert} />}
-        {r.route === 'cluster' && <ClusterDetail cluster={r.cluster} onBack={r.onBack} onBook={r.onGuide} />}
+          onExpert={r.onExpert}
+          onPlanner={() => r.goRoute('planner')} />}
+        {r.route === 'cluster' && <ClusterDetail cluster={r.cluster} onBack={r.onBack} onBook={r.onExpert} />}
         {r.route === 'guide' && <TravelGuide onBack={r.onBack} onExpert={r.onExpert} initialTab={r.guideTab} />}
-        {r.route === 'dashboard' && <Dashboard onBack={r.onBack} onExpert={r.onExpert} onExplore={r.onGuide} />}
+        {r.route === 'dashboard' && (
+          <Dashboard
+            onBack={r.onBack}
+            onExpert={r.onExpert}
+            onExploreSector={(sectorId) => {
+              const target = CLUSTERS.find(c => c.id === sectorId);
+              if (target) r.onClusterSelect(target);
+            }} />
+        )}
         {r.route === 'sos' && <EmergencyHub onBack={r.onBack} />}
         {r.route === 'auth' && <Auth onBack={r.onBack} onLogin={handleLogin} />}
         {r.route === 'booking' && (

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiUrl } from '../data/api.js';
 
 function Auth({ onBack, onLogin, onSuccess }) {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ function Auth({ onBack, onLogin, onSuccess }) {
         setLoading(true);
         try {
           
-          const res = await fetch('http://localhost:3000/auth/google', {
+          const res = await fetch(apiUrl('/auth/google'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ accessToken: response.access_token }),

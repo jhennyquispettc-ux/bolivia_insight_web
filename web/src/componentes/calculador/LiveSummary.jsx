@@ -17,7 +17,7 @@ function LiveSummary({ count, stayMinutes, max = 10, min = 2, startSet }) {
 
   let chip = null;
   if (count > max) {
-    chip = { color: 'var(--rust-600)', bg: 'var(--rust-50, #fbe5df)', text: t('planner.error.max', `Máximo ${max} lugares — quita alguno.`) };
+    chip = { color: 'var(--rust-600)', bg: 'var(--rust-50, #fbf0ed)', text: t('planner.error.max', `Máximo ${max} lugares — quita alguno.`) };
   } else if (count > 0 && count < min) {
     chip = { color: 'var(--warning)', bg: 'var(--warning-soft)', text: t('planner.error.min', `Marca al menos ${min} lugares para calcular.`) };
   } else if (count >= min && !startSet) {

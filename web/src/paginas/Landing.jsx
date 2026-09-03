@@ -6,13 +6,13 @@ import TabsSection from '../componentes/Tabs.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 
-function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert }) {
+function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert, onPlanner }) {
   return (
     <>
       <Hero variant={heroVariant} onCtaClick={onExpress}/>
       <AboutSection onExpert={onExpert} />
       <Clusters onSelect={onClusterSelect}/>
-      <TabsSection/>
+      <TabsSection onGuide={onExpress}/>
       <CompanionTriptych onDashboard={onDashboard} onDictionary={onDictionary} onSos={onSos}/>
       <BookingBand onExpert={onExpert}/>
       <Footer onNav={(id) => {
@@ -21,12 +21,14 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
         else if (id === 'sos') onSos?.();
         else if (id === 'guides') onExpress?.();
         else if (id === 'expert') onExpert?.();
+        else if (id === 'planner') onPlanner?.();
       }}/>
     </>
   );
 }
 
 function AboutSection({ onExpert }) {
+  const { t } = useI18n();
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   React.useEffect(() => {
@@ -42,22 +44,22 @@ function AboutSection({ onExpert }) {
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 36 : 80, alignItems: 'center' }}>
           <div>
-            <div className="eyebrow" style={{ color: 'var(--rust-500)', marginBottom: 14 }}>Sobre Bolivia Insight</div>
+            <div className="eyebrow" style={{ color: 'var(--rust-500)', marginBottom: 14 }}>{t('about.eyebrow', 'About Bolivia Insight')}</div>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(26px,7vw,36px)' : 48, fontWeight: 600, lineHeight: 1.05, margin: 0, color: 'var(--fg1)' }}>
-              Un entorno digital que facilita tu viaje.
+              {t('about.title', 'A digital companion that makes your trip easier.')}
             </h2>
             <p style={{ fontSize: isMobile ? 15 : 18, color: 'var(--fg2)', lineHeight: 1.65, marginTop: 20 }}>
-              Creado por personas que aman Bolivia y expertos locales dispuestos a ayudarte.
+              {t('about.desc', 'Built by people who love Bolivia and local guides willing to help.')}
               Nuestra misión es darte las herramientas y el conocimiento nativo para que tú también seas parte de la planificación y construcción de tu propia aventura, sin depender de agencias restrictivas.
             </p>
             {!isMobile && (
               <div style={{ marginTop: 32 }}>
-                <Btn kind="primary" size="md" onClick={onExpert}>Hablar con un experto local <I.ArrowR size={14}/></Btn>
+                <Btn kind="primary" size="md" onClick={onExpert}>{t('about.cta', 'Talk to a local guide')} <I.ArrowR size={14}/></Btn>
               </div>
             )}
             {isMobile && (
               <div style={{ marginTop: 24 }}>
-                <Btn kind="primary" size="md" onClick={onExpert} style={{ width: '100%', justifyContent: 'center' }}>Hablar con un experto local <I.ArrowR size={14}/></Btn>
+                <Btn kind="primary" size="md" onClick={onExpert} style={{ width: '100%', justifyContent: 'center' }}>{t('about.cta', 'Talk to a local guide')} <I.ArrowR size={14}/></Btn>
               </div>
             )}
           </div>
@@ -65,8 +67,8 @@ function AboutSection({ onExpert }) {
             <div style={{ width: '100%', aspectRatio: isMobile ? '16/9' : '4/3', borderRadius: isMobile ? 16 : 24, background: 'url(/assets/images/local_expert.png) center/cover', boxShadow: 'var(--shadow-xl)' }} />
             {!isMobile && (
               <div style={{ position: 'absolute', bottom: 0, left: -20, background: 'var(--bg-elevated)', padding: '16px 24px', borderRadius: 16, boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border)' }}>
-                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--fg3)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Hablemos de tu viaje</div>
-                <div style={{ fontSize: 14, color: 'var(--fg1)', fontWeight: 600, marginTop: 4 }}>Expertos disponibles hoy ✓</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--fg3)', letterSpacing: 0.5, textTransform: 'uppercase' }}>{t('about.badgeTop', "Let's talk about your trip")}</div>
+                <div style={{ fontSize: 14, color: 'var(--fg1)', fontWeight: 600, marginTop: 4 }}>{t('about.badgeBottom', 'Available this week')}</div>
               </div>
             )}
           </div>
@@ -305,12 +307,6 @@ function BookingBand({ onExpert }) {
 
   const isMobile = vw < 768;
 
-  const experts = [
-    { initials: 'CV', color: 'var(--rust-500)' },
-    { initials: 'MR', color: 'var(--mystic-700)' },
-    { initials: 'LM', color: 'var(--amber-600)' },
-    { initials: 'DV', color: 'var(--green-500)' },
-  ];
 
   const formatBookingTitle = (text) => {
     const parts = text.split(/[\[\]]/);
@@ -328,7 +324,7 @@ function BookingBand({ onExpert }) {
 
   return (
     <section style={{
-      background: 'linear-gradient(135deg, var(--navy-700) 0%, var(--mystic-700) 100%)',
+      background: 'var(--grad-premium)',
       color: '#fff', padding: isMobile ? '64px 0' : '96px 0', position: 'relative', overflow: 'hidden',
     }}>
       <div style={{
@@ -352,18 +348,18 @@ function BookingBand({ onExpert }) {
           }}>
             {formatBookingTitle(t('booking.title', 'When the data and the dictionary run out — [talk to a person who walks the route].'))}
           </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.82)', marginTop: 18, maxWidth: 580, lineHeight: 1.55 }}>
+          <p style={{ fontSize: isMobile ? 15 : 17, color: 'var(--on-dark-2)', marginTop: 18, maxWidth: 580, lineHeight: 1.55 }}>
             {t('booking.desc', 'Fifteen or thirty minutes by video with a resident writer. They audit your itinerary, optimize routes, and answer the questions no app can.')}
           </p>
           <div style={{ display: 'flex', gap: isMobile ? 20 : 28, marginTop: 28, flexWrap: 'wrap' }}>
             {[
-              { k: t('booking.stat1Key', '4'),     v: t('booking.stat1Val', 'Local experts') },
-              { k: t('booking.stat2Key', '~24h'),  v: t('booking.stat2Val', 'Avg confirm') },
-              { k: t('booking.stat3Key', '4.9'),   v: t('booking.stat3Val', 'Avg rating · 887 calls') },
+              { k: t('booking.stat1Key', '15 / 30'),    v: t('booking.stat1Val', 'Minutes per session') },
+              { k: t('booking.stat2Key', 'USD 12 / 22'), v: t('booking.stat2Val', 'Price in US dollars') },
+              { k: t('booking.stat3Key', 'ES · EN'),     v: t('booking.stat3Val', 'Languages available') },
             ].map(s => (
               <div key={s.k}>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 24 : 30, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 4 }}>{s.v}</div>
+                <div style={{ fontSize: 11, color: 'var(--on-dark-3)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 4 }}>{s.v}</div>
               </div>
             ))}
           </div>
@@ -371,28 +367,29 @@ function BookingBand({ onExpert }) {
 
         {}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'flex-start', gap: 22 }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {experts.map((e, i) => (
-              <div key={i} style={{
-                width: isMobile ? 48 : 60, height: isMobile ? 48 : 60, borderRadius: '50%', background: e.color,
-                color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 700, fontSize: isMobile ? 13 : 16,
-                border: '3px solid var(--navy-700)', marginLeft: i === 0 ? 0 : -14,
-                boxShadow: '0 4px 14px -4px rgba(0,0,0,0.4)',
-                fontFamily: 'var(--font-sans)',
-              }}>{e.initials}</div>
+          <div style={{
+            background: 'var(--on-dark-fill)', border: '1px solid var(--on-dark-line)',
+            borderRadius: 16, padding: isMobile ? 18 : 22, width: '100%', maxWidth: 360,
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: 'uppercase', color: 'var(--amber-300)', marginBottom: 12 }}>
+              {t('booking.includesTitle', 'Qué incluye')}
+            </div>
+            {[
+              t('booking.includes1', 'Videollamada de 15 o 30 minutos'),
+              t('booking.includes2', 'Revisión de tu itinerario'),
+              t('booking.includes3', 'Rutas, altitud y tiempos reales'),
+            ].map((line) => (
+              <div key={line} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '5px 0' }}>
+                <I.Check size={15} style={{ color: 'var(--amber-300)', flexShrink: 0, marginTop: 2 }}/>
+                <span style={{ fontSize: 14, color: 'var(--on-dark-1)', lineHeight: 1.45 }}>{line}</span>
+              </div>
             ))}
-            <div style={{
-              marginLeft: 14, padding: '6px 12px', borderRadius: 999,
-              background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.28)',
-              fontSize: 12, fontWeight: 700, letterSpacing: 0.3,
-            }}>From $12 · 15 min</div>
           </div>
           <Btn kind="amber" size={isMobile ? 'md' : 'lg'} onClick={onExpert} style={{ alignSelf: 'flex-start' }}>
             {t('booking.btn', 'Book a 15-min call')} <I.ArrowR size={15}/>
           </Btn>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', maxWidth: 320, lineHeight: 1.5, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
-            {t('booking.note', 'STRIPE CHECKOUT · REFUNDABLE 12H BEFORE · GOOGLE MEET LINK ARRIVES 1H BEFORE')}
+          <p style={{ fontSize: 11, color: 'var(--on-dark-3)', maxWidth: 320, lineHeight: 1.5, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
+            {t('booking.note', 'SECURE PAYPAL CHECKOUT · GOOGLE MEET LINK ARRIVES BY EMAIL')}
           </p>
         </div>
       </div>
@@ -411,47 +408,39 @@ function Footer({ onNav }) {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const isMobile = vw < 640;
+  const isMobile = vw < 768;
+
+  const WHATSAPP = 'https://wa.me/59167042869';
+  const EMAIL = 'hola@illasoluciones.com';
 
   const cols = [
-    { h: t('footer.explore', 'Explore'),   l: [
-      { t: t('nav.destinations', 'Destinations'),              id: 'destinations' },
-      { t: t('footer.suggestedRoutes', 'Suggested routes'),    id: 'destinations' },
-      { t: t('footer.whatToDo', 'What to do'),                 id: 'destinations' },
-      { t: t('footer.festivalsEvents', 'Festivals & events'),  id: 'destinations' },
-    ]},
-    { h: t('footer.tools', 'Tools'),     l: [
-      { t: t('nav.dashboard', 'Live Dashboard'),               id: 'dashboard' },
-      { t: t('nav.dictionary', 'Cultural Dictionary'),         id: 'dictionary' },
-      { t: t('nav.guides', 'Travel Guide'),                    id: 'guides' },
-      { t: t('nav.sos', 'Emergency Hub'),                      id: 'sos' },
-    ]},
-    { h: t('footer.getHelp', 'Get help'),  l: [
-      { t: t('footer.talkToLocal', 'Talk to a local · $12'),   id: 'expert' },
-      { t: t('footer.aiConcierge', 'AI concierge'),            id: 'expert' },
-      { t: t('footer.contact', 'Contact'),                     id: 'expert' },
-      { t: t('footer.sources', 'Sources'),                     id: 'expert' },
+    { h: t('footer.tools', 'Herramientas'), l: [
+      { t: t('nav.dashboard', 'Tablero en vivo'),      id: 'dashboard' },
+      { t: t('nav.dictionary', 'Diccionario cultural'), id: 'dictionary' },
+      { t: t('nav.guides', 'Guía de viaje'),           id: 'guides' },
+      { t: t('nav.planner', 'Planificador'),            id: 'planner' },
+      { t: t('nav.sos', 'Centro de emergencias'),       id: 'sos' },
     ]},
   ];
 
   return (
-    <footer style={{ background: 'var(--navy-800)', color: 'rgba(255,255,255,0.7)', padding: isMobile ? '52px 0 28px' : '72px 0 36px' }}>
+    <footer style={{ background: 'var(--navy-800)', color: 'var(--on-dark-3)', padding: isMobile ? '52px 0 28px' : '72px 0 36px' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
 
         {}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr 1fr 1fr',
+          gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr 1.2fr',
           gap: isMobile ? 0 : 40,
         }}>
           {}
           <div style={{ marginBottom: isMobile ? 32 : 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
               <img src="assets/logos/logo-mark-256.png" alt="" style={{ height: 32, filter: 'brightness(0) invert(1)' }}/>
-              <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--rust-300)' }}>Bolivia<span style={{ color: 'var(--amber-400)', fontWeight: 600 }}>Insight</span></span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--rust-300)' }}>Bolivia<span style={{ color: 'var(--amber-300)', fontWeight: 600 }}>Insight</span></span>
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.6, maxWidth: 380, margin: 0 }}>
-              {t('footer.desc', 'An independent travel guide to Bolivia, written by people who live here. No bookings, no commission — just honest field notes for travelers exploring on their own terms.')}
+              {t('footer.desc', 'A travel information portal for Bolivia, written by people who live here. Open information to plan on your own, and advice from a local when you need it.')}
             </p>
             <div style={{ marginTop: 18, fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: 0.4, opacity: 0.5 }}>LA PAZ · SUCRE · UYUNI</div>
           </div>
@@ -465,7 +454,7 @@ function Footer({ onNav }) {
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%',
                   background: 'transparent', border: 0, cursor: isMobile ? 'pointer' : 'default',
                   padding: isMobile ? '14px 0' : '0 0 14px',
-                  color: 'var(--amber-400)',
+                  color: 'var(--amber-300)',
                   fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase',
                   fontFamily: 'var(--font-sans)',
                 }}>
@@ -483,13 +472,31 @@ function Footer({ onNav }) {
                       display: 'block', width: '100%', textAlign: 'left',
                       background: 'transparent', border: 0, cursor: 'pointer',
                       color: 'inherit', fontFamily: 'var(--font-sans)',
-                      fontSize: 14, padding: '6px 0',
+                      fontSize: 14, padding: '11px 0', minHeight: 44,
                     }}>{x.t}</button>
                   ))}
                 </div>
               )}
             </div>
           ))}
+
+          {/* Contact: real, reachable channels. The phone is a WhatsApp link,
+              never plain text, so it is not harvested by scrapers. */}
+          <div style={{ borderTop: isMobile ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
+            <div style={{
+              padding: isMobile ? '14px 0' : '0 0 14px', color: 'var(--amber-300)',
+              fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase',
+              fontFamily: 'var(--font-sans)',
+            }}>{t('footer.contactUs', 'Contáctanos')}</div>
+            <a href={WHATSAPP} target="_blank" rel="noreferrer" style={{
+              display: 'flex', alignItems: 'center', gap: 8, padding: '11px 0', minHeight: 44,
+              color: 'inherit', textDecoration: 'none', fontSize: 14,
+            }}><I.Phone size={15}/> WhatsApp</a>
+            <a href={'mailto:' + EMAIL} style={{
+              display: 'flex', alignItems: 'center', gap: 8, padding: '11px 0', minHeight: 44,
+              color: 'inherit', textDecoration: 'none', fontSize: 14, wordBreak: 'break-all',
+            }}><I.Send size={15}/> {EMAIL}</a>
+          </div>
         </div>
       </div>
 
@@ -504,7 +511,7 @@ function Footer({ onNav }) {
         gap: isMobile ? 6 : 12,
         textAlign: isMobile ? 'center' : 'left',
       }}>
-        <div>© 2026 Bolivia Insight S.R.L. · La Paz, Bolivia</div>
+        <div>© 2026 Bolivia Insight · La Paz, Bolivia · <span style={{ opacity: 0.7 }}>by Illa</span></div>
         <div>{t('footer.privacy', 'Privacy · Terms · Cookies')}</div>
       </div>
     </footer>

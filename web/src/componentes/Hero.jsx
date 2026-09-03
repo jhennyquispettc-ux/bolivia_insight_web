@@ -120,14 +120,16 @@ function Hero({ variant = 'A', onCtaClick }) {
               letterSpacing: '-0.035em',
               fontWeight: 600,
               color: '#fff',
-              margin: '20px 0 0', maxWidth: isMobile ? '100%' : 1100,
+              // Held to a readable measure so the headline sits as a column
+              // against the salt flat instead of stretching across the frame.
+              margin: '20px 0 0', maxWidth: isMobile ? '100%' : 720,
               textWrap: 'balance',
               textShadow: night ? '0 4px 40px rgba(106,76,147,0.5), 0 2px 12px rgba(0,0,0,0.6)' : '0 4px 30px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.5)',
             }}>
               {formatTitle(night ? t('hero.titleNight', 'Bolivia, in [silver light].') : t('hero.titleDay', 'Bolivia, in [last light].'), night)}
             </h1>
             <p style={{
-              color: 'rgba(255,255,255,0.95)',
+              color: 'var(--on-dark-1)',
               fontSize: isMobile ? 15 : 19, lineHeight: 1.55,
               maxWidth: isMobile ? '100%' : 580, marginTop: 16, fontWeight: 400,
               textShadow: '0 2px 14px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5)',
@@ -136,7 +138,10 @@ function Hero({ variant = 'A', onCtaClick }) {
             </p>
             <div style={{ marginTop: 28, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <Btn kind="primary" size={isMobile ? 'md' : 'lg'} onClick={onCtaClick}>{t('hero.ctaOpenGuide', 'Open the guide')} <I.ArrowR size={16} /></Btn>
-              <Btn kind="glass" size={isMobile ? 'md' : 'lg'}>{t('hero.ctaBrowseDestinations', 'Browse destinations')}</Btn>
+              <Btn kind="glass" size={isMobile ? 'md' : 'lg'}
+                onClick={() => document.getElementById('sectores')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                {t('hero.ctaBrowseDestinations', 'Ver los sectores')}
+              </Btn>
             </div>
           </>
         ) : (
@@ -161,20 +166,23 @@ function Hero({ variant = 'A', onCtaClick }) {
             </h1>
             <div style={{ marginTop: 40, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Btn kind="primary" size={isMobile ? 'md' : 'lg'} onClick={onCtaClick}>{t('hero.ctaOpenGuide', 'Open the guide')} <I.ArrowR size={16} /></Btn>
-              <Btn kind="glass" size={isMobile ? 'md' : 'lg'}>{t('hero.watchAltiplano', 'Watch the altiplano →')}</Btn>
+              <Btn kind="glass" size={isMobile ? 'md' : 'lg'}
+                onClick={() => document.getElementById('sectores')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                {t('hero.ctaBrowseDestinations', 'Ver los sectores')}
+              </Btn>
             </div>
           </div>
         )}
       </div>
 
       {}
-      <button onClick={() => setNight(!night)} aria-label="Toggle day/night" style={{
+      <button onClick={() => setNight(!night)} aria-label={t('a11y.toggleDayNight', 'Toggle day and night')} style={{
         position: 'absolute',
         top: isMobile ? 'auto' : 110,
         bottom: isMobile ? 150 : 'auto',
         right: isMobile ? 20 : 32,
         zIndex: 10,
-        width: 64, height: 32, borderRadius: 999,
+        width: 72, height: 40, borderRadius: 999,
         background: night ? 'rgba(106,76,147,0.4)' : 'rgba(255,183,3,0.32)',
         border: '1px solid rgba(255,255,255,0.35)',
         backdropFilter: 'blur(10px)', cursor: 'pointer',
@@ -182,9 +190,9 @@ function Hero({ variant = 'A', onCtaClick }) {
         transition: 'background 280ms',
       }}>
         <div style={{
-          width: 26, height: 26, borderRadius: '50%',
-          background: night ? '#1b2a41' : '#fff',
-          color: night ? '#FFB703' : '#FFB703',
+          width: 32, height: 32, borderRadius: '50%',
+          background: night ? 'var(--navy-600)' : '#fff',
+          color: 'var(--amber-500)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           transform: night ? 'translateX(32px)' : 'translateX(0)',
           transition: 'transform 280ms var(--ease-spring), background 280ms',

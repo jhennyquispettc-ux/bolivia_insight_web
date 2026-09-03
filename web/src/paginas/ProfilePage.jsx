@@ -1,5 +1,7 @@
 import React from 'react';
 import I from '../ui/iconos.jsx';
+import { apiUrl } from '../data/api.js';
+import { useI18n } from '../data/translations.jsx';
 
 /* ─── Styles ──────────────────────────────────────────────────────────────── */
 const TAB_STYLES = {
@@ -123,7 +125,7 @@ function SessionCard({ b, isPast }) {
             display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13,
             color: 'var(--fg3)', border: '1px solid var(--border)', padding: '10px 16px', borderRadius: 999,
           }}>
-            <I.Video size={15} /> Session ended
+            <I.Video size={15} /> Sesión finalizada
           </span>
         </div>
       )}
@@ -147,12 +149,12 @@ function EmptyState({ type }) {
         {isUpcoming ? <I.Calendar size={28} /> : <I.Route size={28} />}
       </div>
       <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, margin: '0 0 10px', color: 'var(--fg1)' }}>
-        {isUpcoming ? 'No upcoming sessions' : 'No past sessions'}
+        {isUpcoming ? 'Aún no tienes sesiones agendadas' : 'Todavía no tienes sesiones pasadas'}
       </h3>
       <p style={{ fontSize: 14, color: 'var(--fg2)', margin: '0 auto 24px', maxWidth: 400, lineHeight: 1.5 }}>
         {isUpcoming
-          ? 'Book a 1-on-1 session with a local expert to start designing your perfect Bolivia itinerary.'
-          : 'Your completed sessions will appear here after they take place.'}
+          ? 'Agenda una sesión con un local y empieza a armar tu viaje por Bolivia.'
+          : 'Aquí aparecerán tus sesiones una vez realizadas.'}
       </p>
       {isUpcoming && (
         <button onClick={() => window.location.hash = '#booking'} style={{
@@ -160,7 +162,7 @@ function EmptyState({ type }) {
           border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer',
           display: 'inline-flex', alignItems: 'center', gap: 8,
         }}>
-          Book a Session <I.ArrowR size={16} />
+          Agendar una sesión <I.ArrowR size={16} />
         </button>
       )}
     </div>
@@ -169,6 +171,7 @@ function EmptyState({ type }) {
 
 /* ─── Main Component ──────────────────────────────────────────────────────── */
 function ProfilePage({ onBack, user }) {
+  const { t } = useI18n();
   const [bookings, setBookings] = React.useState([]);
   const [loading, setLoading]   = React.useState(true);
   const [activeTab, setActiveTab] = React.useState('upcoming');
@@ -177,7 +180,7 @@ function ProfilePage({ onBack, user }) {
     const fetchBookings = async () => {
       try {
         const token = localStorage.getItem('bolivia_insight_token');
-        const res = await fetch('http://localhost:3000/bookings/mine', {
+        const res = await fetch(apiUrl('/bookings/mine'), {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         if (res.ok) {
@@ -214,22 +217,44 @@ function ProfilePage({ onBack, user }) {
               color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
               display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24,
             }}>
-              <I.ArrowL size={13} /> Back
+              <I.ArrowL size={13} /> Volver
             </button>
-            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Client Portal</div>
+            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>{t('profile.portal', 'Your portal')}</div>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px,5vw,56px)', lineHeight: 1.1, color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.02em' }}>
-              Welcome back,<br />
+              Hola de nuevo,<br />
               <em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>
-                {user?.name?.split(' ')[0] || 'Traveler'}.
+                {user?.name?.split(' ')[0] || 'viajero'}.
               </em>
             </h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 16 }}>
-              <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)' }}>{user?.email}</span>
+              <span style={{ fontSize: 13, color: 'var(--on-dark-3)', fontFamily: 'var(--font-mono)' }}>{user?.email}</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: 28, marginTop: 26, flexWrap: 'wrap' }}>
+              {[
+                { k: String(upcoming.length), v: 'Sesiones próximas' },
+                { k: String(past.length),     v: 'Sesiones realizadas' },
+              ].map(stat => (
+                <div key={stat.v}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{stat.k}</div>
+                  <div style={{ fontSize: 11, color: 'var(--on-dark-3)', letterSpacing: 0.4, fontWeight: 600, textTransform: 'uppercase', marginTop: 5 }}>{stat.v}</div>
+                </div>
+              ))}
             </div>
           </div>
 
           <div style={{ position: 'relative' }}>
-            <img src={user?.picture || 'https://via.placeholder.com/150'} alt="Profile" style={{ width: 120, height: 120, borderRadius: '50%', border: '4px solid rgba(255,255,255,0.2)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }} />
+            {user?.picture ? (
+              <img src={user.picture} alt="" style={{ width: 120, height: 120, borderRadius: '50%', border: '4px solid var(--on-dark-line)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }} />
+            ) : (
+              <div aria-hidden="true" style={{
+                width: 120, height: 120, borderRadius: '50%', border: '4px solid var(--on-dark-line)',
+                background: 'var(--navy-600)', color: 'var(--amber-300)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-display)', fontSize: 44, fontWeight: 600,
+                boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
+              }}>{(user?.name || '?').charAt(0).toUpperCase()}</div>
+            )}
             <div style={{ position: 'absolute', bottom: 0, right: 0, width: 32, height: 32, borderRadius: '50%', background: 'var(--green-500)', border: '3px solid var(--navy-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
               <I.Check size={16} />
             </div>
@@ -246,8 +271,8 @@ function ProfilePage({ onBack, user }) {
             {/* ── Header + Tabs ── */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, borderBottom: '1px solid var(--border)', paddingBottom: 24, marginBottom: 32 }}>
               <div>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, margin: '0 0 4px', color: 'var(--navy-700)' }}>My Sessions</h2>
-                <div style={{ fontSize: 13, color: 'var(--fg3)' }}>Expert consultations at a glance</div>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, margin: '0 0 4px', color: 'var(--navy-700)' }}>{t('profile.mySessions', 'My sessions')}</h2>
+                <div style={{ fontSize: 13, color: 'var(--fg3)' }}>Tus asesorías con un local, de un vistazo</div>
               </div>
 
               {/* Tab Pills */}
@@ -257,7 +282,7 @@ function ProfilePage({ onBack, user }) {
                   style={{ ...TAB_STYLES.base, ...(activeTab === 'upcoming' ? TAB_STYLES.active : TAB_STYLES.inactive) }}
                 >
                   <I.Calendar size={14} />
-                  Upcoming
+                  Próximas
                   {upcoming.length > 0 && (
                     <span style={{ background: activeTab === 'upcoming' ? 'rgba(255,255,255,0.25)' : 'var(--navy-100)', color: activeTab === 'upcoming' ? '#fff' : 'var(--navy-700)', borderRadius: 999, padding: '1px 7px', fontSize: 11, fontWeight: 800 }}>
                       {upcoming.length}
@@ -283,7 +308,7 @@ function ProfilePage({ onBack, user }) {
             {loading ? (
               <div style={{ padding: 60, textAlign: 'center', color: 'var(--fg3)', fontSize: 14 }}>
                 <I.Activity size={32} style={{ opacity: 0.5, marginBottom: 12 }} />
-                <div>Loading your sessions...</div>
+                <div>Cargando tus sesiones…</div>
               </div>
             ) : activeTab === 'upcoming' ? (
               upcoming.length === 0

@@ -5,7 +5,7 @@ import Btn from '../ui/Boton.jsx';
 
 function EmergencyHub({ onBack }) {
   const { t, locale } = useI18n();
-  const [city, setCity] = useState('lapaz');
+  const [city, setCity] = useState('copacabana');
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   React.useEffect(() => {
@@ -17,14 +17,16 @@ function EmergencyHub({ onBack }) {
   const isMobile = vw < 768;
 
   const cities = [
+    // Ordered by how much a traveller on the classic Bolivia circuit needs them,
+    // not alphabetically or by population.
+    { id: 'copacabana',  label: locale === 'ja' ? 'コパカバーナ' : locale === 'ko' ? '코파카바나' : 'Copacabana' },
+    { id: 'uyuni',       label: locale === 'ja' ? 'ウユニ' : locale === 'ko' ? '우유니' : 'Uyuni' },
     { id: 'lapaz',       label: locale === 'ja' ? 'ラパス' : locale === 'ko' ? '라파스' : 'La Paz' },
     { id: 'sucre',       label: locale === 'ja' ? 'スクレ' : locale === 'ko' ? '수크레' : 'Sucre' },
-    { id: 'santacruz',   label: locale === 'ja' ? 'サンタクルス' : locale === 'ko' ? '산타크루즈' : 'Santa Cruz' },
     { id: 'cochabamba',  label: locale === 'ja' ? 'コチャバンバ' : locale === 'ko' ? '코차반바' : 'Cochabamba' },
-    { id: 'uyuni',       label: locale === 'ja' ? 'ウユニ' : locale === 'ko' ? '우유니' : 'Uyuni' },
-    { id: 'copacabana',  label: locale === 'ja' ? 'コパカバーナ' : locale === 'ko' ? '코파카바나' : 'Copacabana' },
     { id: 'rurrenabaque',label: locale === 'ja' ? 'ルレナバケ' : locale === 'ko' ? '루레나바케' : 'Rurrenabaque' },
     { id: 'potosi',      label: locale === 'ja' ? 'ポトシ' : locale === 'ko' ? '포토시' : 'Potosí' },
+    { id: 'santacruz',   label: locale === 'ja' ? 'サンタクルス' : locale === 'ko' ? '산타크루즈' : 'Santa Cruz' },
   ];
 
   const critical = [
@@ -189,17 +191,8 @@ function EmergencyHub({ onBack }) {
   };
 
   const dir = directories[city] || directories.lapaz;
-  const today = new Date('2026-04-29');
   
   
-  const dateStr = today.toLocaleDateString(
-    locale === 'es' ? 'es-ES' :
-    locale === 'pt' ? 'pt-PT' :
-    locale === 'fr' ? 'fr-FR' :
-    locale === 'ja' ? 'ja-JP' :
-    locale === 'ko' ? 'ko-KR' : 'en-US',
-    { year: 'numeric', month: 'long', day: 'numeric' }
-  );
 
   const altitudeAlts = {
     lapaz: locale === 'ja' ? 'コロイコ (標高 1,700 m、RN-3経由で車で2.5時間)' : locale === 'ko' ? '코로이코 (고도 1,700m, RN-3 도로 기준 2.5시간 소요)' : 'Coroico (1,700 m, 2.5h drive via RN-3)',
@@ -227,7 +220,7 @@ function EmergencyHub({ onBack }) {
                 color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.03em',
               }}>{t('sos.title', 'SOS · Bolivia.')}</h1>
               <p style={{ fontSize: isMobile ? 15 : 16, color: 'rgba(255,255,255,0.78)', marginTop: 14, maxWidth: 580, lineHeight: 1.55 }}>
-                {t('sos.desc', 'Real numbers, current as of April 2026. Save this page offline before you leave the hotel wifi.').replace('April 2026', dateStr)}
+                {t('sos.desc', 'Numeros de referencia. Confirma antes de usarlos y guarda esta pagina sin conexion antes de salir del wifi.')}
               </p>
             </div>
             <Btn kind="glass" size={isMobile ? "sm" : "md"} onClick={() => window.print()} style={{ flexShrink: 0, marginTop: isMobile ? 12 : 0 }}>
@@ -300,7 +293,7 @@ function EmergencyHub({ onBack }) {
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
             <div style={{
               display: 'flex', gap: 16, padding: '20px 22px',
-              background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)',
+              background: 'var(--amber-50, #fff8e1)', border: '1px solid var(--amber-200, #ffe07a)',
               borderRadius: 14, alignItems: 'flex-start',
             }}>
               <div style={{
@@ -341,7 +334,7 @@ function EmergencyHub({ onBack }) {
           fontSize: 13, color: 'var(--fg2)' }}>
           <I.Shield size={16}/>
           <span>
-            {t('sos.verifyMonthly', 'We verify these numbers monthly. Spotted a change?')} <a href="mailto:hello@boliviainsight.com" style={{ color: 'var(--rust-600)', fontWeight: 700 }}>{t('sos.emailUs', 'Email us')}</a> {t('sos.updateNotice', "— we'll update within 24-48 hours.")}
+            {t('sos.verifyMonthly', 'We verify these numbers monthly. Spotted a change?')} <a href="mailto:hola@illasoluciones.com" style={{ color: 'var(--rust-600)', fontWeight: 700 }}>{t('sos.emailUs', 'Email us')}</a> {t('sos.updateNotice', "— we'll update within 24-48 hours.")}
           </span>
         </div>
       </section>

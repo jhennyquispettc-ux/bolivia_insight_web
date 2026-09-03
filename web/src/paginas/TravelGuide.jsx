@@ -376,7 +376,7 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
 
           {}
           <div style={{
-            display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.55fr 1fr',
+            display: 'grid', gridTemplateColumns: '1fr',
             gap: isMobile ? 14 : 20, marginBottom: isMobile ? 28 : 40,
           }}>
             {}
@@ -399,31 +399,6 @@ function TravelGuide({ onBack, onExpert, initialTab }) {
               </div>
             </div>
 
-            {}
-            <button type="button" aria-label="Video placeholder" style={{
-              position: 'relative', borderRadius: 18, overflow: 'hidden', border: 0, cursor: 'pointer',
-              minHeight: isMobile ? 180 : 300, padding: 0, textAlign: 'left',
-              background: `linear-gradient(150deg, ${meta.accent} 0%, var(--navy-800) 100%)`,
-              boxShadow: 'var(--shadow-md)',
-            }}>
-              <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.16) 0%, transparent 70%)' }}/>
-              <div style={{ position: 'absolute', top: 16, left: 16, fontSize: 10, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)', background: 'rgba(0,0,0,0.25)', padding: '4px 9px', borderRadius: 999 }}>
-                {t('guide.videoBadge', 'Video · placeholder')}
-              </div>
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-                <div className="bi-play" style={{
-                  width: isMobile ? 56 : 70, height: isMobile ? 56 : 70, borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.92)', color: 'var(--navy-800)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 10px 30px -8px rgba(0,0,0,0.5)',
-                }}>
-                  <I.Video size={isMobile ? 24 : 30}/>
-                </div>
-                <div style={{ color: '#fff', fontSize: 13, fontWeight: 700, textAlign: 'center', padding: '0 16px', opacity: 0.92 }}>
-                  {t('guide.videoSoon', 'Local clip coming soon')}
-                </div>
-              </div>
-            </button>
           </div>
 
           {}

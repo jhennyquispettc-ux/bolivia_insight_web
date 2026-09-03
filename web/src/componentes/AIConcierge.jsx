@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import I from '../ui/iconos.jsx';
 import { useI18n } from '../data/translations.jsx';
+import { apiUrl } from '../data/api.js';
 
 function AIConcierge({ expanded, onToggle, onExpert }) {
   const { t } = useI18n();
@@ -74,7 +75,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
     // Add a temporary typing indicator or just wait
     // We will just wait for the response and append it
     try {
-      const res = await fetch('http://localhost:3000/chat', {
+      const res = await fetch(apiUrl('/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: newMessages })
@@ -100,7 +101,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
   return (
     <>
       {}
-      <button onClick={onToggle} aria-label="Open AI concierge" style={{
+      <button onClick={onToggle} aria-label={t('a11y.openConcierge', 'Open AI concierge')} style={{
         position: 'fixed', right: isMobile ? 20 : 28, bottom: isMobile ? 20 : 28, zIndex: 80,
         width: 64, height: 64, borderRadius: 999,
         background: 'var(--navy-600)',
@@ -164,7 +165,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
               </div>
             </div>
             {isMobile && (
-              <button onClick={onToggle} aria-label="Close AI concierge" style={{
+              <button onClick={onToggle} aria-label={t('a11y.closeConcierge', 'Close AI concierge')} style={{
                 background: 'transparent', border: 0, color: '#fff',
                 cursor: 'pointer', padding: 8, display: 'flex', alignItems: 'center',
                 justifyContent: 'center', margin: '-8px -8px -8px 0'
@@ -253,7 +254,7 @@ function AIConcierge({ expanded, onToggle, onExpert }) {
         @keyframes bi-slide-up { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes bi-fade-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @media (prefers-reduced-motion: reduce) {
-          [aria-label="Open AI concierge"] { animation: none !important; }
+          [aria-label={t('a11y.openConcierge', 'Open AI concierge')}] { animation: none !important; }
         }
       `}</style>
     </>

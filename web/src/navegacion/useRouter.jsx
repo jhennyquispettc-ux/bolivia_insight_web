@@ -10,10 +10,6 @@ function useRouter() {
 
   const onNav = (id) => {
     if (id === 'home') setRoute('home');
-    else if (id === 'destinations') {
-      setRoute('home');
-      setTimeout(() => window.scrollTo({ top: 800, behavior: 'smooth' }), 50);
-    }
     else if (id === 'guides')     goGuide();
     else if (id === 'dashboard')  goRoute('dashboard');
     else if (id === 'dictionary') goGuide('dictionary');

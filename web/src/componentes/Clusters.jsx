@@ -19,11 +19,13 @@ function Clusters({ onSelect }) {
   const isTablet = vw >= 768 && vw < 1024;
 
   
-  const gridCols = isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)';
+  // auto-fit lets five sectors settle into 3+2 on desktop and scale to seven
+  // later without a layout decision, and avoids a horizontal swipe region.
+  const gridCols = isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(340px, 1fr))';
   const cardHeight = isMobile ? 220 : isTablet ? 360 : 460;
 
   return (
-    <section style={{ background: 'var(--bg)', padding: isMobile ? '72px 0 56px' : '120px 0 80px' }}>
+    <section id="sectores" style={{ background: 'var(--bg)', padding: isMobile ? '72px 0 56px' : '120px 0 80px', scrollMarginTop: 80 }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
 
         {}
@@ -34,7 +36,7 @@ function Clusters({ onSelect }) {
           gap: isMobile ? 16 : 24,
         }}>
           <div style={{ maxWidth: 720 }}>
-            <div className="eyebrow" style={{ marginBottom: 12 }}>{t('clusters.eyebrow', 'Cuatro destinos principales · 34 rutas en temporada')}</div>
+            <div className="eyebrow" style={{ marginBottom: 12 }}>{t('clusters.eyebrow', 'Cinco sectores para recorrer Bolivia')}</div>
             <h2 style={{ margin: 0, fontSize: isMobile ? 'clamp(28px,8vw,40px)' : 'clamp(36px,4vw,56px)', lineHeight: 1.04 }}>
               {t('clusters.title', 'Explora los destinos de Bolivia.')}
             </h2>
@@ -44,14 +46,21 @@ function Clusters({ onSelect }) {
               </p>
             )}
           </div>
-          <Btn kind="ghost">{t('clusters.viewAll', 'View all destinations')} <I.ArrowR size={15}/></Btn>
+
         </div>
 
         {}
         <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? 12 : 18 }}>
           {CLUSTERS.map((c, i) => (
             <article key={c.id}
+              className="bi-card-link"
+              role="link"
+              tabIndex={0}
+              aria-label={t('cluster.' + c.id + '.title', c.title)}
               onClick={() => onSelect(c)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(c); } }}
+              onFocus={() => setHover(c.id)}
+              onBlur={() => setHover(null)}
               onMouseEnter={() => setHover(c.id)}
               onMouseLeave={() => setHover(null)}
               style={{
@@ -116,7 +125,7 @@ function Clusters({ onSelect }) {
                   backdropFilter: 'blur(10px)',
                   fontSize: 11, fontWeight: 700, letterSpacing: 0.4,
                   textShadow: '0 1px 2px rgba(0,0,0,0.4)',
-                }}>{c.count} {t('clusters.routes', 'rutas')}</div>
+                }}>{t('cluster.' + c.id + '.bestTime', c.bestTime)}</div>
               )}
 
               {}
@@ -156,7 +165,7 @@ function Clusters({ onSelect }) {
                 textShadow: '0 1px 4px rgba(0,0,0,0.4)',
               }}>
                 {!isMobile && (
-                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--amber-300)' }}>{`Destino 0${i+1}`}</div>
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--amber-300)' }}>{t('cluster.' + c.id + '.altitude', c.altitude)}</div>
                 )}
                 <h3 style={{
                   margin: isMobile ? '0 0 2px' : '8px 0 6px',

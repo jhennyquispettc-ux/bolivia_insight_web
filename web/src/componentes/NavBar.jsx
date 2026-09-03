@@ -32,7 +32,6 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
   const onLight = !dark || scrolled;
 
   const items = [
-    { id: 'destinations', label: t('nav.destinations', 'Destinations'),  icon: <I.Pin size={16}/> },
     { id: 'dashboard',    label: t('nav.dashboard', 'Live Dashboard'), icon: <I.Activity size={16}/>, live: true },
     { id: 'guides',       label: t('nav.guides', 'Travel Guide'),   icon: <I.Book size={16}/> },
     { id: 'planner',      label: t('nav.planner', 'Planificador'), icon: <I.Route size={16}/> },
@@ -71,8 +70,8 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
         }}>
           {}
-          <button onClick={() => goto('home')} aria-label="Bolivia Insight — home" style={{
-            background: 'none', border: 0, cursor: 'pointer', padding: 0,
+          <button onClick={() => goto('home')} aria-label={t('a11y.home', 'Bolivia Insight — home')} style={{
+            background: 'none', border: 0, cursor: 'pointer', padding: '7px 0', minHeight: 44,
             display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0,
           }}>
             <img src="assets/logos/logo-mark-256.png" alt="" style={{
@@ -124,7 +123,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {!isMobile && (
               <div style={{ position: 'relative' }}>
-                <button aria-label="Language Selector" onClick={() => setLangOpen(!langOpen)} style={{
+                <button aria-label={t('a11y.languageSelector', 'Language selector')} onClick={() => setLangOpen(!langOpen)} style={{
                   background: 'transparent', border: 0, cursor: 'pointer',
                   color: onLight ? 'var(--navy-700)' : '#fff',
                   padding: '8px 12px', borderRadius: 999,
@@ -237,7 +236,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
               </Btn>
             )}
             {isMobile && (
-              <button onClick={() => setDrawer(true)} aria-label="Open menu" aria-expanded={drawer} style={{
+              <button onClick={() => setDrawer(true)} aria-label={t('a11y.openMenu', 'Open menu')} aria-expanded={drawer} style={{
                 background: 'transparent', border: 0, cursor: 'pointer',
                 color: onLight ? 'var(--navy-700)' : '#fff',
                 width: 44, height: 44, borderRadius: 999,
@@ -273,7 +272,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
                 fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 16,
                 color: 'var(--rust-500)',
               }}>Bolivia<span style={{ color: 'var(--amber-600)', fontWeight: 600 }}>Insight</span></span>
-              <button onClick={() => setDrawer(false)} aria-label="Close menu" style={{
+              <button onClick={() => setDrawer(false)} aria-label={t('a11y.closeMenu', 'Close menu')} style={{
                 background: 'transparent', border: 0, cursor: 'pointer',
                 width: 44, height: 44, borderRadius: 999,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -300,7 +299,7 @@ function NavBar({ current, onNav, dark, user, onLogout }) {
                     }}>
                     <span style={{
                       width: 36, height: 36, borderRadius: 10,
-                      background: isSos ? 'var(--rust-50, #fdecea)' : 'var(--stone-50)',
+                      background: isSos ? 'var(--rust-50, #fbf0ed)' : 'var(--stone-50)',
                       color: isSos ? 'var(--rust-600)' : 'var(--navy-700)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>{it.icon}</span>
@@ -401,8 +400,8 @@ function LivePulse({ onLight }) {
     <span aria-label="live" style={{
       display: 'inline-flex', alignItems: 'center', gap: 4,
       marginLeft: 2,
-      fontSize: 9, fontWeight: 800, letterSpacing: 0.5,
-      color: onLight ? 'var(--green-700, #1f4f3a)' : 'var(--green-300, #95d3b3)',
+      fontSize: 11, fontWeight: 800, letterSpacing: 0.5,
+      color: onLight ? 'var(--green-700)' : 'var(--green-300)',
       textTransform: 'uppercase',
     }}>
       <span style={{

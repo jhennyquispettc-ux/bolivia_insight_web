@@ -5,8 +5,12 @@ import PayPalButton from '../componentes/PayPalButton.jsx';
 import Modal from '../ui/Modal.jsx';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { apiUrl, API_BASE } from '../data/api.js';
+import { EXPERT } from '../data/experto.js';
+import { useI18n } from '../data/translations.jsx';
 
 function BookingPage({ onBack, onProfile, user }) {
+  const { t } = useI18n();
   const [vw, setVw] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   React.useEffect(() => {
@@ -39,7 +43,7 @@ function BookingPage({ onBack, onProfile, user }) {
     const fetchAvailability = async () => {
       try {
         const token = localStorage.getItem('bolivia_insight_token');
-        const res = await fetch(`http://localhost:3000/bookings/availability?t=${Date.now()}`, {
+        const res = await fetch(`${API_BASE}/bookings/availability?t=${Date.now()}`, {
           headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
         if (res.ok) {
@@ -73,7 +77,7 @@ function BookingPage({ onBack, onProfile, user }) {
     catch { return 'your local time'; }
   })();
 
-  const defaultExpert = { id: 'default', name: 'Local Guide', initials: 'BI', color: 'var(--rust-500)' };
+  const defaultExpert = EXPERT;
 
   // The booking endpoints require an app JWT (saved at login). Without it the
   // PayPal capture would 401, so we gate the payment step on being logged in.
@@ -114,13 +118,13 @@ function BookingPage({ onBack, onProfile, user }) {
       <section style={{ background: 'linear-gradient(135deg, var(--navy-700), var(--mystic-700))', color: '#fff', padding: isMobile ? '56px 0 140px' : '80px 0 160px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,183,3,0.18) 0%, transparent 70%)' }}/>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', position: 'relative' }}>
-          <button onClick={onBack} style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24 }}><I.ArrowL size={13}/> Back</button>
-          <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Talk to a local · Video consultation</div>
+          <button onClick={onBack} style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, marginBottom: 24 }}><I.ArrowL size={13}/> Volver</button>
+          <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>Habla con un local · Videollamada</div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(36px,9vw,52px)' : 'clamp(44px,6vw,84px)', lineHeight: 1, color: '#fff', margin: '12px 0 0', fontWeight: 600, letterSpacing: '-0.03em' }}>
-            Specific question?<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>Ask a Bolivian.</em>
+            ¿Tienes una duda concreta?<br/><em style={{ fontStyle: 'normal', fontWeight: 800, color: 'var(--amber-300)' }}>Pregúntale a alguien de acá.</em>
           </h1>
-          <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.85)', marginTop: 18, maxWidth: 620, lineHeight: 1.55 }}>
-            For when the guide and the AI run out. Book a 15- or 30-minute video call with a local writer who actually walks the routes — they answer your trip plan in plain language.
+          <p style={{ fontSize: isMobile ? 16 : 18, color: 'var(--on-dark-1)', marginTop: 18, maxWidth: 620, lineHeight: 1.55 }}>
+            Para cuando la guía y la IA se quedan cortas. Agenda una videollamada de 15 o 30 minutos con una guía que recorre estas rutas y conoce el terreno.
           </p>
         </div>
       </section>
@@ -156,10 +160,35 @@ function BookingPage({ onBack, onProfile, user }) {
             {}
             {step === 0 && (
               <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
+                {/* Who you are actually talking to. */}
+                <div style={{
+                  display: 'flex', gap: isMobile ? 16 : 22, alignItems: 'flex-start',
+                  padding: isMobile ? 18 : 24, marginBottom: 24,
+                  background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 16,
+                  flexWrap: 'wrap',
+                }}>
+                  <ExpertAvatar size={isMobile ? 64 : 88} />
+                  <div style={{ flex: 1, minWidth: 220 }}>
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 20 : 24, fontWeight: 600, color: 'var(--fg1)' }}>{EXPERT.name}</div>
+                    <div style={{ fontSize: 13, color: 'var(--fg3)', marginTop: 3, fontFamily: 'var(--font-mono)', letterSpacing: 0.3 }}>
+                      {EXPERT.city} · {EXPERT.languages.join(" · ")}
+                    </div>
+                    <p style={{ fontSize: isMobile ? 14 : 15, color: 'var(--fg2)', lineHeight: 1.6, margin: '12px 0 0' }}>{EXPERT.bio}</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
+                      {EXPERT.credentials.map((c) => (
+                        <span key={c} style={{
+                          fontSize: 11, fontWeight: 700, letterSpacing: 0.3,
+                          padding: '5px 11px', borderRadius: 999,
+                          background: 'var(--rust-50)', color: 'var(--rust-600)',
+                        }}>{c}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
                 <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
                   {[
-                    { mins: 15, usd: 12, bs: 84,  label: 'Quick question', desc: 'One topic, sharp answer. Best when you already know what you want to ask.' },
-                    { mins: 30, usd: 22, bs: 153, label: 'Trip review',     desc: 'Walk through your full plan. They\'ll catch mistakes and add local stops.' },
+                    { mins: 15, usd: 12, bs: 84,  label: 'Consulta puntual', desc: 'Un tema, una respuesta clara. Ideal si ya sabes qué necesitas preguntar.' },
+                    { mins: 30, usd: 22, bs: 153, label: 'Revisión del viaje', desc: 'Repasamos tu plan completo: se corrigen errores y se suman paradas locales.' },
                   ].map(o => {
                     const selected = duration === o.mins;
                     return (
@@ -183,10 +212,10 @@ function BookingPage({ onBack, onProfile, user }) {
                     );
                   })}
                 </div>
-                <div style={{ marginTop: 22, padding: 16, background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)', borderRadius: 10, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                <div style={{ marginTop: 22, padding: 16, background: 'var(--amber-50, #fff8e1)', border: '1px solid var(--amber-200, #ffe07a)', borderRadius: 10, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                   <I.Sparkle size={18}/>
                   <div style={{ fontSize: 13, color: 'var(--fg2)', lineHeight: 1.55 }}>
-                    <strong style={{ color: 'var(--fg1)' }}>You'll fill a short trip brief before paying.</strong> Dates, route, and what you're stuck on — so the expert prepares and the call goes straight to the answers.
+                    <strong style={{ color: 'var(--fg1)' }}>Antes de pagar completas un resumen breve de tu viaje.</strong> Fechas, ruta y en qué estás trabado — así Jhenny llega preparada y la llamada va directo a las respuestas.
                   </div>
                 </div>
               </div>
@@ -305,12 +334,12 @@ function BookingPage({ onBack, onProfile, user }) {
           {}
           {step < 3 && (
             <div style={{ marginTop: isMobile ? 40 : 56 }}>
-              <div className="eyebrow" style={{ marginBottom: 16 }}>How it works</div>
+              <div className="eyebrow" style={{ marginBottom: 16 }}>{t('bk.howItWorks', 'How it works')}</div>
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
                 {[
-                  { n: '01', t: 'Pick & brief',    d: 'Choose a duration and slot, then fill a 2-min brief: dates, rough route, your top questions.' },
-                  { n: '02', t: 'Pay securely',    d: 'Pay with PayPal. Your booking is only confirmed once the payment goes through.' },
-                  { n: '03', t: 'Hop on the call', d: 'Google Meet link arrives 1h before. We come prepared. Get a written summary by email after.' },
+                  { n: '01', t: t('bk.s1t', 'Pick and brief'), d: t('bk.s1d', 'Choose a duration and slot, then fill a short brief.') },
+                  { n: '02', t: t('bk.s2t', 'Pay securely'), d: t('bk.s2d', 'Pay with PayPal. Booking is confirmed once payment goes through.') },
+                  { n: '03', t: t('bk.s3t', 'Join the call'), d: t('bk.s3d', 'The Google Meet link arrives by email.') },
                 ].map(s => (
                   <div key={s.n} style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 14, padding: 24 }}>
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--rust-500)', fontWeight: 700, letterSpacing: 0.4 }}>STEP {s.n}</div>
@@ -338,7 +367,7 @@ function BookingPage({ onBack, onProfile, user }) {
           background: transparent;
         }
         .PhoneInputInput::placeholder {
-          color: #9ca3af;
+          color: var(--fg3);
         }
         .PhoneInput {
           display: flex;
@@ -355,6 +384,7 @@ function BookingPage({ onBack, onProfile, user }) {
 
 // ── Step 2: mandatory trip brief ───────────────────────────────────────────────
 function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
+  const { t } = useI18n();
   const COUNTRIES = [
     "Alemania", "Argentina", "Australia", "Austria", "Bélgica", "Bolivia", "Brasil", "Canadá", "Chile", "China", 
     "Colombia", "Corea del Sur", "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "España", 
@@ -381,9 +411,9 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
   return (
     <div style={{ padding: isMobile ? '24px 20px' : 40 }}>
       <div style={{ marginBottom: 18 }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500 }}>Cuéntanos sobre tu viaje</div>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500 }}>{t('bk.briefTitle', 'Tell us about your trip')}</div>
         <div style={{ fontSize: 13, color: 'var(--fg2)', marginTop: 6, lineHeight: 1.55, maxWidth: 560 }}>
-          Esta información es esencial para que el experto local pueda prepararse y brindarte las mejores recomendaciones durante la videollamada.
+          {t('bk.briefDesc', 'This helps her prepare for the call.')}
         </div>
       </div>
       
@@ -392,8 +422,8 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
         {/* Origen */}
         <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
           <BriefField
-            label="¿De dónde nos visitas?"
-            hint="Escribe para buscar tu país..."
+            label={t('bk.fOrigin', 'Where are you visiting from?')}
+            hint={t('bk.fOriginHint', 'Type to find your country…')}
             type="country"
             options={COUNTRIES}
             required
@@ -409,7 +439,7 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
         {/* Acompañantes */}
         <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
           <BriefField
-            label="¿Con quién viajas?"
+            label={t('bk.fCompany', 'Who are you travelling with?')}
             type="select"
             options={['', 'Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo Guiado']}
             required
@@ -431,7 +461,7 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
           <div style={{ display: 'flex', gap: 12, flexDirection: isMobile ? 'column' : 'row', padding: 16, background: 'var(--stone-50)', border: `1px solid ${errors?.startDate || errors?.endDate ? 'var(--rust-500)' : 'var(--border)'}`, borderRadius: 14 }}>
             <div style={{ flex: 1 }}>
               <BriefField
-                label="Ingreso a Bolivia"
+                label={t('bk.fStart', 'Arrival in Bolivia')}
                 type="date"
                 required
                 value={brief.startDate}
@@ -441,7 +471,7 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
             </div>
             <div style={{ flex: 1 }}>
               <BriefField
-                label="Salida de Bolivia"
+                label={t('bk.fEnd', 'Departure from Bolivia')}
                 type="date"
                 required
                 value={brief.endDate}
@@ -483,8 +513,8 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
         {/* Preguntas */}
         <div style={{ gridColumn: '1 / -1', marginTop: 12 }}>
           <BriefField
-            label="Top 3 dudas principales"
-            hint="¿Qué es lo que más necesitas saber en la videollamada? Puedes detallar tu ruta aquí o dudas específicas. (Mín. 15 caracteres)"
+            label={t('bk.fQuestions', 'Your top 3 questions')}
+            hint={t('bk.fQuestionsHint', 'What do you most need to resolve on the call?')}
             multiline={true}
             required
             error={errors?.questions}
@@ -523,6 +553,7 @@ function BriefStep({ brief, setBrief, isMobile, errors, setErrors }) {
 
 // ── Step 3: payment via PayPal ─────────────────────────────────────────────────
 function PaymentStep({ slot, duration, price, priceBs, brief, isLoggedIn, onPaid, onError, isMobile }) {
+  const { t } = useI18n();
   const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
   const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   const fmtTime = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -532,14 +563,14 @@ function PaymentStep({ slot, duration, price, priceBs, brief, isLoggedIn, onPaid
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 24 : 40 }}>
         {/* Order summary */}
         <div>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>Order summary</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>{t('bk.orderSummary', 'Order summary')}</div>
           <div style={{ background: 'var(--stone-25)', border: '1px solid var(--border)', borderRadius: 14, padding: 22 }}>
-            <Row label="Session" value={`${duration}-min Trip Review`} />
-            <Row label="When" value={`${fmtFullDate}, ${fmtTime}`} />
-            <Row label="Bolivia time" value={`${slot.time} (UTC −4)`} />
+            <Row label={t('bk.rowSession', 'Session')} value={`${duration} min`} />
+            <Row label={t('bk.rowWhen', 'When')} value={`${fmtFullDate}, ${fmtTime}`} />
+            <Row label={t('bk.rowBoliviaTime', 'Bolivia time')} value={`${slot.time} (UTC −4)`} />
             <div style={{ borderTop: '1px solid var(--border)', margin: '14px 0' }} />
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>Total</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg1)' }}>{t('bk.total', 'Total')}</span>
               <span>
                 <strong style={{ fontFamily: 'var(--font-display)', fontSize: 28, color: 'var(--rust-500)' }}>${price}</strong>
                 <span style={{ fontSize: 12, color: 'var(--fg3)', fontFamily: 'var(--font-mono)', marginLeft: 8 }}>≈ Bs {priceBs}</span>
@@ -548,13 +579,13 @@ function PaymentStep({ slot, duration, price, priceBs, brief, isLoggedIn, onPaid
           </div>
           <div style={{ marginTop: 14, fontSize: 12, color: 'var(--fg3)', lineHeight: 1.55, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <I.Shield size={14}/>
-            <span>Your booking is created only after PayPal confirms the payment. Charged in USD.</span>
+            <span>{t('bk.secureNote', 'Your booking is created only after PayPal confirms the payment.')}</span>
           </div>
         </div>
 
         {/* PayPal */}
         <div>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>Pay with PayPal</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 26, fontWeight: 500, marginBottom: 16 }}>{t('bk.payWithPaypal', 'Pay with PayPal')}</div>
           {isLoggedIn ? (
             <PayPalButton
               durationMin={duration}
@@ -587,6 +618,7 @@ function Row({ label, value }) {
 }
 
 const CalendarPicker = React.memo(function CalendarPicker({ expert, weekStart, setWeekStart, slot, setSlot, tz, unavailable, isMobile }) {
+  const { t } = useI18n();
 
   const days = [];
   for (let i = 0; i < 7; i++) {
@@ -642,7 +674,7 @@ const CalendarPicker = React.memo(function CalendarPicker({ expert, weekStart, s
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <button onClick={() => shiftWeek(-1)} aria-label="Previous week" style={navBtnStyle}><I.ChevronL size={16}/></button>
+          <button onClick={() => shiftWeek(-1)} aria-label={t('bk.prevWeek', 'Previous week')} style={navBtnStyle}><I.ChevronL size={16}/></button>
           <button onClick={() => {
             const d = new Date();
             d.setHours(0, 0, 0, 0);
@@ -650,7 +682,7 @@ const CalendarPicker = React.memo(function CalendarPicker({ expert, weekStart, s
             const diff = d.getDate() - day + (day === 0 ? -6 : 1);
             setWeekStart(new Date(d.setDate(diff)));
           }} style={{ ...navBtnStyle, width: 'auto', padding: '0 16px', fontSize: 13, fontWeight: 700 }}>Today</button>
-          <button onClick={() => shiftWeek(1)} aria-label="Next week" style={navBtnStyle}><I.ChevronR size={16}/></button>
+          <button onClick={() => shiftWeek(1)} aria-label={t('bk.nextWeek', 'Next week')} style={navBtnStyle}><I.ChevronR size={16}/></button>
         </div>
       </div>
 
@@ -734,6 +766,7 @@ const navBtnStyle = {
 };
 
 function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, onProfile, isMobile }) {
+  const { t } = useI18n();
   const localD = new Date(Date.UTC(slot.date.getFullYear(), slot.date.getMonth(), slot.date.getDate(), Number(slot.time.split(':')[0]) + 4, Number(slot.time.split(':')[1])));
   const fmtFullDate = localD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   const fmtTime = localD.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -742,7 +775,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
     <div style={{ padding: 0 }}>
       {}
       <div style={{
-        background: 'linear-gradient(135deg, var(--green-500) 0%, #1f5f3e 100%)',
+        background: 'linear-gradient(135deg, var(--green-500) 0%, var(--green-700) 100%)',
         color: '#fff', padding: isMobile ? '32px 20px' : '40px 40px 36px', textAlign: 'center',
       }}>
         <div style={{
@@ -750,10 +783,10 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
         }}><I.Check size={32}/></div>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px,4vw,40px)', margin: 0, fontWeight: 600, letterSpacing: '-0.02em' }}>
-          Payment received — session confirmed!
+          ¡Pago recibido — sesión confirmada!
         </h2>
-        <p style={{ marginTop: 10, fontSize: 14, color: 'rgba(255,255,255,0.85)' }}>
-          We've added it to your Google Calendar and sent a confirmation email with your brief.
+        <p style={{ marginTop: 10, fontSize: 14, color: 'var(--on-dark-1)' }}>
+          La agendamos en tu Google Calendar y te enviamos un correo de confirmación con tu resumen.
         </p>
       </div>
 
@@ -794,7 +827,7 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
         {}
         <div style={{
           marginTop: 22, padding: '14px 18px',
-          background: 'var(--amber-50, #fff8e7)', border: '1px solid var(--amber-200, #ffe7a8)', borderRadius: 12,
+          background: 'var(--amber-50, #fff8e1)', border: '1px solid var(--amber-200, #ffe07a)', borderRadius: 12,
           display: 'flex', gap: 12, alignItems: 'flex-start',
         }}>
           <I.Sparkle size={18}/>
@@ -809,20 +842,20 @@ function Confirmation({ expert, slot, duration, price, priceBs, brief, booking, 
           border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden',
         }}>
           <div style={{ padding: '16px 22px', borderBottom: '1px solid var(--border)', background: 'var(--stone-50)' }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500 }}>Your trip brief</div>
-            <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4 }}>Shared with the expert so they can prepare.</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500 }}>{t('bk.yourBrief', 'Your trip brief')}</div>
+            <div style={{ fontSize: 12, color: 'var(--fg3)', marginTop: 4 }}>Se comparte con Jhenny para que pueda prepararse.</div>
           </div>
           <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              <BriefReadOnly label="WhatsApp / Phone" value={brief.phone} />
+              <BriefReadOnly label={t('bk.rPhone', 'WhatsApp / Phone')} value={brief.phone} />
               <BriefReadOnly label="From" value={brief.origin} />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              <BriefReadOnly label="Travel dates" value={`${brief.startDate} to ${brief.endDate}`} />
-              <BriefReadOnly label="Traveling with" value={brief.companions} />
+              <BriefReadOnly label={t('bk.rDates', 'Travel dates')} value={`${brief.startDate} to ${brief.endDate}`} />
+              <BriefReadOnly label={t('bk.rWith', 'Travelling with')} value={brief.companions} />
             </div>
-            <BriefReadOnly label="Destinations"      value={Array.isArray(brief.route) ? brief.route.join(' · ') : brief.route} />
-            <BriefReadOnly label="Top 3 questions"   value={brief.questions} />
+            <BriefReadOnly label={t('bk.rDestinations', 'Destinations')}      value={Array.isArray(brief.route) ? brief.route.join(' · ') : brief.route} />
+            <BriefReadOnly label={t('bk.rQuestions', 'Main questions')}   value={brief.questions} />
           </div>
         </div>
       </div>
@@ -851,7 +884,7 @@ function BriefField({ label, hint, value, onChange, multiline, required, type, o
   const baseStyle = {
     fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--fg1)',
     padding: '10px 14px', borderRadius: 10,
-    border: `1px solid ${hasError ? 'var(--rust-500)' : empty ? 'var(--rust-300, #e7b6ae)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
+    border: `1px solid ${hasError ? 'var(--rust-500)' : empty ? 'var(--rust-300, #d6816d)' : 'var(--border-strong)'}`, background: '#fff', outline: 'none',
     minHeight: 44, resize: multiline ? 'vertical' : 'none',
     width: '100%', boxSizing: 'border-box'
   };
@@ -881,6 +914,28 @@ function BriefField({ label, hint, value, onChange, multiline, required, type, o
       )}
       {hasError && <div style={{ fontSize: 12, color: 'var(--rust-500)', marginTop: 2, fontWeight: 500 }}>{error}</div>}
     </label>
+  );
+}
+
+
+/* Uses the photo when the file exists, and falls back to initials so the
+   page never shows a broken image or a stock placeholder. */
+function ExpertAvatar({ size = 64 }) {
+  const [failed, setFailed] = React.useState(false);
+  const common = {
+    width: size, height: size, borderRadius: '50%', flexShrink: 0,
+    boxShadow: 'var(--shadow-sm)', objectFit: 'cover',
+  };
+  if (EXPERT.photo && !failed) {
+    return <img src={EXPERT.photo} alt="" style={common} onError={() => setFailed(true)} />;
+  }
+  return (
+    <div aria-hidden="true" style={{
+      ...common,
+      background: 'var(--navy-600)', color: 'var(--amber-300)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: 'var(--font-display)', fontSize: Math.round(size * 0.36), fontWeight: 600,
+    }}>{EXPERT.initials}</div>
   );
 }
 

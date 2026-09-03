@@ -1,9 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useI18n } from '../data/translations.jsx';
 import { CLUSTERS } from '../data/destinos.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
-import IMG from '../ui/imagenes.jsx';
+
+// Section labels live here rather than in translations.jsx because the values
+// they label (altitudes, seasons, journey times) come straight from destinos.jsx
+// and read the same in every language.
+const L = {
+  bestSeason:  { es: 'Mejor época',      en: 'Best season',    pt: 'Melhor época',      fr: 'Meilleure saison', ja: 'ベストシーズン', ko: '최적 시기' },
+  altitude:    { es: 'Altitud',          en: 'Altitude',       pt: 'Altitude',          fr: 'Altitude',         ja: '高度',           ko: '고도' },
+  timeNeeded:  { es: 'Tiempo necesario', en: 'Time needed',    pt: 'Tempo necessário',  fr: 'Durée conseillée', ja: '推奨日数',       ko: '추천 일정' },
+  gateway:     { es: 'Punto de entrada', en: 'Gateway',        pt: 'Porta de entrada',  fr: "Point d'entrée",   ja: '玄関口',         ko: '관문' },
+  whatToSee:   { es: 'Qué ver',          en: 'What to see',    pt: 'O que ver',         fr: 'À voir',           ja: '見どころ',       ko: '볼거리' },
+  howToGet:    { es: 'Cómo llegar',      en: 'Getting there',  pt: 'Como chegar',       fr: "S'y rendre",       ja: 'アクセス',       ko: '가는 방법' },
+  approx:      { es: 'Tiempos y rutas aproximados. Confirma horarios al llegar.',
+                 en: 'Times and routes are approximate. Confirm schedules on arrival.',
+                 pt: 'Tempos e rotas aproximados. Confirme os horários ao chegar.',
+                 fr: 'Durées et trajets approximatifs. Vérifiez les horaires sur place.',
+                 ja: '所要時間と経路は目安です。現地で時刻を確認してください。',
+                 ko: '소요 시간과 경로는 참고용입니다. 현지에서 시간표를 확인하세요.' },
+  goodToKnow:  { es: 'Bueno saberlo',    en: 'Good to know',   pt: 'Bom saber',         fr: 'Bon à savoir',     ja: '知っておくと便利', ko: '알아두면 좋은 점' },
+  ctaTitle:    { es: '¿Quieres afinar este recorrido?', en: 'Want to fine-tune this trip?',
+                 pt: 'Quer ajustar este roteiro?',      fr: 'Envie d’affiner ce voyage ?',
+                 ja: 'この旅を相談しますか？',            ko: '이 여정을 다듬어 볼까요?' },
+  ctaBody:     { es: 'Habla 15 minutos con alguien que vive acá y conoce estas rutas.',
+                 en: 'Talk for 15 minutes with someone who lives here and knows these routes.',
+                 pt: 'Fale 15 minutos com alguém que mora aqui e conhece estas rotas.',
+                 fr: 'Parlez 15 minutes avec une personne qui vit ici et connaît ces itinéraires.',
+                 ja: '現地に住み、これらのルートを知る人と15分話せます。',
+                 ko: '이곳에 살며 이 경로를 잘 아는 사람과 15분 대화해 보세요.' },
+  ctaBtn:      { es: 'Hablar con un local', en: 'Talk to a local', pt: 'Falar com um local',
+                 fr: 'Parler à un local',   ja: '現地の人に相談',   ko: '현지인과 대화하기' },
+};
 
 function ClusterDetail({ cluster, onBack, onBook }) {
   const { t, locale } = useI18n();
@@ -17,83 +46,47 @@ function ClusterDetail({ cluster, onBack, onBook }) {
   }, []);
 
   const isMobile = vw < 768;
+  const lbl = (key) => L[key][locale] || L[key].es;
+  const title = t('cluster.' + c.id + '.title', c.title);
 
-  const itineraries = [
-    { 
-      id: 'salt-sky', 
-      title: locale === 'es' ? 'Sal y Cielo' : locale === 'pt' ? 'Sal & Céu' : locale === 'fr' ? 'Sel & Ciel' : locale === 'ja' ? '塩と空' : locale === 'ko' ? '소금과 하늘' : 'Salt & Sky', 
-      days: 4, 
-      level: locale === 'es' ? 'Fácil' : locale === 'pt' ? 'Fácil' : locale === 'fr' ? 'Facile' : locale === 'ja' ? '初級' : locale === 'ko' ? '쉬움' : 'Easy', 
-      author: 'Carla V.', 
-      img: IMG.uyuniDay,
-      desc: locale === 'es' ? 'Lado Tunupa, amanecer en Incahuasi, estancia en el pueblo de San Pedro de Quemes. Operadores locales realizan este circuito a diario.' : 
-            locale === 'pt' ? 'Lado Tunupa, amanecer em Incahuasi, hospedagem no vilarejo de San Pedro de Quemes. Jipes locais fazem este circuito diariamente.' : 
-            locale === 'fr' ? 'Côté Tunupa, lever de soleil à Incahuasi, séjour chez l\'habitant à San Pedro de Quemes. Les jeeps locales font ce trajet tous les jours.' : 
-            locale === 'ja' ? 'トゥヌパ火山側、インカワシ島からの朝日、サンペドロ・デ・ケメスでの滞在。地元のジープツアーが毎日運行。' : 
-            locale === 'ko' ? '투누파 화산 방면, 인카와시 섬 일출, 산 페드로 데 케메스 마을 체류. 현지 지프 투어로 매일 운행.' : 'Tunupa side, Incahuasi sunrise, San Pedro de Quemes village stay. Local jeep operators run this loop daily.' 
-    },
-    { 
-      id: 'titi-deep', 
-      title: locale === 'es' ? 'Titicaca profundo' : locale === 'pt' ? 'Titicaca profundo' : locale === 'fr' ? 'Titicaca, en profondeur' : locale === 'ja' ? 'チティカカ湖の深部へ' : locale === 'ko' ? '티티카카 호수 깊숙이' : 'Titicaca, deep', 
-      days: 3, 
-      level: locale === 'es' ? 'Moderado' : locale === 'pt' ? 'Moderado' : locale === 'fr' ? 'Modéré' : locale === 'ja' ? '中級' : locale === 'ko' ? '보통' : 'Moderate', 
-      author: 'Mateo R.', 
-      img: IMG.altiplano,
-      desc: locale === 'es' ? 'Copacabana → Isla del Sol → Yampupata. Alojamiento comunitario disponible al llegar, sin reserva previa.' : 
-            locale === 'pt' ? 'Copacabana → Isla del Sol → Yampupata. Hospedagem comunitária disponível na chegada, sem reservas.' : 
-            locale === 'fr' ? 'Copacabana → Isla del Sol → Yampupata. Séjours communautaires réservables à l\'arrivée, pas de réservation nécessaire.' : 
-            locale === 'ja' ? 'コパカバーナ ↔ 太陽の島 ↔ ヤンプパタ。現地到着後に民泊の手配が可能です。事前予約不要。' : 
-            locale === 'ko' ? '코파카바나 ↔ 태양의 섬 ↔ 얌푸파타. 사전 예약 없이 도착 후 현지 민박 직접 수배 가능.' : 'Copacabana → Isla del Sol → Yampupata. Community homestays bookable on arrival, no reservation needed.' 
-    },
-    { 
-      id: 'tiwanaku', 
-      title: locale === 'es' ? 'Tiwanaku → Puerta del Sol' : locale === 'pt' ? 'Tiwanaku → Porta do Sol' : locale === 'fr' ? 'Tiwanaku → Porte du Soleil' : locale === 'ja' ? 'ティワナク ↔ 太陽の門' : locale === 'ko' ? '티와나쿠 ↔ 태양의 문' : 'Tiwanaku → Sun Gate', 
-      days: 2, 
-      level: locale === 'es' ? 'Fácil' : locale === 'pt' ? 'Fácil' : locale === 'fr' ? 'Facile' : locale === 'ja' ? '初級' : locale === 'ko' ? '쉬움' : 'Easy', 
-      author: 'Aymara F.', 
-      img: IMG.altiplano,
-      desc: locale === 'es' ? 'Sitio pre-inca accesible en minivan pública desde la terminal del Cementerio de La Paz. Bs 25, 1.5h por tramo.' : 
-            locale === 'pt' ? 'Sítio pré-inca acessível por van pública saindo do terminal do Cemitério de La Paz. Bs 25, 1.5h por trecho.' : 
-            locale === 'fr' ? 'Site pré-inca accessible en minibus public depuis le terminal du cimetière de La Paz. 25 Bs, 1h30 de trajet.' : 
-            locale === 'ja' ? 'ラパスの墓地ターミナルから公共ミニバスで行けるプレインカ遺跡。片道25 Bs、約1.5時間。' : 
-            locale === 'ko' ? '라파스 공동묘지 터미널에서 미니버스로 이동 가능한 프리인카 유적. 편도 25 Bs, 1시간 30분 소요.' : 'Pre-Inca site reachable by public minibus from La Paz cemetery terminal. Bs 25, 1.5h each way.' 
-    },
+  const facts = [
+    { k: lbl('bestSeason'), v: t('cluster.' + c.id + '.bestTime', c.bestTime) },
+    { k: lbl('altitude'),   v: t('cluster.' + c.id + '.altitude', c.altitude) },
+    { k: lbl('timeNeeded'), v: c.timeNeeded },
+    { k: lbl('gateway'),    v: c.from },
   ];
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      {}
+
+      {/* Hero */}
       <section style={{ position: 'relative', height: isMobile ? 420 : 540, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: c.img, backgroundSize: 'cover', backgroundPosition: 'center' }}/>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(27,42,65,0.3) 0%, rgba(27,42,65,0) 30%, rgba(27,42,65,0.85) 100%)' }}/>
         <div style={{ position: 'relative', zIndex: 2, maxWidth: 1400, margin: '0 auto', padding: isMobile ? '100px 20px 32px' : '140px 32px 48px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          <button onClick={onBack} style={{
+          <button onClick={onBack} className="bi-btn" style={{
             background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.3)',
             color: '#fff', padding: '8px 14px', borderRadius: 999, cursor: 'pointer',
             backdropFilter: 'blur(10px)', display: 'inline-flex', alignItems: 'center', gap: 6,
             fontSize: 12, fontWeight: 700, alignSelf: 'flex-start', marginBottom: 24,
-          }}><I.ArrowL size={13}/> {t('cluster.detail.back', 'All destinations')}</button>
+          }}><I.ArrowL size={13}/> {t('cluster.detail.back', 'Todos los destinos')}</button>
+
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
             <div style={{ width: isMobile ? 44 : 56, height: isMobile ? 44 : 56, borderRadius: isMobile ? 12 : 14, background: c.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 24px -8px rgba(0,0,0,0.4)' }}>
               {React.cloneElement(c.glyph, { size: isMobile ? 24 : 32 })}
             </div>
-            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>{t('cluster.detail.region', 'Region')} · {t('cluster.' + c.id + '.title', c.title)}</div>
+            <div className="eyebrow" style={{ color: 'var(--amber-300)' }}>{t('cluster.detail.region', 'Sector')}</div>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(36px,9vw,52px)' : 'clamp(48px,7vw,96px)', lineHeight: 0.95, color: '#fff', margin: 0, fontWeight: 500, letterSpacing: '-0.035em', maxWidth: 900 }}>{t('cluster.' + c.id + '.title', c.title)}.</h1>
+
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 'clamp(36px,9vw,52px)' : 'clamp(48px,7vw,96px)', lineHeight: 0.95, color: '#fff', margin: 0, fontWeight: 500, letterSpacing: '-0.035em', maxWidth: 900 }}>{title}</h1>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: isMobile ? 16 : 20, marginTop: 18, maxWidth: 640, fontWeight: 300, lineHeight: 1.5 }}>{t('cluster.' + c.id + '.sub', c.sub)}</p>
         </div>
       </section>
 
-      {}
+      {/* Fact strip — every value comes from destinos.jsx, so it differs per sector. */}
       <section style={{ background: 'var(--navy-700)', color: '#fff', padding: isMobile ? '20px 0' : '28px 0', borderBottom: '4px solid var(--amber-500)' }}>
-        <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(5, 1fr)', gap: isMobile ? 20 : 24 }}>
-          {[
-            { k: locale === 'es' ? 'Mejor época' : locale === 'pt' ? 'Melhor época' : locale === 'fr' ? 'Meilleure saison' : locale === 'ja' ? 'ベストシーズン' : locale === 'ko' ? '최적 시기' : 'Best season', v: t('cluster.' + c.id + '.bestTime', c.bestTime || 'May – Oct (dry)') },
-            { k: locale === 'es' ? 'Altitud' : locale === 'pt' ? 'Altitude' : locale === 'fr' ? 'Altitude' : locale === 'ja' ? '高度' : locale === 'ko' ? '고도' : 'Altitude', v: t('cluster.' + c.id + '.altitude', c.altitude || '3,650 – 4,200 m') },
-            { k: locale === 'es' ? 'Tiempo necesario' : locale === 'pt' ? 'Tempo necessário' : locale === 'fr' ? 'Durée conseillée' : locale === 'ja' ? '推奨日数' : locale === 'ko' ? '추천 일정' : 'Time needed', v: locale === 'es' ? '3 – 5 días' : locale === 'pt' ? '3 – 5 dias' : locale === 'fr' ? '3 – 5 jours' : locale === 'ja' ? '3 〜 5日' : locale === 'ko' ? '3 ~ 5일' : '3 – 5 days' },
-            { k: locale === 'es' ? 'Cómo llegar' : locale === 'pt' ? 'Como chegar' : locale === 'fr' ? 'S\'y rendre' : locale === 'ja' ? 'アクセス' : locale === 'ko' ? '가는 방법' : 'Getting there', v: locale === 'es' ? 'La Paz · 3.5h en auto' : locale === 'pt' ? 'La Paz · 3.5h de carro' : locale === 'fr' ? 'La Paz · 3.5h de route' : locale === 'ja' ? 'ラパスから車で3.5時間' : locale === 'ko' ? '라파스 기준 차로 3.5시간' : 'La Paz · 3.5h drive' },
-            { k: locale === 'es' ? 'Guías locales' : locale === 'pt' ? 'Guias locais' : locale === 'fr' ? 'Guides locaux' : locale === 'ja' ? '現地ガイド' : locale === 'ko' ? '현지 가이드' : 'Local guides', v: locale === 'es' ? 'Muchos en el pueblo' : locale === 'pt' ? 'Muitos na cidade' : locale === 'fr' ? 'Nombreux sur place' : locale === 'ja' ? '現地に多数あり' : locale === 'ko' ? '마을에 많음' : 'Plenty in town' },
-          ].map(s => (
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: isMobile ? 20 : 24 }}>
+          {facts.map(s => (
             <div key={s.k}>
               <div style={{ fontSize: 11, color: 'var(--amber-300)', fontWeight: 700, letterSpacing: 0.4, textTransform: 'uppercase' }}>{s.k}</div>
               <div style={{ fontSize: isMobile ? 16 : 18, fontFamily: 'var(--font-display)', marginTop: 6 }}>{s.v}</div>
@@ -102,67 +95,93 @@ function ClusterDetail({ cluster, onBack, onBook }) {
         </div>
       </section>
 
-      {}
-      <section style={{ padding: isMobile ? '64px 0' : '100px 0' }}>
+      {/* What to see */}
+      <section style={{ padding: isMobile ? '56px 0' : '88px 0' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px' }}>
-          <div className="eyebrow" style={{ marginBottom: 12 }}>{t('cluster.detail.suggestedRoutes', 'Suggested routes · No booking required')}</div>
-          <h2 style={{ fontSize: isMobile ? 'clamp(28px, 8vw, 36px)' : 'clamp(32px, 4vw, 48px)', margin: 0, marginBottom: 16 }}>{t('cluster.detail.waysInto', 'Three ways into the altiplano.')}</h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: 'var(--fg2)', maxWidth: 640, marginBottom: isMobile ? 32 : 40, lineHeight: 1.6 }}>
-            {locale === 'es' ? 'Circuitos sugeridos por escritores locales que recorren estas regiones. Organiza el transporte y hospedajes al llegar — cada pueblo tiene agencias y alojamientos.' :
-             locale === 'pt' ? 'Roteiros sugeridos por escritores locais que viajam por estas regiões. Organize o transporte e estadias na chegada — cada cidade tem agências e pousadas.' :
-             locale === 'fr' ? 'Circuits élaborés par des auteurs locaux qui parcourent ces régions. Organisez le transport et l\'hébergement à l\'arrivée — chaque village possède des agences et des hébergements.' :
-             locale === 'ja' ? '現地を知るライターが作成した周遊ルート。移動手段や宿は現地到着後に手配可能です。どの街にも旅行会社や宿があります。' :
-             locale === 'ko' ? '현지 작가들이 수집한 추천 경로. 이동 수단과 숙박은 도착 후 수배가 가능합니다 — 마을마다 여행사 및 숙소가 있습니다.' :
-             'Loops compiled from local writers who walk these regions. Arrange transport and stays on arrival — every town has agencies and homestays.'}
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 24 }}>
-            {itineraries.map((it) => (
-              <article key={it.id} style={{
-                background: '#fff', borderRadius: 18, overflow: 'hidden',
-                boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)',
+          <h2 style={{ fontSize: isMobile ? 'clamp(28px, 8vw, 36px)' : 'clamp(32px, 4vw, 48px)', margin: '0 0 32px', lineHeight: 1.05 }}>{lbl('whatToSee')}</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: isMobile ? 12 : 18 }}>
+            {c.highlights.map((h, idx) => (
+              <div key={idx} style={{
+                background: 'var(--bg-elevated)', border: '1px solid var(--border)',
+                borderRadius: 14, padding: isMobile ? 18 : 22,
+                display: 'flex', alignItems: 'flex-start', gap: 14,
               }}>
-                <div style={{ height: 200, backgroundImage: it.img, position: 'relative' }}>
-                  <div style={{ position: 'absolute', top: 14, left: 14, padding: '6px 12px', borderRadius: 6, background: 'rgba(255,255,255,0.95)', fontSize: 11, fontWeight: 800, letterSpacing: 0.4, color: 'var(--navy-700)' }}>
-                    {it.days} {locale === 'es' ? 'DÍAS' : locale === 'pt' ? 'DIAS' : locale === 'fr' ? 'JOURS' : locale === 'ja' ? '日間' : locale === 'ko' ? '일정' : 'DAYS'} · {it.level.toUpperCase()}
-                  </div>
+                <div style={{
+                  width: 34, height: 34, borderRadius: 9, flexShrink: 0,
+                  background: c.color, color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700,
+                }}>{idx + 1}</div>
+                <div style={{ fontSize: isMobile ? 15 : 16, color: 'var(--fg1)', fontWeight: 600, lineHeight: 1.45, paddingTop: 5 }}>
+                  {t('cluster.' + c.id + '.highlights.' + idx, h)}
                 </div>
-                <div style={{ padding: 24 }}>
-                  <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 26, lineHeight: 1.1, fontWeight: 500 }}>{it.title}</h3>
-                  <p style={{ color: 'var(--fg2)', fontSize: 14, lineHeight: 1.55, marginTop: 10 }}>{it.desc}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 18, paddingTop: 18, borderTop: '1px solid var(--border)' }}>
-                    <div style={{ width: 32, height: 32, borderRadius: 999, background: 'var(--mystic-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 12, color: 'var(--mystic-700)' }}>{it.author.charAt(0)}</div>
-                    <div style={{ flex: 1, fontSize: 12, color: 'var(--fg2)' }}>{t('cluster.detail.writtenBy', 'Written by')} <strong style={{ color: 'var(--fg1)' }}>{it.author}</strong></div>
-                  </div>
-                  <Btn kind="navy" size="md" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }} onClick={onBook}>{t('cluster.detail.readFull', 'Read full route')} <I.ArrowR size={14}/></Btn>
-                </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {}
-      <section style={{ background: 'var(--stone-50)', padding: isMobile ? '64px 0' : '100px 0' }}>
-        <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 60, alignItems: 'center' }}>
-          <div style={{ height: isMobile ? 280 : 460, borderRadius: 18, backgroundImage: IMG.uyuniNight, backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'var(--shadow-lg)', order: isMobile ? -1 : 0 }}/>
+      {/* Getting there + the sector tip */}
+      <section style={{ background: 'var(--stone-50)', padding: isMobile ? '56px 0' : '88px 0' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr', gap: isMobile ? 36 : 56, alignItems: 'start' }}>
+
           <div>
-            <div className="eyebrow" style={{ marginBottom: 12 }}>{t('cluster.detail.journalTitle', 'Journal · From the field')}</div>
-            <h2 style={{ margin: 0, fontSize: isMobile ? 'clamp(28px, 8vw, 36px)' : 'clamp(32px, 4vw, 48px)', lineHeight: 1.06 }}>{t('cluster.detail.journalQuote', '"The salar is two countries. We sleep in one and wake in another."')}</h2>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: 'var(--fg2)', lineHeight: 1.6, marginTop: 22 }}>
-              {t('cluster.detail.journalDesc', "Carla writes about the wet-season mirror — a thin film that turns 10,000 km² of salt into the largest reflection on earth. The right night to visit changes every year; here's how to read the conditions.")}
-            </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 24 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 999, background: 'var(--mystic-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--mystic-700)' }}>CV</div>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700 }}>Carla Viscarra</div>
-                <div style={{ fontSize: 12, color: 'var(--fg3)' }}>{t('cluster.detail.writerTitle', 'Altiplano writer · La Paz native')}</div>
-              </div>
-              <Btn kind="ghost" size="sm" style={{ marginLeft: 'auto' }}>{t('cluster.detail.readEssay', 'Read essay')} <I.ArrowR size={14}/></Btn>
+            <h2 style={{ fontSize: isMobile ? 'clamp(28px, 8vw, 36px)' : 'clamp(32px, 4vw, 44px)', margin: '0 0 10px', lineHeight: 1.05 }}>{lbl('howToGet')}</h2>
+            <p style={{ fontSize: 13, color: 'var(--fg3)', margin: '0 0 24px' }}>{lbl('approx')}</p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {(c.gettingThere || []).map((g, idx) => (
+                <div key={idx} style={{
+                  display: 'grid', gridTemplateColumns: isMobile ? '90px 1fr' : '110px 1fr',
+                  gap: 14, alignItems: 'baseline',
+                  padding: '14px 0',
+                  borderBottom: idx < c.gettingThere.length - 1 ? '1px solid var(--border)' : 0,
+                }}>
+                  <div style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700,
+                    textTransform: 'uppercase', letterSpacing: 0.5, color: 'var(--rust-600)',
+                  }}>{g.mode}</div>
+                  <div style={{ fontSize: isMobile ? 14 : 15, color: 'var(--fg1)', lineHeight: 1.5 }}>{g.detail}</div>
+                </div>
+              ))}
             </div>
           </div>
+
+          <aside style={{
+            background: 'var(--bg-elevated)', border: '1px solid var(--border)',
+            borderRadius: 16, padding: isMobile ? 22 : 28, boxShadow: 'var(--shadow-xs)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{
+                width: 32, height: 32, borderRadius: 9, background: 'var(--amber-100)', color: 'var(--amber-700)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}><I.Sparkle size={16}/></div>
+              <div className="eyebrow" style={{ margin: 0 }}>{lbl('goodToKnow')}</div>
+            </div>
+            <p style={{ margin: 0, fontSize: isMobile ? 15 : 16, lineHeight: 1.6, color: 'var(--fg1)' }}>
+              {t('cluster.' + c.id + '.tip', c.tip)}
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      {/* The commercial step: destination leads to a booking, not to a dead end. */}
+      <section style={{ background: 'var(--navy-700)', color: '#fff', padding: isMobile ? '52px 0' : '80px 0' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 20px' : '0 32px',
+          display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: 28 }}>
+          <div style={{ maxWidth: 600 }}>
+            <h2 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: isMobile ? 28 : 40, fontWeight: 500, lineHeight: 1.1, color: '#fff' }}>{lbl('ctaTitle')}</h2>
+            <p style={{ margin: '14px 0 0', fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.78)', lineHeight: 1.55 }}>{lbl('ctaBody')}</p>
+          </div>
+          <Btn kind="amber" size="lg" onClick={onBook} style={{ flexShrink: 0 }}>
+            {lbl('ctaBtn')} <I.ArrowR size={15}/>
+          </Btn>
         </div>
       </section>
     </div>
   );
 }
+
 export default ClusterDetail;

@@ -8,6 +8,7 @@ import LiveSummary from '../componentes/calculador/LiveSummary.jsx';
 import ProfilePicker from '../componentes/calculador/ProfilePicker.jsx';
 import RouteMap from '../componentes/calculador/RouteMap.jsx';
 import RouteResult from '../componentes/calculador/RouteResult.jsx';
+import { apiUrl } from '../data/api.js';
 
 const MAX_POIS = 10;
 const MIN_POIS = 2;
@@ -44,8 +45,8 @@ function RouteCalculator({ onBack }) {
     const loadData = async () => {
       try {
         const [resPois, resGraph] = await Promise.all([
-          fetch('http://localhost:3000/routes/pois?city=la-paz'),
-          fetch('http://localhost:3000/routes/graph?city=la-paz')
+          fetch(apiUrl('/routes/pois?city=la-paz')),
+          fetch(apiUrl('/routes/graph?city=la-paz'))
         ]);
 
         if (!resPois.ok || !resGraph.ok) throw new Error('Request failed');
@@ -123,7 +124,7 @@ function RouteCalculator({ onBack }) {
         city: 'la-paz',
       };
 
-      const res = await fetch('http://localhost:3000/routes/calculate', {
+      const res = await fetch(apiUrl('/routes/calculate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -149,7 +150,7 @@ function RouteCalculator({ onBack }) {
     return (
       <main style={{ paddingTop: 120, paddingInline: 24, maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
         <h1>{t('planner.error.bootTitle', 'No pudimos cargar el planificador')}</h1>
-        <p className="body">{t('planner.error.bootDesc', 'Verifica que el backend esté corriendo en localhost:3000 y vuelve a intentar.')}</p>
+        <p className="body">{t('planner.error.bootDesc', 'No pudimos conectar con el servidor. Vuelve a intentarlo en unos segundos.')}</p>
         <p className="caption" style={{ marginTop: 8, color: 'var(--rust-600)' }}>{bootError}</p>
         <Btn kind="primary" onClick={() => window.location.reload()} style={{ marginTop: 16 }}>
           {t('planner.error.retry', 'Reintentar')}
@@ -218,18 +219,17 @@ function RouteCalculator({ onBack }) {
             marginTop: 20, maxWidth: 620, lineHeight: 1.6,
             fontFamily: 'var(--font-sans)',
           }}>
-            Elige los lugares que quieres conocer y arma en segundos el{' '}
-            <strong style={{ color: '#fff' }}>orden más eficiente</strong> para visitarlos.
-            El sistema calcula qué combinación de transporte funciona mejor según tu estilo
-            de viaje — incluyendo el tiempo en cada lugar.
+            {t('planner.descBefore', 'Pick the places you want to see and build, in seconds, the')}{' '}
+            <strong style={{ color: '#fff' }}>{t('planner.descStrong', 'most efficient order')}</strong>{' '}
+            {t('planner.descAfter', 'to visit them.')}
           </p>
 
           {/* Stats row */}
           <div style={{ display: 'flex', gap: isMobile ? 20 : 40, marginTop: isMobile ? 28 : 36, flexWrap: 'wrap' }}>
             {[
-              { k: 'Hasta 10', v: 'lugares por recorrido' },
-              { k: '3 perfiles', v: 'Mochilero · Equilibrado · Confort' },
-              { k: '3 modos', v: 'Caminata · Teleférico · Taxi' },
+              { k: t('planner.statPlacesK', 'Up to 10'),     v: t('planner.statPlacesV', 'places per route') },
+              { k: t('planner.statProfilesK', '5 profiles'), v: t('planner.statProfilesV', 'Backpacker · Balanced · Comfort · Cable only · No cable') },
+              { k: t('planner.statModesK', '3 modes'),       v: t('planner.statModesV', 'Walking · Cable car · Taxi') },
             ].map(s => (
               <div key={s.k}>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 22 : 28, fontWeight: 500, color: 'var(--amber-300)', lineHeight: 1 }}>{s.k}</div>
@@ -249,6 +249,7 @@ function RouteCalculator({ onBack }) {
             <p>{t('planner.loading', 'Cargando puntos de interés…')}</p>
           </div>
         ) : (
+          <>
           <div style={{
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
@@ -293,7 +294,7 @@ function RouteCalculator({ onBack }) {
 
               {calcError && (
                 <div style={{
-                  background: 'var(--rust-50, #fbe5df)', color: 'var(--rust-700)',
+                  background: 'var(--rust-50, #fbf0ed)', color: 'var(--rust-700)',
                   padding: '12px 14px', borderRadius: 'var(--r-md)',
                   fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
                 }}>{calcError}</div>
@@ -321,15 +322,13 @@ function RouteCalculator({ onBack }) {
                     cursor: (!canCalculate || calcLoading) ? 'not-allowed' : 'pointer',
                   }}
                 >
+                  {calcLoading
+                    ? t('planner.calculating', 'Calculando...')
+                    : t('planner.calculate', 'Calcular ruta')}
+                  <I.ArrowR size={15} />
                 </Btn>
               </div>
 
-              {/* Itinerary Result goes here on the left side below the button */}
-              {result && (
-                <div style={{ marginTop: 8 }}>
-                  <RouteResult result={result} onModify={() => setResult(null)} />
-                </div>
-              )}
 
               {!result && (
                 <div style={{
@@ -366,6 +365,14 @@ function RouteCalculator({ onBack }) {
               </div>
             </section>
           </div>
+
+          {/* The itinerary gets the full width: it is the answer, not a sidebar. */}
+          {result && (
+            <div style={{ marginTop: isMobile ? 24 : 32 }}>
+              <RouteResult result={result} onModify={() => setResult(null)} />
+            </div>
+          )}
+          </>
         )}
       </div>
     </main>

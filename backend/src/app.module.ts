@@ -8,6 +8,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { AdminModule } from './admin/admin.module';
 import { ChatModule } from './chat/chat.module';
 import { RoutesModule } from './routes/routes.module';
+import { RoadsModule } from './roads/roads.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { RoutesModule } from './routes/routes.module';
     PaymentsModule,
     AdminModule,
     ChatModule,
-    RoutesModule
+    RoutesModule,
+    RoadsModule
   ],
   controllers: [AppController],
   providers: [AppService],
