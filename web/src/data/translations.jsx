@@ -278,6 +278,7 @@ const TRANSLATIONS = {
     "sos.updateNotice": "— lo corregimos.",
 
     "nav.planner": "Planificador",
+    "nav.ruleta": "Ruleta cultural",
     "planner.back": "Volver al inicio",
     "planner.eyebrow": "Herramienta 04 · Planificación",
     "planner.title": "Planifica tu día en La Paz",

@@ -11,6 +11,7 @@ import Auth from './paginas/Auth.jsx';
 import BookingPage from './paginas/BookingPage.jsx';
 import ProfilePage from './paginas/ProfilePage.jsx';
 import RouteCalculator from './paginas/RouteCalculator.jsx';
+import RuletaJuego from './paginas/RuletaJuego.jsx';
 import AIConcierge from './componentes/AIConcierge.jsx';
 import useRouter from './navegacion/useRouter.jsx';
 
@@ -49,7 +50,8 @@ function App() {
           onDictionary={r.onDictionary}
           onSos={r.onSos}
           onExpert={r.onExpert}
-          onPlanner={() => r.goRoute('planner')} />}
+          onPlanner={() => r.goRoute('planner')}
+          onRuleta={() => r.goRoute('ruleta')} />}
         {r.route === 'cluster' && <ClusterDetail cluster={r.cluster} onBack={r.onBack} onBook={r.onExpert} />}
         {r.route === 'guide' && <TravelGuide onBack={r.onBack} onExpert={r.onExpert} initialTab={r.guideTab} />}
         {r.route === 'dashboard' && (
@@ -73,6 +75,7 @@ function App() {
         )}
         {r.route === 'profile' && <ProfilePage onBack={r.onBack} user={user} />}
         {r.route === 'planner' && <RouteCalculator onBack={r.onBack} />}
+        {r.route === 'ruleta' && <RuletaJuego onBack={r.onBack} />}
 
         <AIConcierge expanded={aiOpen} onToggle={() => setAiOpen(!aiOpen)} onExpert={r.onExpert} />
       </div>

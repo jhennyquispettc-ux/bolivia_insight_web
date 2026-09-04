@@ -6,7 +6,7 @@ import TabsSection from '../componentes/Tabs.jsx';
 import I from '../ui/iconos.jsx';
 import Btn from '../ui/Boton.jsx';
 
-function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert, onPlanner }) {
+function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDictionary, onSos, onExpert, onPlanner, onRuleta }) {
   return (
     <>
       <Hero variant={heroVariant} onCtaClick={onExpress}/>
@@ -22,6 +22,7 @@ function Landing({ heroVariant, onClusterSelect, onExpress, onDashboard, onDicti
         else if (id === 'guides') onExpress?.();
         else if (id === 'expert') onExpert?.();
         else if (id === 'planner') onPlanner?.();
+        else if (id === 'ruleta') onRuleta?.();
       }}/>
     </>
   );
@@ -420,6 +421,7 @@ function Footer({ onNav }) {
       { t: t('nav.guides', 'Guía de viaje'),           id: 'guides' },
       { t: t('nav.planner', 'Planificador'),            id: 'planner' },
       { t: t('nav.sos', 'Centro de emergencias'),       id: 'sos' },
+      { t: t('nav.ruleta', 'Ruleta cultural'),          id: 'ruleta' },
     ]},
   ];
 

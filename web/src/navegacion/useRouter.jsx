@@ -15,6 +15,7 @@ function useRouter() {
     else if (id === 'dictionary') goGuide('dictionary');
     else if (id === 'sos')        goRoute('sos');
     else if (id === 'planner')    goRoute('planner');
+    else if (id === 'ruleta')     goRoute('ruleta');
     else if (id === 'expert')     goRoute('booking');
     else if (id === 'booking')    goRoute('booking');
     else if (id === 'profile')    goRoute('profile');
@@ -35,6 +36,7 @@ function useRouter() {
     dashboard: '05 Live Dashboard', sos: '06 Emergency Hub',
     auth: '07 Authentication', booking: '08 Book Session',
     profile: '09 Profile', planner: '10 Route Planner',
+    ruleta: '11 Cultural Roulette',
   }[route];
 
   const navCurrent = ({
