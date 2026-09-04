@@ -17,7 +17,7 @@ function Auth({ onBack, onLogin, onSuccess }) {
 
     setError(null);
     const client = window.google.accounts.oauth2.initTokenClient({
-      client_id: '648020306250-ad76806rdeqa45c1rr8enu79poiq0asg.apps.googleusercontent.com', 
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '648020306250-ad76806rdeqa45c1rr8enu79poiq0asg.apps.googleusercontent.com',
       scope: 'email profile https://www.googleapis.com/auth/calendar.events',
       prompt: 'consent',
       callback: async (response) => {

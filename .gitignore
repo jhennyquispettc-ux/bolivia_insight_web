@@ -27,3 +27,10 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+firebase-debug.log*
+
+# Binario del Cloud SQL Auth Proxy (se descarga, no se versiona)
+cloud-sql-proxy
+
+# Cache de despliegue de Firebase
+.firebase/
