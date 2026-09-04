@@ -37,7 +37,7 @@ function estiloOpcion(i, pregunta, elegida) {
     color: 'var(--on-dark-3)' };
 }
 
-function TarjetaPregunta({ categoria, pregunta, elegida, onElegir, onSiguiente, quedanPreguntas }) {
+function TarjetaPregunta({ categoria, pregunta, elegida, onElegir, onSiguiente, esVictoria, esFinal }) {
   const respondida = elegida !== null;
   const acerto = respondida && elegida === pregunta.correcta;
 
@@ -95,7 +95,7 @@ function TarjetaPregunta({ categoria, pregunta, elegida, onElegir, onSiguiente, 
             letterSpacing: 'var(--ls-wide)', textTransform: 'uppercase',
             color: acerto ? 'var(--green-300)' : 'var(--rust-300)',
             marginBottom: 8,
-          }}>{acerto ? 'Correcto' : 'Incorrecto'}</div>
+          }}>{esVictoria ? '¡Racha completa!' : acerto ? 'Correcto' : 'Incorrecto'}</div>
 
           <p style={{
             fontSize: 14.5, lineHeight: 1.6, color: 'var(--on-dark-2)',
@@ -103,9 +103,9 @@ function TarjetaPregunta({ categoria, pregunta, elegida, onElegir, onSiguiente, 
             paddingLeft: 14, textWrap: 'pretty',
           }}>{pregunta.dato}</p>
 
-          <Btn kind="primary" size="md" onClick={onSiguiente}
+          <Btn kind={esVictoria ? 'amber' : 'primary'} size="md" onClick={onSiguiente}
             style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}>
-            {quedanPreguntas ? 'Siguiente' : 'Ver resultados'} <I.ArrowR size={14} />
+            {esFinal ? 'Ver tu resultado' : 'Siguiente'} <I.ArrowR size={14} />
           </Btn>
         </div>
       )}

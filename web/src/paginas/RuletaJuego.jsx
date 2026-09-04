@@ -6,19 +6,45 @@ import TarjetaPregunta from '../componentes/ruleta/TarjetaPregunta.jsx';
 import Resultados from '../componentes/ruleta/Resultados.jsx';
 import { CATEGORIAS, PREGUNTAS, TOTAL_PREGUNTAS } from '../data/preguntasRuleta.js';
 
-const CLAVE_RECORD = 'bolivia_insight_ruleta';
+const METAS = [3, 5, 7];
+const META_POR_DEFECTO = 5;
+const CLAVE_META = 'bolivia_insight_ruleta_meta';
+const CLAVE_MARCA = 'bolivia_insight_ruleta_marca';
+const CLAVE_VISTAS = 'bolivia_insight_ruleta_vistas';
 const GIRO_MS = 2600;
 const GIRO_MS_REDUCIDO = 300;
 
-function leerRecord() {
+// Preguntas ya mostradas, conservadas entre partidas y recargas: en una feria
+// pasan muchas personas seguidas por la misma pantalla y no deben repetirse.
+function leerVistas() {
   try {
-    const v = parseInt(localStorage.getItem(CLAVE_RECORD), 10);
+    const arr = JSON.parse(localStorage.getItem(CLAVE_VISTAS));
+    return new Set(Array.isArray(arr) ? arr : []);
+  } catch { return new Set(); }
+}
+
+function guardarVistas(set) {
+  try { localStorage.setItem(CLAVE_VISTAS, JSON.stringify([...set])); } catch { /* modo privado */ }
+}
+
+// Meta elegida en pantalla: cuántos aciertos seguidos hacen falta para ganar.
+function leerMeta() {
+  try {
+    const v = parseInt(localStorage.getItem(CLAVE_META), 10);
+    return METAS.includes(v) ? v : META_POR_DEFECTO;
+  } catch { return META_POR_DEFECTO; }
+}
+
+// Mejor marca: en cuántas preguntas se logró la racha ganadora. Menos es mejor.
+function leerMarca() {
+  try {
+    const v = parseInt(localStorage.getItem(CLAVE_MARCA), 10);
     return Number.isFinite(v) && v > 0 ? v : 0;
   } catch { return 0; }
 }
 
-function guardarRecord(v) {
-  try { localStorage.setItem(CLAVE_RECORD, String(v)); } catch { /* modo privado */ }
+function guardarMarca(v) {
+  try { localStorage.setItem(CLAVE_MARCA, String(v)); } catch { /* modo privado */ }
 }
 
 function menosMovimiento() {
@@ -29,16 +55,18 @@ function menosMovimiento() {
 
 function RuletaJuego({ onBack }) {
   const [fase, setFase] = useState('inicio');   // inicio | ruleta | girando | pregunta | fin
-  const [usadas, setUsadas] = useState(() => new Set());
+  const [vistas, setVistas] = useState(leerVistas);       // acumulado entre partidas
+  const [dePartida, setDePartida] = useState(() => new Set());
   const [actual, setActual] = useState(null);   // { catId, idx }
   const [elegida, setElegida] = useState(null);
   const [respondidas, setRespondidas] = useState([]);
   const [racha, setRacha] = useState(0);
   const [mejorRacha, setMejorRacha] = useState(0);
   const [rotacion, setRotacion] = useState(0);
-  const [record, setRecord] = useState(leerRecord);
-  const [recordPrevio, setRecordPrevio] = useState(0);
-  const [porAgotamiento, setPorAgotamiento] = useState(false);
+  const [meta, setMeta] = useState(leerMeta);
+  const [marca, setMarca] = useState(leerMarca);
+  const [marcaPrevia, setMarcaPrevia] = useState(0);
+  const [gano, setGano] = useState(false);
 
   const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const timer = useRef(null);
@@ -53,45 +81,74 @@ function RuletaJuego({ onBack }) {
     };
   }, []);
 
-  // Una categoría se agota cuando ya salieron todas sus preguntas en esta partida.
   const agotadas = useMemo(() => {
     const s = new Set();
     for (const c of CATEGORIAS) {
       const banco = PREGUNTAS[c.id];
-      const vistas = banco.reduce((n, _, i) => n + (usadas.has(`${c.id}:${i}`) ? 1 : 0), 0);
-      if (vistas >= banco.length) s.add(c.id);
+      const usadas = banco.reduce((n, _, i) => n + (vistas.has(`${c.id}:${i}`) ? 1 : 0), 0);
+      if (usadas >= banco.length) s.add(c.id);
     }
     return s;
-  }, [usadas]);
+  }, [vistas]);
 
   const aciertos = respondidas.filter(r => r.correcta).length;
-  const pct = respondidas.length === 0 ? 0 : Math.round((aciertos / respondidas.length) * 100);
-  const quedanPreguntas = usadas.size < TOTAL_PREGUNTAS;
+  const preguntaActual = actual ? PREGUNTAS[actual.catId][actual.idx] : null;
+  const gana = racha >= meta;
+  const fallo = elegida !== null && preguntaActual !== null && elegida !== preguntaActual.correcta;
+
+  const rebarajar = (conservar) => {
+    const limpio = conservar.size >= TOTAL_PREGUNTAS ? new Set() : new Set(conservar);
+    setVistas(limpio);
+    guardarVistas(limpio);
+    return limpio;
+  };
+
+  const cambiarMeta = (n) => {
+    setMeta(n);
+    try { localStorage.setItem(CLAVE_META, String(n)); } catch { /* modo privado */ }
+  };
 
   const iniciar = () => {
-    setRecordPrevio(record);
-    setUsadas(new Set());
+    setMarcaPrevia(marca);
+    setDePartida(new Set());
     setRespondidas([]);
     setActual(null);
     setElegida(null);
     setRacha(0);
     setMejorRacha(0);
-    setPorAgotamiento(false);
+    setGano(false);
+    if (vistas.size >= TOTAL_PREGUNTAS) rebarajar(new Set());
     setFase('ruleta');
   };
 
-  const terminar = (agotado = false) => {
-    if (mejorRacha > record) { guardarRecord(mejorRacha); setRecord(mejorRacha); }
-    setPorAgotamiento(agotado);
+  const terminar = (victoria = false, usadasParaGanar = 0) => {
+    setGano(victoria);
+    if (victoria && (marca === 0 || usadasParaGanar < marca)) {
+      guardarMarca(usadasParaGanar);
+      setMarca(usadasParaGanar);
+    }
     setFase('fin');
   };
 
-  // La ruleta está dirigida: primero sorteo entre las categorías que aún tienen
+  // Ruleta dirigida: primero sorteo entre las categorías que aún tienen
   // preguntas y después calculo el ángulo que deja ese gajo bajo el marcador,
   // así nunca se detiene sobre una categoría agotada.
   const girar = () => {
-    const vivas = CATEGORIAS.filter(c => !agotadas.has(c.id));
-    if (vivas.length === 0) { terminar(true); return; }
+    // Si ya no queda ninguna pregunta sin ver, se rebaraja el mazo conservando
+    // las de esta partida. Hay que recalcular las categorías vivas DESPUÉS de
+    // rebarajar: si no, se podría elegir una que se quedó sin preguntas libres.
+    let excluir = vistas;
+    let vivas = CATEGORIAS.filter(c => !agotadas.has(c.id));
+
+    if (vivas.length === 0) {
+      excluir = rebarajar(dePartida);
+      vivas = CATEGORIAS.filter(c => PREGUNTAS[c.id].some((_, i) => !excluir.has(`${c.id}:${i}`)));
+    }
+    if (vivas.length === 0) {
+      // Solo aquí es inevitable repetir: la partida ya consumió el banco entero.
+      excluir = rebarajar(new Set());
+      vivas = CATEGORIAS;
+    }
 
     const cat = vivas[Math.floor(Math.random() * vivas.length)];
     const iSector = CATEGORIAS.findIndex(c => c.id === cat.id);
@@ -109,10 +166,13 @@ function RuletaJuego({ onBack }) {
     timer.current = setTimeout(() => {
       const banco = PREGUNTAS[cat.id];
       const libres = banco.reduce((acc, _, i) => {
-        if (!usadas.has(`${cat.id}:${i}`)) acc.push(i);
+        if (!excluir.has(`${cat.id}:${i}`)) acc.push(i);
         return acc;
       }, []);
-      setActual({ catId: cat.id, idx: libres[Math.floor(Math.random() * libres.length)] });
+      const pick = libres.length > 0
+        ? libres[Math.floor(Math.random() * libres.length)]
+        : Math.floor(Math.random() * banco.length);
+      setActual({ catId: cat.id, idx: pick });
       setElegida(null);
       setFase('pregunta');
     }, reducido ? GIRO_MS_REDUCIDO : GIRO_MS);
@@ -123,16 +183,23 @@ function RuletaJuego({ onBack }) {
     const pregunta = PREGUNTAS[actual.catId][actual.idx];
     const ok = i === pregunta.correcta;
     const nuevaRacha = ok ? racha + 1 : 0;
+    const clave = `${actual.catId}:${actual.idx}`;
 
     setElegida(i);
     setRespondidas(prev => [...prev, { catId: actual.catId, correcta: ok }]);
-    setUsadas(prev => new Set(prev).add(`${actual.catId}:${actual.idx}`));
     setRacha(nuevaRacha);
     if (nuevaRacha > mejorRacha) setMejorRacha(nuevaRacha);
+
+    const nuevas = new Set(vistas).add(clave);
+    setVistas(nuevas);
+    guardarVistas(nuevas);
+    setDePartida(prev => new Set(prev).add(clave));
   };
 
   const siguiente = () => {
-    if (usadas.size >= TOTAL_PREGUNTAS) { terminar(true); return; }
+    if (gana) { terminar(true, respondidas.length); return; }
+    if (fallo) { terminar(false, respondidas.length); return; }   // muerte súbita
+    if (vistas.size >= TOTAL_PREGUNTAS) rebarajar(dePartida);
     setActual(null);
     setElegida(null);
     setFase('ruleta');
@@ -146,7 +213,6 @@ function RuletaJuego({ onBack }) {
       minHeight: '100vh', background: 'var(--navy-800)',
       position: 'relative', overflow: 'hidden',
     }}>
-      {/* Resplandores del mismo lenguaje visual que el planificador */}
       <div style={{
         position: 'absolute', top: -140, right: -120, width: 520, height: 520,
         borderRadius: '50%', pointerEvents: 'none',
@@ -191,23 +257,50 @@ function RuletaJuego({ onBack }) {
             </h1>
             <p style={{
               fontSize: isMobile ? 15 : 17, color: 'var(--on-dark-2)',
-              maxWidth: 480, margin: '20px auto 0', lineHeight: 1.6,
+              maxWidth: 500, margin: '20px auto 0', lineHeight: 1.6,
             }}>
-              Gira, cae una categoría y responde. {TOTAL_PREGUNTAS} preguntas sobre
-              historia, geografía, comida, fiestas, naturaleza y lenguas de Bolivia.
-              Ninguna se repite.
+              Gira, cae una categoría y responde. Encadena{' '}
+              <strong style={{ color: '#fff' }}>{meta} respuestas correctas seguidas</strong>{' '}
+              para ganar. Un solo fallo y la partida termina.
             </p>
+
+            <div style={{ marginTop: 26 }}>
+              <div className="eyebrow" style={{ color: 'var(--on-dark-3)', marginBottom: 12 }}>
+                Aciertos seguidos para ganar
+              </div>
+              <div style={{ display: 'inline-flex', gap: 8 }} role="group"
+                aria-label="Dificultad: aciertos seguidos para ganar">
+                {METAS.map(n => (
+                  <button key={n} onClick={() => cambiarMeta(n)}
+                    aria-pressed={meta === n}
+                    style={{
+                      minWidth: 54, minHeight: 44, cursor: 'pointer',
+                      borderRadius: 'var(--r-pill)',
+                      background: meta === n ? 'var(--amber-500)' : 'rgba(255,255,255,0.07)',
+                      border: meta === n ? '1px solid var(--amber-500)' : '1px solid rgba(255,255,255,0.22)',
+                      color: meta === n ? 'var(--navy-800)' : 'var(--on-dark-2)',
+                      fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 700,
+                      transition: 'background 160ms var(--ease-out)',
+                    }}>{n}</button>
+                ))}
+              </div>
+              <p style={{ fontSize: 12.5, color: 'var(--on-dark-3)', margin: '10px 0 0' }}>
+                {meta === 3 ? 'Accesible: buen ritmo para público general.'
+                  : meta === 5 ? 'Exigente: hay que saber de Bolivia.'
+                  : 'Muy difícil: para quien domina el tema.'}
+              </p>
+            </div>
 
             <div style={{ margin: '30px 0 34px' }}>
               <Ruleta categorias={CATEGORIAS} agotadas={new Set()} rotacion={0}
-                girando={false} duracion={0} tam={tamRuleta} />
+                duracion={0} tam={tamRuleta} />
             </div>
 
-            {record > 0 && (
+            {marca > 0 && (
               <p style={{
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
                 color: 'var(--amber-300)', margin: '0 0 18px',
-              }}>Tu mejor racha: {record}</p>
+              }}>Mejor marca: ganaste en {marca} preguntas</p>
             )}
 
             <Btn kind="primary" size="lg" onClick={iniciar}>
@@ -220,26 +313,35 @@ function RuletaJuego({ onBack }) {
         {enJuego && (
           <>
             <div style={{
-              display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+              display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
               justifyContent: 'space-between', marginTop: 26, marginBottom: isMobile ? 26 : 34,
               background: 'rgba(255,255,255,0.05)',
               border: '1px solid rgba(255,255,255,0.12)',
               borderRadius: 'var(--r-lg)', padding: '12px 16px',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <span style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
+                  letterSpacing: 'var(--ls-wider)', textTransform: 'uppercase',
+                  color: 'var(--on-dark-3)',
+                }}>Racha</span>
+                <span style={{ display: 'flex', gap: 6 }}>
+                  {Array.from({ length: meta }).map((_, i) => (
+                    <span key={i} style={{
+                      width: 13, height: 13, borderRadius: 'var(--r-pill)',
+                      background: i < racha ? 'var(--amber-400)' : 'rgba(255,255,255,0.14)',
+                      border: i < racha ? 'none' : '1px solid rgba(255,255,255,0.22)',
+                      transition: 'background 200ms var(--ease-out)',
+                    }} />
+                  ))}
+                </span>
                 <span style={{
                   fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 700, color: '#fff',
-                }}>
-                  {aciertos} de {respondidas.length}
-                  {respondidas.length > 0 && (
-                    <span style={{ color: 'var(--on-dark-3)', fontWeight: 600 }}> · {pct}%</span>
-                  )}
-                </span>
-                {racha > 1 && (
-                  <span style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
-                    color: 'var(--amber-300)',
-                  }}>{racha} seguidas</span>
+                }}>{racha} de {meta}</span>
+                {respondidas.length > 0 && (
+                  <span style={{ fontSize: 12.5, color: 'var(--on-dark-3)', fontWeight: 600 }}>
+                    · {aciertos}/{respondidas.length} en total
+                  </span>
                 )}
               </div>
               <button onClick={() => terminar(false)} style={{
@@ -247,13 +349,12 @@ function RuletaJuego({ onBack }) {
                 color: 'var(--on-dark-2)', padding: '7px 14px', borderRadius: 'var(--r-pill)',
                 cursor: 'pointer', minHeight: 44,
                 fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 700,
-              }}>Terminar</button>
+              }}>Rendirse</button>
             </div>
 
             {(fase === 'ruleta' || fase === 'girando') && (
               <div style={{ textAlign: 'center' }}>
                 <Ruleta categorias={CATEGORIAS} agotadas={agotadas} rotacion={rotacion}
-                  girando={fase === 'girando'}
                   duracion={menosMovimiento() ? GIRO_MS_REDUCIDO : GIRO_MS}
                   tam={tamRuleta} />
 
@@ -262,14 +363,6 @@ function RuletaJuego({ onBack }) {
                     {fase === 'girando' ? 'Girando…' : 'Girar la ruleta'}
                   </Btn>
                 </div>
-
-                {agotadas.size > 0 && (
-                  <p style={{ fontSize: 12.5, color: 'var(--on-dark-3)', marginTop: 16 }}>
-                    {agotadas.size === 1
-                      ? 'Una categoría ya se quedó sin preguntas.'
-                      : `${agotadas.size} categorías ya se quedaron sin preguntas.`}
-                  </p>
-                )}
               </div>
             )}
 
@@ -280,7 +373,8 @@ function RuletaJuego({ onBack }) {
                 elegida={elegida}
                 onElegir={responder}
                 onSiguiente={siguiente}
-                quedanPreguntas={quedanPreguntas}
+                esVictoria={gana}
+                esFinal={gana || fallo}
               />
             )}
           </>
@@ -292,11 +386,12 @@ function RuletaJuego({ onBack }) {
             <Resultados
               categorias={CATEGORIAS}
               respondidas={respondidas}
+              gano={gano}
+              meta={meta}
               mejorRacha={mejorRacha}
-              recordPrevio={recordPrevio}
+              marcaPrevia={marcaPrevia}
               onReiniciar={iniciar}
               onSalir={onBack}
-              porAgotamiento={porAgotamiento}
             />
           </div>
         )}

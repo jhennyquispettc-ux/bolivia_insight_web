@@ -27,7 +27,7 @@ function posEtiqueta(i, total) {
   };
 }
 
-function Ruleta({ categorias, agotadas, rotacion, girando, duracion, tam = 320 }) {
+function Ruleta({ categorias, agotadas, rotacion, duracion, tam = 320 }) {
   const total = categorias.length;
 
   return (
@@ -54,7 +54,11 @@ function Ruleta({ categorias, agotadas, rotacion, girando, duracion, tam = 320 }
         <g style={{
           transform: `rotate(${rotacion}deg)`,
           transformOrigin: `${CX}px ${CY}px`,
-          transition: girando ? `transform ${duracion}ms cubic-bezier(.15,.9,.2,1)` : 'none',
+          // La transición queda siempre declarada a propósito. Si se activara en
+          // el mismo commit en que cambia el transform, varios navegadores saltan
+          // al ángulo final sin animar y el giro no se llega a ver. Al montar el
+          // grupo no hay valor previo, así que tampoco anima de más.
+          transition: `transform ${duracion}ms cubic-bezier(.15,.9,.2,1)`,
         }}>
           {categorias.map((c, i) => {
             const vacia = agotadas.has(c.id);

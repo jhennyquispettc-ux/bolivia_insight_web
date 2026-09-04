@@ -2,20 +2,19 @@ import React from 'react';
 import I from '../../ui/iconos.jsx';
 import Btn from '../../ui/Boton.jsx';
 
-function veredicto(pct, total) {
+function comentario(mejorRacha, meta, total) {
   if (total === 0) return 'No llegaste a responder ninguna pregunta.';
-  if (pct >= 90) return 'Conoces Bolivia como muy pocos.';
-  if (pct >= 70) return 'Dominio serio de la cultura boliviana.';
-  if (pct >= 50) return 'Buena base, todavía hay terreno por recorrer.';
-  if (pct >= 30) return 'Queda mucha Bolivia por descubrir.';
-  return 'Bolivia entera te está esperando.';
+  if (mejorRacha === meta - 1) return 'Te quedaste a una sola pregunta de ganar.';
+  if (mejorRacha >= 3) return 'Buena racha, pero se cortó.';
+  if (mejorRacha === 2) return 'Dos seguidas antes de fallar.';
+  if (mejorRacha === 1) return 'Empezaste bien y se cortó enseguida.';
+  return 'Fallaste la primera. Bolivia entera te espera.';
 }
 
-function Resultados({ categorias, respondidas, mejorRacha, recordPrevio, onReiniciar, onSalir, porAgotamiento }) {
+function Resultados({ categorias, respondidas, gano, meta, mejorRacha, marcaPrevia, onReiniciar, onSalir }) {
   const total = respondidas.length;
   const aciertos = respondidas.filter(r => r.correcta).length;
-  const pct = total === 0 ? 0 : Math.round((aciertos / total) * 100);
-  const nuevoRecord = mejorRacha > recordPrevio && mejorRacha > 0;
+  const nuevaMarca = gano && (marcaPrevia === 0 || total < marcaPrevia);
 
   const desglose = categorias
     .map(c => {
@@ -30,36 +29,54 @@ function Resultados({ categorias, respondidas, mejorRacha, recordPrevio, onReini
       animation: 'bi-fadeup 340ms var(--ease-out)',
     }}>
 
-      {porAgotamiento && (
-        <div className="eyebrow" style={{ color: 'var(--amber-300)', marginBottom: 14 }}>
-          Recorriste todas las preguntas
-        </div>
-      )}
+      {gano ? (
+        <>
+          <div style={{
+            width: 84, height: 84, borderRadius: 'var(--r-pill)', margin: '0 auto 22px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(255,183,3,0.16)', border: '2px solid var(--amber-400)',
+            color: 'var(--amber-300)',
+          }}><I.Star size={38} /></div>
 
-      <div style={{
-        fontFamily: 'var(--font-display)', fontSize: 'clamp(56px, 14vw, 88px)',
-        fontWeight: 600, lineHeight: 1, color: 'var(--amber-300)',
-        letterSpacing: 'var(--ls-tighter)',
-      }}>{pct}%</div>
+          <h2 style={{
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(38px, 9vw, 60px)',
+            fontWeight: 600, lineHeight: 1, color: 'var(--amber-300)',
+            letterSpacing: 'var(--ls-tighter)', margin: 0,
+          }}>¡Ganaste!</h2>
 
-      <p style={{
-        fontSize: 'clamp(16px, 3.4vw, 19px)', color: '#fff',
-        margin: '14px 0 6px', fontWeight: 600,
-      }}>{veredicto(pct, total)}</p>
+          <p style={{ fontSize: 'clamp(16px, 3.4vw, 19px)', color: '#fff', margin: '16px 0 6px', fontWeight: 600 }}>
+            {meta} respuestas correctas seguidas
+          </p>
+          <p style={{ fontSize: 14, color: 'var(--on-dark-3)', margin: 0 }}>
+            Lo lograste en {total} {total === 1 ? 'pregunta' : 'preguntas'}
+          </p>
 
-      <p style={{ fontSize: 14, color: 'var(--on-dark-3)', margin: 0 }}>
-        {aciertos} de {total} correctas · mejor racha {mejorRacha}
-      </p>
+          {nuevaMarca && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7, marginTop: 16,
+              background: 'rgba(255,183,3,0.14)', border: '1px solid var(--amber-500)',
+              color: 'var(--amber-300)', padding: '7px 14px', borderRadius: 'var(--r-pill)',
+              fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 700,
+            }}>
+              <I.Check size={13} /> {marcaPrevia === 0 ? 'Primera victoria' : 'Nueva mejor marca'}
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          <div style={{
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(52px, 13vw, 80px)',
+            fontWeight: 600, lineHeight: 1, color: '#fff',
+            letterSpacing: 'var(--ls-tighter)',
+          }}>{mejorRacha}<span style={{ color: 'var(--on-dark-3)' }}>/{meta}</span></div>
 
-      {nuevoRecord && (
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: 7, marginTop: 16,
-          background: 'rgba(255,183,3,0.14)', border: '1px solid var(--amber-500)',
-          color: 'var(--amber-300)', padding: '7px 14px', borderRadius: 'var(--r-pill)',
-          fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 700,
-        }}>
-          <I.Star size={13} /> Nueva mejor racha
-        </div>
+          <p style={{ fontSize: 'clamp(16px, 3.4vw, 19px)', color: '#fff', margin: '14px 0 6px', fontWeight: 600 }}>
+            {comentario(mejorRacha, meta, total)}
+          </p>
+          <p style={{ fontSize: 14, color: 'var(--on-dark-3)', margin: 0 }}>
+            Llegaste a {mejorRacha} de {meta} · {aciertos} de {total} correctas
+          </p>
+        </>
       )}
 
       {desglose.length > 0 && (
